@@ -1,0 +1,20 @@
+#define SDL_MAIN_HANDLED
+
+#include "Framework.hpp"
+#include "Game.hpp"
+
+int main(int argc, char *argv[])
+{
+	if (g_pFramework->Init(1408, 768, 16, false) == false)
+		return (0);
+
+	CGame Game;
+	Game.Init();
+	Game.Run();
+	Game.Quit();
+
+	g_pFramework->Quit();
+	g_pFramework->Del();
+
+	return (0);
+}
