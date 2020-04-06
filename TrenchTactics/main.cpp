@@ -3,6 +3,12 @@
 #include "Framework.hpp"
 #include "Game.hpp"
 
+/// <summary>
+/// 
+/// </summary>
+/// <param name="argc"></param>
+/// <param name="argv"></param>
+/// <returns></returns>
 int main(int argc, char *argv[])
 {
 	if (g_pFramework->Init(1408, 768, 16, false) == false)

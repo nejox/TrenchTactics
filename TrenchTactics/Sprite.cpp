@@ -1,19 +1,32 @@
 #include "Sprite.hpp"
 
+/// <summary>
+/// Sprite class constructor which gets the pointer to the renderer from the framework
+/// </summary>
 CSprite::CSprite()
 {
 	m_pRenderer = g_pFramework->GetRenderer();
-
+	m_pImage = NULL;
 }
 
+/// <summary>
+/// Sprite class destructor which destroys the texture saved in the sprite class
+/// </summary>
 CSprite::~CSprite()
 {
 	SDL_DestroyTexture(m_pImage);
 }
 
+
+/// <summary>
+/// function which loads a sprite from the specified file name
+/// provides an error messages if it doesnt work
+/// This also sets colorkey and creates a texture 
+/// </summary>
+/// <param name="sFilename">path to the img which will be loaded</param>
 void CSprite::Load(const string sFilename)
 {
-	SDL_Surface *pTemp = SDL_LoadBMP(sFilename.c_str());
+	SDL_Surface* pTemp = SDL_LoadBMP(sFilename.c_str());
 
 	if (pTemp == NULL)
 	{
@@ -39,7 +52,10 @@ void CSprite::Load(const string sFilename)
 
 }
 
-
+/// <summary>
+/// wraps rendercopy of SDL Framework
+/// takes renderer from the sprite class and the image to display it on screen at givven rect from sprite
+/// </summary>
 void CSprite::Render()
 {
 	SDL_RenderCopy(m_pRenderer, m_pImage, NULL, &m_Rect);

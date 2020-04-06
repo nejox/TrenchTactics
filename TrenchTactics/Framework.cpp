@@ -1,11 +1,25 @@
 #include "Framework.hpp"
 
+/// <summary>
+/// Framework constructor which sets both pointers to null pointers
+/// </summary>
 CFramework::CFramework()
 {
 	m_pWindow = NULL;
 	m_pRenderer = NULL;
 }
 
+
+/// <summary>
+/// Init function which wraps the init of SDL
+/// Also creates a sdl window as well as the renderer
+/// On the way checks wether creation of all those things was succesfull
+/// </summary>
+/// <param name="ScreenWidth">int value to specifiy screen width</param>
+/// <param name="ScreenHeight">int value to specifiy screen height</param>
+/// <param name="ColorDepth">int specify colordepth standard value should be 16</param>
+/// <param name="bFullscreen">fullscreen or not</param>
+/// <returns></returns>
 bool CFramework::Init(int ScreenWidth, int ScreenHeight,
 	int ColorDepth, bool bFullscreen)
 {
@@ -57,6 +71,10 @@ bool CFramework::Init(int ScreenWidth, int ScreenHeight,
 	return (true);
 }
 
+/// <summary>
+/// Function to quit the framework class in a controlled way
+/// Destroys the window as well as the renderer initialized by the framework beforehand
+/// </summary>
 void CFramework::Quit()
 {
 	if (m_pRenderer != NULL)
@@ -71,17 +89,27 @@ void CFramework::Quit()
 	SDL_Quit();
 }
 
+/// <summary>
+/// Update function only used to update the timer though
+/// </summary>
 void CFramework::Update()
 {
 	g_pTimer->Update();
 }
 
+/// <summary>
+/// Function to clear the screen from previously rendered objects
+/// </summary>
 void CFramework::Clear()
 {
 	SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 255);
 	SDL_RenderClear(m_pRenderer);
 }
 
+/// <summary>
+/// 
+/// 
+/// </summary>
 void CFramework::Render()
 {
 	SDL_RenderPresent(m_pRenderer);
