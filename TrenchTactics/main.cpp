@@ -12,7 +12,7 @@
 /// <returns></returns>
 int main(int argc, char* argv[])
 {
-	Log.log(LOGLEVEL::INFO, "Game started");
+	Logger::instance().log(LOGLEVEL::INFO, "Starting main");
 
 	if (g_pFramework->Init(1408, 768, 16, false) == false)
 		return (0);

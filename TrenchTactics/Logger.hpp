@@ -11,7 +11,6 @@
 
 // defines
 #define string std::string
-#define Log Logger::instance()
 
 // enum for loglevels
 enum LOGLEVEL
@@ -38,7 +37,6 @@ public:
 		static Logger logger;
 		return logger;
 	}
-
 private:
 	Logger();
 	std::ofstream outputStream;

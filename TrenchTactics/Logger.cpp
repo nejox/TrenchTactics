@@ -2,14 +2,18 @@
 #include <fstream>
 #include <stdio.h>
 #include <ctime> 
+#include "Logger.hpp"
 
 // String array with representations of all loglevels
 const char* levelStrings[] = { "Info", "Warning", "Fatal" };
+
+
 
 /// <summary>
 /// Standard Constructor this is private caused by singelton pattern
 /// </summary>
 Logger::Logger() {
+	//this->log(LOGLEVEL::INFO, "Instantiating Timer");
 }
 
 /// <summary>
