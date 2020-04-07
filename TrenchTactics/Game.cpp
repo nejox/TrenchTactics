@@ -1,10 +1,12 @@
 #include "Game.hpp"
+#include "Logger.hpp"
 
 /// <summary>
 /// Constructor sets null pointer to background
 /// </summary>
 CGame::CGame()
 {
+	Logger::instance().log(LOGLEVEL::INFO, "Starting Game Class");
 	m_pSpriteBackground = NULL;
 }
 
