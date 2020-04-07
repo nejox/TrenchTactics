@@ -2,28 +2,18 @@
 #include <fstream>
 #include <stdio.h>
 #include <ctime> 
+
+// String array with representations of all loglevels
 const char* levelStrings[] = { "Info", "Warning", "Fatal" };
 
+/// <summary>
+/// Standard Constructor this is private caused by singelton pattern
+/// </summary>
 Logger::Logger() {
-	this->className = "Test";
-	
 }
 
-/*
 /// <summary>
-///
-/// </summary>
-/// <param name="className"></param>
-Logger::Logger(string className)
-{
-	this->outputStream = std::ofstream();
-	this->className = className;
-	const char* levelStrings[] = { "Info", "Warning", "Fatal" };
-}*/
-
-
-/// <summary>
-/// 
+/// Standard deconstructor also private maybe used from singelton pattern to teardown logger
 /// </summary>
 Logger::~Logger()
 {
@@ -31,10 +21,11 @@ Logger::~Logger()
 }
 
 /// <summary>
-/// 
+/// Main logging method which appends logs to the daily log file
+/// Follows the pattern [timestamp] - loglevel - message
 /// </summary>
-/// <param name="level"></param>
-/// <param name="message"></param>
+/// <param name="level">Loglevel from enum</param>
+/// <param name="message">String representation of the log message</param>
 void Logger::log(LOGLEVEL level, string message) {
 	string msg = getFormatString(level, message);
 	this->outputStream.open(this->getLogFileName(), std::ios::app);
@@ -43,24 +34,29 @@ void Logger::log(LOGLEVEL level, string message) {
 }
 
 /// <summary>
-/// 
+/// Format function for logmessage takes the loglevel and message and produces timestamp
+/// Format is open for discussion: [timestamp] - loglevel - message
+/// Current class is missing
+/// message gets converted to c_string
 /// </summary>
-/// <param name="level"></param>
-/// <param name="message"></param>
-/// <returns></returns>
+/// <param name="level">Loglevel from enum</param>
+/// <param name="message">String representation of the log message</param>
+/// <returns>the formatted string with timestamp,loglevel and message</returns>
 string Logger::getFormatString(LOGLEVEL level, string message)
 {
 	char buff[200];
-	snprintf(buff, sizeof(buff), "%s_%s_%s", getFormattedTimestamp(true).c_str(), this->className.c_str(), getTextForEnum(level));
+	snprintf(buff, sizeof(buff), "[%s] - %s - %s\n", getFormattedTimestamp(false).c_str(), getTextForEnum(level), message.c_str());
 	string formatString = buff;
 	return formatString;
 }
 
 /// <summary>
-/// 
+/// Function that provides timestamp in two different formats
+/// either datestamp with format: DD_MM_YY
+/// or complete timestamp with format: DD-MM-YY HH:MM:SS
 /// </summary>
-/// <param name="datestamp"></param>
-/// <returns></returns>
+/// <param name="datestamp">boolean value wether you want a date- or timestamp</param>
+/// <returns>the formatted timestamp in string representation</returns>
 string Logger::getFormattedTimestamp(boolean datestamp)
 {
 	time_t rawtime;
@@ -82,9 +78,9 @@ string Logger::getFormattedTimestamp(boolean datestamp)
 }
 
 /// <summary>
-/// 
+/// Provide logfilename with todays timestamp
 /// </summary>
-/// <returns></returns>
+/// <returns>string representation of the log file</returns>
 string Logger::getLogFileName()
 {
 	char buff[100];
@@ -94,10 +90,10 @@ string Logger::getLogFileName()
 }
 
 /// <summary>
-/// 
+/// Util function the converts loglevel enum to a string by converting it to an int value and accessing a char* [] with that value
 /// </summary>
-/// <param name="enumVal"></param>
-/// <returns></returns>
+/// <param name="enumVal">Indirect conversion from enum to int</param>
+/// <returns>Loglevel as string</returns>
 const char* Logger::getTextForEnum(int enumVal)
 {
 	return levelStrings[enumVal];

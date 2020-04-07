@@ -9,9 +9,9 @@
 #include <iostream>
 #include <fstream>
 
-
 // defines
 #define string std::string
+
 // enum for loglevels
 enum LOGLEVEL
 {
@@ -20,21 +20,19 @@ enum LOGLEVEL
 	FATAL //using fatal here because error is already defined
 };
 
-// classdeclaration
-//
+/// <summary>
+/// Logger class based on singelton pattern
+/// </summary>
 class Logger : public TSingleton<Logger>
 {
 
 public:
-
-	Logger();
-	//Logger(string classname);
-	~Logger();
 	void log(LOGLEVEL level, string message);
 
 
 private:
-	string className;
+	Logger();
+	~Logger();
 	std::ofstream outputStream;
 	string getFormatString(LOGLEVEL level, string message);
 	string getFormattedTimestamp(boolean datestamp);
