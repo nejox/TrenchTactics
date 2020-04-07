@@ -28,11 +28,11 @@ class Logger : public TSingleton<Logger>
 
 public:
 	void log(LOGLEVEL level, string message);
-
-
-private:
 	Logger();
 	~Logger();
+
+private:
+
 	std::ofstream outputStream;
 	string getFormatString(LOGLEVEL level, string message);
 	string getFormattedTimestamp(boolean datestamp);
