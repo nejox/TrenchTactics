@@ -12,8 +12,7 @@
 /// <returns></returns>
 int main(int argc, char* argv[])
 {
-	Logger* log = Logger::Get();
-	log->log(LOGLEVEL::INFO, "Game started");
+	Log.log(LOGLEVEL::INFO, "Game started");
 
 	if (g_pFramework->Init(1408, 768, 16, false) == false)
 		return (0);
