@@ -1,25 +1,40 @@
-#include "Logger.h"
+#include "Logger.hpp"
 #include <fstream>
 #include <stdio.h>
 #include <ctime> 
-#include <experimental/filesystem>
+const char* levelStrings[] = { "Info", "Warning", "Fatal" };
 
-
-static const char * levelStrings[] = { "Info", "Warning", "Fatal" };
-
-//
-Logger::Logger(string className)
-{
-	this->className = className;
+Logger::Logger() {
+	this->className = "Test";
+	
 }
 
+/*
+/// <summary>
+///
+/// </summary>
+/// <param name="className"></param>
+Logger::Logger(string className)
+{
+	this->outputStream = std::ofstream();
+	this->className = className;
+	const char* levelStrings[] = { "Info", "Warning", "Fatal" };
+}*/
 
-//
+
+/// <summary>
+/// 
+/// </summary>
 Logger::~Logger()
 {
 	this->log(LOGLEVEL::INFO, "Closing Logger Class");
 }
 
+/// <summary>
+/// 
+/// </summary>
+/// <param name="level"></param>
+/// <param name="message"></param>
 void Logger::log(LOGLEVEL level, string message) {
 	string msg = getFormatString(level, message);
 	this->outputStream.open(this->getLogFileName(), std::ios::app);
@@ -27,20 +42,32 @@ void Logger::log(LOGLEVEL level, string message) {
 	this->outputStream.close();
 }
 
+/// <summary>
+/// 
+/// </summary>
+/// <param name="level"></param>
+/// <param name="message"></param>
+/// <returns></returns>
 string Logger::getFormatString(LOGLEVEL level, string message)
 {
 	char buff[200];
-	snprintf(buff, sizeof(buff), "%s_%s_%s", getFormattedTimestamp(true), this->className, getTextForEnum(level));
+	snprintf(buff, sizeof(buff), "%s_%s_%s", getFormattedTimestamp(true).c_str(), this->className.c_str(), getTextForEnum(level));
 	string formatString = buff;
 	return formatString;
 }
 
+/// <summary>
+/// 
+/// </summary>
+/// <param name="datestamp"></param>
+/// <returns></returns>
 string Logger::getFormattedTimestamp(boolean datestamp)
 {
 	time_t rawtime;
-	struct tm * timeinfo;
+	struct tm* timeinfo;
 	char buffer[80];
 
+	time_t now = time(0);
 	time(&rawtime);
 	timeinfo = localtime(&rawtime);
 
@@ -54,15 +81,24 @@ string Logger::getFormattedTimestamp(boolean datestamp)
 	return timestamp;
 }
 
+/// <summary>
+/// 
+/// </summary>
+/// <returns></returns>
 string Logger::getLogFileName()
 {
 	char buff[100];
-	snprintf(buff, sizeof(buff), "%s_trenchTactics.log", getFormattedTimestamp(true));
+	snprintf(buff, sizeof(buff), "%s_TrenchTactics.log", getFormattedTimestamp(true).c_str());
 	string filename = buff;
 	return filename;
 }
 
-const char * Logger::getTextForEnum(int enumVal)
+/// <summary>
+/// 
+/// </summary>
+/// <param name="enumVal"></param>
+/// <returns></returns>
+const char* Logger::getTextForEnum(int enumVal)
 {
 	return levelStrings[enumVal];
 }

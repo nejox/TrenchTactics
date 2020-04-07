@@ -1,11 +1,13 @@
 #ifndef __CLOGFILE
 #define __CLOGFILE
-
+#define _CRT_SECURE_NO_WARNINGS
 // includes
 #include <windows.h>
 #include <stdio.h>
 #include <string>
 #include "Singleton.hpp"
+#include <iostream>
+#include <fstream>
 
 
 // defines
@@ -25,7 +27,8 @@ class Logger : public TSingleton<Logger>
 
 public:
 
-	Logger(string classname);
+	Logger();
+	//Logger(string classname);
 	~Logger();
 	void log(LOGLEVEL level, string message);
 
@@ -36,7 +39,7 @@ private:
 	string getFormatString(LOGLEVEL level, string message);
 	string getFormattedTimestamp(boolean datestamp);
 	string getLogFileName();
-	const char * getTextForEnum(int enumVal);
+	const char* getTextForEnum(int enumVal);
 
 };
 #endif

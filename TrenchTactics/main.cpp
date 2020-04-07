@@ -2,6 +2,7 @@
 
 #include "Framework.hpp"
 #include "Game.hpp"
+#include "Logger.hpp"
 
 /// <summary>
 /// 
@@ -9,8 +10,11 @@
 /// <param name="argc"></param>
 /// <param name="argv"></param>
 /// <returns></returns>
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
+	Logger* log = Logger::Get();
+	log->log(LOGLEVEL::INFO, "Test");
+	/*
 	if (g_pFramework->Init(1408, 768, 16, false) == false)
 		return (0);
 
@@ -23,4 +27,5 @@ int main(int argc, char *argv[])
 	g_pFramework->Del();
 
 	return (0);
+	*/
 }
