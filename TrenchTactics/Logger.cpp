@@ -13,7 +13,6 @@ const char* levelStrings[] = { "Info", "Warning", "Fatal" };
 /// Standard Constructor this is private caused by singelton pattern
 /// </summary>
 Logger::Logger() {
-	//this->log(LOGLEVEL::INFO, "Instantiating Timer");
 }
 
 /// <summary>
@@ -21,7 +20,6 @@ Logger::Logger() {
 /// </summary>
 Logger::~Logger()
 {
-	this->log(LOGLEVEL::INFO, "Closing Logger Class");
 }
 
 /// <summary>
