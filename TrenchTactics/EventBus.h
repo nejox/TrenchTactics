@@ -6,10 +6,19 @@
 #include "Singleton.hpp"
 
 typedef std::list<HandlerFunctionBase*> HandlerList;
-class EventBus : public TSingleton<EventBus>
+class EventBus 
 {
 public:
 
+	EventBus(const EventBus&) = delete;
+	EventBus& operator=(const EventBus&) = delete;
+	EventBus(EventBus&&) = delete;
+	EventBus& operator=(EventBus&&) = delete;
+
+	static auto& instance() {
+		static EventBus eventBus;
+		return eventBus;
+	}
 
 	~EventBus()
 	{
@@ -56,9 +65,9 @@ public:
 		handlers->push_back(new MemberFunctionHandler<T, EventType>(instance, memberFunction));
 	}
 
-protected:
 private:
 
+	EventBus() {};
 	std::map<std::type_index, HandlerList*> subscribers;
 
 };

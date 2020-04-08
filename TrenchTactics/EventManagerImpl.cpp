@@ -6,6 +6,7 @@
 void EventManagerImpl::processEvents()
 {
 	SDL_Event Event;
+	EventBus& bus = EventBus::instance();
 
 	// Event raised?
 	if (SDL_PollEvent(&Event)) {
@@ -20,7 +21,7 @@ void EventManagerImpl::processEvents()
 			int x, y;
 			SDL_GetMouseState(&x, &y);
 			// call mouse click handlers
-			EventBus::Get()->publish(new MouseClickEvent(x,y));
+			bus.publish(new MouseClickEvent(x,y));
 		}
 
 		default:
