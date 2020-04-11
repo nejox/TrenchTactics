@@ -2,6 +2,10 @@
 #include "IEventManager.h"
 #include "Singleton.hpp"
 
+/// <summary>
+/// EventManagerImpl class based on singelton pattern
+/// for implementing the EventManager and handling events
+/// </summary>
 class EventManagerImpl :
 	public IEventManager
 {

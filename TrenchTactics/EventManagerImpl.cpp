@@ -3,6 +3,9 @@
 #include "EventBus.h"
 #include "MouseClickEvent.h"
 
+/// <summary>
+/// Handling the events and publishing it on the eventbus 
+/// </summary>
 void EventManagerImpl::processEvents()
 {
 	SDL_Event Event;

@@ -1,5 +1,9 @@
 #pragma once
 #include "Event.h"
+
+/// <summary>
+/// MouseClickEvent class for implementing the specialised event
+/// </summary>
 class MouseClickEvent :
 	public Event
 {
