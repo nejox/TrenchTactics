@@ -12,7 +12,7 @@ public:
 
 	static auto& instance() {
 		static ConfigReader confReader;
-		return ConfigReader;
+		return confReader;
 	}
 private:
 	ConfigReader();
