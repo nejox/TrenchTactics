@@ -16,7 +16,7 @@ public:
 	
 	~UnitCC() { }
 
-	//TODO: put this in base class, virtual static not possible
+	//TODO: put this in base class or where it belongs, virtual static not possible
 	static int UnitCC::getCost()
 	{
 		return cost;
