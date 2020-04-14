@@ -6,13 +6,22 @@ private:
 	int windowSizeX;
 	int windowSizeY;
 public:
+	void setFPS(int fps) {
+		this->fps = fps;
+	}
 	int getFPS() {
 		return this->fps;
 	}
-	int getWindowsSizeX() {
+	void setWindowSizeX() {
+		this->windowSizeX = windowSizeX;
+	}
+	int getWindowSizeX() {
 		return this->windowSizeX;
 	}
-	int getWindowsSizeY() {
+	void setWindowSizeY(int windowSizeY) {
+		this->windowSizeY = windowSizeY;
+	}
+	int getWindowSizeY() {
 		return this->windowSizeY;
 	}
 };

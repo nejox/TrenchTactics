@@ -8,9 +8,34 @@ private:
 	int startingGold;
 	int rerollCost;
 public:
-	int getHqHP();
-	int getTrenchIncomeFactor();
-	int getMaxAmountUnits();
-	int getStartingGold();
-	int getRerollCost();
+	void setHqHp(int hqHP) {
+		this->hqHP = hqHP;
+	}
+	int getHqHP() {
+		return this->hqHP;
+	}
+	void setTrenchIncomeFactoR(int trenchIncomeFactor) {
+		this->trenchIncomeFactor = trenchIncomeFactor;
+	}
+	int getTrenchIncomeFactor() {
+		return this->trenchIncomeFactor;
+	}
+	void setMaxAmountUnits(int maxAmountUnits) {
+		this->maxAmountUnits = maxAmountUnits;
+	}
+	int getMaxAmountUnits() {
+		return this->maxAmountUnits;
+	}
+	void setStartingGold(int startingGold) {
+		this->startingGold = startingGold;
+	}
+	int getStartingGold() {
+		return this->startingGold;
+	}
+	void setRerollCost(int rerollCost) {
+		this->rerollCost = rerollCost;
+	}
+	int getRerollCost() {
+		return this->rerollCost;
+	}
 };
