@@ -2,7 +2,9 @@
 #include <string>
 
 
-
+/// <summary>
+/// Unit configeration data container with all getters and setters
+/// </summary>
 class UnitConf {
 private:
 	int id;

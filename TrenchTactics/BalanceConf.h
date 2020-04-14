@@ -1,5 +1,8 @@
 #pragma once
 
+/// <summary>
+/// Balance configeration data container with all getters and setters
+/// </summary>
 class BalanceConf {
 private:
 	int hqHP;

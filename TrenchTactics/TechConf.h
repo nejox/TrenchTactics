@@ -1,5 +1,8 @@
 #pragma once
 
+/// <summary>
+/// Tech configeration data container with all getters and setters
+/// </summary>
 class TechConf {
 private:
 	int fps;

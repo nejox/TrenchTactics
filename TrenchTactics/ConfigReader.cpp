@@ -15,6 +15,9 @@ ConfigReader::~ConfigReader()
 {
 }
 
+/// <summary>
+/// BaseFunction to initialize the all configurations from json config
+/// </summary>
 void ConfigReader::initConfigurations()
 {
 	this->unitConfMap = createUnitConfMap();
@@ -23,6 +26,11 @@ void ConfigReader::initConfigurations()
 	this->mapConf = createMapConf();
 }
 
+/// <summary>
+/// Read json file and return a json Value object to extract data
+/// </summary>
+/// <param name="filePath">Path to the json file to be read</param>
+/// <returns></returns>
 Json::Value ConfigReader::getJsonRootFromFile(std::string filePath) {
 	Json::Value root;
 	std::ifstream ifs;
@@ -37,7 +45,10 @@ Json::Value ConfigReader::getJsonRootFromFile(std::string filePath) {
 	return root;
 }
 
-
+/// <summary>
+/// Wrapper function to create Map Config
+/// </summary>
+/// <returns>MapConfig</returns>
 MapConf* ConfigReader::createMapConf()
 {
 	Json::Value root = getJsonRootFromFile("../conf/gameConf.json")["map"];
@@ -47,6 +58,11 @@ MapConf* ConfigReader::createMapConf()
 	mapConf->setSizeY(root["sizeY"].asInt());
 	return mapConf;
 }
+
+/// <summary>
+/// Wrapper function to create Technical Config
+/// </summary>
+/// <returns>TechnicalConfig</returns>
 TechConf* ConfigReader::createTechConf()
 {
 	Json::Value root = getJsonRootFromFile("../conf/gameConf.json")["technical"];
@@ -56,6 +72,11 @@ TechConf* ConfigReader::createTechConf()
 	techConf->setWindowSizeY(root["windowSizeY"].asInt());
 	return techConf;
 }
+
+/// <summary>
+/// Wrapper function to create Balance Config
+/// </summary>
+/// <returns>BalanceConfig</returns>
 BalanceConf* ConfigReader::createBalanceConf()
 {
 	Json::Value root = getJsonRootFromFile("../conf/gameConf.json")["balance"];
@@ -68,6 +89,11 @@ BalanceConf* ConfigReader::createBalanceConf()
 	return balanceConf;
 }
 
+/// <summary>
+/// Wrapper function that creates a unit config for every unit specified in the config file 
+/// returns a map with the id of the unit as key
+/// </summary>
+/// <returns>Unit Config in a map representation</returns>
 std::map<int, UnitConf*> ConfigReader::createUnitConfMap()
 {
 	std::map<int, UnitConf*> unitConfMap;

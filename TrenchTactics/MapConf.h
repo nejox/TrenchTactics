@@ -1,4 +1,8 @@
 #pragma once
+
+/// <summary>
+/// Map configeration data container with all getters and setters
+/// </summary>
 class MapConf {
 private:
 	int seed;
