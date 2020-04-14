@@ -26,7 +26,6 @@ enum LOGLEVEL
 class Logger
 {
 public:
-	void log(LOGLEVEL level, string message);
 	~Logger();
 	Logger(const Logger&) = delete;
 	Logger& operator=(const Logger&) = delete;
@@ -37,6 +36,8 @@ public:
 		static Logger logger;
 		return logger;
 	}
+	void log(LOGLEVEL level, string message);
+
 private:
 	Logger();
 	std::ofstream outputStream;
