@@ -28,8 +28,8 @@ Logger::~Logger()
 /// </summary>
 /// <param name="level">Loglevel from enum</param>
 /// <param name="message">String representation of the log message</param>
-void Logger::log(LOGLEVEL level, string message) {
-	string msg = getFormatString(level, message);
+void Logger::log(LOGLEVEL level, std::string message) {
+	std::string msg = getFormatString(level, message);
 	this->outputStream.open(this->getLogFileName(), std::ios::app);
 	this->outputStream << msg;
 	this->outputStream.close();
@@ -44,11 +44,11 @@ void Logger::log(LOGLEVEL level, string message) {
 /// <param name="level">Loglevel from enum</param>
 /// <param name="message">String representation of the log message</param>
 /// <returns>the formatted string with timestamp,loglevel and message</returns>
-string Logger::getFormatString(LOGLEVEL level, string message)
+std::string Logger::getFormatString(LOGLEVEL level, std::string message)
 {
 	char buff[200];
 	snprintf(buff, sizeof(buff), "[%s] - %s - %s\n", getFormattedTimestamp(false).c_str(), getTextForEnum(level), message.c_str());
-	string formatString = buff;
+	std::string formatString = buff;
 	return formatString;
 }
 
@@ -59,7 +59,7 @@ string Logger::getFormatString(LOGLEVEL level, string message)
 /// </summary>
 /// <param name="datestamp">boolean value wether you want a date- or timestamp</param>
 /// <returns>the formatted timestamp in string representation</returns>
-string Logger::getFormattedTimestamp(boolean datestamp)
+std::string Logger::getFormattedTimestamp(boolean datestamp)
 {
 	time_t rawtime;
 	struct tm* timeinfo;
@@ -75,7 +75,7 @@ string Logger::getFormattedTimestamp(boolean datestamp)
 	else {
 		strftime(buffer, sizeof(buffer), "%d-%m-%Y %H:%M:%S", timeinfo);
 	}
-	string timestamp(buffer);
+	std::string timestamp(buffer);
 	return timestamp;
 }
 
@@ -83,11 +83,11 @@ string Logger::getFormattedTimestamp(boolean datestamp)
 /// Provide logfilename with todays timestamp
 /// </summary>
 /// <returns>string representation of the log file</returns>
-string Logger::getLogFileName()
+std::string Logger::getLogFileName()
 {
 	char buff[100];
 	snprintf(buff, sizeof(buff), "%s_TrenchTactics.log", getFormattedTimestamp(true).c_str());
-	string filename = buff;
+	std::string filename = buff;
 	return filename;
 }
 

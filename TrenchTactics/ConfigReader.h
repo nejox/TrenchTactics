@@ -1,5 +1,5 @@
 #pragma once
-#include "../jsoncpp/dist/json/json.h"
+#include "jsoncpp/dist/json/json.h"
 #include "UnitConf.h"
 #include "MapConf.h"
 #include "TechConf.h"
@@ -21,24 +21,30 @@ public:
 		return confReader;
 	}
 
-	UnitConf getUnitConf(int id)
+	UnitConf* getUnitConf(int id)
 	{
 		return this->unitConfMap[id];
 	}
-	BalanceConf getBalanceConf() {
+	BalanceConf* getBalanceConf() {
 		return this->balanceConf;
 	}
-	MapConf getMapConf() {
+	MapConf* getMapConf() {
 		return this->mapConf;
 	}
-	TechConf getTechnicalConf() {
+	TechConf* getTechnicalConf() {
 		return this->techConf;
 	}
+	void initConfigurations();
 
 private:
 	ConfigReader();
-	std::map<int, UnitConf> unitConfMap;
-	BalanceConf balanceConf;
-	MapConf mapConf;
-	TechConf techConf;
+	std::map<int, UnitConf*> unitConfMap;
+	BalanceConf* balanceConf;
+	MapConf* mapConf;
+	TechConf* techConf;
+	Json::Value getJsonRootFromFile(std::string filePath);
+	MapConf* createMapConf();
+	TechConf* createTechConf();
+	BalanceConf* createBalanceConf();
+	std::map<int, UnitConf*> createUnitConfMap();
 };

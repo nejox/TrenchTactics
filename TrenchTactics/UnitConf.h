@@ -1,9 +1,10 @@
 #pragma once
 #include <string>
 
+
+
 class UnitConf {
 private:
-	UnitConf();
 	int id;
 	int hp;
 	int range;
@@ -75,7 +76,7 @@ public:
 	int getApCostTrench() {
 		return this->apCostTrench;
 	}
-	void setSpwanProbability(int spawnProbability) {
+	void setSpawnProbability(int spawnProbability) {
 		this->spawnProbability = spawnProbability;
 	}
 	int getSpawnProbability() {

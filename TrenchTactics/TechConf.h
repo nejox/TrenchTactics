@@ -12,7 +12,7 @@ public:
 	int getFPS() {
 		return this->fps;
 	}
-	void setWindowSizeX() {
+	void setWindowSizeX(int windowSizeX) {
 		this->windowSizeX = windowSizeX;
 	}
 	int getWindowSizeX() {
