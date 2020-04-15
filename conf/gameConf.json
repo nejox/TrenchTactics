@@ -1,0 +1,19 @@
+{
+	"balance": {
+		"hqHP": 500,
+		"trenchIncomeFactor": 2,
+		"maxAmountUnits": 20,
+		"startingGold": 100,
+		"rerollCost": 20
+	},
+	"map": {
+		"seed": 1234561,
+		"sizeX": 18,
+		"sizeY": 12
+	},
+	"technical": {
+		"fps": 30,
+		"windowSizeX": 800,
+		"windowSizeY": 600
+	}
+}

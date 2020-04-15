@@ -5,12 +5,10 @@
 #include <windows.h>
 #include <stdio.h>
 #include <string>
-#include "Singleton.hpp"
 #include <iostream>
 #include <fstream>
 
-// defines
-#define string std::string
+
 
 // enum for loglevels
 enum LOGLEVEL
@@ -26,7 +24,6 @@ enum LOGLEVEL
 class Logger
 {
 public:
-	void log(LOGLEVEL level, string message);
 	~Logger();
 	Logger(const Logger&) = delete;
 	Logger& operator=(const Logger&) = delete;
@@ -37,12 +34,14 @@ public:
 		static Logger logger;
 		return logger;
 	}
+	void log(LOGLEVEL level, std::string message);
+
 private:
 	Logger();
 	std::ofstream outputStream;
-	string getFormatString(LOGLEVEL level, string message);
-	string getFormattedTimestamp(boolean datestamp);
-	string getLogFileName();
+	std::string getFormatString(LOGLEVEL level, std::string message);
+	std::string getFormattedTimestamp(boolean datestamp);
+	std::string getLogFileName();
 	const char* getTextForEnum(int enumVal);
 
 };
