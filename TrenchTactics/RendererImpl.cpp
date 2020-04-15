@@ -27,7 +27,7 @@ bool RendererImpl::init(int ScreenWidth, int ScreenHeight,
 {
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) == -1)
 	{
-		string msg = "SDL konnte nicht initialisiert werden!\n Fehlermeldung: ";
+		std::string msg = "SDL konnte nicht initialisiert werden!\n Fehlermeldung: ";
 		msg.append(SDL_GetError());
 
 		Logger::instance().log(LOGLEVEL::FATAL, msg);
@@ -53,7 +53,7 @@ bool RendererImpl::init(int ScreenWidth, int ScreenHeight,
 
 	if (m_pWindow == NULL)
 	{
-		string msg = "SDL-Fenster konnte nicht erzeugt werden!\n Fehlermeldung: ";
+		std::string msg = "SDL-Fenster konnte nicht erzeugt werden!\n Fehlermeldung: ";
 		msg.append(SDL_GetError());
 
 		Logger::instance().log(LOGLEVEL::FATAL, msg);
@@ -67,7 +67,7 @@ bool RendererImpl::init(int ScreenWidth, int ScreenHeight,
 
 	if (m_pRenderer == NULL)
 	{
-		string msg = "SDL-Renderer konnte nicht erzeugt werden!\n Fehlermeldung: ";
+		std::string msg = "SDL-Renderer konnte nicht erzeugt werden!\n Fehlermeldung: ";
 		msg.append(SDL_GetError());
 
 		Logger::instance().log(LOGLEVEL::FATAL, msg);

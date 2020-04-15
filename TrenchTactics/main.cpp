@@ -4,6 +4,7 @@
 #include "Game.hpp"
 #include "Logger.hpp"
 #include "ConfigReader.h"
+#include "RendererImpl.h"
 
 /// <summary>
 /// 
@@ -13,9 +14,16 @@
 /// <returns></returns>
 int main(int argc, char* argv[])
 {
+	ConfigReader& confReader = ConfigReader::instance();
+
 	Logger::instance().log(LOGLEVEL::INFO, "Starting main");
-	ConfigReader::instance().initConfigurations();
-	std::cout << ConfigReader::instance().getUnitConf(0)->getAp() << std::endl;
+	confReader.initConfigurations();
+	std::cout << confReader.getUnitConf(0)->getAp() << std::endl;
+
+	if (RendererImpl::instance().init(confReader.getTechnicalConf()->getWindowSizeX(),
+									  confReader.getTechnicalConf()->getWindowSizeY()) == false)
+		return (0);
+
 	/*
 	if (g_pFramework->Init(1408, 768, 16, false) == false)
 		return (0);
@@ -28,5 +36,7 @@ int main(int argc, char* argv[])
 	g_pFramework->Quit();
 	g_pFramework->Del();
 	*/
+	RendererImpl::instance().destroy();
+
 	return (0);
 }

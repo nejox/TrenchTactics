@@ -1,11 +1,13 @@
 #include "Sprite.hpp"
+#include "RendererImpl.h"
+#include "Logger.hpp"
 
 /// <summary>
-/// Sprite class constructor which gets the pointer to the renderer from the framework
+/// Sprite class constructor which gets the pointer to the renderer
 /// </summary>
 CSprite::CSprite()
 {
-	m_pRenderer = g_pFramework->GetRenderer();
+	m_pRenderer = RendererImpl::instance().GetRenderer();
 	m_pImage = NULL;
 }
 
@@ -30,11 +32,12 @@ void CSprite::Load(const string sFilename)
 
 	if (pTemp == NULL)
 	{
-		cout << "Fehler beim Laden von: " << sFilename.c_str();
-		cout << endl;
-		cout << "Fehlermeldung: " << SDL_GetError() << endl;
+		std::string msg = "Fehler beim Laden von: "+sFilename+"\n Fehlermeldung: ";
+		msg.append(SDL_GetError());
 
-		g_pFramework->Quit();
+		Logger::instance().log(LOGLEVEL::FATAL, msg);
+
+		RendererImpl::instance().destroy();
 
 		exit(1);
 	}
@@ -54,7 +57,7 @@ void CSprite::Load(const string sFilename)
 
 /// <summary>
 /// wraps rendercopy of SDL Framework
-/// takes renderer from the sprite class and the image to display it on screen at givven rect from sprite
+/// takes renderer from the sprite class and the image to display it on screen at given rect from sprite
 /// </summary>
 void CSprite::Render()
 {
