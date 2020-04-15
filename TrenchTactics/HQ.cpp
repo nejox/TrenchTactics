@@ -1,6 +1,6 @@
-#include "HQ.h"
+#include "Headquarter.h"
 
-void HQ::changeHP(int damage)
+void Headquarter::changeHP(int damage)
 {
 	m_currentHP -= damage;
 }
