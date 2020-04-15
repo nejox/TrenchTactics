@@ -1,4 +1,4 @@
-#include "Timer.h"
+#include "Timer.hpp"
 
 /// <summary>
 /// Consturctor which inits the timer with a base times
