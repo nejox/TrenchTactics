@@ -2,8 +2,8 @@
 
 #include "Framework.hpp"
 #include "Game.hpp"
-#include "Logger/Logger.hpp"
-#include "Config/ConfigReader.h"
+#include "Logger.hpp"
+#include "ConfigReader.h"
 
 /// <summary>
 /// 
