@@ -17,7 +17,7 @@ public:
 	}
 
 	bool init(int ScreenWidth, int ScreenHeight,
-		int ColorDepth, bool bFullscreen);
+		int ColorDepth = 16, bool bFullscreen = false);
 	void clearScreen();
 	void destroy();
 	void updateTimer();

@@ -1,5 +1,6 @@
 #include "Game.hpp"
 #include "Logger.hpp"
+#include "RendererImpl.h"
 
 /// <summary>
 /// Constructor sets null pointer to background
@@ -43,10 +44,10 @@ void CGame::Run()
 {
 	while (m_bGameRun == true)
 	{
-		g_pFramework->Update();
-		g_pFramework->Clear();
+		RendererImpl::instance().updateTimer();
+		RendererImpl::instance().clearScreen();
 		m_pSpriteBackground->Render();
-		g_pFramework->Render();
+		RendererImpl::instance().render();
 
 	}
 
