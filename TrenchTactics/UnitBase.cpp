@@ -3,12 +3,14 @@
 
 void UnitBase::attack(UnitBase* target)
 {
+	//TO DO: hier vielleicht shooting animation rendern 
 	target->changeHP(m_damage);
 	updateAP(m_attackAP);
 }
 
 void UnitBase::attack(HQ* target)
 {
+	//TO DO: hier vielleicht shooting animation rendern 
 	target->changeHP(m_damage);
 	updateAP(m_attackAP);
 }
@@ -35,22 +37,3 @@ void UnitBase::move()
 	updateAP(m_moveAP);
 }
 
-int UnitBase::getCurrentHP()
-{
-	return m_currentHP;
-}
-
-void UnitBase::setCurrentHP(int currentHP)
-{
-	m_currentHP = currentHP;
-}
-
-int UnitBase::getCurrentAP()
-{
-	return m_currentAP;
-}
-
-void UnitBase::setCurrentAP(int currentAP)
-{
-	m_currentAP = currentAP;
-}
