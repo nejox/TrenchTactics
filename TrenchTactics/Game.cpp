@@ -18,7 +18,8 @@ CGame::CGame()
 void CGame::Init()
 {
 	m_pSpriteBackground = new CSprite;
-	m_pSpriteBackground->Load("../Data/Background.bmp");
+
+	m_pSpriteBackground->Load("../Data/Sprites/Terrain/Background.bmp");
 
 	m_bGameRun = true;
 }

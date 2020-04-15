@@ -1,5 +1,6 @@
 #define SDL_MAIN_HANDLED
 
+
 #include "Framework.hpp"
 #include "Game.hpp"
 #include "Logger.hpp"
@@ -39,4 +40,6 @@ int main(int argc, char* argv[])
 	RendererImpl::instance().destroy();
 
 	return (0);
+
+
 }
