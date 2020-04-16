@@ -1,5 +1,5 @@
 #pragma once
-#include "HQ.h"
+#include "Headquarter.h"
 #include "Sprite.hpp"
 
 /// <summary>
@@ -51,10 +51,9 @@ protected:
 public:
 	virtual ~UnitBase() {};
 
-	
 	void changeHP(int damage);
 	void attack(UnitBase* target);
-	void attack(HQ* target);
+	void attack(Headquarter* target);
 	void move();
 	void updateAP(int cost);
 	void resetAP();
@@ -78,10 +77,5 @@ public:
 	{
 		m_currentAP = currentAP;
 	}
-
-
-
-
-
 
 };

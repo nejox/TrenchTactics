@@ -7,3 +7,5 @@ TrenchTactics.vcxproj
 TrenchTactics.vcxproj.filters
 TrenchTactics.vcxproj.user
 *.log
+TrenchTactics/.vs/
+
