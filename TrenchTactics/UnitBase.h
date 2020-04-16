@@ -9,7 +9,6 @@ class UnitBase
 {
 	
 protected: 
-
 	//can´t be instantiated
 	UnitBase() = delete;
 
@@ -80,4 +79,3 @@ public:
 	}
 
 };
-
