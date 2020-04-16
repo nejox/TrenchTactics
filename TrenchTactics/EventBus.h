@@ -27,6 +27,9 @@ public:
 		return eventBus;
 	}
 
+	/// <summary>
+	/// Deconstructor to delete created lists 
+	/// </summary>
 	~EventBus()
 	{
 		std::map<std::type_index, HandlerList*>::iterator it = subscribers.begin();

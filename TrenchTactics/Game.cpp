@@ -1,5 +1,6 @@
 #include "Game.hpp"
 #include "Logger.hpp"
+#include "RendererImpl.h"
 
 /// <summary>
 /// Constructor sets null pointer to background
@@ -17,7 +18,8 @@ CGame::CGame()
 void CGame::Init()
 {
 	m_pSpriteBackground = new CSprite;
-	m_pSpriteBackground->Load("../Data/Background.bmp");
+
+	m_pSpriteBackground->Load("../Data/Sprites/Terrain/Background.bmp");
 
 	m_bGameRun = true;
 }
@@ -43,10 +45,10 @@ void CGame::Run()
 {
 	while (m_bGameRun == true)
 	{
-		g_pFramework->Update();
-		g_pFramework->Clear();
+		RendererImpl::instance().updateTimer();
+		RendererImpl::instance().clearScreen();
 		m_pSpriteBackground->Render();
-		g_pFramework->Render();
+		RendererImpl::instance().render();
 
 	}
 

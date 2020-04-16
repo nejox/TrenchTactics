@@ -7,8 +7,9 @@
 /// </summary>
 class UnitBase
 {
+	
+protected: 
 
-protected:
 	//can´t be instantiated
 	UnitBase() = delete;
 
@@ -51,7 +52,6 @@ protected:
 public:
 	virtual ~UnitBase() {};
 
-
 	void changeHP(int damage);
 	void attack(UnitBase* target);
 	void attack(Headquarter* target);
@@ -79,9 +79,5 @@ public:
 		m_currentAP = currentAP;
 	}
 
-
-
-
-
-
 };
+
