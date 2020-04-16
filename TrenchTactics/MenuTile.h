@@ -7,15 +7,15 @@
 /// </summary>
 class MenuTile : public Tile {
 private:
-	Button* button;
+	Button button;
 public:
-	void setButton(Button* button) {
+	void setButton(Button button) {
 		this->button = button;
 	}
-	Button* getButton() {
+	Button getButton() {
 		return this->button;
 	}
-	handleEvent();
+	int handleEvent();
 	MenuTile();
 	~MenuTile();
 	

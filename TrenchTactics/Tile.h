@@ -1,5 +1,5 @@
 #pragma once
-#include "Rect.h"
+#include "../../../TrenchTactics/TrenchTactics/Sprite.hpp"
 
 /// <summary>
 /// Tileclass with relevant information, setters and getters
@@ -10,7 +10,7 @@ private:
 	int yPos;
 	bool marked;
 	bool selected;
-	Rect sprite;
+	CSprite sprite;
 
 public:
 	void setXPos(int xPos) {
@@ -37,16 +37,15 @@ public:
 	bool getSelected() {
 		return this->selected;
 	}
-	void setSprite(Rect sprite) {
+	void setSprite(CSprite sprite) {
 		this->sprite = sprite;
 	}
-	Rect getSprite() {
+	CSprite getSprite() {
 		return this->sprite;
 	}
 	Tile();
-	startAnimation();
-	update();
-	virtual handleEvent();
-	virtual Tile();
+	int startAnimation() {};
+	int update() {};
+	virtual int handleEvent();
 	~Tile();
 };
