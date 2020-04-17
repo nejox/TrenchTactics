@@ -1,5 +1,5 @@
 #pragma once
-#include "../../../TrenchTactics/TrenchTactics/Sprite.hpp"
+#include "Sprite.hpp"
 
 /// <summary>
 /// Tileclass with relevant information, setters and getters
@@ -11,6 +11,8 @@ private:
 	bool marked;
 	bool selected;
 	CSprite sprite;
+protected:
+	Tile() = delete;
 
 public:
 	void setXPos(int xPos) {
@@ -43,9 +45,7 @@ public:
 	CSprite getSprite() {
 		return this->sprite;
 	}
-	Tile();
 	int startAnimation() {};
 	int update() {};
 	virtual int handleEvent();
-	~Tile();
 };

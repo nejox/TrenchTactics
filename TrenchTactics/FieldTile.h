@@ -33,6 +33,7 @@ public:
 		return this->terrain;
 	}
 	int handleEvent() {};
-	FieldTile(terrainType terrain) {};
+	FieldTile(terrainType terrain) {
+		};
 	~FieldTile() {};
 };
