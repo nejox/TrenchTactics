@@ -6,7 +6,12 @@ void Unit::attack(Unit* target)
 {
 	
 	target->changeHP(m_dmg);
-	target->checkIfDead();
+
+	if (target->getCurrentHP <= 0)
+	{
+		DeathEvent* deathEvent = new DeathEvent(target);
+	}
+
 	updateAP(m_apCostAttack);
 }
 
@@ -22,13 +27,6 @@ void Unit::changeHP(int damage)
 	m_currentHP -= damage;
 }
 
-void Unit::checkIfDead()
-{
-	if (this->getCurrentHP <= 0)
-	{
-		DeathEvent* deathEvent = new DeathEvent(this);
-	}
-}
 
 void Unit::resetAP()
 {

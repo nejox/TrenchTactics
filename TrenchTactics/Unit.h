@@ -70,7 +70,6 @@ public:
 	 */
 
 	void changeHP(int damage);
-	void checkIfDead();
 	void attack(Unit* target);
 	void attack(Headquarter* target);
 	void move();
