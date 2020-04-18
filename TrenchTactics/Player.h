@@ -8,13 +8,14 @@ class Player
 {
 private:
 	bool colorRed;
+	bool buying;
 	Headquarter* headquarter;
 	std::vector<UnitBase*> unitArray;
 	std::queue<UnitBase*> unitQueue;
 	int money;
 	int interest;
 	int supply;
-	GAMPHASES::GAMEPHASE currentPhase;
+	GAMEPHASES::GAMEPHASE currentPhase;
 public:
 	void init(bool colorRed);
 	void computeInterest();
@@ -30,8 +31,17 @@ public:
 	bool getColor() {
 		return this->colorRed;
 	}
-	void setCurrentPhase(GAMPHASES::GAMEPHASE phase) {
+	void setCurrentPhase(GAMEPHASES::GAMEPHASE phase) {
 		this->currentPhase = phase;
+	}
+	GAMEPHASES::GAMEPHASE getCurrentPhase() {
+		return this->currentPhase;
+	}
+	void setBuying(bool buyStatus) {
+		this->buying = buyStatus;
+	}
+	bool getBuying() {
+		return this->buying;
 	}
 };
 
