@@ -23,7 +23,7 @@ public:
 	void init();
 	void handleEvent(MouseClickEvent* event);
 
-	void setCurrentPhase(GAMPHASES::GAMEPHASE phase) {
+	void setCurrentPhase(GAMEPHASES::GAMEPHASE phase) {
 		this->currentPhase = phase;
 	}
 	void setGamefield(Gamefield gamefield) {
@@ -36,7 +36,7 @@ public:
 private:
 	EventGateway();
 	Gamefield gamefield;
-	GAMPHASES::GAMEPHASE currentPhase;
+	GAMEPHASES::GAMEPHASE currentPhase;
 	Player* activePlayer;
 
 	void handleAttackEvent(MouseClickEvent* event);
