@@ -25,10 +25,11 @@ void EventGateway::handleEvent(MouseClickEvent* event) {
 
 void EventGateway::handleAttackEvent(MouseClickEvent* event) {
 	UnitBase* unitToBeAttacked = NULL;
+	UnitBase* unitAttacking = this->activePlayer->getUnitQueue().front();
 	//Unit* unitToBeAttacked = gamefield.getField().getTile(event->getX(), event->getY()).getUnit();
 	//if (checkTileInField() && unitToBeAttacked != NULL) {
 		// publish attack command to tile
-	AttackEvent* attackEvent = new AttackEvent(unitToBeAttacked, this->activePlayer->getUnitQueue().front());
+	AttackEvent* attackEvent = new AttackEvent(unitToBeAttacked, unitAttacking);
 	//EventBus::instance().publish();
 	this->activePlayer->getUnitQueue().pop();
 	//}
