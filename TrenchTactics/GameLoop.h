@@ -4,14 +4,16 @@
 #include "Gamefield.h"
 
 // enum for gamephases
-enum GAMEPHASE
-{
-	BUY,
-	MOVE,
-	ATTACK
-};
+namespace GAMPHASES {
+	enum GAMEPHASE
+	{
+		BUY,
+		MOVE,
+		ATTACK
+	};
+	static const GAMEPHASE All[] = { BUY, MOVE, ATTACK };
 
-
+}
 class Game
 {
 private:
@@ -19,8 +21,8 @@ private:
 	Player* playerBlue;
 	Player* activePlayer;
 	Gamefield* gamefield;
+
 	bool gameRunning;
-	GAMEPHASE currentPhase;
 	void switchActivePlayer();
 public:
 	Game();
@@ -29,6 +31,7 @@ public:
 	void gameLoop();
 	void quit();
 	void updateGame();
+
 
 };
 

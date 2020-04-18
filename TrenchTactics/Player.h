@@ -14,10 +14,8 @@ private:
 	int money;
 	int interest;
 	int supply;
+	GAMPHASES::GAMEPHASE currentPhase;
 public:
-	void startBuyPhase();
-	void startMovePhase();
-	void startAttackPhase();
 	void init(bool colorRed);
 	void computeInterest();
 	void updatePlayer();
@@ -31,6 +29,9 @@ public:
 	}
 	bool getColor() {
 		return this->colorRed;
+	}
+	void setCurrentPhase(GAMPHASES::GAMEPHASE phase) {
+		this->currentPhase = phase;
 	}
 };
 

@@ -17,7 +17,7 @@ Game::Game() {
 void Game::initGame() {
 	Logger::instance().log(LOGLEVEL::INFO, "Initializing Game Class");
 	this->playerRed = new Player();
-	playerRed->init(true);
+	this->playerRed->init(true);
 	this->playerBlue = new Player();
 	this->playerBlue->init(false);
 
@@ -26,8 +26,7 @@ void Game::initGame() {
 
 	RendererImpl::instance().init(ConfigReader::instance().getTechnicalConf()->getWindowSizeX(), ConfigReader::instance().getTechnicalConf()->getWindowSizeY());
 	this->activePlayer = playerRed;
-	gameRunning = true;
-	currentPhase = GAMEPHASE::BUY;
+	this->gameRunning = true;
 	gameLoop();
 }
 
@@ -41,12 +40,18 @@ void Game::gameLoop() {
 }
 void Game::startPhase() {
 	this->activePlayer->copyUnitsToQueue();
-	while (!activePlayer->getUnitQueue().empty()) {
-		updateGame();
+	for (GAMPHASES::GAMEPHASE phase : GAMPHASES::All) {
+		this->activePlayer->setCurrentPhase(phase);
+		while (!activePlayer->getUnitQueue().empty()) {
+			updateGame();
+		}
 	}
+
 }
 
 void Game::updateGame() {
+	//this->gamefield.update();
+	RendererImpl::instance().updateTimer();
 }
 void Game::quit() {
 }
