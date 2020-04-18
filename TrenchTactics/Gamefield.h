@@ -2,7 +2,8 @@
 #include "FieldTile.h"
 #include "PlayerTile.h"
 #include "MenuTile.h"
-
+#include "MouseClickEvent.h"
+#include <vector>
 
 /// <summary>
 /// Gamefield class for generating and holding the playingfield
@@ -12,50 +13,51 @@ private:
 	static const int defaultXSizeField = 18;
 	static const int defaultYSizeField = 12;
 
-	MenuTile menuBar[22][2];
-	PlayerTile hqTilePlayerA[2][2];
-	PlayerTile hqTilePlayerB[2][2];
-	FieldTile field[defaultXSizeField][defaultYSizeField];
-	FieldTile spawnA[2][4][2];
-	FieldTile spawnB[2][4][2];
+	vector<vector <MenuTile*>> menuBar;
+	vector<vector <PlayerTile*>> hqTilePlayerA;
+	vector<vector <PlayerTile*>> hqTilePlayerB;
+	vector<vector <FieldTile*>> field;
+	vector<vector <FieldTile*>> spawnA;
+	vector<vector <FieldTile*>> spawnB;
 public:
-	void setMenuBar(MenuTile *menuBar) {
-		this->menuBar[22][2] = *menuBar;
+	void setMenuBar(vector<vector <MenuTile*>> menuBar) {
+		this->menuBar = menuBar;
 	}
-	MenuTile getMenuBar() {
-		return this->menuBar[22][2];
+	vector<vector <MenuTile*>> getMenuBar() {
+		return this->menuBar;
 	}
-	void setHqTilePlayerA(PlayerTile *hqTilePlayer) {
-		this->hqTilePlayerA[2][2] = *hqTilePlayer;
+	void setHqTilePlayerA(vector < vector < PlayerTile*>> hqTilePlayer) {
+		this->hqTilePlayerA = hqTilePlayer;
 	}
-	PlayerTile getHqTilePlayerA() {
-		return this->hqTilePlayerA[2][2];
+	vector < vector < PlayerTile*>> getHqTilePlayerA() {
+		return this->hqTilePlayerA;
 	}
-	void setHqTilePlayerB(PlayerTile *hqTilePlayer) {
-		this->hqTilePlayerB[2][2] = *hqTilePlayer;
+	void setHqTilePlayerB(vector < vector <PlayerTile*>> hqTilePlayer) {
+		this->hqTilePlayerB = hqTilePlayer;
 	}
-	PlayerTile getHqTilePlayerB() {
-		return this->hqTilePlayerB[2][2];
+	vector < vector < PlayerTile*>> getHqTilePlayerB() {
+		return this->hqTilePlayerB;
 	}
-	void setField(FieldTile *field) {
-		this->field[defaultXSizeField][defaultYSizeField] = *field;
+	void setField(vector < vector < FieldTile*>> field) {
+		this->field = field;
 	}
-	FieldTile getField() {
-		return this->field[defaultXSizeField][defaultYSizeField];
+	vector < vector < FieldTile*>> getField() {
+		return this->field;
 	}
-	void setSpawnA(FieldTile *spawnA) {
-		this->spawnA[2][4][2] = *spawnA;
+	void setSpawnA(vector < vector < FieldTile*>> spawnA) {
+		this->spawnA = spawnA;
 	}
-	FieldTile getSpawnA() {
-		return this->spawnA[2][4][2];
+	vector < vector < FieldTile*>> getSpawnA() {
+		return this->spawnA;
 	}
-	void setSpawnB(FieldTile *spawnB) {
-		this->spawnB[2][4][2] = *spawnB;
+	void setSpawnB(vector < vector < FieldTile*>> spawnB) {
+		this->spawnB = spawnB;
 	}
-	FieldTile getSpawnB() {
-		return this->spawnB[2][4][2];
+	vector < vector < FieldTile*>> getSpawnB() {
+		return this->spawnB;
 	}
 	void resetGameField();
 	Gamefield();
 	~Gamefield();
+	void asignEventToTile(MouseClickEvent event);
 };

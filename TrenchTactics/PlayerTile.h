@@ -16,7 +16,7 @@ public:
 		return this->headquarter;
 	}
 	int handleEvent() {};
-	PlayerTile(){};
-	~PlayerTile() {};
+	PlayerTile();
+	~PlayerTile();
 	
 };
