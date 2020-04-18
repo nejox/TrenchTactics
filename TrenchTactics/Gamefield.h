@@ -2,6 +2,7 @@
 #include "FieldTile.h"
 #include "PlayerTile.h"
 #include "MenuTile.h"
+#include "MouseClickEvent.h"
 #include <vector>
 
 /// <summary>
@@ -58,4 +59,5 @@ public:
 	void resetGameField();
 	Gamefield();
 	~Gamefield();
+	void asignEventToTile(MouseClickEvent event);
 };

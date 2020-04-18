@@ -47,5 +47,5 @@ public:
 	}
 	int startAnimation() {};
 	int update() {};
-	virtual int handleEvent();
+	virtual int handleEvent() {};
 };
