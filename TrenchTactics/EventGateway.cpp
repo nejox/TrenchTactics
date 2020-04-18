@@ -56,7 +56,9 @@ void EventGateway::handleBuyEvent(MouseClickEvent* event) {
 	}
 	// checkEventHitButton(event);
 	//int unitId = getUnitIdFromButton(event->getX(), event->getY());
-	//BuyEvent* buyEvent = new BuyEvent(unitId);
+	//UnitBase* purchasedUnit = new UnitBase();
+	//BuyEvent* buyEvent = new BuyEvent(purchasedUnit);
 	//EventBus::instance().publish(spawnTile, buyEvent);
+	//this->activePlayer->addUnit(unit);
 	this->activePlayer->setBuying(false);
 }
