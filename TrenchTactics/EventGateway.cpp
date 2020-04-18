@@ -31,7 +31,7 @@ void EventGateway::handleAttackEvent(MouseClickEvent* event) {
 	AttackEvent* attackEvent = new AttackEvent(unitToBeAttacked, this->activePlayer->getUnitQueue().front());
 	//EventBus::instance().publish();
 	this->activePlayer->getUnitQueue().pop();
-//}
+	//}
 }
 
 void EventGateway::handleMoveEvent(MouseClickEvent* event) {
@@ -43,10 +43,20 @@ void EventGateway::handleMoveEvent(MouseClickEvent* event) {
 		// publish event to move a unit (give it a pointer reference) from a tile to another tile
 	//}
 	MoveEvent* moveEvent = new MoveEvent(unitToBeMoved, event->getX(), event->getY());
-	//EventBus::instance().publish* ();
+	//EventBus::instance().publish();
 	this->activePlayer->getUnitQueue().pop();
 }
 
 void EventGateway::handleBuyEvent(MouseClickEvent* event) {
-
+	if (this->activePlayer->getColor()) {
+		//	Tile* spawnTile = this->gamefield.getSpawnA();
+	}
+	else {
+		//	Tile* spawnTile = this->gamefield.getSpawnB();
+	}
+	// checkEventHitButton(event);
+	//int unitId = getUnitIdFromButton(event->getX(), event->getY());
+	//BuyEvent* buyEvent = new BuyEvent(unitId);
+	//EventBus::instance().publish(spawnTile, buyEvent);
+	this->activePlayer->setBuying(false);
 }
