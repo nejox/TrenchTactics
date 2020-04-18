@@ -16,14 +16,19 @@ Game::Game() {
 
 void Game::initGame() {
 	Logger::instance().log(LOGLEVEL::INFO, "Initializing Game Class");
+	Logger::instance().log(LOGLEVEL::INFO, "Initializing Configuration");
+	ConfigReader::instance().initConfigurations();
+	Logger::instance().log(LOGLEVEL::INFO, "Initializing Players");
 	this->playerRed = new Player();
 	this->playerRed->init(true);
 	this->playerBlue = new Player();
 	this->playerBlue->init(false);
 
+	Logger::instance().log(LOGLEVEL::INFO, "Initializing Gamefield");
 	this->gamefield = new Gamefield();
 	//this->gamefield.init();
 
+	Logger::instance().log(LOGLEVEL::INFO, "Initializing Renderer");
 	RendererImpl::instance().init(ConfigReader::instance().getTechnicalConf()->getWindowSizeX(), ConfigReader::instance().getTechnicalConf()->getWindowSizeY());
 	this->activePlayer = playerRed;
 	this->gameRunning = true;
@@ -32,9 +37,11 @@ void Game::initGame() {
 
 
 void Game::gameLoop() {
+	Logger::instance().log(LOGLEVEL::INFO, "Game Running");
 	while (gameRunning) {
 		startPhase();
 		switchActivePlayer();
+		this->activePlayer->updatePlayer();
 	}
 	quit();
 }

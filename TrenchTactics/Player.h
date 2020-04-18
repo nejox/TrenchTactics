@@ -1,6 +1,7 @@
 #pragma once
 #include "Headquarter.h"
 #include "UnitBase.h"
+#include "GameLoop.h"
 #include <vector>
 #include <queue>
 #include <algorithm>
@@ -19,10 +20,12 @@ private:
 	GAMEPHASES::GAMEPHASE currentPhase;
 public:
 	void init(bool colorRed);
-	void computeInterest();
+	int computeInterest();
 	void updatePlayer();
 	void copyUnitsToQueue();
-	void addUnit();
+	void addUnit(UnitBase* unit) {
+		this->unitArray.push_back(unit);
+	}
 	std::vector<UnitBase*> getUnitArray() {
 		return this->unitArray;
 	}
