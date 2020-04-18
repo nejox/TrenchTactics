@@ -3,6 +3,7 @@
 #include "UnitBase.h"
 #include <vector>
 #include <queue>
+#include <algorithm>
 
 class Player
 {
@@ -42,6 +43,13 @@ public:
 	}
 	bool getBuying() {
 		return this->buying;
+	}
+	void deleteUnit(UnitBase* unit) {
+		std::vector<UnitBase*>::iterator position = std::find(this->unitArray.begin(), this->unitArray.end(), unit);
+		if (position != this->unitArray.end()) {// == myVector.end() means the element was not found
+			this->unitArray.erase(position);
+		}
+
 	}
 };
 
