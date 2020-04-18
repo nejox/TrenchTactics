@@ -15,8 +15,8 @@ public:
 	Headquarter* getHeadquarter() {
 		return this->headquarter;
 	}
-	int handleEvent() {};
-	PlayerTile();
+
+	PlayerTile() {};
 	~PlayerTile();
 	
 };

@@ -1,5 +1,6 @@
 #pragma once
 #include "Sprite.hpp"
+#include "MouseClickEvent.h"
 
 /// <summary>
 /// Tileclass with relevant information, setters and getters
@@ -11,8 +12,7 @@ private:
 	bool marked;
 	bool selected;
 	CSprite sprite;
-protected:
-	Tile() = delete;
+	
 
 public:
 	void setXPos(int xPos) {
@@ -47,5 +47,5 @@ public:
 	}
 	int startAnimation() {};
 	int update() {};
-	virtual int handleEvent() {};
+	Tile() {};
 };

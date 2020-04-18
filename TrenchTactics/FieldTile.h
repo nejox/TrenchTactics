@@ -8,11 +8,12 @@
 /// </summary>
 class FieldTile : public Tile {
 
+public:
 	enum terrainType {
 		mud,
 		clay,
 		stone,
-		spawn
+		spawnterrain
 	};
 
 private:
@@ -32,8 +33,10 @@ public:
 	terrainType getTerrain() {
 		return this->terrain;
 	}
-	int handleEvent() {};
+
 	FieldTile(terrainType terrain) {
-		};
+		this->terrain = terrain;
+	};
+
 	~FieldTile() {};
 };
