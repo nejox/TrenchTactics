@@ -25,15 +25,19 @@ public:
 	{
 		return this->unitConfMap[id];
 	}
+
 	BalanceConf* getBalanceConf() {
 		return this->balanceConf;
 	}
+
 	MapConf* getMapConf() {
 		return this->mapConf;
 	}
+
 	TechConf* getTechnicalConf() {
 		return this->techConf;
 	}
+
 	void initConfigurations();
 
 private:

@@ -7,6 +7,7 @@
 /// </summary>
 class UnitConf {
 private:
+
 	int id;
 	int hp;
 	int range;
@@ -21,6 +22,8 @@ private:
 	std::string spriteFilePath;
 
 public:
+
+
 	void setId(int id) {
 		this->id = id;
 	}
