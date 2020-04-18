@@ -40,11 +40,15 @@ void Game::gameLoop() {
 }
 void Game::startPhase() {
 	this->activePlayer->copyUnitsToQueue();
-	for (GAMPHASES::GAMEPHASE phase : GAMPHASES::All) {
+	for (GAMEPHASES::GAMEPHASE phase : GAMEPHASES::All) {
 		this->activePlayer->setCurrentPhase(phase);
-		while (!activePlayer->getUnitQueue().empty()) {
+		if (phase = GAMEPHASES::BUY) {
+			this->activePlayer->setBuying(true);
+		}
+		while (!this->activePlayer->getUnitQueue().empty() || this->activePlayer->getBuying()) {
 			updateGame();
 		}
+
 	}
 
 }
