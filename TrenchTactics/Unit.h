@@ -3,6 +3,8 @@
 #include "Sprite.hpp"
 #include "UnitConf.h"
 #include "ConfigReader.h"
+#include "EventBus.h"
+#include "Event.h"
 
 /// <summary>
 /// Baseclass for units
@@ -51,7 +53,9 @@ public:
 		m_apCostTrench = uc->getApCostTrench();
 		m_spawnProbability = uc->getSpawnProbability();
 		m_name = uc->getName();
-		m_spriteFilePath = uc->getSpriteFilePath();
+
+		if(EventBus::instance().activePlayer->getColour()) m_spriteFilePath = uc->getSpriteFilePathRed();
+		else m_spriteFilePath = uc->getSpriteFilePathBlue();
 	}
 
 	
@@ -66,6 +70,7 @@ public:
 	 */
 
 	void changeHP(int damage);
+	void checkIfDead();
 	void attack(Unit* target);
 	void attack(Headquarter* target);
 	void move();
