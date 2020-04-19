@@ -13,7 +13,7 @@
 	},
 	"technical": {
 		"fps": 30,
-		"windowSizeX": 800,
-		"windowSizeY": 600
+		"windowSizeX": 1408,
+		"windowSizeY": 960
 	}
 }
