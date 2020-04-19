@@ -15,8 +15,8 @@ private:
 	static const int defaultYSizeField = 12;
 
 	vector<vector <MenuTile*>> menuBar;
-	vector<vector <PlayerTile*>> hqTilePlayerBlue;
-	vector<vector <PlayerTile*>> hqTilePlayerRed;
+	vector<vector <PlayerTile*>> headquarterTilePlayerBlue;
+	vector<vector <PlayerTile*>> headquarterTilePlayerRed;
 	vector<vector <FieldTile*>> field;
 	vector<vector <FieldTile*>> spawnBlue;
 	vector<vector <FieldTile*>> spawnRed;
@@ -32,16 +32,16 @@ public:
 		return this->menuBar;
 	}
 	void setHqTilePlayerBlue(vector < vector < PlayerTile*>> hqTilePlayer) {
-		this->hqTilePlayerBlue = hqTilePlayer;
+		this->headquarterTilePlayerBlue = hqTilePlayer;
 	}
 	vector < vector < PlayerTile*>> getHqTilePlayerBlue() {
-		return this->hqTilePlayerBlue;
+		return this->headquarterTilePlayerBlue;
 	}
 	void setHqTilePlayerRed(vector < vector <PlayerTile*>> hqTilePlayer) {
-		this->hqTilePlayerRed = hqTilePlayer;
+		this->headquarterTilePlayerRed = hqTilePlayer;
 	}
 	vector < vector < PlayerTile*>> getHqTilePlayerRed() {
-		return this->hqTilePlayerRed;
+		return this->headquarterTilePlayerRed;
 	}
 	void setField(vector < vector < FieldTile*>> field) {
 		this->field = field;
@@ -80,11 +80,15 @@ public:
 	}
 
 	int spawnUnitInSpawn(UnitBase* unit, bool redPlayerActive);
-	bool spawnTileIsFree(int x, int y, vector<vector<FieldTile*>> activeSpawn);
+	bool fieldTileIsFree(int x, int y, vector<vector<FieldTile*>> activeSpawn);
 
 	void Init(int FieldWidth, int FieldHeight, int Seed);
-	void initiatePlayerTiles(vector<vector<PlayerTile*>> hqTilePlayerX);
-	void initiateMenuTiles(vector<vector<MenuTile*>> menuBar);
-	void initiateSpawnTiles(vector<vector<FieldTile*>> spawn);
-	void initiatePlayingFieldTiles(vector<vector<FieldTile*>> playingField);
+	void initiatePlayerTilesBlue();
+	void initiatePlayerTilesRed();
+	void initiateMenuTiles();
+	void initiateSpawnTilesBlue();
+	void initiateSpawnTilesRed();
+	void initiatePlayingFieldTiles();
+
+	FieldTile* findTileForUnit(UnitBase* pUnit);
 };
