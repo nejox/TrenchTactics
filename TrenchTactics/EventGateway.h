@@ -6,6 +6,7 @@
 #include "MoveEvent.h"
 #include "AttackEvent.h"
 #include "BuyEvent.h"
+#include "ConfigReader.h"
 
 class EventGateway
 {
