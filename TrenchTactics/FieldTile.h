@@ -1,6 +1,6 @@
 #pragma once
 #include "Tile.h"
-#include "UnitBase.h"
+#include "Unit.h"
 
 
 /// <summary>
@@ -17,14 +17,14 @@ public:
 	};
 
 private:
-	UnitBase* unit;
+	Unit* unit;
 	terrainType terrain;
 public:
 	
-	void setUnit(UnitBase* unit) {
+	void setUnit(Unit* unit) {
 		this->unit = unit;
 	}
-	UnitBase* getUnit() {
+	Unit* getUnit() {
 		return this->unit;
 	}
 	void setTerrain(terrainType terrain) {

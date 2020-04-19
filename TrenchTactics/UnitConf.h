@@ -19,7 +19,8 @@ private:
 	int apCostTrench;
 	int spawnProbability;
 	std::string name;
-	std::string spriteFilePath;
+	std::string spriteFilePathRed;
+	std::string spriteFilePathBlue;
 
 public:
 
@@ -93,10 +94,16 @@ public:
 	std::string getName() {
 		return this->name;
 	}
-	void setSpriteFilePath(std::string spriteFilePath) {
-		this->spriteFilePath = spriteFilePath;
+	void setSpriteFilePathRed(std::string spriteFilePathRed) {
+		this->spriteFilePathRed = spriteFilePathRed;
 	}
-	std::string getSpriteFilePath() {
-		return this->spriteFilePath;
+	std::string getSpriteFilePathRed() {
+		return this->spriteFilePathRed;
+	}
+	void setSpriteFilePathBlue(std::string spriteFilePathBlue) {
+		this->spriteFilePathBlue = spriteFilePathBlue;
+	}
+	std::string getSpriteFilePathBlue() {
+		return this->spriteFilePathBlue;
 	}
 };

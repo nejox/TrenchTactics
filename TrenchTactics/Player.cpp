@@ -3,28 +3,25 @@
 void Player::init(bool colorRed) {
 	this->colorRed = colorRed;
 	this->money = ConfigReader::instance().getBalanceConf()->getStartingGold();
-	// subscribe tp deletion of units aka killing them
-	//EventBus::instance().subscribe()
+	EventBus::instance().subscribe(this, &Player::deleteUnit);
 }
-int Player::computeInterest() {
-	int income = this->money / 10;
-	this->money += income;
-	this->money += 3;
 
-	//Income(m, t) = m(0.05t) / (0.85 + 0.055t) + 25;
+int Player::computeInterest() {
+	this->money += 30 + 0.15 * this->money;
+
 }
 void Player::updatePlayer() {
 	this->money += computeInterest();
 	this->supply = this->unitArray.size();
 }
 void Player::copyUnitsToQueue() {
-	for (UnitBase* unit : this->unitArray) {
+	for (Unit* unit : this->unitArray) {
 		this->unitQueue.push(unit);
 	}
 }
 
-void Player::deleteUnit(UnitBase* unit) {
-	std::vector<UnitBase*>::iterator position = std::find(this->unitArray.begin(), this->unitArray.end(), unit);
+void Player::deleteUnit(DeathEvent* deathEvent) {
+	std::vector<Unit*>::iterator position = std::find(this->unitArray.begin(), this->unitArray.end(), deathEvent->getKilledUnit());
 	if (position != this->unitArray.end()) {// == myVector.end() means the element was not found
 		this->unitArray.erase(position);
 	}

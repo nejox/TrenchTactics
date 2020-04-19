@@ -67,7 +67,7 @@ public:
 	~Gamefield();
 	// void assignEventToTile(MouseClickEvent event); -----noch noetig?
 
-	Tile* Gamefield::getTilePointerAt(int x, int y);
+	Tile* getTilePointerAt(int x, int y);
 
 	Gamefield(const Gamefield&) = delete;
 	Gamefield& operator=(const Gamefield&) = delete;
@@ -79,10 +79,10 @@ public:
 		return gamefield;
 	}
 
-	int spawnUnitInSpawn(UnitBase* unit, bool redPlayerActive);
+	int spawnUnitInSpawn(Unit* unit, bool redPlayerActive);
 	bool spawnTileIsFree(int x, int y, vector<vector<FieldTile*>> activeSpawn);
 
-	void Init(int FieldWidth, int FieldHeight, int Seed);
+	void init(int FieldWidth, int FieldHeight, int Seed);
 	void initiatePlayerTiles(vector<vector<PlayerTile*>> hqTilePlayerX);
 	void initiateMenuTiles(vector<vector<MenuTile*>> menuBar);
 	void initiateSpawnTiles(vector<vector<FieldTile*>> spawn);

@@ -16,7 +16,7 @@ Gamefield::~Gamefield(){
 /// <param name="unit">pointer to unit that has to be spawned</param>
 /// <param name="redPlayerActive">show if red player is the active</param>
 /// <returns></returns>
-int Gamefield::spawnUnitInSpawn(UnitBase* pUnit, bool redPlayerActive)
+int Gamefield::spawnUnitInSpawn(Unit* pUnit, bool redPlayerActive)
 {
 	vector<vector<FieldTile*>>* activeSpawn;
 	bool spawnTileFound = false;
@@ -70,7 +70,7 @@ bool Gamefield::spawnTileIsFree(int x, int y, vector<vector<FieldTile*>> activeS
 /// <param name="FieldWidth">int for delacring width of playingfield</param>
 /// <param name="FieldHeight">int for delacring height of playingfield</param>
 /// <param name="Seed">int for regenerating certain playingfieldlayout. Not used yet.</param>
-void Gamefield::Init(int FieldWidth, int FieldHeight,int Seed) {
+void Gamefield::init(int FieldWidth, int FieldHeight,int Seed) {
 	Gamefield::initiatePlayerTiles(hqTilePlayerBlue);
 	Gamefield::initiatePlayerTiles(hqTilePlayerRed);
 	Gamefield::initiateMenuTiles(menuBar);

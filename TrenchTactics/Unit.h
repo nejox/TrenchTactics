@@ -31,16 +31,16 @@ private:
 public:
 
 	enum UnitType {
-		CC = 0,
-		GUNNER = 1,
-		GRENADE = 2
+		CC,
+		GUNNER,
+		GRENADE
 	};
-	
 
-	Unit(UnitType unittype) {
+
+	Unit(UnitType unittype, bool colorRed) {
 
 		UnitConf* uc = ConfigReader::instance().getUnitConf(unittype);
-		
+
 		m_hp = uc->getHp();
 		m_currentHP = uc->getHp();
 		m_range = uc->getRange();
@@ -54,20 +54,24 @@ public:
 		m_spawnProbability = uc->getSpawnProbability();
 		m_name = uc->getName();
 
-		if(EventBus::instance().activePlayer->getColour()) m_spriteFilePath = uc->getSpriteFilePathRed();
-		else m_spriteFilePath = uc->getSpriteFilePathBlue();
+		if (colorRed) {
+			m_spriteFilePath = uc->getSpriteFilePathRed();
+		}
+		else {
+			m_spriteFilePath = uc->getSpriteFilePathBlue();
+		}
 	}
 
-	
-	
-	 ~Unit() {};
-	 /*
-	 TO DO: checken ob ich den kram brauch wenn ich nur auf ein singleton zeige
-	 Unit(const Unit&);
-	 Unit& operator=(const Unit&);
-	 Unit(Unit&&);
-	 Unit& operator=(Unit&&);
-	 */
+
+
+	~Unit() {};
+	/*
+	TO DO: checken ob ich den kram brauch wenn ich nur auf ein singleton zeige
+	Unit(const Unit&);
+	Unit& operator=(const Unit&);
+	Unit(Unit&&);
+	Unit& operator=(Unit&&);
+	*/
 
 	void changeHP(int damage);
 	void attack(Unit* target);
@@ -76,31 +80,33 @@ public:
 	void updateAP(int cost);
 	void resetAP();
 
-	int Unit::getCurrentHP()
+	int getCurrentHP()
 	{
 		return this->m_currentHP;
 	}
 
-	void Unit::setCurrentHP(int currentHP)
+	void setCurrentHP(int currentHP)
 	{
 		m_currentHP = currentHP;
 	}
 
-	int Unit::getCurrentAP()
+	int getCurrentAP()
 	{
 		return this->m_currentAP;
 	}
 
-	void Unit::setCurrentAP(int currentAP)
+	void setCurrentAP(int currentAP)
 	{
 		m_currentAP = currentAP;
 	}
 
-	std::string Unit::getSpriteFilePath()
+	std::string getSpriteFilePath()
 	{
 		return m_spriteFilePath;
 	}
-	
+	int getRange() {
+		return this->m_range;
+	}
 
 
 };
