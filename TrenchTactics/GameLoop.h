@@ -27,7 +27,7 @@ private:
 public:
 	Game();
 	void initGame();
-	void startPhase();
+	void startPhases();
 	void gameLoop();
 	void quit();
 	void updateGame();
