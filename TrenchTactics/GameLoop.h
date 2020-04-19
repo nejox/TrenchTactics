@@ -3,6 +3,7 @@
 #include "Timer.hpp"
 #include "Gamefield.h"
 #include "Logger.hpp"
+#include "IRenderer.h"
 #include "RendererImpl.h"
 #include "Timer.hpp"
 #include "ConfigReader.h"
@@ -27,6 +28,8 @@ private:
 	Player* playerRed;
 	Player* playerBlue;
 	Player* activePlayer;
+	IEventManager& manager = EventManagerImpl::instance();
+	IRenderer& renderer = RendererImpl::instance();
 
 	bool gameRunning;
 	void switchActivePlayer();

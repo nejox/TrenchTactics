@@ -23,7 +23,7 @@ void Game::initGame() {
 	Gamefield::instance().init(ConfigReader::instance().getMapConf()->getSizeX(), ConfigReader::instance().getMapConf()->getSizeY(), ConfigReader::instance().getMapConf()->getSeed());
 
 	Logger::instance().log(LOGLEVEL::INFO, "Initializing Renderer");
-	RendererImpl::instance().init(ConfigReader::instance().getTechnicalConf()->getWindowSizeX(), ConfigReader::instance().getTechnicalConf()->getWindowSizeY());
+	renderer.init(ConfigReader::instance().getTechnicalConf()->getWindowSizeX(), ConfigReader::instance().getTechnicalConf()->getWindowSizeY());
 	this->activePlayer = playerRed;
 	this->gameRunning = true;
 	EventGateway::instance().init();
@@ -56,8 +56,8 @@ void Game::startPhases() {
 }
 
 void Game::updateGame() {
-	RendererImpl::instance().updateTimer();
-	EventManagerImpl::instance().processEvents();
+	renderer.updateTimer();
+	manager.processEvents();
 }
 
 void Game::quit() {
