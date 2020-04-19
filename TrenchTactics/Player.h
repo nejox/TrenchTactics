@@ -1,7 +1,9 @@
 #pragma once
 #include "Headquarter.h"
 #include "UnitBase.h"
+#include "EventBus.h"
 #include "GameLoop.h"
+#include "ConfigReader.h"
 #include <vector>
 #include <queue>
 #include <algorithm>
@@ -23,6 +25,7 @@ public:
 	int computeInterest();
 	void updatePlayer();
 	void copyUnitsToQueue();
+	void deleteUnit(UnitBase* unit);
 	void addUnit(UnitBase* unit) {
 		this->unitArray.push_back(unit);
 	}
@@ -31,6 +34,9 @@ public:
 	}
 	std::queue<UnitBase*> getUnitQueue() {
 		return this->unitQueue;
+	}
+	int getSupply() {
+		return this->supply;
 	}
 	bool getColor() {
 		return this->colorRed;
@@ -47,12 +53,6 @@ public:
 	bool getBuying() {
 		return this->buying;
 	}
-	void deleteUnit(UnitBase* unit) {
-		std::vector<UnitBase*>::iterator position = std::find(this->unitArray.begin(), this->unitArray.end(), unit);
-		if (position != this->unitArray.end()) {// == myVector.end() means the element was not found
-			this->unitArray.erase(position);
-		}
-
-	}
+	void deleteUnit(UnitBase* unit);
 };
 

@@ -49,6 +49,12 @@ void EventGateway::handleMoveEvent(MouseClickEvent* event) {
 }
 
 void EventGateway::handleBuyEvent(MouseClickEvent* event) {
+	//int unitId = getUnitIdFromButton(event->getX(), event->getY());
+	//UnitBase* purchasedUnit = new UnitBase();
+	if ((this->activePlayer->getSupply() + 1) > ConfigReader::instance().getBalanceConf()->getMaxAmountUnits()) {
+
+	}
+
 	if (this->activePlayer->getColor()) {
 		//	Tile* spawnTile = this->gamefield.getSpawnA();
 	}
@@ -56,8 +62,8 @@ void EventGateway::handleBuyEvent(MouseClickEvent* event) {
 		//	Tile* spawnTile = this->gamefield.getSpawnB();
 	}
 	// checkEventHitButton(event);
-	//int unitId = getUnitIdFromButton(event->getX(), event->getY());
-	//UnitBase* purchasedUnit = new UnitBase();
+	
+	
 	//BuyEvent* buyEvent = new BuyEvent(purchasedUnit);
 	//EventBus::instance().publish(spawnTile, buyEvent);
 	//this->activePlayer->addUnit(unit);
