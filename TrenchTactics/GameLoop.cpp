@@ -39,13 +39,13 @@ void Game::initGame() {
 void Game::gameLoop() {
 	Logger::instance().log(LOGLEVEL::INFO, "Game Running");
 	while (gameRunning) {
-		startPhase();
+		startPhases();
 		switchActivePlayer();
 		this->activePlayer->updatePlayer();
 	}
 	quit();
 }
-void Game::startPhase() {
+void Game::startPhases() {
 	this->activePlayer->copyUnitsToQueue();
 	for (GAMEPHASES::GAMEPHASE phase : GAMEPHASES::All) {
 		this->activePlayer->setCurrentPhase(phase);
