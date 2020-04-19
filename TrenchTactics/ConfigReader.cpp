@@ -112,7 +112,12 @@ std::map<int, UnitConf*> ConfigReader::createUnitConfMap()
 		unitConf->setHp(rootElem["hp"].asInt());
 		unitConf->setRange(rootElem["range"].asInt());
 		unitConf->setSpawnProbability(rootElem["spawnProbability"].asInt());
-		unitConf->setSpriteFilePath(rootElem["spriteFilePath"].asString());
+		unitConf->setSpriteFilePathStandingRed(rootElem["spritesRed"]["standing"].asString());
+		unitConf->setSpriteFilePathShootingRed(rootElem["spritesRed"]["shooting"].asString());
+		unitConf->setSpriteFilePathRunningRed(rootElem["spritesRed"]["running"].asString());
+		unitConf->setSpriteFilePathStandingBlue(rootElem["spritesBlue"]["standing"].asString());
+		unitConf->setSpriteFilePathShootingBlue(rootElem["spritesBlue"]["shooting"].asString());
+		unitConf->setSpriteFilePathRunningBlue(rootElem["spritesBlue"]["running"].asString());
 		unitConf->setName(rootElem["name"].asString());
 		unitConfMap[i] = unitConf;
 	}

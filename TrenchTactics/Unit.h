@@ -55,10 +55,10 @@ public:
 		m_name = uc->getName();
 
 		if (colorRed) {
-			m_spriteFilePath = uc->getSpriteFilePathRed();
+			m_spriteFilePath = uc->getSpriteFilePathStandingRed();
 		}
 		else {
-			m_spriteFilePath = uc->getSpriteFilePathBlue();
+			m_spriteFilePath = uc->getSpriteFilePathStandingBlue();
 		}
 	}
 
