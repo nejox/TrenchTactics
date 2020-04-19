@@ -3,19 +3,27 @@
 
 #include "Framework.hpp"
 
-class CSprite
+class Sprite
 {
 public:
-	CSprite();
-	~CSprite();
+	Sprite();
+	~Sprite();
 
-	void Load(const string sFilename);
-	void Render();
+	void setPos(int x, int y);
+	void load(const string sFilename);
+	void load(const string sFilename, int NumFrames, int FrameWidth = 64, int FrameHeight = 64);
+	void render();
+	void render(int frameNumber);
 
 private:
-	SDL_Renderer *m_pRenderer;
-	SDL_Texture	 *m_pImage;
-	SDL_Rect	  m_Rect;
+	SDL_Renderer *m_pRenderer;	// Zeiger auf den Renderer
+	SDL_Texture  *m_pImage;		// Das eigentliche Bild des Sprites
+	SDL_Rect	  m_Rect;		// Rect des Sprites
+	SDL_Rect	  m_FrameRect;	// Ausschnitt für Animationsphase
+	int m_NumFrames;			// Anzahl der Animationsphasen
+	int m_FrameWidth;			// Breite einer Animationsphase
+	int m_FrameHeight;			// Höhe einer Animationsphase
+	int m_NumFramesX;			// Wie viele Anim-Phasen in X-Richtung?
 };
 
 #endif
