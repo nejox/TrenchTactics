@@ -9,7 +9,15 @@
 	"map": {
 		"seed": 1234561,
 		"sizeX": 18,
-		"sizeY": 12
+		"sizeY": 12,
+		"headquarterSpirteRed": "../Data/Sprites/HQ/R_HQ.bmp",
+		"headquarterSpriteBlue": "../Data/Sprites/HQ/B_HQ.bmp",
+		"terrainSprites": [
+			"filePathToStone",
+			"filePathToMud",
+			"filePathToClay"
+		],
+		"spawnTileSprite": "filePathToSpawnSprite"
 	},
 	"technical": {
 		"fps": 30,
