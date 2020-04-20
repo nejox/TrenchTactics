@@ -13,9 +13,9 @@ public:
 	void load(const string sFilename);
 	void load(const string sFilename, int NumFrames, int FrameWidth = 64, int FrameHeight = 64);
 	void render();
-	void render(int frameNumber);
+	//void render(int frameNumber);
 
-private:
+protected:
 	SDL_Renderer *m_pRenderer;	// Zeiger auf den Renderer
 	SDL_Texture  *m_pImage;		// Das eigentliche Bild des Sprites
 	SDL_Rect	  m_Rect;		// Rect des Sprites
