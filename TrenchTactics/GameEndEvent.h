@@ -1,8 +1,7 @@
 
 #pragma once
 #include "Event.h"
-#include "Player.h"
-#include "EventGateWay.h"
+
 
 /// <summary>
 /// DeathEvent class for implementing the specialised event
@@ -11,14 +10,14 @@ class GameEndEvent :
 	public Event
 {
 public:
-	GameEndEvent() {
-		this->Winner = EventGateWay::instance().getActivePlayer();
+	GameEndEvent(bool colorRed) {
+		this->Winner = colorRed;
 	}
 
-	Player* getWinner() {
+	bool getWinner() {
 		return this->Winner;
 	}
 
 private:
-	Player* Winner;
+	bool Winner;
 };
