@@ -17,9 +17,9 @@ CGame::CGame()
 /// </summary>
 void CGame::Init()
 {
-	m_pSpriteBackground = new CSprite;
+	m_pSpriteBackground = new Sprite;
 
-	m_pSpriteBackground->Load("../Data/Sprites/Terrain/Background.bmp");
+	m_pSpriteBackground->load("../Data/Sprites/Terrain/Background.bmp");
 
 	m_bGameRun = true;
 }
@@ -47,7 +47,7 @@ void CGame::Run()
 	{
 		RendererImpl::instance().updateTimer();
 		RendererImpl::instance().clearScreen();
-		m_pSpriteBackground->Render();
+		m_pSpriteBackground->render();
 		RendererImpl::instance().render();
 
 	}

@@ -13,7 +13,7 @@ public:
 	void Quit();
 
 private:
-	CSprite *m_pSpriteBackground;
+	Sprite *m_pSpriteBackground;
 	bool     m_bGameRun;
 };
 
