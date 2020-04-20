@@ -3,6 +3,8 @@
 #include "PlayerTile.h"
 #include "MenuTile.h"
 #include "MouseClickEvent.h"
+#include "RendererImpl.h"
+#include "MapConf.h"
 #include "stdlib.h"
 #include <vector>
 
@@ -23,6 +25,20 @@ private:
 
 	Gamefield();
 
+	void setAllFieldSizes();
+	void setSizePlayerTilesBlue();
+	void setSizePlayerTilesRed();
+	void setSizeMenuBar();
+	void setSizePlayingField();
+	void setSizeSpawnBlue();
+	void setSizeSpawnRed();
+
+	void initiatePlayerTilesBlue();
+	void initiatePlayerTilesRed();
+	void initiateMenuTiles();
+	void initiateSpawnTilesBlue();
+	void initiateSpawnTilesRed();
+	void initiatePlayingFieldTiles();
 
 public:
 	void setMenuBar(vector<vector <std::shared_ptr<MenuTile>>> menuBar) {
@@ -83,21 +99,6 @@ public:
 	bool fieldTileIsFree(int x, int y, vector<vector<std::shared_ptr<FieldTile>>> activeSpawn);
 
 	void Init(int FieldWidth, int FieldHeight, int Seed);
-
-	void setAllFieldSizes();
-	void setSizePlayerTilesBlue();
-	void setSizePlayerTilesRed();
-	void setSizeMenuBar();
-	void setSizePlayingField();
-	void setSizeSpawnBlue();
-	void setSizeSpawnRed();
-
-	void initiatePlayerTilesBlue();
-	void initiatePlayerTilesRed();
-	void initiateMenuTiles();
-	void initiateSpawnTilesBlue();
-	void initiateSpawnTilesRed();
-	void initiatePlayingFieldTiles();
 
 	std::shared_ptr<FieldTile> findTileForUnit(std::shared_ptr<UnitBase> pUnit);
 };
