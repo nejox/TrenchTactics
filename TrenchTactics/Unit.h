@@ -54,8 +54,8 @@ public:
 		m_spawnProbability = uc->getSpawnProbability();
 		m_name = uc->getName();
 
-		if(EventBus::instance().activePlayer->getColour()) m_spriteFilePath = uc->getSpriteFilePathRed();
-		else m_spriteFilePath = uc->getSpriteFilePathBlue();
+		//if(EventBus::instance().activePlayer->getColour()) m_spriteFilePath = uc->getSpriteFilePathRed();
+		//else m_spriteFilePath = uc->getSpriteFilePathBlue();
 	}
 
 	

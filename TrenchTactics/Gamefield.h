@@ -95,10 +95,10 @@ public:
 		return gamefield;
 	}
 
-	int spawnUnitInSpawn(std::shared_ptr<UnitBase> unit, bool redPlayerActive);
+	int spawnUnitInSpawn(std::shared_ptr<Unit> unit, bool redPlayerActive);
 	bool fieldTileIsFree(int x, int y, vector<vector<std::shared_ptr<FieldTile>>> activeSpawn);
 
 	void Init(int FieldWidth, int FieldHeight, int Seed);
 
-	std::shared_ptr<FieldTile> findTileForUnit(std::shared_ptr<UnitBase> pUnit);
+	std::shared_ptr<FieldTile> findTileForUnit(std::shared_ptr<Unit> pUnit);
 };

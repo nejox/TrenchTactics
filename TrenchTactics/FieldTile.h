@@ -1,6 +1,6 @@
 #pragma once
 #include "Tile.h"
-#include "UnitBase.h"
+#include "Unit.h"
 
 
 /// <summary>
@@ -17,14 +17,14 @@ public:
 	};
 
 private:
-	std::shared_ptr<UnitBase> unit;
+	std::shared_ptr<Unit> unit;
 	terrainType terrain;
 public:
 	
-	void setUnit(std::shared_ptr<UnitBase> unit) {
+	void setUnit(std::shared_ptr<Unit> unit) {
 		this->unit = unit;
 	}
-	std::shared_ptr<UnitBase> getUnit() {
+	std::shared_ptr<Unit> getUnit() {
 		return this->unit;
 	}
 	void setTerrain(terrainType terrain) {
