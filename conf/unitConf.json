@@ -1,41 +1,71 @@
-[{
-        "ap": 4,
-        "apCostAttack": 3,
-        "apCostMove": 1,
-        "apCostTrench": 3,
-        "cost": 60,
-        "dmg": 40,
-        "hp": 80,
-        "id": 0,
-        "name": "Grenadier",
-        "range": 8,
-        "spawnProbability": 30,
-        "spriteFilePath": "../Data/Background.bmp"
-    }, {
-        "ap": 5,
-        "apCostAttack": 3,
-        "apCostMove": 1,
-        "apCostTrench": 4,
-        "cost": 50,
-        "dmg": 50,
-        "hp": 100,
-        "id": 0,
-        "name": "Gunner",
-        "range": 4,
-        "spawnProbability": 40,
-        "spriteFilePath": "../Data/Background.bmp"
-    }, {
-        "ap": 6,
-        "apCostAttack": 3,
-        "apCostMove": 1,
-        "apCostTrench": 3,
-        "cost": 60,
-        "dmg": 65,
-        "hp": 130,
-        "id": 0,
-        "name": "Grenadier",
-        "range": 2,
-        "spawnProbability": 30,
-        "spriteFilePath": "../Data/Background.bmp"
-    }
+[
+	{
+		"ap": 4,
+		"apCostAttack": 3,
+		"apCostMove": 1,
+		"apCostTrench": 3,
+		"cost": 60,
+		"dmg": 40,
+		"hp": 80,
+		"id": 0,
+		"name": "Grenadier",
+		"range": 8,
+		"spawnProbability": 30,
+		"spritesRed": {
+			"standing": "../Data/Sprites/R_Units/R_GRENADE_STANDIN_ACTIVE.bmp",
+			"shooting": "../Data/Sprites/R_Units/R_GRENADE_SHOOTING.bmp",
+			"running": "../Data/Sprites/R_Units/R_GRENADE_RUNNING.bmp"
+		},
+		"spritesBlue": {
+			"standing": "../Data/Sprites/B_Units/B_GRENADE_STANDIN_ACTIVE.bmp",
+			"shooting": "../Data/Sprites/B_Units/B_GRENADE_SHOOTING.bmp",
+			"running": "../Data/Sprites/B_Units/B_GRENADE_RUNNING.bmp"
+		}
+	},
+	{
+		"ap": 5,
+		"apCostAttack": 3,
+		"apCostMove": 1,
+		"apCostTrench": 4,
+		"cost": 50,
+		"dmg": 50,
+		"hp": 100,
+		"id": 0,
+		"name": "Gunner",
+		"range": 4,
+		"spawnProbability": 40,
+		"spritesRed": {
+			"standing": "../Data/Sprites/R_Units/R_GUNNER_STANDIN_ACTIVE.bmp",
+			"shooting": "../Data/Sprites/R_Units/R_GUNNER_SHOOTING.bmp",
+			"running": "../Data/Sprites/R_Units/R_GUNNER_RUNNING.bmp"
+		},
+		"spritesBlue": {
+			"standing": "../Data/Sprites/B_Units/B_GUNNER_STANDIN_ACTIVE.bmp",
+			"shooting": "../Data/Sprites/B_Units/B_GUNNER_SHOOTING.bmp",
+			"running": "../Data/Sprites/B_Units/B_GUNNER_RUNNING.bmp"
+		}
+	},
+	{
+		"ap": 6,
+		"apCostAttack": 3,
+		"apCostMove": 1,
+		"apCostTrench": 3,
+		"cost": 60,
+		"dmg": 65,
+		"hp": 130,
+		"id": 0,
+		"name": "CloseCombat",
+		"range": 2,
+		"spawnProbability": 30,
+		"spritesRed": {
+			"standing": "../Data/Sprites/R_Units/R_GUNNER_STANDIN_ACTIVE.bmp",
+			"shooting": "../Data/Sprites/R_Units/R_GUNNER_SHOOTING.bmp",
+			"running": "../Data/Sprites/R_Units/R_GUNNER_RUNNING.bmp"
+		},
+		"spritesBlue": {
+			"standing": "../Data/Sprites/B_Units/B_GUNNER_STANDIN_ACTIVE.bmp",
+			"shooting": "../Data/Sprites/B_Units/B_GUNNER_SHOOTING.bmp",
+			"running": "../Data/Sprites/B_Units/B_GUNNER_RUNNING.bmp"
+		}
+	}
 ]

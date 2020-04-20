@@ -19,7 +19,15 @@ private:
 	int apCostTrench;
 	int spawnProbability;
 	std::string name;
-	std::string spriteFilePath;
+
+	std::string spriteFilePathStandingRed;
+	std::string spriteFilePathShootingRed;
+	std::string spriteFilePathRunningRed;
+
+	std::string spriteFilePathStandingBlue;
+	std::string spriteFilePathShootingBlue;
+	std::string spriteFilePathRunningBlue;
+
 
 public:
 
@@ -93,10 +101,41 @@ public:
 	std::string getName() {
 		return this->name;
 	}
-	void setSpriteFilePath(std::string spriteFilePath) {
-		this->spriteFilePath = spriteFilePath;
+	void setSpriteFilePathStandingRed(std::string spriteFilePathStandingRed) {
+		this->spriteFilePathStandingRed = spriteFilePathStandingRed;
 	}
-	std::string getSpriteFilePath() {
-		return this->spriteFilePath;
+	std::string getSpriteFilePathStandingRed() {
+		return this->spriteFilePathStandingRed;
 	}
+	void setSpriteFilePathShootingRed(std::string spriteFilePathShootingRed) {
+		this->spriteFilePathShootingRed = spriteFilePathShootingRed;
+	}
+	std::string getSpriteFilePathShootingRed() {
+		return this->spriteFilePathShootingRed;
+	}
+	void setSpriteFilePathRunningRed(std::string spriteFilePathRunningRed) {
+		this->spriteFilePathRunningRed = spriteFilePathRunningRed;
+	}
+	std::string getSpriteFilePathRunningRed() {
+		return this->spriteFilePathRunningRed;
+	}
+	void setSpriteFilePathStandingBlue(std::string spriteFilePathStandingBlue) {
+		this->spriteFilePathStandingBlue = spriteFilePathStandingBlue;
+	}
+	std::string getSpriteFilePathStandingBlue() {
+		return this->spriteFilePathStandingBlue;
+	}
+	void setSpriteFilePathShootingBlue(std::string spriteFilePathShootingBlue) {
+		this->spriteFilePathShootingBlue = spriteFilePathShootingBlue;
+	}
+	std::string getSpriteFilePathShootingBlue() {
+		return this->spriteFilePathShootingBlue;
+	}
+	void setSpriteFilePathRunningBlue(std::string spriteFilePathRunningBlue) {
+		this->spriteFilePathRunningBlue = spriteFilePathRunningBlue;
+	}
+	std::string getSpriteFilePathRunningBlue() {
+		return this->spriteFilePathRunningBlue;
+	}
+
 };
