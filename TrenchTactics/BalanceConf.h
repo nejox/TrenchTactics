@@ -1,8 +1,9 @@
 #pragma once
 
-/// <summary>
-/// Balance configeration data container with all getters and setters
-/// </summary>
+/**
+ * Base class for balnce configuration of the game 
+ * Used to hold data and provide it to otherinstances
+ */
 class BalanceConf {
 private:
 	int hqHP;

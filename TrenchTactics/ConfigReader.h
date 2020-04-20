@@ -21,20 +21,20 @@ public:
 		return confReader;
 	}
 
-	UnitConf* getUnitConf(int id)
+	std::shared_ptr<UnitConf> getUnitConf(int id)
 	{
 		return this->unitConfMap[id];
 	}
 
-	BalanceConf* getBalanceConf() {
+	std::shared_ptr <BalanceConf> getBalanceConf() {
 		return this->balanceConf;
 	}
 
-	MapConf* getMapConf() {
+	std::shared_ptr <MapConf> getMapConf() {
 		return this->mapConf;
 	}
 
-	TechConf* getTechnicalConf() {
+	std::shared_ptr <TechConf> getTechnicalConf() {
 		return this->techConf;
 	}
 
@@ -42,13 +42,13 @@ public:
 
 private:
 	ConfigReader();
-	std::map<int, UnitConf*> unitConfMap;
-	BalanceConf* balanceConf;
-	MapConf* mapConf;
-	TechConf* techConf;
+	std::map<int, std::shared_ptr<UnitConf>> unitConfMap;
+	std::shared_ptr<BalanceConf> balanceConf;
+	std::shared_ptr<MapConf> mapConf;
+	std::shared_ptr<TechConf> techConf;
 	Json::Value getJsonRootFromFile(std::string filePath);
-	MapConf* createMapConf();
-	TechConf* createTechConf();
-	BalanceConf* createBalanceConf();
-	std::map<int, UnitConf*> createUnitConfMap();
+	std::shared_ptr<MapConf> createMapConf();
+	std::shared_ptr<TechConf> createTechConf();
+	std::shared_ptr<BalanceConf> createBalanceConf();
+	std::map<int, std::shared_ptr<UnitConf>> createUnitConfMap();
 };
