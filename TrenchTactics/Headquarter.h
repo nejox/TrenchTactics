@@ -24,5 +24,8 @@ public:
 		return m_spriteFilePath;
 	}
 
+	
+
+
 
 };
