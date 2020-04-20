@@ -17,6 +17,6 @@ public:
 	}
 	int handleEvent();
 	MenuTile() {};
-	~MenuTile();
+	~MenuTile() {};
 	
 };

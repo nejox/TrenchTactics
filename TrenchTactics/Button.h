@@ -23,5 +23,5 @@ public:
 		return this->type;
 	}
 	Button() {};
-	~Button();
+	~Button() {};
 };
