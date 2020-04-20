@@ -11,7 +11,7 @@ public:
 		damaged
 	};
 
-	SpriteHQ(const std::string filename, int numFrames);
+	SpriteHQ(const std::string filename);
 	void render(state health);
 
 private:

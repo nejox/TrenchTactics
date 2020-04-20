@@ -1,8 +1,8 @@
 #include "SpriteHQ.h"
 
-SpriteHQ::SpriteHQ(const std::string filename, int numFrames)
+SpriteHQ::SpriteHQ(const std::string filename)
 {
-	this->load(filename, 2, 128, 128);
+	this->load(filename, 128, 128);
 }
 
 void SpriteHQ::render(state health)

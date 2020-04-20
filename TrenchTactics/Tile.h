@@ -11,7 +11,7 @@ private:
 	int yPos;
 	bool marked;
 	bool selected;
-	CSprite sprite;
+	Sprite *sprite;
 	
 
 public:
@@ -39,10 +39,10 @@ public:
 	bool getSelected() {
 		return this->selected;
 	}
-	void setSprite(CSprite sprite) {
+	void setSprite(Sprite*sprite) {
 		this->sprite = sprite;
 	}
-	CSprite getSprite() {
+	Sprite* getSprite() {
 		return this->sprite;
 	}
 	int startAnimation() {};

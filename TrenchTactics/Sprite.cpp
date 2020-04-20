@@ -61,18 +61,19 @@ void Sprite::load(const string sFilename)
 
 }
 
-void Sprite::load(const string sFilename, int NumFrames, int FrameWidth, int FrameHeight)
+void Sprite::load(const string sFilename, int FrameWidth, int FrameHeight)
 {
 	// Bitmap laden
 	load(sFilename);
 
 	// Rect für Animationsphase initialisieren
-	m_NumFrames	  = NumFrames; //wie viele einzelbilder
+	
 	m_FrameWidth  = FrameWidth;
 	m_FrameHeight = FrameHeight;
 	m_FrameRect.w = FrameWidth;  // welcher teil der animation
 	m_FrameRect.h = FrameHeight;
 	m_NumFramesX  = m_Rect.w / m_FrameWidth; //anzahl der frames im bild
+	m_NumFrames = m_NumFramesX; //wie viele einzelbilder
 
 	// Ziel-Rect korrigieren
 	m_Rect.w = FrameWidth; // den aktuellen teil der animation

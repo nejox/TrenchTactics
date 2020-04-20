@@ -10,7 +10,7 @@
 		"seed": 1234561,
 		"sizeX": 18,
 		"sizeY": 12,
-		"headquarterSpirteRed": "../Data/Sprites/HQ/R_HQ.bmp",
+		"headquarterSpriteRed": "../Data/Sprites/HQ/R_HQ.bmp",
 		"headquarterSpriteBlue": "../Data/Sprites/HQ/B_HQ.bmp",
 		"terrainSprites": [
 			"filePathToStone",
