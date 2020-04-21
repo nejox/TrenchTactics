@@ -1,15 +1,10 @@
 #include "GameLoop.h"
-#include "Logger.hpp"
-#include "RendererImpl.h"
-#include "Timer.hpp"
-#include "ConfigReader.h"
-#include "UnitBase.h"
+
 
 Game::Game() {
 	Logger::instance().log(LOGLEVEL::INFO, "Starting Game Class");
 	playerRed = NULL;
 	playerBlue = NULL;
-	gamefield = NULL;
 	gameRunning = NULL;
 	activePlayer = NULL;
 }
@@ -25,13 +20,13 @@ void Game::initGame() {
 	this->playerBlue->init(false);
 
 	Logger::instance().log(LOGLEVEL::INFO, "Initializing Gamefield");
-	this->gamefield = new Gamefield();
-	//this->gamefield.init();
+	Gamefield::instance().init(ConfigReader::instance().getMapConf()->getSizeX(), ConfigReader::instance().getMapConf()->getSizeY(), ConfigReader::instance().getMapConf()->getSeed());
 
 	Logger::instance().log(LOGLEVEL::INFO, "Initializing Renderer");
 	RendererImpl::instance().init(ConfigReader::instance().getTechnicalConf()->getWindowSizeX(), ConfigReader::instance().getTechnicalConf()->getWindowSizeY());
 	this->activePlayer = playerRed;
 	this->gameRunning = true;
+	EventGateway::instance().init();
 	gameLoop();
 }
 
@@ -61,11 +56,14 @@ void Game::startPhases() {
 }
 
 void Game::updateGame() {
-	//this->gamefield.update();
 	RendererImpl::instance().updateTimer();
+	EventManagerImpl::instance().processEvents();
 }
+
 void Game::quit() {
+	this->gameRunning = false;
 }
+
 void Game::switchActivePlayer() {
 	if (this->activePlayer->getColor()) {
 		this->activePlayer = playerRed;

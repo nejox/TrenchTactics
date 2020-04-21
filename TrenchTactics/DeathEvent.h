@@ -14,7 +14,7 @@ public:
 		this->DeathUnit = DeathUnit;
 		
 	}
-	Unit* getDeathUnit() {
+	Unit* getKilledUnit() {
 		return this->DeathUnit;
 	}
 

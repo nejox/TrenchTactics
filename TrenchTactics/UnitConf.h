@@ -19,15 +19,8 @@ private:
 	int apCostTrench;
 	int spawnProbability;
 	std::string name;
-
-	std::string spriteFilePathStandingRed;
-	std::string spriteFilePathShootingRed;
-	std::string spriteFilePathRunningRed;
-
-	std::string spriteFilePathStandingBlue;
-	std::string spriteFilePathShootingBlue;
-	std::string spriteFilePathRunningBlue;
-
+	std::string spriteFilePathRed;
+	std::string spriteFilePathBlue;
 
 public:
 
@@ -101,41 +94,16 @@ public:
 	std::string getName() {
 		return this->name;
 	}
-	void setSpriteFilePathStandingRed(std::string spriteFilePathStandingRed) {
-		this->spriteFilePathStandingRed = spriteFilePathStandingRed;
+	void setSpriteFilePathRed(std::string spriteFilePathRed) {
+		this->spriteFilePathRed = spriteFilePathRed;
 	}
-	std::string getSpriteFilePathStandingRed() {
-		return this->spriteFilePathStandingRed;
+	std::string getSpriteFilePathRed() {
+		return this->spriteFilePathRed;
 	}
-	void setSpriteFilePathShootingRed(std::string spriteFilePathShootingRed) {
-		this->spriteFilePathShootingRed = spriteFilePathShootingRed;
+	void setSpriteFilePathBlue(std::string spriteFilePathBlue) {
+		this->spriteFilePathBlue = spriteFilePathBlue;
 	}
-	std::string getSpriteFilePathShootingRed() {
-		return this->spriteFilePathShootingRed;
+	std::string getSpriteFilePathBlue() {
+		return this->spriteFilePathBlue;
 	}
-	void setSpriteFilePathRunningRed(std::string spriteFilePathRunningRed) {
-		this->spriteFilePathRunningRed = spriteFilePathRunningRed;
-	}
-	std::string getSpriteFilePathRunningRed() {
-		return this->spriteFilePathRunningRed;
-	}
-	void setSpriteFilePathStandingBlue(std::string spriteFilePathStandingBlue) {
-		this->spriteFilePathStandingBlue = spriteFilePathStandingBlue;
-	}
-	std::string getSpriteFilePathStandingBlue() {
-		return this->spriteFilePathStandingBlue;
-	}
-	void setSpriteFilePathShootingBlue(std::string spriteFilePathShootingBlue) {
-		this->spriteFilePathShootingBlue = spriteFilePathShootingBlue;
-	}
-	std::string getSpriteFilePathShootingBlue() {
-		return this->spriteFilePathShootingBlue;
-	}
-	void setSpriteFilePathRunningBlue(std::string spriteFilePathRunningBlue) {
-		this->spriteFilePathRunningBlue = spriteFilePathRunningBlue;
-	}
-	std::string getSpriteFilePathRunningBlue() {
-		return this->spriteFilePathRunningBlue;
-	}
-
 };

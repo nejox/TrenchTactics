@@ -2,6 +2,13 @@
 #include "Player.h"
 #include "Timer.hpp"
 #include "Gamefield.h"
+#include "Logger.hpp"
+#include "RendererImpl.h"
+#include "Timer.hpp"
+#include "ConfigReader.h"
+#include "Unit.h"
+#include "EventGateway.h"
+#include "EventManagerImpl.h"
 
 // enum for gamephases
 namespace GAMEPHASES {
@@ -20,7 +27,6 @@ private:
 	Player* playerRed;
 	Player* playerBlue;
 	Player* activePlayer;
-	Gamefield* gamefield;
 
 	bool gameRunning;
 	void switchActivePlayer();
