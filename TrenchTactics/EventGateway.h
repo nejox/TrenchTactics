@@ -2,12 +2,15 @@
 #include "GameLoop.h"
 #include "EventBus.h"
 #include "MouseClickEvent.h"
-#include "UnitBase.h"
+#include "Unit.h"
 #include "MoveEvent.h"
-#include "AttackEvent.h"
-#include "BuyEvent.h"
 #include "ConfigReader.h"
+#include "IEventManager.h"
 
+/**
+ * EventGateway class which does most of the heavy lifting with event forwarding and controlling
+ * Takes all events, makes loigcal checks and forwards the action to the specific handler
+ */
 class EventGateway
 {
 public:
@@ -27,21 +30,20 @@ public:
 	void setCurrentPhase(GAMEPHASES::GAMEPHASE phase) {
 		this->currentPhase = phase;
 	}
-	void setGamefield(Gamefield gamefield) {
-		this->gamefield = gamefield;
-	}
-	void setActivePlayer(Player* player) {
+
+	void setActivePlayer(std::shared_ptr<Player> player) {
 		this->activePlayer = player;
 	}
 
 private:
-	EventGateway();
-	Gamefield gamefield;
+	EventGateway() {};
 	GAMEPHASES::GAMEPHASE currentPhase;
-	Player* activePlayer;
+	std::shared_ptr<Player> activePlayer;
 
 	void handleAttackEvent(MouseClickEvent* event);
 	void handleMoveEvent(MouseClickEvent* event);
 	void handleBuyEvent(MouseClickEvent* event);
+	bool checkEventInField(MouseClickEvent* event);
+	bool checkRange(int range, int originX, int originY, int targetX, int targetY);
 
 };

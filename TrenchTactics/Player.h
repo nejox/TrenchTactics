@@ -1,6 +1,7 @@
 #pragma once
 #include "Headquarter.h"
-#include "UnitBase.h"
+#include "Unit.h"
+#include "DeathEvent.h"
 #include "EventBus.h"
 #include "Gamephases.h"
 #include "ConfigReader.h"
@@ -10,7 +11,7 @@
 
 /**
  * Player main class - holds most of the informations
- * controlls units of player as well as money and supply of a player 
+ * controlls units of player as well as money and supply of a player
  */
 class Player
 {
@@ -18,8 +19,8 @@ private:
 	bool colorRed;
 	bool buying;
 	Headquarter* headquarter;
-	std::vector<UnitBase*> unitArray;
-	std::queue<UnitBase*> unitQueue;
+	std::vector<Unit*> unitArray;
+	std::queue<Unit*> unitQueue;
 	int money;
 	int interest;
 	int supply;
@@ -29,14 +30,13 @@ public:
 	void computeInterest();
 	void updatePlayer();
 	void copyUnitsToQueue();
-	void deleteUnit(UnitBase* unit);
-	void addUnit(UnitBase* unit) {
+	void addUnit(Unit* unit) {
 		this->unitArray.push_back(unit);
 	}
-	std::vector<UnitBase*> getUnitArray() {
+	std::vector<Unit*> getUnitArray() {
 		return this->unitArray;
 	}
-	std::queue<UnitBase*> getUnitQueue() {
+	std::queue<Unit*> getUnitQueue() {
 		return this->unitQueue;
 	}
 	int getSupply() {
@@ -57,6 +57,5 @@ public:
 	bool getBuying() {
 		return this->buying;
 	}
-	void deleteUnit(UnitBase* unit);
+	void deleteUnit(DeathEvent* deathEvent);
 };
-
