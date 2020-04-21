@@ -20,7 +20,7 @@ private:
 	std::shared_ptr<Unit> unit;
 	terrainType terrain;
 public:
-	
+
 	void setUnit(std::shared_ptr<Unit> unit) {
 		this->unit = unit;
 	}

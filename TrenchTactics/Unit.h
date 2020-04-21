@@ -34,18 +34,18 @@ private:
 public:
 
 	enum UnitType {
-		CC = 0,
-		GUNNER = 1,
-		GRENADE = 2
+		CC,
+		GUNNER,
+		GRENADE
 	};
-	
+
+
 
 	Unit(UnitType unittype, bool colorRed) {
-		
 
-		UnitConf* uc = ConfigReader::instance().getUnitConf(unittype);
-		
+		std::shared_ptr<UnitConf> uc = ConfigReader::instance().getUnitConf(unittype);
 		m_colorRed = colorRed;
+
 		m_hp = uc->getHp();
 		m_currentHP = uc->getHp();
 		m_range = uc->getRange();
@@ -58,7 +58,6 @@ public:
 		m_apCostTrench = uc->getApCostTrench();
 		m_spawnProbability = uc->getSpawnProbability();
 		m_name = uc->getName();
-
 
 		if (colorRed) {
 			 m_spriteFilePathStanding = uc->getSpriteFilePathStandingRed();
@@ -73,57 +72,42 @@ public:
 
 	}
 
-	
-	
-	 ~Unit() {};
-	 /*
-	 TO DO: checken ob ich den kram brauch wenn ich nur auf ein singleton zeige
-	 Unit(const Unit&);
-	 Unit& operator=(const Unit&);
-	 Unit(Unit&&);
-	 Unit& operator=(Unit&&);
-	 */
+
+
+	~Unit() {};
+	/*
+	TO DO: checken ob ich den kram brauch wenn ich nur auf ein singleton zeige
+	Unit(const Unit&);
+	Unit& operator=(const Unit&);
+	Unit(Unit&&);
+	Unit& operator=(Unit&&);
+	*/
 
 	void changeHP(int damage);
-	void attack(Unit* target);
+	void attack(std::shared_ptr<Unit> target);
 	void attack(Headquarter* target);
 	void move();
 	void updateAP(int cost);
 	void resetAP();
 
-	int Unit::getCurrentHP()
+	int getCurrentHP()
 	{
 		return this->m_currentHP;
 	}
 
-	void Unit::setCurrentHP(int currentHP)
+	void setCurrentHP(int currentHP)
 	{
 		m_currentHP = currentHP;
 	}
 
-	int Unit::getCurrentAP()
+	int getCurrentAP()
 	{
 		return this->m_currentAP;
 	}
 
-	void Unit::setCurrentAP(int currentAP)
+	void setCurrentAP(int currentAP)
 	{
 		m_currentAP = currentAP;
-	}
-
-	std::string Unit::getSpriteFilePathStanding()
-	{
-		return m_spriteFilePathStanding;
-	}
-
-	std::string Unit::getSpriteFilePathShooting()
-	{
-	return m_spriteFilePathShooting;
-	}
-
-	std::string Unit::getSpriteFilePathRunning()
-	{
-	return m_spriteFilePathRunning;
 	}
 
 	bool getColorRed()
@@ -135,7 +119,9 @@ public:
 	{
 		this->m_colorRed = colorRed;
 	}
-	
+	int getRange() {
+		return this->m_range;
+	}
 
 
 };

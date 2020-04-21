@@ -6,8 +6,7 @@
 class IEventManager
 {
 public:
-	virtual ~IEventManager(){}
+	virtual ~IEventManager() {}
 	virtual void processEvents() = 0;
 
 };
-

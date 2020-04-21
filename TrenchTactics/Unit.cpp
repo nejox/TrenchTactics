@@ -2,11 +2,8 @@
 #include "DeathEvent.h"
 
 
-void Unit::attack(Unit* target)
+void Unit::attack(std::shared_ptr<Unit> target)
 {
-	target->changeHP(m_dmg);
-
-
 	if (target->getCurrentHP() <= 0)
 	{
 		DeathEvent* deathEvent = new DeathEvent(target);
