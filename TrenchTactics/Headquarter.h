@@ -19,11 +19,11 @@ private:
 public:
 	Headquarter(bool colourRed)
 	{
-		BalanceConf* c = ConfigReader::instance().getBalanceConf();
+		std::shared_ptr<BalanceConf> c = ConfigReader::instance().getBalanceConf();
 
 		m_colorRed = colourRed;
-		m_maxHP = c->getHqHP;
-		m_currentHP = c->getHqHP;
+		m_maxHP = c->getHqHP();
+		m_currentHP = c->getHqHP();
 
 		if (colourRed)
 		{

@@ -43,7 +43,7 @@ public:
 	Unit(UnitType unittype, bool colorRed) {
 		
 
-		UnitConf* uc = ConfigReader::instance().getUnitConf(unittype);
+		std::shared_ptr<UnitConf> uc = ConfigReader::instance().getUnitConf(unittype);
 		
 		m_colorRed = colorRed;
 		m_hp = uc->getHp();
