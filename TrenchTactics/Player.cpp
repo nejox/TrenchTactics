@@ -6,9 +6,9 @@
  * \param colorRed set the color of the player(red if true)
  */
 void Player::init(bool colorRed) {
-    this->colorRed = colorRed;
-    this->money = ConfigReader::instance().getBalanceConf()->getStartingGold();
-    EventBus::instance().subscribe(this, &Player::deleteUnit);
+	this->colorRed = colorRed;
+	this->money = ConfigReader::instance().getBalanceConf()->getStartingGold();
+	EventBus::instance().subscribe(this, &Player::deleteUnit);
 }
 
 /**
@@ -18,7 +18,7 @@ void Player::init(bool colorRed) {
  *
  */
 void Player::computeInterest() {
-    this->money += 30 + 0.15 * this->money;
+	this->money += 30 + 0.15 * this->money;
 
 }
 
@@ -27,8 +27,8 @@ void Player::computeInterest() {
  *
  */
 void Player::updatePlayer() {
-    computeInterest();
-    this->supply = this->unitArray.size();
+	computeInterest();
+	this->supply = this->unitArray.size();
 }
 
 /**
@@ -36,9 +36,9 @@ void Player::updatePlayer() {
  *
  */
 void Player::copyUnitsToQueue() {
-    for (Unit* unit : this->unitArray) {
-        this->unitQueue.push(unit);
-    }
+	for (std::shared_ptr<Unit> unit : this->unitArray) {
+		this->unitQueue.push(unit);
+	}
 }
 
 /**
@@ -47,9 +47,9 @@ void Player::copyUnitsToQueue() {
  * \param deathEvent event holding unit to be deleted
  */
 void Player::deleteUnit(DeathEvent* deathEvent) {
-    std::vector<Unit*>::iterator position = std::find(this->unitArray.begin(), this->unitArray.end(), deathEvent->getKilledUnit());
-    if (position != this->unitArray.end()) {// == myVector.end() means the element was not found
-        this->unitArray.erase(position);
-    }
+	std::vector<std::shared_ptr<Unit>>::iterator position = std::find(this->unitArray.begin(), this->unitArray.end(), deathEvent->getKilledUnit());
+	if (position != this->unitArray.end()) {// == myVector.end() means the element was not found
+		this->unitArray.erase(position);
+	}
 
 }

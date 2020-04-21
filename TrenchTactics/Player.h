@@ -19,8 +19,8 @@ private:
 	bool colorRed;
 	bool buying;
 	Headquarter* headquarter;
-	std::vector<Unit*> unitArray;
-	std::queue<Unit*> unitQueue;
+	std::vector<std::shared_ptr<Unit>> unitArray;
+	std::queue<std::shared_ptr<Unit>> unitQueue;
 	int money;
 	int interest;
 	int supply;
@@ -30,13 +30,13 @@ public:
 	void computeInterest();
 	void updatePlayer();
 	void copyUnitsToQueue();
-	void addUnit(Unit* unit) {
+	void addUnit(std::shared_ptr<Unit> unit) {
 		this->unitArray.push_back(unit);
 	}
-	std::vector<Unit*> getUnitArray() {
+	std::vector<std::shared_ptr<Unit>> getUnitArray() {
 		return this->unitArray;
 	}
-	std::queue<Unit*> getUnitQueue() {
+	std::queue<std::shared_ptr<Unit>> getUnitQueue() {
 		return this->unitQueue;
 	}
 	int getSupply() {

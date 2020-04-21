@@ -74,7 +74,7 @@ public:
 	*/
 
 	void changeHP(int damage);
-	void attack(Unit* target);
+	void attack(std::shared_ptr<Unit> target);
 	void attack(Headquarter* target);
 	void move();
 	void updateAP(int cost);

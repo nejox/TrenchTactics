@@ -1,6 +1,6 @@
 #pragma once
 #include "Event.h"
-#include "UnitBase.h"
+#include "Unit.h"
 
 /// <summary>
 /// MoveEvent class for implementing the specialised event
@@ -9,12 +9,12 @@ class MoveEvent :
 	public Event
 {
 public:
-	MoveEvent(UnitBase* unitToBeMoved, int x, int y) {
+	MoveEvent(std::shared_ptr<Unit> unitToBeMoved, int x, int y) {
 		this->unitToBeMoved = unitToBeMoved;
 		this->x = x;
 		this->y = y;
 	}
-	UnitBase* getUnit() {
+	std::shared_ptr<Unit> getUnit() {
 		return this->unitToBeMoved;
 	}
 	int getX() {
@@ -27,6 +27,6 @@ public:
 private:
 	int x;
 	int y;
-	UnitBase* unitToBeMoved;
+	std::shared_ptr<Unit> unitToBeMoved;
 };
 

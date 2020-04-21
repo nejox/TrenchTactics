@@ -37,8 +37,8 @@ void EventGateway::handleEvent(MouseClickEvent* event) {
  */
 void EventGateway::handleAttackEvent(MouseClickEvent* event) {
 	if (checkEventInField(event)) {
-		Unit* unitToBeAttacked = Gamefield::instance().getField()[event->getX()][event->getY()]->getUnit();
-		Unit* unitAttacking = this->activePlayer->getUnitQueue().front();
+		std::shared_ptr<Unit> unitToBeAttacked = Gamefield::instance().getField()[event->getX()][event->getY()]->getUnit();
+		std::shared_ptr<Unit> unitAttacking = this->activePlayer->getUnitQueue().front();
 		if (checkRange(unitAttacking->getRange(), 0, 0, event->getX(), event->getY())) {
 			unitAttacking->attack(unitToBeAttacked);
 			this->activePlayer->getUnitQueue().pop();
@@ -48,8 +48,8 @@ void EventGateway::handleAttackEvent(MouseClickEvent* event) {
 
 void EventGateway::handleMoveEvent(MouseClickEvent* event) {
 	if (checkEventInField(event)) {
-		Unit* unitToBeMoved = this->activePlayer->getUnitQueue().front();
-		FieldTile* tileToMoveTo = Gamefield::instance().getField()[event->getX()][event->getY()];
+		std::shared_ptr<Unit> unitToBeMoved = this->activePlayer->getUnitQueue().front();
+		std::shared_ptr<FieldTile> tileToMoveTo = Gamefield::instance().getField()[event->getX()][event->getY()];
 		if (tileToMoveTo->getUnit() == NULL) {
 			MoveEvent* moveEvent = new MoveEvent(unitToBeMoved, event->getX(), event->getY());
 			EventBus::instance().publish(moveEvent);
@@ -64,9 +64,9 @@ void EventGateway::handleBuyEvent(MouseClickEvent* event) {
 	}
 	else {
 		int yButton = event->getY() - ConfigReader::instance().getMapConf()->getSizeY();
-		MenuTile* tile = Gamefield::instance().getMenuBar()[event->getX()][yButton];
+		std::shared_ptr<MenuTile> tile = Gamefield::instance().getMenuBar()[event->getX()][yButton];
 		if (tile != NULL) {
-			Unit* purchasedUnit = new Unit(Unit::UnitType(tile->getButton().getType()), this->activePlayer->getColor());
+			std::shared_ptr<Unit> purchasedUnit = std::make_shared<Unit>(Unit::UnitType(tile->getButton().getType()), this->activePlayer->getColor());
 			Gamefield::instance().spawnUnitInSpawn(purchasedUnit, this->activePlayer->getColor());
 			this->activePlayer->setBuying(false);
 		}
