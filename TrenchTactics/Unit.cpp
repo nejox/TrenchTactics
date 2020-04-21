@@ -23,9 +23,9 @@ void Unit::changeHP(int damage)
 {
 	m_currentHP -= damage;
 
-	if (this->getCurrentHP <= 0)
+	if (this->getCurrentHP() <= 0)
 	{
-		DeathEvent* deathEvent = new DeathEvent(this);
+		DeathEvent* deathEvent = new DeathEvent(this->getptr());
 	}
 }
 

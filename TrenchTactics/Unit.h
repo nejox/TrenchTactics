@@ -9,7 +9,7 @@
 /// <summary>
 /// Baseclass for units
 /// </summary>
-class Unit
+class Unit: std::enable_shared_from_this<Unit>
 {
 private:
 	Unit() = delete;
@@ -89,6 +89,9 @@ public:
 	void move();
 	void updateAP(int cost);
 	void resetAP();
+	std::shared_ptr<Unit> getptr() {
+		return shared_from_this();
+	}
 
 	int getCurrentHP()
 	{
