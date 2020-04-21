@@ -4,8 +4,8 @@
 
 void Unit::attack(Unit* target)
 {
-	
 	target->changeHP(m_dmg);
+
 
 	if (target->getCurrentHP() <= 0)
 	{
@@ -17,7 +17,6 @@ void Unit::attack(Unit* target)
 
 void Unit::attack(Headquarter* target)
 {
-	
 	target->changeHP(m_dmg);
 	updateAP(m_apCostAttack);
 }
@@ -25,6 +24,11 @@ void Unit::attack(Headquarter* target)
 void Unit::changeHP(int damage)
 {
 	m_currentHP -= damage;
+
+	if (this->getCurrentHP <= 0)
+	{
+		DeathEvent* deathEvent = new DeathEvent(this);
+	}
 }
 
 

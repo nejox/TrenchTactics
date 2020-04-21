@@ -14,6 +14,7 @@ class Unit
 private:
 	Unit() = delete;
 
+	int m_colorRed;
 	int m_hp;
 	int m_currentHP;
 	int m_range;
@@ -26,7 +27,9 @@ private:
 	int m_apCostTrench;
 	int m_spawnProbability;
 	std::string m_name;
-	std::string m_spriteFilePath;
+	std::string m_spriteFilePathStanding;
+	std::string m_spriteFilePathShooting;
+	std::string m_spriteFilePathRunning;
 
 public:
 
@@ -37,10 +40,12 @@ public:
 	};
 	
 
-	Unit(UnitType unittype) {
+	Unit(UnitType unittype, bool colorRed) {
+		
 
 		UnitConf* uc = ConfigReader::instance().getUnitConf(unittype);
 		
+		m_colorRed = colorRed;
 		m_hp = uc->getHp();
 		m_currentHP = uc->getHp();
 		m_range = uc->getRange();
@@ -54,8 +59,18 @@ public:
 		m_spawnProbability = uc->getSpawnProbability();
 		m_name = uc->getName();
 
-		//if(EventBus::instance().activePlayer->getColour()) m_spriteFilePath = uc->getSpriteFilePathRed();
-		//else m_spriteFilePath = uc->getSpriteFilePathBlue();
+
+		if (colorRed) {
+			 m_spriteFilePathStanding = uc->getSpriteFilePathStandingRed();
+			 m_spriteFilePathShooting = uc->getSpriteFilePathShootingRed();
+			 m_spriteFilePathRunning = uc->getSpriteFilePathRunningRed();
+		}
+		else {
+			m_spriteFilePathStanding = uc->getSpriteFilePathStandingBlue();
+			m_spriteFilePathShooting = uc->getSpriteFilePathShootingBlue();
+			m_spriteFilePathRunning = uc->getSpriteFilePathRunningBlue();
+		}
+
 	}
 
 	
@@ -96,9 +111,29 @@ public:
 		m_currentAP = currentAP;
 	}
 
-	std::string Unit::getSpriteFilePath()
+	std::string Unit::getSpriteFilePathStanding()
 	{
-		return m_spriteFilePath;
+		return m_spriteFilePathStanding;
+	}
+
+	std::string Unit::getSpriteFilePathShooting()
+	{
+	return m_spriteFilePathShooting;
+	}
+
+	std::string Unit::getSpriteFilePathRunning()
+	{
+	return m_spriteFilePathRunning;
+	}
+
+	bool getColorRed()
+	{
+		return m_colorRed;
+	}
+
+	void setColorRed(bool colorRed)
+	{
+		this->m_colorRed = colorRed;
 	}
 	
 
