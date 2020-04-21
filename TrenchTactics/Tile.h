@@ -1,5 +1,6 @@
 #pragma once
-#include "../../../TrenchTactics/TrenchTactics/Sprite.hpp"
+#include "Sprite.hpp"
+#include "MouseClickEvent.h"
 
 /// <summary>
 /// Tileclass with relevant information, setters and getters
@@ -10,7 +11,8 @@ private:
 	int yPos;
 	bool marked;
 	bool selected;
-	CSprite sprite;
+	Sprite *sprite;
+	
 
 public:
 	void setXPos(int xPos) {
@@ -37,15 +39,13 @@ public:
 	bool getSelected() {
 		return this->selected;
 	}
-	void setSprite(CSprite sprite) {
+	void setSprite(Sprite*sprite) {
 		this->sprite = sprite;
 	}
-	CSprite getSprite() {
+	Sprite* getSprite() {
 		return this->sprite;
 	}
-	Tile();
 	int startAnimation() {};
 	int update() {};
-	virtual int handleEvent();
-	~Tile();
+	Tile() {};
 };

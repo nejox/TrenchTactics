@@ -7,16 +7,16 @@
 /// </summary>
 class PlayerTile : public Tile {
 private:
-	Headquarter* headquarter;
+	std::shared_ptr<Headquarter> headquarter;
 public:
-	void setHeadquarter(Headquarter* headquarter) {
+	void setHeadquarter(std::shared_ptr<Headquarter> headquarter) {
 		this->headquarter = headquarter;
 	}
-	Headquarter* getHeadquarter() {
+	std::shared_ptr < Headquarter> getHeadquarter() {
 		return this->headquarter;
 	}
-	int handleEvent() {};
-	PlayerTile(){};
+
+	PlayerTile() {};
 	~PlayerTile() {};
 	
 };

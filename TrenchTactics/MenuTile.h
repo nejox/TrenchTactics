@@ -16,7 +16,7 @@ public:
 		return this->button;
 	}
 	int handleEvent();
-	MenuTile();
-	~MenuTile();
+	MenuTile() {};
+	~MenuTile() {};
 	
 };

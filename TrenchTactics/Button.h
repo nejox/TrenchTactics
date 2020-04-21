@@ -3,15 +3,15 @@
 
 class Button {
 private:
-	CSprite sprite;
+	Sprite *sprite;
 	int type;
 
 public:
-	void setSprite(CSprite sprite) {
+	void setSprite(Sprite *sprite) {
 		this->sprite = sprite;
 	}
 
-	CSprite getSprite() {
+	Sprite* getSprite() {
 		return this->sprite;
 	}
 
@@ -22,6 +22,6 @@ public:
 	int getType() {
 		return this->type;
 	}
-	Button();
-	~Button();
+	Button() {};
+	~Button() {};
 };

@@ -2,7 +2,11 @@
 #include "FieldTile.h"
 #include "PlayerTile.h"
 #include "MenuTile.h"
-
+#include "MouseClickEvent.h"
+#include "RendererImpl.h"
+#include "MapConf.h"
+#include "stdlib.h"
+#include <vector>
 
 /// <summary>
 /// Gamefield class for generating and holding the playingfield
@@ -12,50 +16,89 @@ private:
 	static const int defaultXSizeField = 18;
 	static const int defaultYSizeField = 12;
 
-	MenuTile menuBar[22][2];
-	PlayerTile hqTilePlayerA[2][2];
-	PlayerTile hqTilePlayerB[2][2];
-	FieldTile field[defaultXSizeField][defaultYSizeField];
-	FieldTile spawnA[2][4][2];
-	FieldTile spawnB[2][4][2];
-public:
-	void setMenuBar(MenuTile *menuBar) {
-		this->menuBar[22][2] = *menuBar;
-	}
-	MenuTile getMenuBar() {
-		return this->menuBar[22][2];
-	}
-	void setHqTilePlayerA(PlayerTile *hqTilePlayer) {
-		this->hqTilePlayerA[2][2] = *hqTilePlayer;
-	}
-	PlayerTile getHqTilePlayerA() {
-		return this->hqTilePlayerA[2][2];
-	}
-	void setHqTilePlayerB(PlayerTile *hqTilePlayer) {
-		this->hqTilePlayerB[2][2] = *hqTilePlayer;
-	}
-	PlayerTile getHqTilePlayerB() {
-		return this->hqTilePlayerB[2][2];
-	}
-	void setField(FieldTile *field) {
-		this->field[defaultXSizeField][defaultYSizeField] = *field;
-	}
-	FieldTile getField() {
-		return this->field[defaultXSizeField][defaultYSizeField];
-	}
-	void setSpawnA(FieldTile *spawnA) {
-		this->spawnA[2][4][2] = *spawnA;
-	}
-	FieldTile getSpawnA() {
-		return this->spawnA[2][4][2];
-	}
-	void setSpawnB(FieldTile *spawnB) {
-		this->spawnB[2][4][2] = *spawnB;
-	}
-	FieldTile getSpawnB() {
-		return this->spawnB[2][4][2];
-	}
-	void resetGameField();
+	vector<vector <std::shared_ptr<MenuTile>>> menuBar;
+	vector<vector <std::shared_ptr<PlayerTile>>> headquarterTilePlayerBlue;
+	vector<vector <std::shared_ptr<PlayerTile>>> headquarterTilePlayerRed;
+	vector<vector <std::shared_ptr<FieldTile>>> playingfield;
+	vector<vector <std::shared_ptr<FieldTile>>> spawnBlue;
+	vector<vector <std::shared_ptr<FieldTile>>> spawnRed;
+
 	Gamefield();
+
+	void setAllFieldSizes();
+	void setSizePlayerTilesBlue();
+	void setSizePlayerTilesRed();
+	void setSizeMenuBar();
+	void setSizePlayingField();
+	void setSizeSpawnBlue();
+	void setSizeSpawnRed();
+
+	void initiatePlayerTilesBlue();
+	void initiatePlayerTilesRed();
+	void initiateMenuTiles();
+	void initiateSpawnTilesBlue();
+	void initiateSpawnTilesRed();
+	void initiatePlayingFieldTiles();
+
+public:
+	void setMenuBar(vector<vector <std::shared_ptr<MenuTile>>> menuBar) {
+		this->menuBar = menuBar;
+	}
+	vector<vector <std::shared_ptr<MenuTile>>> getMenuBar() {
+		return this->menuBar;
+	}
+	void setHqTilePlayerBlue(vector < vector <std::shared_ptr< PlayerTile>>> hqTilePlayer) {
+		this->headquarterTilePlayerBlue = hqTilePlayer;
+	}
+	vector < vector < std::shared_ptr<PlayerTile>>> getHqTilePlayerBlue() {
+		return this->headquarterTilePlayerBlue;
+	}
+	void setHqTilePlayerRed(vector < vector <std::shared_ptr <PlayerTile>>> hqTilePlayer) {
+		this->headquarterTilePlayerRed = hqTilePlayer;
+	}
+	vector < vector < std::shared_ptr<PlayerTile>>> getHqTilePlayerRed() {
+		return this->headquarterTilePlayerRed;
+	}
+	void setField(vector < vector < std::shared_ptr<FieldTile>>> field) {
+		this->playingfield = field;
+	}
+	vector < vector < std::shared_ptr<FieldTile>>> getField() {
+		return this->playingfield;
+	}
+	void setSpawnBlue(vector < vector < std::shared_ptr<FieldTile>>> spawnBlue) {
+		this->spawnBlue = spawnBlue;
+	}
+	vector < vector < std::shared_ptr<FieldTile>>> getSpawnBlue() {
+		return this->spawnBlue;
+	}
+	void setSpawnRed(vector < vector < std::shared_ptr<FieldTile>>> spawnRed) {
+		this->spawnRed = spawnRed;
+	}
+	vector < vector < std::shared_ptr<FieldTile>>> getSpawnRed() {
+		return this->spawnRed;
+	}
+
+
+	void resetGameField();
 	~Gamefield();
+	// void assignEventToTile(MouseClickEvent event); -----noch noetig?
+
+	std::shared_ptr < Tile> Gamefield::getTilePointerAt(int x, int y);
+
+	Gamefield(const Gamefield&) = delete;
+	Gamefield& operator=(const Gamefield&) = delete;
+	Gamefield(Gamefield&&) = delete;
+	Gamefield& operator=(Gamefield&&) = delete;
+
+	static auto& instance() {
+		static Gamefield gamefield;
+		return gamefield;
+	}
+
+	int spawnUnitInSpawn(std::shared_ptr<Unit> unit, bool redPlayerActive);
+	bool fieldTileIsFree(int x, int y, vector<vector<std::shared_ptr<FieldTile>>> activeSpawn);
+
+	void Init(int FieldWidth, int FieldHeight, int Seed);
+
+	std::shared_ptr<FieldTile> findTileForUnit(std::shared_ptr<Unit> pUnit);
 };

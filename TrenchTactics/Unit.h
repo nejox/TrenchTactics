@@ -59,6 +59,7 @@ public:
 		m_spawnProbability = uc->getSpawnProbability();
 		m_name = uc->getName();
 
+
 		if (colorRed) {
 			 m_spriteFilePathStanding = uc->getSpriteFilePathStandingRed();
 			 m_spriteFilePathShooting = uc->getSpriteFilePathShootingRed();
@@ -69,6 +70,7 @@ public:
 			m_spriteFilePathShooting = uc->getSpriteFilePathShootingBlue();
 			m_spriteFilePathRunning = uc->getSpriteFilePathRunningBlue();
 		}
+
 	}
 
 	

@@ -1,6 +1,6 @@
 #pragma once
 #include "Tile.h"
-#include "UnitBase.h"
+#include "Unit.h"
 
 
 /// <summary>
@@ -8,22 +8,23 @@
 /// </summary>
 class FieldTile : public Tile {
 
+public:
 	enum terrainType {
 		mud,
 		clay,
 		stone,
-		spawn
+		spawnterrain
 	};
 
 private:
-	UnitBase* unit;
+	std::shared_ptr<Unit> unit;
 	terrainType terrain;
 public:
 	
-	void setUnit(UnitBase* unit) {
+	void setUnit(std::shared_ptr<Unit> unit) {
 		this->unit = unit;
 	}
-	UnitBase* getUnit() {
+	std::shared_ptr<Unit> getUnit() {
 		return this->unit;
 	}
 	void setTerrain(terrainType terrain) {
@@ -32,7 +33,10 @@ public:
 	terrainType getTerrain() {
 		return this->terrain;
 	}
-	int handleEvent() {};
-	FieldTile(terrainType terrain) {};
+
+	FieldTile(terrainType terrain) {
+		this->terrain = terrain;
+	};
+
 	~FieldTile() {};
 };
