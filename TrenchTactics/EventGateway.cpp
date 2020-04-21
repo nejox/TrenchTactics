@@ -1,8 +1,14 @@
 #include "EventGateway.h"
 
 
+EventGateway::EventGateway() {
+
+}
+
 void EventGateway::init() {
-	EventBus::instance().subscribe(this, &EventGateway::handleEvent);
+	//void (handleEventPointer)(MouseClickEvent);
+	//handleEventPointer = &this->handleEvent;
+	//EventBus::instance().subscribe<EventGateway, MouseClickEvent>(EventGateway::instance(), handleEventPointer);
 }
 void EventGateway::handleEvent(MouseClickEvent* event) {
 	if (this->currentPhase == GAMEPHASES::ATTACK) {
@@ -18,54 +24,29 @@ void EventGateway::handleEvent(MouseClickEvent* event) {
 
 
 void EventGateway::handleAttackEvent(MouseClickEvent* event) {
-	if (checkEventInField(event)) {
-		Unit* unitToBeAttacked = Gamefield::instance().getField()[event->getX()][event->getY()]->getUnit();
-		Unit* unitAttacking = this->activePlayer->getUnitQueue().front();
-		if (checkRange(unitAttacking->getRange(), 0, 0, event->getX(), event->getY())) {
-			unitAttacking->attack(unitToBeAttacked);
-			this->activePlayer->getUnitQueue().pop();
-		}
-	}
+	UnitBase* unitToBeAttacked = NULL;
+	//Unit* unitToBeAttacked = gamefield.getField().getTile(event->getX(), event->getY()).getUnit();
+	//if (checkTileInField() && unitToBeAttacked != NULL) {
+		// publish attack command to tile
+	AttackEvent* attackEvent = new AttackEvent(unitToBeAttacked, this->activePlayer->getUnitQueue().front());
+	//EventBus::instance().publish();
+	this->activePlayer->getUnitQueue().pop();
+//}
 }
 
 void EventGateway::handleMoveEvent(MouseClickEvent* event) {
-	if (checkEventInField(event)) {
-		Unit* unitToBeMoved = this->activePlayer->getUnitQueue().front();
-		FieldTile* tileToMoveTo = Gamefield::instance().getField()[event->getX()][event->getY()];
-		if (tileToMoveTo->getUnit() == NULL) {
-			MoveEvent* moveEvent = new MoveEvent(unitToBeMoved, event->getX(), event->getY());
-			EventBus::instance().publish(moveEvent);
-			this->activePlayer->getUnitQueue().pop();
-		}
-	}
+
+	Tile* tileToMoveTo = NULL;
+	UnitBase* unitToBeMoved = this->activePlayer->getUnitQueue().front();
+	//Tile * tileToMoveTo = gamefield.getField().getTile(event->getX(), event->getY());
+	//if (checkTileInField() && tileToMoveTo->getUnit() == NULL && tileToMoveTo->getMarked()) {
+		// publish event to move a unit (give it a pointer reference) from a tile to another tile
+	//}
+	MoveEvent* moveEvent = new MoveEvent(unitToBeMoved, event->getX(), event->getY());
+	//EventBus::instance().publish* ();
+	this->activePlayer->getUnitQueue().pop();
 }
 
 void EventGateway::handleBuyEvent(MouseClickEvent* event) {
-	if ((this->activePlayer->getSupply() + 1) > ConfigReader::instance().getBalanceConf()->getMaxAmountUnits()) {
-		this->activePlayer->setBuying = false;
-	}
-	else {
-		int yButton = event->getY() - ConfigReader::instance().getMapConf()->getSizeY();
-		MenuTile* tile = Gamefield::instance().getMenuBar()[event->getX()][yButton];
-		if (tile != NULL) {
-			Unit* purchasedUnit = new Unit(Unit::UnitType(tile->getButton().getType()), this->activePlayer->getColor());
-			Gamefield::instance().spawnUnitInSpawn(purchasedUnit, this->activePlayer->getColor());
-			this->activePlayer->setBuying(false);
-		}
-	}
 
-}
-
-bool EventGateway::checkEventInField(MouseClickEvent* event) {
-	if (event->getX() < 2 || event->getY() > ConfigReader::instance().getMapConf()->getSizeX() + 2) {
-		return false;
-	}
-	if (event->getY() < 0 || event->getY() > ConfigReader::instance().getMapConf()->getSizeY()) {
-		return false;
-	}
-	return true;
-}
-
-bool EventGateway::checkRange(int range, int originX, int originY, int targetX, int targetY) {
-	return true;
 }

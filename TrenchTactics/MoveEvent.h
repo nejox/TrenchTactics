@@ -1,6 +1,6 @@
 #pragma once
 #include "Event.h"
-#include "Unit.h"
+#include "UnitBase.h"
 
 /// <summary>
 /// MoveEvent class for implementing the specialised event
@@ -9,12 +9,12 @@ class MoveEvent :
 	public Event
 {
 public:
-	MoveEvent(Unit* unitToBeMoved, int x, int y) {
+	MoveEvent(UnitBase* unitToBeMoved, int x, int y) {
 		this->unitToBeMoved = unitToBeMoved;
 		this->x = x;
 		this->y = y;
 	}
-	Unit* getUnit() {
+	UnitBase* getUnit() {
 		return this->unitToBeMoved;
 	}
 	int getX() {
@@ -27,6 +27,6 @@ public:
 private:
 	int x;
 	int y;
-	Unit* unitToBeMoved;
+	UnitBase* unitToBeMoved;
 };
 
