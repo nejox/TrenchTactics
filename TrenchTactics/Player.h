@@ -2,12 +2,16 @@
 #include "Headquarter.h"
 #include "UnitBase.h"
 #include "EventBus.h"
-#include "GameLoop.h"
+#include "Gamephases.h"
 #include "ConfigReader.h"
 #include <vector>
 #include <queue>
 #include <algorithm>
 
+/**
+ * Player main class - holds most of the informations
+ * controlls units of player as well as money and supply of a player 
+ */
 class Player
 {
 private:
@@ -22,7 +26,7 @@ private:
 	GAMEPHASES::GAMEPHASE currentPhase;
 public:
 	void init(bool colorRed);
-	int computeInterest();
+	void computeInterest();
 	void updatePlayer();
 	void copyUnitsToQueue();
 	void deleteUnit(UnitBase* unit);

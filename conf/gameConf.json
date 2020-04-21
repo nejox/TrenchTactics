@@ -10,7 +10,7 @@
 		"seed": 1234561,
 		"sizeX": 18,
 		"sizeY": 12,
-		"headquarterSpriteRed": "../Data/Sprites/HQ/R_HQ.bmp",
+		"headquarterSpirteRed": "../Data/Sprites/HQ/R_HQ.bmp",
 		"headquarterSpriteBlue": "../Data/Sprites/HQ/B_HQ.bmp",
 		"terrainSprites": [
 			"filePathToStone",
@@ -21,7 +21,7 @@
 	},
 	"technical": {
 		"fps": 30,
-		"windowSizeX": 1408,
-		"windowSizeY": 960
+		"windowSizeX": 800,
+		"windowSizeY": 600
 	}
 }

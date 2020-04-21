@@ -1,5 +1,6 @@
 #ifndef SINGLETON_HPP
 #define SINGLETON_HPP
+#include <stdlib.h>
 
 template <class T>
 class TSingleton
