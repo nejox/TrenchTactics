@@ -14,6 +14,7 @@ class Unit
 private:
 	Unit() = delete;
 
+	int m_colorRed;
 	int m_hp;
 	int m_currentHP;
 	int m_range;
@@ -26,7 +27,9 @@ private:
 	int m_apCostTrench;
 	int m_spawnProbability;
 	std::string m_name;
-	std::string m_spriteFilePath;
+	std::string m_spriteFilePathStanding;
+	std::string m_spriteFilePathShooting;
+	std::string m_spriteFilePathRunning;
 
 public:
 
@@ -37,9 +40,11 @@ public:
 	};
 
 
+
 	Unit(UnitType unittype, bool colorRed) {
 
 		std::shared_ptr<UnitConf> uc = ConfigReader::instance().getUnitConf(unittype);
+		m_colorRed = colorRed;
 
 		m_hp = uc->getHp();
 		m_currentHP = uc->getHp();
@@ -55,11 +60,16 @@ public:
 		m_name = uc->getName();
 
 		if (colorRed) {
-			m_spriteFilePath = uc->getSpriteFilePathStandingRed();
+			 m_spriteFilePathStanding = uc->getSpriteFilePathStandingRed();
+			 m_spriteFilePathShooting = uc->getSpriteFilePathShootingRed();
+			 m_spriteFilePathRunning = uc->getSpriteFilePathRunningRed();
 		}
 		else {
-			m_spriteFilePath = uc->getSpriteFilePathStandingBlue();
+			m_spriteFilePathStanding = uc->getSpriteFilePathStandingBlue();
+			m_spriteFilePathShooting = uc->getSpriteFilePathShootingBlue();
+			m_spriteFilePathRunning = uc->getSpriteFilePathRunningBlue();
 		}
+
 	}
 
 
@@ -100,9 +110,14 @@ public:
 		m_currentAP = currentAP;
 	}
 
-	std::string getSpriteFilePath()
+	bool getColorRed()
 	{
-		return m_spriteFilePath;
+		return m_colorRed;
+	}
+
+	void setColorRed(bool colorRed)
+	{
+		this->m_colorRed = colorRed;
 	}
 	int getRange() {
 		return this->m_range;
