@@ -4,7 +4,7 @@
 #include "Gamefield.h"
 
 // enum for gamephases
-namespace GAMPHASES {
+namespace GAMEPHASES {
 	enum GAMEPHASE
 	{
 		BUY,

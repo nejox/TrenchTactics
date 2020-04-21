@@ -8,15 +8,15 @@ class BuyEvent :
 	public Event
 {
 public:
-	BuyEvent(Unit* unit) {
+	BuyEvent(UnitBase* unit) {
 		this->unit = unit;
 	}
-	Unit* getPurchasedUnit() {
+	UnitBase* getPurchasedUnit() {
 		return this->unit;
 	}
 
 private:
-	Unit* unit;
+	UnitBase* unit;
 };
 
 
