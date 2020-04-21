@@ -31,9 +31,10 @@ void EventGateway::handleEvent(MouseClickEvent* event) {
  * handle attackevent
  * gets the target unit and the attackin unit
  * checks range of the attacking unit
- * and
+ * and executes the attack with the specified units
+ * afterwards pops the attacking unit from the queue of the active player
  *
- * \param event
+ * \param event provided event from eventbus, in this case mouseclickevent
  */
 void EventGateway::handleAttackEvent(MouseClickEvent* event) {
 	if (checkEventInField(event)) {
@@ -46,6 +47,13 @@ void EventGateway::handleAttackEvent(MouseClickEvent* event) {
 	}
 }
 
+/**
+ * Function that handles move events
+ * Takes mouse event checks if action is ok within the units rules
+ * creates a moveevent publishes it and pops the unit from the queue
+ *
+ * \param event provided event from eventbus, in this case mouseclickevent
+ */
 void EventGateway::handleMoveEvent(MouseClickEvent* event) {
 	if (checkEventInField(event)) {
 		std::shared_ptr<Unit> unitToBeMoved = this->activePlayer->getUnitQueue().front();
@@ -58,6 +66,12 @@ void EventGateway::handleMoveEvent(MouseClickEvent* event) {
 	}
 }
 
+/**
+ * Function that handles buy events
+ * Gets the unit id from the clicked button and creates a unit if possible and spawns it
+ * then moves player in to the next phase
+ * \param event provided event from eventbus, in this case mouseclickevent
+ */
 void EventGateway::handleBuyEvent(MouseClickEvent* event) {
 	if ((this->activePlayer->getSupply() + 1) > ConfigReader::instance().getBalanceConf()->getMaxAmountUnits()) {
 		this->activePlayer->setBuying(false);
@@ -74,6 +88,12 @@ void EventGateway::handleBuyEvent(MouseClickEvent* event) {
 
 }
 
+/**
+ * Check wether a mouseclickevent is in the field or not
+ *
+ * \param event mouseclickevent to be checked
+ * \return event in field or not
+ */
 bool EventGateway::checkEventInField(MouseClickEvent* event) {
 	if (event->getX() < 2 || event->getY() > ConfigReader::instance().getMapConf()->getSizeX() + 2) {
 		return false;
@@ -84,6 +104,18 @@ bool EventGateway::checkEventInField(MouseClickEvent* event) {
 	return true;
 }
 
+/**
+ * TODO: implement
+ *
+ * checks wether unit is in range
+ *
+ * \param range range of the attacking unit
+ * \param originX attacking unit x position
+ * \param originY attacking unit y position
+ * \param targetX unit that will be attacked unit x position
+ * \param targetY unit that will be attacked unit y position
+ * \return
+ */
 bool EventGateway::checkRange(int range, int originX, int originY, int targetX, int targetY) {
 	return true;
 }

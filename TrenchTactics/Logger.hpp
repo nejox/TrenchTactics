@@ -18,9 +18,9 @@ enum LOGLEVEL
 	FATAL //using fatal here because error is already defined
 };
 
-/// <summary>
-/// Logger class based on singelton pattern
-/// </summary>
+/**
+ * Logger class based on singelton pattern
+ */
 class Logger
 {
 public:

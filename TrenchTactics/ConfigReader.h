@@ -7,6 +7,11 @@
 #include <string>
 #include <map>
 
+/**
+ * ConfigReader class which enables reading configs 
+ * Provides a singelton instance 
+ * Then provides all instances of different configurations
+ */
 class ConfigReader
 {
 public:
