@@ -17,14 +17,14 @@ public:
 	};
 
 private:
-	Unit* unit;
+	std::shared_ptr<Unit> unit;
 	terrainType terrain;
 public:
-	
-	void setUnit(Unit* unit) {
+
+	void setUnit(std::shared_ptr<Unit> unit) {
 		this->unit = unit;
 	}
-	Unit* getUnit() {
+	std::shared_ptr<Unit> getUnit() {
 		return this->unit;
 	}
 	void setTerrain(terrainType terrain) {
