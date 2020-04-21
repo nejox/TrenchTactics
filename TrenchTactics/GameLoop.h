@@ -10,24 +10,19 @@
 #include "Unit.h"
 #include "EventGateway.h"
 #include "EventManagerImpl.h"
+#include "Gamephases.h"
 
-// enum for gamephases
-namespace GAMEPHASES {
-	enum GAMEPHASE
-	{
-		BUY,
-		MOVE,
-		ATTACK
-	};
-	static const GAMEPHASE All[] = { BUY, MOVE, ATTACK };
-
-}
+/**
+ * Main class to start the game
+ * initializes all necessary components: Renderer, Eventmanager, Players
+ * Also has the main game loop
+ */
 class Game
 {
 private:
-	Player* playerRed;
-	Player* playerBlue;
-	Player* activePlayer;
+	std::shared_ptr<Player> playerRed;
+	std::shared_ptr<Player>  playerBlue;
+	std::shared_ptr<Player>  activePlayer;
 	IEventManager& manager = EventManagerImpl::instance();
 	IRenderer& renderer = RendererImpl::instance();
 

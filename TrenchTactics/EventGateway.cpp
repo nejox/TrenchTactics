@@ -1,9 +1,20 @@
 #include "EventGateway.h"
 
 
+/**
+ * init function that subscribs to mouse events
+ *
+ */
 void EventGateway::init() {
 	EventBus::instance().subscribe(this, &EventGateway::handleEvent);
 }
+
+/**
+ * takes the mouseclick event and forwards it to the specific handler function
+ * based on the current gamephase
+ *
+ * \param event mouseclickevent with position of the event
+ */
 void EventGateway::handleEvent(MouseClickEvent* event) {
 	if (this->currentPhase == GAMEPHASES::ATTACK) {
 		this->handleAttackEvent(event);
@@ -16,7 +27,14 @@ void EventGateway::handleEvent(MouseClickEvent* event) {
 	}
 }
 
-
+/**
+ * handle attackevent 
+ * gets the target unit and the attackin unit
+ * checks range of the attacking unit 
+ * and 
+ * 
+ * \param event
+ */
 void EventGateway::handleAttackEvent(MouseClickEvent* event) {
 	if (checkEventInField(event)) {
 		Unit* unitToBeAttacked = Gamefield::instance().getField()[event->getX()][event->getY()]->getUnit();
@@ -42,7 +60,7 @@ void EventGateway::handleMoveEvent(MouseClickEvent* event) {
 
 void EventGateway::handleBuyEvent(MouseClickEvent* event) {
 	if ((this->activePlayer->getSupply() + 1) > ConfigReader::instance().getBalanceConf()->getMaxAmountUnits()) {
-		this->activePlayer->setBuying = false;
+		this->activePlayer->setBuying(false);
 	}
 	else {
 		int yButton = event->getY() - ConfigReader::instance().getMapConf()->getSizeY();
