@@ -5,6 +5,7 @@
 #include "ConfigReader.h"
 #include "EventBus.h"
 #include "Event.h"
+#include "SpriteUnit.h"
 
 /// <summary>
 /// Baseclass for units
@@ -30,6 +31,7 @@ private:
 	std::string m_spriteFilePathStanding;
 	std::string m_spriteFilePathShooting;
 	std::string m_spriteFilePathRunning;
+	std::shared_ptr<SpriteUnit>spriteUnit;
 
 public:
 
@@ -44,10 +46,7 @@ public:
 	Unit(UnitType unittype, bool colorRed) {
 
 		std::shared_ptr<UnitConf> uc = ConfigReader::instance().getUnitConf(unittype);
-<<<<<<< HEAD
-		
-=======
->>>>>>> origin
+
 		m_colorRed = colorRed;
 
 		m_hp = uc->getHp();
@@ -73,6 +72,8 @@ public:
 			m_spriteFilePathShooting = uc->getSpriteFilePathShootingBlue();
 			m_spriteFilePathRunning = uc->getSpriteFilePathRunningBlue();
 		}
+
+		spriteUnit = make_shared<SpriteUnit>();
 
 	}
 
