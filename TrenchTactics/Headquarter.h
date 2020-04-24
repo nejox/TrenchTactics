@@ -14,24 +14,27 @@ private:
 	int m_currentHP;
 	bool m_colorRed;
 	std::string m_spriteFilePath;
-	
-	
+
+
 public:
 	Headquarter(bool colourRed)
 	{
-		std::shared_ptr<BalanceConf> c = ConfigReader::instance().getBalanceConf();
+
+		std::shared_ptr<MapConf> c = ConfigReader::instance().getMapConf();
+		std::shared_ptr<BalanceConf> b = ConfigReader::instance().getBalanceConf();
 
 		m_colorRed = colourRed;
-		m_maxHP = c->getHqHP();
-		m_currentHP = c->getHqHP();
+		m_maxHP = b->getHqHP();
+		m_currentHP = b->getHqHP();
+
 
 		if (colourRed)
 		{
-			m_spriteFilePath = c->getSpriteFilePathRed(); //TO DO: config scheiß einfügen
+			m_spriteFilePath = c->getHeadquarterSpriteRed(); //TO DO: config scheiß einfügen
 		}
 		else
 		{
-			m_spriteFilePath = c->getSpriteFilePathBlue(); //TO DO: config scheiß einfügen
+			m_spriteFilePath = c->getHeadquarterSpriteBlue(); //TO DO: config scheiß einfügen
 		}
 	}
 
@@ -52,9 +55,9 @@ public:
 		return this->m_colorRed;
 	}
 
-	
 
-	
+
+
 
 
 

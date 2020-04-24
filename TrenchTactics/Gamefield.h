@@ -83,7 +83,7 @@ public:
 	~Gamefield();
 	// void assignEventToTile(MouseClickEvent event); -----noch noetig?
 
-	std::shared_ptr < Tile> Gamefield::getTilePointerAt(int x, int y);
+	std::shared_ptr<Tile> getTilePointerAt(int x, int y);
 
 	Gamefield(const Gamefield&) = delete;
 	Gamefield& operator=(const Gamefield&) = delete;
@@ -98,7 +98,7 @@ public:
 	int spawnUnitInSpawn(std::shared_ptr<Unit> unit, bool redPlayerActive);
 	bool fieldTileIsFree(int x, int y, vector<vector<std::shared_ptr<FieldTile>>> activeSpawn);
 
-	void Init(int FieldWidth, int FieldHeight, int Seed);
+	void init(int FieldWidth, int FieldHeight, int Seed);
 
 	std::shared_ptr<FieldTile> findTileForUnit(std::shared_ptr<Unit> pUnit);
 };

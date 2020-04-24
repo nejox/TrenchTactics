@@ -10,14 +10,14 @@ class DeathEvent :
 	public Event
 {
 public:
-	DeathEvent(Unit* DeathUnit) {
+	DeathEvent(std::shared_ptr<Unit> DeathUnit) {
 		this->DeathUnit = DeathUnit;
 		
 	}
-	Unit* getDeathUnit() {
+	std::shared_ptr<Unit> getKilledUnit() {
 		return this->DeathUnit;
 	}
 
 private:
-	Unit* DeathUnit;
+	std::shared_ptr<Unit> DeathUnit;
 };
