@@ -6,13 +6,10 @@ class SpriteHQ : public Sprite
 {
 public:
 
-	enum state {
-		healthy,
-		damaged
-	};
+	bool damaged;
 
 	SpriteHQ(const std::string filename);
-	void render(state health);
+	void render(bool damaged);
 
 private:
 	SpriteHQ();
