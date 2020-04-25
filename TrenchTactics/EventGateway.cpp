@@ -38,7 +38,8 @@ void EventGateway::handleEvent(MouseClickEvent* event) {
  */
 void EventGateway::handleAttackEvent(MouseClickEvent* event) {
 	if (checkEventInField(event)) {
-		std::shared_ptr<Unit> unitToBeAttacked = Gamefield::instance().getField()[event->getX()][event->getY()]->getUnit();
+		//std::shared_ptr<Unit> unitToBeAttacked = Gamefield::instance().getField()[event->getX()][event->getY()]->getUnit();
+		std::shared_ptr<Unit> unitToBeAttacked = NULL;
 		std::shared_ptr<Unit> unitAttacking = this->activePlayer->getUnitQueue().front();
 		if (checkRange(unitAttacking->getRange(), 0, 0, event->getX(), event->getY())) {
 			unitAttacking->attack(unitToBeAttacked);
@@ -57,7 +58,8 @@ void EventGateway::handleAttackEvent(MouseClickEvent* event) {
 void EventGateway::handleMoveEvent(MouseClickEvent* event) {
 	if (checkEventInField(event)) {
 		std::shared_ptr<Unit> unitToBeMoved = this->activePlayer->getUnitQueue().front();
-		std::shared_ptr<FieldTile> tileToMoveTo = Gamefield::instance().getField()[event->getX()][event->getY()];
+		//std::shared_ptr<FieldTile> tileToMoveTo = Gamefield::instance().getField()[event->getX()][event->getY()];
+		std::shared_ptr<FieldTile> tileToMoveTo = NULL;
 		if (tileToMoveTo->getUnit() == NULL) {
 			MoveEvent* moveEvent = new MoveEvent(unitToBeMoved, event->getX(), event->getY());
 			EventBus::instance().publish(moveEvent);

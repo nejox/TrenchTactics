@@ -7,26 +7,12 @@
 /// </summary>
 class Tile {
 private:
-	int xPos;
-	int yPos;
 	bool marked;
 	bool selected;
-	Sprite *sprite;
-	
+	Sprite* sprite;
+
 
 public:
-	void setXPos(int xPos) {
-		this->xPos = xPos;
-	}
-	int getXPos() {
-		return this->xPos;
-	}
-	void setYPos(int yPos) {
-		this->yPos = yPos;
-	}
-	int getYPos() {
-		return this->yPos;
-	}
 	void setMarked(bool marked) {
 		this->marked = marked;
 	}
@@ -39,7 +25,7 @@ public:
 	bool getSelected() {
 		return this->selected;
 	}
-	void setSprite(Sprite*sprite) {
+	void setSprite(Sprite* sprite) {
 		this->sprite = sprite;
 	}
 	Sprite* getSprite() {

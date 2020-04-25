@@ -62,6 +62,7 @@ void Sprite::load(const string sFilename)
 
 	SDL_FreeSurface(pTemp);
 
+
 }
 
 void Sprite::load(const string sFilename, int FrameWidth, int FrameHeight)
@@ -91,6 +92,7 @@ void Sprite::load(const string sFilename, int FrameWidth, int FrameHeight)
 void Sprite::render()
 {
 	SDL_RenderCopy(m_pRenderer, m_pImage, NULL, &m_Rect);
+	SDL_RenderPresent(m_pRenderer);
 }
 
 /*

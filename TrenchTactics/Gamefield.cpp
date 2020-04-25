@@ -66,13 +66,14 @@ bool Gamefield::fieldTileIsFree(int x, int y, vector<vector<std::shared_ptr<Fiel
  * \param Seed int for regenerating certain playingfieldlayout. Not used yet.
  */
 void Gamefield::init(int FieldWidth, int FieldHeight, int Seed) {
-	menuBar = std::make_shared<vector<vector <std::shared_ptr<MenuTile>>>>();
+	menuBar = std::make_shared<vector<vector<std::shared_ptr<MenuTile>>>>();
+	playingfield = std::make_shared<vector<vector<std::shared_ptr<FieldTile>>>>();
 	Gamefield::setAllFieldSizes();
 	//Gamefield::initiatePlayerTilesBlue();
 	//Gamefield::initiatePlayerTilesRed();
 	Gamefield::initiateMenuTiles();
-	Gamefield::initiateSpawnTilesBlue();
-	Gamefield::initiateSpawnTilesRed();
+	//Gamefield::initiateSpawnTilesBlue();
+	//Gamefield::initiateSpawnTilesRed();
 	Gamefield::initiatePlayingFieldTiles();
 
 }
@@ -130,9 +131,9 @@ void Gamefield::setSizeMenuBar()
 	//	menuCol.resize(3);
 	//}
 
-	for (vector<vector<shared_ptr<MenuTile>>>::iterator i = menuBar->begin(); i != menuBar->end(); ++i)
+	for (vector<vector<shared_ptr<MenuTile>>>::iterator menuCol = menuBar->begin(); menuCol != menuBar->end(); ++menuCol)
 	{
-		i->resize(3);
+		menuCol->resize(3);
 	}
 
 }
@@ -143,10 +144,11 @@ void Gamefield::setSizeMenuBar()
  */
 void Gamefield::setSizePlayingField()
 {
-	playingfield.resize(18);
-	for (vector<std::shared_ptr<FieldTile>> fieldCol : playingfield)
+	playingfield->resize(18);
+
+	for (vector<vector<shared_ptr<FieldTile>>>::iterator fieldCol = playingfield->begin(); fieldCol != playingfield->end(); ++fieldCol)
 	{
-		fieldCol.resize(12);
+		fieldCol->resize(12);
 	}
 }
 
@@ -217,12 +219,9 @@ void Gamefield::initiateMenuTiles()
 
 			std::shared_ptr<MenuTile> tmpMenuTilePointer = std::make_shared<MenuTile>();
 			Sprite* terrainSprite = new Sprite();
-			terrainSprite->load("../Data/Sprites/Terrain/TERRAIN_SAMPLE.bmp");
-			terrainSprite->setPos(3, 3);
-			tmpMenuTilePointer->setXPos(3);
-			tmpMenuTilePointer->setYPos(3);
+			terrainSprite->load("../Data/Sprites/Token/MENUE_BAR.bmp");
+			terrainSprite->setPos((xIter - menuBar->begin()) * 64, (yIter - xIter->begin()) * 64 + 12 * 64);
 			tmpMenuTilePointer->setSprite(terrainSprite);
-
 			tmpMenuTilePointer->getSprite()->render();
 			*yIter = tmpMenuTilePointer;
 
@@ -279,14 +278,16 @@ void Gamefield::initiateSpawnTilesRed()
  */
 void Gamefield::initiatePlayingFieldTiles()
 {
-	for (vector<vector<std::shared_ptr<FieldTile>>>::iterator xIter = playingfield.begin(); xIter != playingfield.end(); ++xIter) {
+	for (vector<vector<std::shared_ptr<FieldTile>>>::iterator xIter = playingfield->begin(); xIter != playingfield->end(); ++xIter) {
 		for (vector<std::shared_ptr<FieldTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
 			int rnd = rand() % 3;
+
 			if (rnd == 0) {
 
 				std::shared_ptr<FieldTile> tmpFieldTilePointer = std::make_shared<FieldTile>(FieldTile::terrainType::mud);
 				Sprite* terrainSprite = new Sprite();
 				terrainSprite->load("../Data/Sprites/Terrain/TERRAIN_SAMPLE.bmp");
+				terrainSprite->setPos((xIter - playingfield->begin()) * 64 + 2 * 64, (yIter - xIter->begin()) * 64);
 				tmpFieldTilePointer->setSprite(terrainSprite);
 				tmpFieldTilePointer->getSprite()->render();
 				*yIter = tmpFieldTilePointer;
@@ -299,9 +300,10 @@ void Gamefield::initiatePlayingFieldTiles()
 				std::shared_ptr<FieldTile> tmpFieldTilePointer = std::make_shared<FieldTile>(FieldTile::terrainType::mud);
 				Sprite* terrainSprite = new Sprite();
 				terrainSprite->load("../Data/Sprites/Terrain/TERRAIN_SAMPLE.bmp");
+				terrainSprite->setPos((xIter - playingfield->begin()) * 64 + 2 * 64, (yIter - xIter->begin()) * 64);
 				tmpFieldTilePointer->setSprite(terrainSprite);
 				tmpFieldTilePointer->getSprite()->render();
-				*yIter = tmpFieldTilePointer;
+				*yIter = tmpFieldTilePointer;;
 
 				//*yIter = std::shared_ptr <FieldTile>(new FieldTile(FieldTile::terrainType::clay));
 			}
@@ -310,6 +312,7 @@ void Gamefield::initiatePlayingFieldTiles()
 				std::shared_ptr<FieldTile> tmpFieldTilePointer = std::make_shared<FieldTile>(FieldTile::terrainType::mud);
 				Sprite* terrainSprite = new Sprite();
 				terrainSprite->load("../Data/Sprites/Terrain/TERRAIN_SAMPLE.bmp");
+				terrainSprite->setPos((xIter - playingfield->begin()) * 64 + 2 * 64, (yIter - xIter->begin()) * 64);
 				tmpFieldTilePointer->setSprite(terrainSprite);
 				tmpFieldTilePointer->getSprite()->render();
 				*yIter = tmpFieldTilePointer;
@@ -333,7 +336,7 @@ std::shared_ptr<FieldTile> Gamefield::findTileForUnit(std::shared_ptr<Unit> pUni
 
 	//Searches playingfield
 
-	for (vector<vector<std::shared_ptr<FieldTile>>>::iterator xIter = playingfield.begin(); xIter != playingfield.end(); ++xIter) {
+	for (vector<vector<std::shared_ptr<FieldTile>>>::iterator xIter = playingfield->begin(); xIter != playingfield->end(); ++xIter) {
 		for (vector< std::shared_ptr<FieldTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
 			pTileToTest = *yIter;
 			if (pTileToTest->getUnit() == pUnit) return pTileToTest;
@@ -372,11 +375,11 @@ std::shared_ptr<Tile> Gamefield::getTilePointerAt(int x, int y)
 {
 	std::shared_ptr<Tile> pSearchedTile = NULL;
 
-	if ((12 <= x <= 14) && (0 <= y <= 21))
-		//pSearchedTile = Gamefield::menuBar[x][y];
+	if ((12 <= x <= 14) && (0 <= y <= 21)) {}
+	//pSearchedTile = Gamefield::menuBar[x][y];
 
-	if ((2 <= x <= 19) && (0 <= y <= 11))
-		pSearchedTile = Gamefield::playingfield[x - 2][y];
+	if ((2 <= x <= 19) && (0 <= y <= 11)) {}
+	//pSearchedTile = Gamefield::playingfield[x - 2][y];
 
 	if ((0 <= x <= 1) && (5 <= y <= 6))
 		Gamefield::headquarterTilePlayerBlue[x][y - 5];

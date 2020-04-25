@@ -19,7 +19,7 @@ private:
 	std::shared_ptr<vector<vector<std::shared_ptr<MenuTile>>>> menuBar;
 	vector<vector<std::shared_ptr<PlayerTile>>> headquarterTilePlayerBlue;
 	vector<vector<std::shared_ptr<PlayerTile>>> headquarterTilePlayerRed;
-	vector<vector<std::shared_ptr<FieldTile>>> playingfield;
+	std::shared_ptr < vector<vector<std::shared_ptr<FieldTile>>>> playingfield;
 	vector<vector<std::shared_ptr<FieldTile>>> spawnBlue;
 	vector<vector<std::shared_ptr<FieldTile>>> spawnRed;
 
@@ -59,10 +59,10 @@ public:
 	vector<vector<std::shared_ptr<PlayerTile>>> getHqTilePlayerRed() {
 		return this->headquarterTilePlayerRed;
 	}
-	void setField(vector<vector<std::shared_ptr<FieldTile>>> field) {
+	void setField(std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> field) {
 		this->playingfield = field;
 	}
-	vector<vector<std::shared_ptr<FieldTile>>> getField() {
+	std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> getField() {
 		return this->playingfield;
 	}
 	void setSpawnBlue(vector<vector<std::shared_ptr<FieldTile>>> spawnBlue) {

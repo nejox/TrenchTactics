@@ -22,7 +22,6 @@ int main(int argc, char* argv[])
 
 	Logger::instance().log(LOGLEVEL::INFO, "Starting main");
 	confReader.initConfigurations();
-	std::cout << confReader.getUnitConf(0)->getAp() << std::endl;
 
 	if (RendererImpl::instance().init(confReader.getTechnicalConf()->getWindowSizeX(), confReader.getTechnicalConf()->getWindowSizeY()), 16, false)
 		return (0);
@@ -42,7 +41,7 @@ int main(int argc, char* argv[])
 
 	Gamefield& gamefield = Gamefield::instance();
 	gamefield.init(0, 0, 0);
-	std::cout << "check" << std::endl;
+	RendererImpl::instance().updateTimer();
 	while (true) {
 
 	}
