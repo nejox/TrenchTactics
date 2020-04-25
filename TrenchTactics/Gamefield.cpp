@@ -44,30 +44,32 @@ int Gamefield::spawnUnitInSpawn(std::shared_ptr<Unit> pUnit, bool redPlayerActiv
 	return 0;
 }
 
-/// <summary>
-/// Checks if a fieldtile is empty.
-/// </summary>
-/// <param name="x">horizontal position</param>
-/// <param name="y">vertical position</param>
-/// <param name="activeSpawn">field that contains the tile</param>
-/// <returns></returns>
+/**
+ * Checks if a fieldtile is empty.
+ *
+ * \param x horizontal position
+ * \param y vertical position
+ * \param activeSpawn field that contains the tile
+ * \return
+ */
 bool Gamefield::fieldTileIsFree(int x, int y, vector<vector<std::shared_ptr<FieldTile>>> activeSpawn)
 {
 	if (activeSpawn[x][y] == nullptr) return true;
 	return false;
 }
 
-
-/// <summary>
-/// Function for setting up the gamefield at the start of a new game.
-/// </summary>
-/// <param name="FieldWidth">int for delacring width of playingfield. Not used yet.</param>
-/// <param name="FieldHeight">int for delacring height of playingfield. Not used yet.</param>
-/// <param name="Seed">int for regenerating certain playingfieldlayout. Not used yet.</param>
+/**
+ * Function for setting up the gamefield at the start of a new game.
+ *
+ * \param FieldWidth int for delacring width of playingfield. Not used yet.
+ * \param FieldHeight int for delacring height of playingfield. Not used yet.
+ * \param Seed int for regenerating certain playingfieldlayout. Not used yet.
+ */
 void Gamefield::init(int FieldWidth, int FieldHeight, int Seed) {
+	menuBar = std::make_shared<vector<vector <std::shared_ptr<MenuTile>>>>();
 	Gamefield::setAllFieldSizes();
-	Gamefield::initiatePlayerTilesBlue();
-	Gamefield::initiatePlayerTilesRed();
+	//Gamefield::initiatePlayerTilesBlue();
+	//Gamefield::initiatePlayerTilesRed();
 	Gamefield::initiateMenuTiles();
 	Gamefield::initiateSpawnTilesBlue();
 	Gamefield::initiateSpawnTilesRed();
@@ -75,9 +77,10 @@ void Gamefield::init(int FieldWidth, int FieldHeight, int Seed) {
 
 }
 
-/// <summary>
-/// Sets the number of tiles of each type at the start of the game.
-/// </summary>
+/**
+ * Sets the number of tiles of each type at the start of the game.
+ *
+ */
 void Gamefield::setAllFieldSizes()
 {
 	Gamefield::setSizePlayerTilesBlue();
@@ -89,9 +92,10 @@ void Gamefield::setAllFieldSizes()
 
 }
 
-/// <summary>
-/// Sets the size of the blue player's spawn to 2x2.
-/// </summary>
+/**
+ * Sets the size of the blue player's spawn to 2x2.
+ *
+ */
 void Gamefield::setSizePlayerTilesBlue()
 {
 	headquarterTilePlayerBlue.resize(2);
@@ -101,9 +105,10 @@ void Gamefield::setSizePlayerTilesBlue()
 	}
 }
 
-/// <summary>
-/// Sets the size of the blue player's spawn to 2x2.
-/// </summary>
+/**
+ * Sets the size of the blue player's spawn to 2x2.
+ *
+ */
 void Gamefield::setSizePlayerTilesRed()
 {
 	headquarterTilePlayerRed.resize(2);
@@ -113,21 +118,29 @@ void Gamefield::setSizePlayerTilesRed()
 	}
 }
 
-/// <summary>
-/// Sets the size of the menubar at the gamestart.
-/// </summary>
+/**
+ * Sets the size of the menubar at the gamestart.
+ *
+ */
 void Gamefield::setSizeMenuBar()
 {
-	menuBar.resize(22);
-	for (vector<std::shared_ptr<MenuTile>> menuCol : menuBar)
+	menuBar->resize(22);
+	//for (vector<std::shared_ptr<MenuTile>> menuCol : menuBar.get())
+	//{
+	//	menuCol.resize(3);
+	//}
+
+	for (vector<vector<shared_ptr<MenuTile>>>::iterator i = menuBar->begin(); i != menuBar->end(); ++i)
 	{
-		menuCol.resize(3);
+		i->resize(3);
 	}
+
 }
 
-/// <summary>
-/// Sets the size of the playingfield at the gamestart.
-/// </summary>
+/**
+ * Sets the size of the playingfield at the gamestart.
+ *
+ */
 void Gamefield::setSizePlayingField()
 {
 	playingfield.resize(18);
@@ -137,9 +150,10 @@ void Gamefield::setSizePlayingField()
 	}
 }
 
-/// <summary>
-/// Sets the size of blue player's spawn.
-/// </summary>
+/**
+ * Sets the size of blue player's spawn.
+ *
+ */
 void Gamefield::setSizeSpawnBlue()
 {
 	spawnBlue.resize(2);
@@ -149,9 +163,10 @@ void Gamefield::setSizeSpawnBlue()
 	}
 }
 
-/// <summary>
-/// Sets the size of red player's spawn.
-/// </summary>
+/**
+ * Sets the size of red player's spawn.
+ *
+ */
 void Gamefield::setSizeSpawnRed()
 {
 	spawnRed.resize(2);
@@ -161,12 +176,10 @@ void Gamefield::setSizeSpawnRed()
 	}
 }
 
-
-
-
-/// <summary>
-/// Function to set up the PlayerTiles for blue player at gamestart.
-/// </summary>
+/**
+ * Function to set up the PlayerTiles for blue player at gamestart.
+ *
+ */
 void Gamefield::initiatePlayerTilesBlue()
 {
 	for (vector<vector<std::shared_ptr<PlayerTile>>>::iterator xIter = headquarterTilePlayerBlue.begin(); xIter != headquarterTilePlayerBlue.end(); ++xIter) {
@@ -178,9 +191,10 @@ void Gamefield::initiatePlayerTilesBlue()
 	}
 }
 
-/// <summary>
-/// Function to set up the PlayerTiles for red player at gamestart.
-/// </summary>
+/**
+ * Function to set up the PlayerTiles for red player at gamestart.
+ *
+ */
 void Gamefield::initiatePlayerTilesRed()
 {
 	for (vector<vector<std::shared_ptr<PlayerTile>>>::iterator xIter = headquarterTilePlayerRed.begin(); xIter != headquarterTilePlayerRed.end(); ++xIter) {
@@ -192,69 +206,127 @@ void Gamefield::initiatePlayerTilesRed()
 	}
 }
 
-/// <summary>
-/// Function to set up the MenuTiles at gamestart.
-/// </summary>
+/**
+ * Function to set up the MenuTiles at gamestart.
+ *
+ */
 void Gamefield::initiateMenuTiles()
 {
-	for (vector<vector<std::shared_ptr<MenuTile>>>::iterator xIter = menuBar.begin(); xIter != menuBar.end(); ++xIter) {
+	for (vector<vector<std::shared_ptr<MenuTile>>>::iterator xIter = menuBar->begin(); xIter != menuBar->end(); ++xIter) {
 		for (vector<std::shared_ptr<MenuTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
-			*yIter = std::shared_ptr <MenuTile>(new MenuTile);
+
+			std::shared_ptr<MenuTile> tmpMenuTilePointer = std::make_shared<MenuTile>();
+			Sprite* terrainSprite = new Sprite();
+			terrainSprite->load("../Data/Sprites/Terrain/TERRAIN_SAMPLE.bmp");
+			terrainSprite->setPos(3, 3);
+			tmpMenuTilePointer->setXPos(3);
+			tmpMenuTilePointer->setYPos(3);
+			tmpMenuTilePointer->setSprite(terrainSprite);
+
+			tmpMenuTilePointer->getSprite()->render();
+			*yIter = tmpMenuTilePointer;
+
+			//*yIter = std::make_shared<MenuTile>();
 			//Menu rendern fehlt noch!
 		}
 	}
 }
 
-/// <summary>
-/// Function to set up the fieldtiles in blue player's spawn at gamestart.
-/// </summary>
+/**
+ * Function to set up the fieldtiles in blue player's spawn at gamestart.
+ *
+ */
 void Gamefield::initiateSpawnTilesBlue()
 {
 	for (vector<vector<std::shared_ptr<FieldTile>>>::iterator xIter = spawnBlue.begin(); xIter != spawnBlue.end(); ++xIter) {
 		for (vector<std::shared_ptr<FieldTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
-			*yIter = std::shared_ptr <FieldTile>(new FieldTile(FieldTile::terrainType::spawnterrain));
+			std::shared_ptr<FieldTile> tmpFieldTilePointer = std::make_shared<FieldTile>(FieldTile::terrainType::spawnterrain);
+			Sprite* terrainSprite = new Sprite();
+			terrainSprite->load("../Data/Sprites/Terrain/TERRAIN_SAMPLE.bmp");
+			tmpFieldTilePointer->setSprite(terrainSprite);
+			tmpFieldTilePointer->getSprite()->render();
+			*yIter = tmpFieldTilePointer;
 			//Spawn rendern fehlt noch!
 		}
 	}
 }
 
-/// <summary>
-/// Function to set up the fieldtiles in red player's spawn at gamestart.
-/// </summary>
+/**
+ * Function to set up the fieldtiles in red player's spawn at gamestart.
+ *
+ */
 void Gamefield::initiateSpawnTilesRed()
 {
 	for (vector<vector<std::shared_ptr<FieldTile>>>::iterator xIter = spawnRed.begin(); xIter != spawnRed.end(); ++xIter) {
 		for (vector<std::shared_ptr<FieldTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
-			*yIter = std::shared_ptr < FieldTile>(new FieldTile(FieldTile::terrainType::spawnterrain));
+
+			std::shared_ptr<FieldTile> tmpFieldTilePointer = std::make_shared<FieldTile>(FieldTile::terrainType::spawnterrain);
+			Sprite* terrainSprite = new Sprite();
+			terrainSprite->load("../Data/Sprites/Terrain/TERRAIN_SAMPLE.bmp");
+			tmpFieldTilePointer->setSprite(terrainSprite);
+			tmpFieldTilePointer->getSprite()->render();
+			*yIter = tmpFieldTilePointer;
+
+			//*yIter = std::shared_ptr < FieldTile>(new FieldTile(FieldTile::terrainType::spawnterrain));
 			//Spawn rendern fehlt noch!
 		}
 	}
 }
 
-/// <summary>
-/// Function to set up the fieldtiles in playingfield at gamestart.
-/// </summary>
+/**
+ * Function to set up the fieldtiles in playingfield at gamestart.
+ *
+ */
 void Gamefield::initiatePlayingFieldTiles()
 {
 	for (vector<vector<std::shared_ptr<FieldTile>>>::iterator xIter = playingfield.begin(); xIter != playingfield.end(); ++xIter) {
 		for (vector<std::shared_ptr<FieldTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
 			int rnd = rand() % 3;
-			if (rnd == 0)
-				*yIter = std::shared_ptr <FieldTile>(new FieldTile(FieldTile::terrainType::stone));
-			if (rnd == 1)
-				*yIter = std::shared_ptr <FieldTile>(new FieldTile(FieldTile::terrainType::clay));
-			if (rnd == 2)
-				*yIter = std::shared_ptr <FieldTile>(new FieldTile(FieldTile::terrainType::mud));
+			if (rnd == 0) {
+
+				std::shared_ptr<FieldTile> tmpFieldTilePointer = std::make_shared<FieldTile>(FieldTile::terrainType::mud);
+				Sprite* terrainSprite = new Sprite();
+				terrainSprite->load("../Data/Sprites/Terrain/TERRAIN_SAMPLE.bmp");
+				tmpFieldTilePointer->setSprite(terrainSprite);
+				tmpFieldTilePointer->getSprite()->render();
+				*yIter = tmpFieldTilePointer;
+
+				//*yIter = std::shared_ptr <FieldTile>(new FieldTile(FieldTile::terrainType::stone));
+
+			}
+			if (rnd == 1) {
+
+				std::shared_ptr<FieldTile> tmpFieldTilePointer = std::make_shared<FieldTile>(FieldTile::terrainType::mud);
+				Sprite* terrainSprite = new Sprite();
+				terrainSprite->load("../Data/Sprites/Terrain/TERRAIN_SAMPLE.bmp");
+				tmpFieldTilePointer->setSprite(terrainSprite);
+				tmpFieldTilePointer->getSprite()->render();
+				*yIter = tmpFieldTilePointer;
+
+				//*yIter = std::shared_ptr <FieldTile>(new FieldTile(FieldTile::terrainType::clay));
+			}
+			if (rnd == 2) {
+
+				std::shared_ptr<FieldTile> tmpFieldTilePointer = std::make_shared<FieldTile>(FieldTile::terrainType::mud);
+				Sprite* terrainSprite = new Sprite();
+				terrainSprite->load("../Data/Sprites/Terrain/TERRAIN_SAMPLE.bmp");
+				tmpFieldTilePointer->setSprite(terrainSprite);
+				tmpFieldTilePointer->getSprite()->render();
+				*yIter = tmpFieldTilePointer;
+
+				//*yIter = std::shared_ptr <FieldTile>(new FieldTile(FieldTile::terrainType::mud));
+			}
 			//Playingfield rendern fehlt noch!
 		}
 	}
 }
 
-/// <summary>
-/// Function to search playingfield and both spawns for a tile on which a unit stands. Returns a nullpointer if unit was not found.
-/// </summary>
-/// <param name="pUnit">unit to search for</param>
-/// <returns>tile holding the unit</returns>
+/**
+ * Function to search playingfield and both spawns for a tile on which a unit stands. Returns a nullpointer if unit was not found.
+ *
+ * \param pUnit unit to search for
+ * \return tile holding the unit
+ */
 std::shared_ptr<FieldTile> Gamefield::findTileForUnit(std::shared_ptr<Unit> pUnit)
 {
 	std::shared_ptr<FieldTile> pTileToTest = nullptr;
@@ -289,19 +361,19 @@ std::shared_ptr<FieldTile> Gamefield::findTileForUnit(std::shared_ptr<Unit> pUni
 	return nullptr;
 }
 
-
-/// <summary>
-/// Function to get a pointer to tile at x and y. x and y counting from top left.
-/// </summary>
-/// <param name="x">Horizontal position of tile</param>
-/// <param name="y">Vertical position of tile</param>
-/// <returns>Pointer to searched Tile.</returns>
+/**
+ * Function to get a pointer to tile at x and y. x and y counting from top left.
+ *
+ * \param x Horizontal position of tile
+ * \param y Vertical position of tile
+ * \return Pointer to searched Tile.
+ */
 std::shared_ptr<Tile> Gamefield::getTilePointerAt(int x, int y)
 {
 	std::shared_ptr<Tile> pSearchedTile = NULL;
 
 	if ((12 <= x <= 14) && (0 <= y <= 21))
-		pSearchedTile = Gamefield::menuBar[x][y];
+		//pSearchedTile = Gamefield::menuBar[x][y];
 
 	if ((2 <= x <= 19) && (0 <= y <= 11))
 		pSearchedTile = Gamefield::playingfield[x - 2][y];
