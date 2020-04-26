@@ -17,11 +17,11 @@ private:
 	static const int defaultYSizeField = 12;
 
 	std::shared_ptr<vector<vector<std::shared_ptr<MenuTile>>>> menuBar;
-	vector<vector<std::shared_ptr<PlayerTile>>> headquarterTilePlayerBlue;
-	vector<vector<std::shared_ptr<PlayerTile>>> headquarterTilePlayerRed;
-	std::shared_ptr < vector<vector<std::shared_ptr<FieldTile>>>> playingfield;
-	vector<vector<std::shared_ptr<FieldTile>>> spawnBlue;
-	vector<vector<std::shared_ptr<FieldTile>>> spawnRed;
+	std::shared_ptr<vector<vector<std::shared_ptr<PlayerTile>>>> headquarterTilePlayerBlue;
+	std::shared_ptr<vector<vector<std::shared_ptr<PlayerTile>>>> headquarterTilePlayerRed;
+	std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> playingfield;
+	std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> spawnBlue;
+	std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> spawnRed;
 
 	Gamefield();
 
@@ -47,16 +47,16 @@ public:
 	std::shared_ptr<vector<vector<std::shared_ptr<MenuTile>>>> getMenuBar() {
 		return this->menuBar;
 	}
-	void setHqTilePlayerBlue(vector<vector<std::shared_ptr<PlayerTile>>> hqTilePlayer) {
+	void setHqTilePlayerBlue(std::shared_ptr<vector<vector<std::shared_ptr<PlayerTile>>>> hqTilePlayer) {
 		this->headquarterTilePlayerBlue = hqTilePlayer;
 	}
-	vector<vector<std::shared_ptr<PlayerTile>>> getHqTilePlayerBlue() {
+	std::shared_ptr<vector<vector<std::shared_ptr<PlayerTile>>>> getHqTilePlayerBlue() {
 		return this->headquarterTilePlayerBlue;
 	}
-	void setHqTilePlayerRed(vector<vector<std::shared_ptr<PlayerTile>>> hqTilePlayer) {
+	void setHqTilePlayerRed(std::shared_ptr<vector<vector<std::shared_ptr<PlayerTile>>>> hqTilePlayer) {
 		this->headquarterTilePlayerRed = hqTilePlayer;
 	}
-	vector<vector<std::shared_ptr<PlayerTile>>> getHqTilePlayerRed() {
+	std::shared_ptr<vector<vector<std::shared_ptr<PlayerTile>>>> getHqTilePlayerRed() {
 		return this->headquarterTilePlayerRed;
 	}
 	void setField(std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> field) {
@@ -65,16 +65,16 @@ public:
 	std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> getField() {
 		return this->playingfield;
 	}
-	void setSpawnBlue(vector<vector<std::shared_ptr<FieldTile>>> spawnBlue) {
+	void setSpawnBlue(std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> spawnBlue) {
 		this->spawnBlue = spawnBlue;
 	}
-	vector<vector<std::shared_ptr<FieldTile>>> getSpawnBlue() {
+	std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> getSpawnBlue() {
 		return this->spawnBlue;
 	}
-	void setSpawnRed(vector<vector<std::shared_ptr<FieldTile>>> spawnRed) {
+	void setSpawnRed(std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> spawnRed) {
 		this->spawnRed = spawnRed;
 	}
-	vector<vector<std::shared_ptr<FieldTile>>> getSpawnRed() {
+	std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> getSpawnRed() {
 		return this->spawnRed;
 	}
 

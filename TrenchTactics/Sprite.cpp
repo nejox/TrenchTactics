@@ -64,7 +64,13 @@ void Sprite::load(const string sFilename)
 
 
 }
-
+/**
+ *
+ *
+ * \param sFilename
+ * \param FrameWidth
+ * \param FrameHeight
+ */
 void Sprite::load(const string sFilename, int FrameWidth, int FrameHeight)
 {
 	// Bitmap laden
@@ -93,6 +99,24 @@ void Sprite::render()
 {
 	SDL_RenderCopy(m_pRenderer, m_pImage, NULL, &m_Rect);
 	SDL_RenderPresent(m_pRenderer);
+}
+
+/**
+ *
+ *
+ * \param locX
+ * \param locY
+ */
+void Sprite::render(int locX, int locY) {
+	//Set rendering space and render to screen
+	SDL_Rect renderQuad = { locX, locY, 64, 64 };
+
+	//Set clip rendering dimensions
+	m_Rect.w = renderQuad.w;
+	m_Rect.h = renderQuad.h;
+
+	//Render to screen
+	SDL_RenderCopy(m_pRenderer, m_pImage, &renderQuad, &m_Rect);
 }
 
 /*

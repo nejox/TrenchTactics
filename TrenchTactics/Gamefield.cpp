@@ -1,5 +1,5 @@
 ﻿#include "Gamefield.h"
-
+#include <memory>
 
 Gamefield::Gamefield() {
 }
@@ -18,9 +18,11 @@ Gamefield::~Gamefield() {
  */
 int Gamefield::spawnUnitInSpawn(std::shared_ptr<Unit> pUnit, bool redPlayerActive)
 {
-	vector<vector<std::shared_ptr<FieldTile>>>* activeSpawn;
-	if (redPlayerActive) activeSpawn = &spawnRed;
-	else activeSpawn = &spawnBlue;
+	std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> activeSpawn;
+	if (redPlayerActive)
+		activeSpawn = spawnRed;
+	else
+		activeSpawn = spawnBlue;
 
 
 	//funktioniert bisher nur bei default Groesse des Spielfelds.
@@ -68,12 +70,16 @@ bool Gamefield::fieldTileIsFree(int x, int y, vector<vector<std::shared_ptr<Fiel
 void Gamefield::init(int FieldWidth, int FieldHeight, int Seed) {
 	menuBar = std::make_shared<vector<vector<std::shared_ptr<MenuTile>>>>();
 	playingfield = std::make_shared<vector<vector<std::shared_ptr<FieldTile>>>>();
+	spawnBlue = std::make_shared<vector<vector<std::shared_ptr<FieldTile>>>>();
+	spawnRed = std::make_shared<vector<vector<std::shared_ptr<FieldTile>>>>();
+	headquarterTilePlayerBlue = std::make_shared<vector<vector<std::shared_ptr<PlayerTile>>>>();
+	headquarterTilePlayerRed = std::make_shared<vector<vector<std::shared_ptr<PlayerTile>>>>();
 	Gamefield::setAllFieldSizes();
-	//Gamefield::initiatePlayerTilesBlue();
-	//Gamefield::initiatePlayerTilesRed();
+	Gamefield::initiatePlayerTilesBlue();
+	Gamefield::initiatePlayerTilesRed();
 	Gamefield::initiateMenuTiles();
-	//Gamefield::initiateSpawnTilesBlue();
-	//Gamefield::initiateSpawnTilesRed();
+	Gamefield::initiateSpawnTilesBlue();
+	Gamefield::initiateSpawnTilesRed();
 	Gamefield::initiatePlayingFieldTiles();
 
 }
@@ -99,10 +105,10 @@ void Gamefield::setAllFieldSizes()
  */
 void Gamefield::setSizePlayerTilesBlue()
 {
-	headquarterTilePlayerBlue.resize(2);
-	for (vector<std::shared_ptr<PlayerTile>> hqBlue : headquarterTilePlayerBlue)
+	headquarterTilePlayerBlue->resize(2);
+	for (vector<vector<shared_ptr<PlayerTile>>>::iterator hqBlue = headquarterTilePlayerBlue->begin(); hqBlue != headquarterTilePlayerBlue->end(); ++hqBlue)
 	{
-		hqBlue.resize(2);
+		hqBlue->resize(2);
 	}
 }
 
@@ -112,10 +118,10 @@ void Gamefield::setSizePlayerTilesBlue()
  */
 void Gamefield::setSizePlayerTilesRed()
 {
-	headquarterTilePlayerRed.resize(2);
-	for (vector<std::shared_ptr<PlayerTile>> hqRed : headquarterTilePlayerRed)
+	headquarterTilePlayerRed->resize(2);
+	for (vector<vector<shared_ptr<PlayerTile>>>::iterator hqRed = headquarterTilePlayerRed->begin(); hqRed != headquarterTilePlayerRed->end(); ++hqRed)
 	{
-		hqRed.resize(2);
+		hqRed->resize(2);
 	}
 }
 
@@ -126,10 +132,6 @@ void Gamefield::setSizePlayerTilesRed()
 void Gamefield::setSizeMenuBar()
 {
 	menuBar->resize(22);
-	//for (vector<std::shared_ptr<MenuTile>> menuCol : menuBar.get())
-	//{
-	//	menuCol.resize(3);
-	//}
 
 	for (vector<vector<shared_ptr<MenuTile>>>::iterator menuCol = menuBar->begin(); menuCol != menuBar->end(); ++menuCol)
 	{
@@ -158,10 +160,10 @@ void Gamefield::setSizePlayingField()
  */
 void Gamefield::setSizeSpawnBlue()
 {
-	spawnBlue.resize(2);
-	for (vector<std::shared_ptr<FieldTile>> spawnCol : spawnBlue)
+	spawnBlue->resize(2);
+	for (vector<vector<shared_ptr<FieldTile>>>::iterator spawnCol = spawnBlue->begin(); spawnCol != spawnBlue->end(); ++spawnCol)
 	{
-		spawnCol.resize(10);
+		spawnCol->resize(10);
 	}
 }
 
@@ -171,10 +173,10 @@ void Gamefield::setSizeSpawnBlue()
  */
 void Gamefield::setSizeSpawnRed()
 {
-	spawnRed.resize(2);
-	for (vector<std::shared_ptr<FieldTile>> spawnCol : spawnRed)
+	spawnRed->resize(2);
+	for (vector<vector<shared_ptr<FieldTile>>>::iterator spawnCol = spawnRed->begin(); spawnCol != spawnRed->end(); ++spawnCol)
 	{
-		spawnCol.resize(10);
+		spawnCol->resize(10);
 	}
 }
 
@@ -184,11 +186,23 @@ void Gamefield::setSizeSpawnRed()
  */
 void Gamefield::initiatePlayerTilesBlue()
 {
-	for (vector<vector<std::shared_ptr<PlayerTile>>>::iterator xIter = headquarterTilePlayerBlue.begin(); xIter != headquarterTilePlayerBlue.end(); ++xIter) {
+	for (vector<vector<std::shared_ptr<PlayerTile>>>::iterator xIter = headquarterTilePlayerBlue->begin(); xIter != headquarterTilePlayerBlue->end(); ++xIter) {
 		for (vector<std::shared_ptr<PlayerTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
-			*yIter = std::shared_ptr <PlayerTile>(new PlayerTile);
-			//keinen Plan, ob passende Funktion f�r Renderer und passender Input
-			RendererImpl::instance().renderHQ();//blue
+			// create PlayerTile as shared pointer 
+			std::shared_ptr<PlayerTile> tmpMenuTilePointer = std::make_shared<PlayerTile>();
+
+			// create Sprite and load menuBar file with all individual sprites
+			Sprite* terrainSprite = new Sprite();
+			terrainSprite->load("../Data/Sprites/HQ/B_HQ.bmp");
+
+			// set pos where sprite shall be renderd
+
+			terrainSprite->setPos((xIter - headquarterTilePlayerBlue->begin()) * 64, (yIter - xIter->begin()) * 64 + 5 * 64);
+			tmpMenuTilePointer->setSprite(terrainSprite);
+
+			// tell render function to only render the specific 64*64 slice of whole menu
+			tmpMenuTilePointer->getSprite()->render((xIter - headquarterTilePlayerBlue->begin()) * 64, (yIter - xIter->begin()) * 64);
+			*yIter = tmpMenuTilePointer;
 		}
 	}
 }
@@ -199,11 +213,22 @@ void Gamefield::initiatePlayerTilesBlue()
  */
 void Gamefield::initiatePlayerTilesRed()
 {
-	for (vector<vector<std::shared_ptr<PlayerTile>>>::iterator xIter = headquarterTilePlayerRed.begin(); xIter != headquarterTilePlayerRed.end(); ++xIter) {
+	for (vector<vector<std::shared_ptr<PlayerTile>>>::iterator xIter = headquarterTilePlayerRed->begin(); xIter != headquarterTilePlayerRed->end(); ++xIter) {
 		for (vector<std::shared_ptr<PlayerTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
-			*yIter = std::shared_ptr <PlayerTile>(new PlayerTile);
-			//keinen Plan, ob passende Funktion f�r Renderer und passender Input
-			RendererImpl::instance().renderHQ();//red
+			// create PlayerTile as shared pointer 
+			std::shared_ptr<PlayerTile> tmpMenuTilePointer = std::make_shared<PlayerTile>();
+
+			// create Sprite and load menuBar file with all individual sprites
+			Sprite* terrainSprite = new Sprite();
+			terrainSprite->load("../Data/Sprites/HQ/R_HQ.bmp");
+
+			// set pos where sprite shall be renderd
+			terrainSprite->setPos((xIter - headquarterTilePlayerRed->begin()) * 64 + 20 * 64, (yIter - xIter->begin()) * 64 + 5 * 64);
+			tmpMenuTilePointer->setSprite(terrainSprite);
+
+			// tell render function to only render the specific 64*64 slice of whole menu
+			tmpMenuTilePointer->getSprite()->render((xIter - headquarterTilePlayerRed->begin()) * 64, (yIter - xIter->begin()) * 64);
+			*yIter = tmpMenuTilePointer;
 		}
 	}
 }
@@ -217,16 +242,20 @@ void Gamefield::initiateMenuTiles()
 	for (vector<vector<std::shared_ptr<MenuTile>>>::iterator xIter = menuBar->begin(); xIter != menuBar->end(); ++xIter) {
 		for (vector<std::shared_ptr<MenuTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
 
+			// create MenuTile as shared pointer 
 			std::shared_ptr<MenuTile> tmpMenuTilePointer = std::make_shared<MenuTile>();
+
+			// create Sprite and load menuBar file with all individual sprites
 			Sprite* terrainSprite = new Sprite();
 			terrainSprite->load("../Data/Sprites/Token/MENUE_BAR.bmp");
+
+			// set pos where sprite shall be renderd
 			terrainSprite->setPos((xIter - menuBar->begin()) * 64, (yIter - xIter->begin()) * 64 + 12 * 64);
 			tmpMenuTilePointer->setSprite(terrainSprite);
-			tmpMenuTilePointer->getSprite()->render();
-			*yIter = tmpMenuTilePointer;
 
-			//*yIter = std::make_shared<MenuTile>();
-			//Menu rendern fehlt noch!
+			// tell render function to only render the specific 64*64 slice of whole menu
+			tmpMenuTilePointer->getSprite()->render((xIter - menuBar->begin()) * 64, (yIter - xIter->begin()) * 64);
+			*yIter = tmpMenuTilePointer;
 		}
 	}
 }
@@ -237,11 +266,19 @@ void Gamefield::initiateMenuTiles()
  */
 void Gamefield::initiateSpawnTilesBlue()
 {
-	for (vector<vector<std::shared_ptr<FieldTile>>>::iterator xIter = spawnBlue.begin(); xIter != spawnBlue.end(); ++xIter) {
+	for (vector<vector<std::shared_ptr<FieldTile>>>::iterator xIter = spawnBlue->begin(); xIter != spawnBlue->end(); ++xIter) {
 		for (vector<std::shared_ptr<FieldTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
+
 			std::shared_ptr<FieldTile> tmpFieldTilePointer = std::make_shared<FieldTile>(FieldTile::terrainType::spawnterrain);
 			Sprite* terrainSprite = new Sprite();
-			terrainSprite->load("../Data/Sprites/Terrain/TERRAIN_SAMPLE.bmp");
+			terrainSprite->load("../Data/Sprites/Terrain/TERRAIN_SAMPLE_SPAWN.bmp");
+			if ((yIter - xIter->begin()) >= 5) {
+				terrainSprite->setPos((xIter - spawnBlue->begin()) * 64, (yIter - xIter->begin()) * 64 + 2 * 64);
+			}
+			else {
+				terrainSprite->setPos((xIter - spawnBlue->begin()) * 64, (yIter - xIter->begin()) * 64);
+			}
+
 			tmpFieldTilePointer->setSprite(terrainSprite);
 			tmpFieldTilePointer->getSprite()->render();
 			*yIter = tmpFieldTilePointer;
@@ -256,13 +293,21 @@ void Gamefield::initiateSpawnTilesBlue()
  */
 void Gamefield::initiateSpawnTilesRed()
 {
-	for (vector<vector<std::shared_ptr<FieldTile>>>::iterator xIter = spawnRed.begin(); xIter != spawnRed.end(); ++xIter) {
+	for (vector<vector<std::shared_ptr<FieldTile>>>::iterator xIter = spawnRed->begin(); xIter != spawnRed->end(); ++xIter) {
 		for (vector<std::shared_ptr<FieldTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
 
 			std::shared_ptr<FieldTile> tmpFieldTilePointer = std::make_shared<FieldTile>(FieldTile::terrainType::spawnterrain);
 			Sprite* terrainSprite = new Sprite();
-			terrainSprite->load("../Data/Sprites/Terrain/TERRAIN_SAMPLE.bmp");
+			terrainSprite->load("../Data/Sprites/Terrain/TERRAIN_SAMPLE_SPAWN.bmp");
 			tmpFieldTilePointer->setSprite(terrainSprite);
+
+			if ((yIter - xIter->begin()) >= 5) {
+				terrainSprite->setPos((xIter - spawnRed->begin()) * 64 + 20 * 64, (yIter - xIter->begin()) * 64 + 2 * 64);
+			}
+			else {
+				terrainSprite->setPos((xIter - spawnRed->begin()) * 64 + 20 * 64, (yIter - xIter->begin()) * 64);
+			}
+
 			tmpFieldTilePointer->getSprite()->render();
 			*yIter = tmpFieldTilePointer;
 
@@ -345,7 +390,7 @@ std::shared_ptr<FieldTile> Gamefield::findTileForUnit(std::shared_ptr<Unit> pUni
 
 	//Searches blue player's spawn
 
-	for (vector<vector<std::shared_ptr<FieldTile>>>::iterator xIter = spawnBlue.begin(); xIter != spawnBlue.end(); ++xIter) {
+	for (vector<vector<std::shared_ptr<FieldTile>>>::iterator xIter = spawnBlue->begin(); xIter != spawnBlue->end(); ++xIter) {
 		for (vector<std::shared_ptr<FieldTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
 			pTileToTest = *yIter;
 			if (pTileToTest->getUnit() == pUnit) return pTileToTest;
@@ -354,7 +399,7 @@ std::shared_ptr<FieldTile> Gamefield::findTileForUnit(std::shared_ptr<Unit> pUni
 
 	//Searches red player's spawn
 
-	for (vector<vector<std::shared_ptr<FieldTile>>>::iterator xIter = spawnRed.begin(); xIter != spawnRed.end(); ++xIter) {
+	for (vector<vector<std::shared_ptr<FieldTile>>>::iterator xIter = spawnRed->begin(); xIter != spawnRed->end(); ++xIter) {
 		for (vector<std::shared_ptr<FieldTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
 			pTileToTest = *yIter;
 			if (pTileToTest->getUnit() == pUnit) return pTileToTest;
@@ -375,29 +420,31 @@ std::shared_ptr<Tile> Gamefield::getTilePointerAt(int x, int y)
 {
 	std::shared_ptr<Tile> pSearchedTile = NULL;
 
-	if ((12 <= x <= 14) && (0 <= y <= 21)) {}
-	//pSearchedTile = Gamefield::menuBar[x][y];
+	if ((12 <= x <= 14) && (0 <= y <= 21))
+		pSearchedTile = Gamefield::menuBar.get()->at(x).at(y);
 
-	if ((2 <= x <= 19) && (0 <= y <= 11)) {}
-	//pSearchedTile = Gamefield::playingfield[x - 2][y];
+
+
+	if ((2 <= x <= 19) && (0 <= y <= 11))
+		pSearchedTile = Gamefield::menuBar.get()->at(x - 2).at(y);
 
 	if ((0 <= x <= 1) && (5 <= y <= 6))
-		Gamefield::headquarterTilePlayerBlue[x][y - 5];
+		Gamefield::headquarterTilePlayerBlue.get()[x][y - 5];
 
 	if ((20 <= x <= 21) && (5 <= y <= 6))
-		Gamefield::headquarterTilePlayerRed[x - 20][y - 5];
+		Gamefield::headquarterTilePlayerRed.get()[x - 20][y - 5];
 
 	if ((0 <= x <= 1) && (0 <= y <= 4))
-		Gamefield::spawnBlue[x][y];
+		Gamefield::spawnBlue.get()[x][y];
 
 	if ((0 <= x <= 1) && (7 <= y <= 11))
-		Gamefield::spawnBlue[x][y - 2];
+		Gamefield::spawnBlue.get()[x][y - 2];
 
 	if ((20 <= x <= 21) && (0 <= y <= 4))
-		Gamefield::spawnRed[x - 20][y];
+		Gamefield::spawnRed.get()[x - 20][y];
 
 	if ((20 <= x <= 21) && (7 <= y <= 11))
-		Gamefield::spawnRed[x - 20][y - 2];
+		Gamefield::spawnRed.get()[x - 20][y - 2];
 
 	return pSearchedTile;
 }
