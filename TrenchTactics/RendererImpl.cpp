@@ -133,5 +133,5 @@ void RendererImpl::render()
 
 SDL_Renderer* RendererImpl::GetRenderer()
 {
-	 return m_pRenderer; 
+	return m_pRenderer;
 }
