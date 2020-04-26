@@ -12,9 +12,59 @@
 /// </summary>
 class Unit: std::enable_shared_from_this<Unit>
 {
+public:
+
+	enum UnitType {
+		CC,
+		GUNNER,
+		GRENADE
+	};
+
+	enum UnitState {
+		STANDING,
+		SHOOTING,
+		RUNNING
+	};
+
+
+
+	Unit(UnitType unittype, bool colorRed) {
+
+		m_colorRed = colorRed;
+		m_state = STANDING;
+
+		m_hp = ConfigReader::instance().getUnitConf(unittype)->getHp();
+		m_currentHP = ConfigReader::instance().getUnitConf(unittype)->getHp();
+		m_range = ConfigReader::instance().getUnitConf(unittype)->getRange();
+		m_cost = ConfigReader::instance().getUnitConf(unittype)->getCost();
+		m_ap = ConfigReader::instance().getUnitConf(unittype)->getAp();
+		m_currentAP = ConfigReader::instance().getUnitConf(unittype)->getAp();
+		m_dmg = ConfigReader::instance().getUnitConf(unittype)->getDmg();
+		m_apCostAttack = ConfigReader::instance().getUnitConf(unittype)->getApCostAttack();
+		m_apCostMove = ConfigReader::instance().getUnitConf(unittype)->getApCostMove();
+		m_apCostTrench = ConfigReader::instance().getUnitConf(unittype)->getApCostTrench();
+		m_spawnProbability = ConfigReader::instance().getUnitConf(unittype)->getSpawnProbability();
+		m_name = ConfigReader::instance().getUnitConf(unittype)->getName();
+
+		if (colorRed) {
+			 m_spriteFilePathStanding = ConfigReader::instance().getUnitConf(unittype)->getSpriteFilePathStandingRed();
+			 m_spriteFilePathShooting = ConfigReader::instance().getUnitConf(unittype)->getSpriteFilePathShootingRed();
+			 m_spriteFilePathRunning = ConfigReader::instance().getUnitConf(unittype)->getSpriteFilePathRunningRed();
+		}
+		else {
+			m_spriteFilePathStanding = ConfigReader::instance().getUnitConf(unittype)->getSpriteFilePathStandingBlue();
+			m_spriteFilePathShooting = ConfigReader::instance().getUnitConf(unittype)->getSpriteFilePathShootingBlue();
+			m_spriteFilePathRunning = ConfigReader::instance().getUnitConf(unittype)->getSpriteFilePathRunningBlue();
+		}
+
+		spriteUnit = make_shared<SpriteUnit>();
+
+	}
+
 private:
 	Unit() = delete;
 
+	UnitState m_state;
 	int m_colorRed;
 	int m_hp;
 	int m_currentHP;
@@ -35,49 +85,6 @@ private:
 
 public:
 
-	enum UnitType {
-		CC,
-		GUNNER,
-		GRENADE
-	};
-
-
-
-	Unit(UnitType unittype, bool colorRed) {
-
-		std::shared_ptr<UnitConf> uc = ConfigReader::instance().getUnitConf(unittype);
-
-		m_colorRed = colorRed;
-
-		m_hp = uc->getHp();
-		m_currentHP = uc->getHp();
-		m_range = uc->getRange();
-		m_cost = uc->getCost();
-		m_ap = uc->getAp();
-		m_currentAP = uc->getAp();
-		m_dmg = uc->getDmg();
-		m_apCostAttack = uc->getApCostAttack();
-		m_apCostMove = uc->getApCostMove();
-		m_apCostTrench = uc->getApCostTrench();
-		m_spawnProbability = uc->getSpawnProbability();
-		m_name = uc->getName();
-
-		if (colorRed) {
-			 m_spriteFilePathStanding = uc->getSpriteFilePathStandingRed();
-			 m_spriteFilePathShooting = uc->getSpriteFilePathShootingRed();
-			 m_spriteFilePathRunning = uc->getSpriteFilePathRunningRed();
-		}
-		else {
-			m_spriteFilePathStanding = uc->getSpriteFilePathStandingBlue();
-			m_spriteFilePathShooting = uc->getSpriteFilePathShootingBlue();
-			m_spriteFilePathRunning = uc->getSpriteFilePathRunningBlue();
-		}
-
-		spriteUnit = make_shared<SpriteUnit>();
-
-	}
-
-
 
 	~Unit() {};
 	/*
@@ -94,6 +101,29 @@ public:
 	void move();
 	void updateAP(int cost);
 	void resetAP();
+
+	/// <summary>
+	/// renders unit dependent on current state
+	/// </summary>
+	void render() {
+		if (this->m_state == STANDING)
+		{
+			spriteUnit->setAnimation(m_spriteFilePathStanding);
+		}
+
+		if (this->m_state == SHOOTING)
+		{
+			spriteUnit->setAnimation(m_spriteFilePathShooting);
+		}
+
+		if (this->m_state == RUNNING)
+		{
+			spriteUnit->setAnimation(m_spriteFilePathRunning);
+		}
+
+		spriteUnit->render();
+	}
+
 	std::shared_ptr<Unit> getptr() {
 		return shared_from_this();
 	}
@@ -129,6 +159,16 @@ public:
 	}
 	int getRange() {
 		return this->m_range;
+	}
+
+	int getState()
+	{
+		return this->m_state;
+	}
+
+	void setState(Unit::UnitState state)
+	{
+		this->m_state = state;
 	}
 
 
