@@ -23,23 +23,19 @@ private:
 public:
 	Headquarter(bool colourRed)
 	{
-
-		std::shared_ptr<MapConf> c = ConfigReader::instance().getMapConf();
-		std::shared_ptr<BalanceConf> b = ConfigReader::instance().getBalanceConf();
-
 		m_colorRed = colourRed;
-		m_maxHP = b->getHqHP();
-		m_currentHP = b->getHqHP();
+		m_maxHP = ConfigReader::instance().getBalanceConf()->getHqHP();
+		m_currentHP = ConfigReader::instance().getBalanceConf()->getHqHP();
 		m_damaged = false;
 
 
 		if (colourRed)
 		{
-			m_spriteFilePath = c->getHeadquarterSpriteRed(); //TO DO: config scheiß einfügen
+			m_spriteFilePath = ConfigReader::instance().getMapConf()->getHeadquarterSpriteRed(); //TO DO: config scheiß einfügen
 		}
 		else
 		{
-			m_spriteFilePath = c->getHeadquarterSpriteBlue(); //TO DO: config scheiß einfügen
+			m_spriteFilePath = ConfigReader::instance().getMapConf()->getHeadquarterSpriteBlue(); //TO DO: config scheiß einfügen
 		}
 
 		m_spriteHQ = make_shared<SpriteHQ>(m_spriteFilePath);
