@@ -5,15 +5,15 @@ class SpriteUnit :
 	public Sprite,
 	std::enable_shared_from_this<SpriteUnit>
 {
-public: 
-	
-	SpriteUnit::SpriteUnit(const std::string filename);
+public:
+
+	SpriteUnit(const std::string filename);
 	void setAnimation(const std::string filename);
 	void render();
 
 	int getCurrentPhase()
 	{
-		return this->m_currentPhase
+		return this->m_currentPhase;
 	}
 
 	void setCurrentPhase(int currentPhase)

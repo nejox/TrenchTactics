@@ -6,11 +6,13 @@
 #include "EventBus.h"
 #include "Event.h"
 #include "SpriteUnit.h"
+#include "DeathEvent.h"
+#include "Timer.hpp"
 
 /// <summary>
 /// Baseclass for units
 /// </summary>
-class Unit: std::enable_shared_from_this<Unit>
+class Unit : std::enable_shared_from_this<Unit>
 {
 public:
 
@@ -51,17 +53,17 @@ public:
 		m_name = ConfigReader::instance().getUnitConf(unittype)->getName();
 
 		if (colorRed) {
-			m_spriteStanding = std::make_shared<SpriteUnit>(ConfigReader::instance().getUnitConf(unittype)->getSpriteFilePathStandingRed());
+			m_spriteStanding = std::make_shared<SpriteUnit>(ConfigReader::instance().getUnitConf(unittype)->getSpriteFilePathStandingNeutralRed());
 			m_spriteShooting = std::make_shared<SpriteUnit>(ConfigReader::instance().getUnitConf(unittype)->getSpriteFilePathShootingRed());
 			m_spriteRunning = std::make_shared<SpriteUnit>(ConfigReader::instance().getUnitConf(unittype)->getSpriteFilePathRunningRed());
 		}
 		else {
-			m_spriteStanding = std::make_shared<SpriteUnit>(ConfigReader::instance().getUnitConf(unittype)->getSpriteFilePathStandingBlue());
+			m_spriteStanding = std::make_shared<SpriteUnit>(ConfigReader::instance().getUnitConf(unittype)->getSpriteFilePathStandingNeutralBlue());
 			m_spriteShooting = std::make_shared<SpriteUnit>(ConfigReader::instance().getUnitConf(unittype)->getSpriteFilePathShootingBlue());
 			m_spriteRunning = std::make_shared<SpriteUnit>(ConfigReader::instance().getUnitConf(unittype)->getSpriteFilePathRunningBlue());
 		}
 
-		
+
 
 	}
 
@@ -114,16 +116,16 @@ public:
 		if (this->m_state == SHOOTING)
 		{
 			//TO DO: den kram in die spriteUnit klasse schmeißen
-			if (this->m_spriteShooting->getCurrentPhase() == 2* (this->m_spriteShooting->getNumFrames()))
+			if (this->m_spriteShooting->getCurrentPhase() == 2 * (this->m_spriteShooting->getNumFrames()))
 			{
 				this->setState(STANDING);
 				m_spriteShooting->setCurrentPhase(0);
 			}
-			else 
+			else
 			{
 				m_spriteStanding->render();
 			}
-			
+
 		}
 
 		if (this->m_state == RUNNING)
