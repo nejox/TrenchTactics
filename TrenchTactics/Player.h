@@ -22,10 +22,10 @@ private:
 	std::vector<std::shared_ptr<Unit>> unitArray;
 	std::queue<std::shared_ptr<Unit>> unitQueue;
 	int money;
-	int interest;
 	int supply;
 	GAMEPHASES::GAMEPHASE currentPhase;
 public:
+	Player();
 	void init(bool colorRed);
 	void computeInterest();
 	void updatePlayer();
