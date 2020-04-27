@@ -344,7 +344,7 @@ void Gamefield::initiatePlayingFieldTiles()
 
 				std::shared_ptr<FieldTile> tmpFieldTilePointer = std::make_shared<FieldTile>(FieldTile::terrainType::mud);
 				Sprite* terrainSprite = new Sprite();
-				terrainSprite->load("../Data/Sprites/Terrain/TERRAIN_STONE_1.bmp");
+				terrainSprite->load("../Data/Sprites/Terrain/TERRAIN_SAMPLE.bmp");
 				terrainSprite->setPos((xIter - playingfield->begin()) * 64 + 2 * 64, (yIter - xIter->begin()) * 64);
 				tmpFieldTilePointer->setSprite(terrainSprite);
 				tmpFieldTilePointer->getSprite()->render();
@@ -356,7 +356,7 @@ void Gamefield::initiatePlayingFieldTiles()
 
 				std::shared_ptr<FieldTile> tmpFieldTilePointer = std::make_shared<FieldTile>(FieldTile::terrainType::mud);
 				Sprite* terrainSprite = new Sprite();
-				terrainSprite->load("../Data/Sprites/Terrain/TERRAIN_MUD_1.bmp");
+				terrainSprite->load("../Data/Sprites/Terrain/TERRAIN_SAMPLE.bmp");
 				terrainSprite->setPos((xIter - playingfield->begin()) * 64 + 2 * 64, (yIter - xIter->begin()) * 64);
 				tmpFieldTilePointer->setSprite(terrainSprite);
 				tmpFieldTilePointer->getSprite()->render();

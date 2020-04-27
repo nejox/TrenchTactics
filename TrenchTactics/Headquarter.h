@@ -28,19 +28,8 @@ public:
 		m_currentHP = ConfigReader::instance().getBalanceConf()->getHqHP();
 		m_damaged = false;
 
-
-		if (colourRed)
-		{
-			m_spriteFilePath = ConfigReader::instance().getMapConf()->getHeadquarterSpriteRed(); //TO DO: config scheiß einfügen
-		}
-		else
-		{
-			m_spriteFilePath = ConfigReader::instance().getMapConf()->getHeadquarterSpriteBlue(); //TO DO: config scheiß einfügen
-		}
-
-		m_spriteHQ = make_shared<SpriteHQ>(m_spriteFilePath);
-
-		
+		m_spriteHQ = make_shared<SpriteHQ>(m_colorRed);
+				
 	}
 	/// <summary>
 	/// Renders the HQ dependent on its current health state

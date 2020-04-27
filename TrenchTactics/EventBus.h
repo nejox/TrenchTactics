@@ -40,10 +40,9 @@ public:
 
 			handlers->clear();
 			delete handlers;
+			it++;
 		}
 	}
-
-
 
 	template<typename EventType>
 	/// <summary>

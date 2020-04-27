@@ -1,11 +1,9 @@
 #include "Unit.h"
 #include "DeathEvent.h"
-#include "Timer.hpp"
-
 
 void Unit::attack(std::shared_ptr<Unit> target)
 {
-	this->setState(SHOOTING);
+	//this->setState(SHOOTING);
 	target->changeHP(m_dmg);
 	if (target->getCurrentHP() <= 0)
 	{
@@ -13,12 +11,12 @@ void Unit::attack(std::shared_ptr<Unit> target)
 	}
 
 	updateAP(m_apCostAttack);
-	
+
 }
 
 void Unit::attack(Headquarter* target)
 {
-	this->setState(SHOOTING);
+	//this->setState(SHOOTING);
 	target->changeHP(m_dmg);
 	updateAP(m_apCostAttack);
 }
@@ -39,6 +37,11 @@ void Unit::resetAP()
 	m_currentAP = m_ap;
 }
 
+void Unit::update(STATES::UNITSTATE state)
+{
+	m_sprite->render(state);
+}
+
 
 void Unit::updateAP(int cost)
 {
@@ -47,7 +50,7 @@ void Unit::updateAP(int cost)
 
 void Unit::move()
 {
-	this->setState(RUNNING);
+	//this->setState(RUNNING);
 	//TO DO
 	updateAP(m_apCostMove);
 }
