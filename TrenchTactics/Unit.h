@@ -184,6 +184,11 @@ public:
 	{
 		this->m_state = state;
 	}
+	
+	std::string getName()
+	{
+		return this->m_name;
+	}
 
 
 };

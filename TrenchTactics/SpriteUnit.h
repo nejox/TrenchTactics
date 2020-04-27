@@ -13,7 +13,7 @@ public:
 
 	int getCurrentPhase()
 	{
-		return this->m_currentPhase
+		return this->m_currentPhase;
 	}
 
 	void setCurrentPhase(int currentPhase)
