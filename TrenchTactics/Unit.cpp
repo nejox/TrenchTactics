@@ -1,5 +1,6 @@
 #include "Unit.h"
 #include "DeathEvent.h"
+#include "Timer.hpp"
 
 
 void Unit::attack(std::shared_ptr<Unit> target)
@@ -12,6 +13,7 @@ void Unit::attack(std::shared_ptr<Unit> target)
 	}
 
 	updateAP(m_apCostAttack);
+	
 }
 
 void Unit::attack(Headquarter* target)
