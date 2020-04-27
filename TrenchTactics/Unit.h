@@ -27,7 +27,11 @@ public:
 	};
 
 
-
+	/// <summary>
+	/// Initializes Unit type with all values from config
+	/// </summary>
+	/// <param name="unittype"></param>
+	/// <param name="colorRed"></param>
 	Unit(UnitType unittype, bool colorRed) {
 
 		m_colorRed = colorRed;
@@ -47,17 +51,17 @@ public:
 		m_name = ConfigReader::instance().getUnitConf(unittype)->getName();
 
 		if (colorRed) {
-			 m_spriteFilePathStanding = ConfigReader::instance().getUnitConf(unittype)->getSpriteFilePathStandingRed();
-			 m_spriteFilePathShooting = ConfigReader::instance().getUnitConf(unittype)->getSpriteFilePathShootingRed();
-			 m_spriteFilePathRunning = ConfigReader::instance().getUnitConf(unittype)->getSpriteFilePathRunningRed();
+			m_spriteStanding = std::make_shared<SpriteUnit>(ConfigReader::instance().getUnitConf(unittype)->getSpriteFilePathStandingRed());
+			m_spriteShooting = std::make_shared<SpriteUnit>(ConfigReader::instance().getUnitConf(unittype)->getSpriteFilePathShootingRed());
+			m_spriteRunning = std::make_shared<SpriteUnit>(ConfigReader::instance().getUnitConf(unittype)->getSpriteFilePathRunningRed());
 		}
 		else {
-			m_spriteFilePathStanding = ConfigReader::instance().getUnitConf(unittype)->getSpriteFilePathStandingBlue();
-			m_spriteFilePathShooting = ConfigReader::instance().getUnitConf(unittype)->getSpriteFilePathShootingBlue();
-			m_spriteFilePathRunning = ConfigReader::instance().getUnitConf(unittype)->getSpriteFilePathRunningBlue();
+			m_spriteStanding = std::make_shared<SpriteUnit>(ConfigReader::instance().getUnitConf(unittype)->getSpriteFilePathStandingBlue());
+			m_spriteShooting = std::make_shared<SpriteUnit>(ConfigReader::instance().getUnitConf(unittype)->getSpriteFilePathShootingBlue());
+			m_spriteRunning = std::make_shared<SpriteUnit>(ConfigReader::instance().getUnitConf(unittype)->getSpriteFilePathRunningBlue());
 		}
 
-		spriteUnit = make_shared<SpriteUnit>();
+		
 
 	}
 
@@ -78,10 +82,9 @@ private:
 	int m_apCostTrench;
 	int m_spawnProbability;
 	std::string m_name;
-	std::string m_spriteFilePathStanding;
-	std::string m_spriteFilePathShooting;
-	std::string m_spriteFilePathRunning;
-	std::shared_ptr<SpriteUnit>spriteUnit;
+	std::shared_ptr<SpriteUnit>m_spriteStanding;
+	std::shared_ptr<SpriteUnit>m_spriteShooting;
+	std::shared_ptr<SpriteUnit>m_spriteRunning;
 
 public:
 
@@ -105,23 +108,34 @@ public:
 	/// <summary>
 	/// renders unit dependent on current state
 	/// </summary>
-	void render() {
-		if (this->m_state == STANDING)
-		{
-			spriteUnit->setAnimation(m_spriteFilePathStanding);
-		}
+	/// 
+	void update() {
 
 		if (this->m_state == SHOOTING)
 		{
-			spriteUnit->setAnimation(m_spriteFilePathShooting);
+			//TO DO: den kram in die spriteUnit klasse schmeißen
+			if (this->m_spriteShooting->getCurrentPhase() == 2* (this->m_spriteShooting->getNumFrames()))
+			{
+				this->setState(STANDING);
+				m_spriteShooting->setCurrentPhase(0);
+			}
+			else 
+			{
+				m_spriteStanding->render();
+			}
+			
 		}
 
 		if (this->m_state == RUNNING)
 		{
-			spriteUnit->setAnimation(m_spriteFilePathRunning);
+			m_spriteStanding->render();
 		}
 
-		spriteUnit->render();
+		if (this->m_state == STANDING)
+		{
+			m_spriteStanding->render();
+		}
+
 	}
 
 	std::shared_ptr<Unit> getptr() {

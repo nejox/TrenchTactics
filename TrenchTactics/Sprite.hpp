@@ -15,6 +15,11 @@ public:
 
 	void render();
 
+	int getNumFrames()
+	{
+		return this->m_NumFrames;
+	}
+
 protected:
 
 	void load(const string sFilename, int FrameWidth, int FrameHeight);
