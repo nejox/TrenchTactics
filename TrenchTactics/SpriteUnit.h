@@ -7,13 +7,13 @@ class SpriteUnit :
 {
 public: 
 	
-	SpriteUnit::SpriteUnit(const std::string filename);
+	SpriteUnit(const std::string filename);
 	void setAnimation(const std::string filename);
 	void render();
 
 	int getCurrentPhase()
 	{
-		return this->m_currentPhase
+		return this->m_currentPhase;
 	}
 
 	void setCurrentPhase(int currentPhase)

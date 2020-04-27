@@ -51,12 +51,12 @@ public:
 		m_name = ConfigReader::instance().getUnitConf(unittype)->getName();
 
 		if (colorRed) {
-			m_spriteStanding = std::make_shared<SpriteUnit>(ConfigReader::instance().getUnitConf(unittype)->getSpriteFilePathStandingRed());
+			m_spriteStanding = std::make_shared<SpriteUnit>(ConfigReader::instance().getUnitConf(unittype)->getSpriteFilePathStandingNeutralRed());
 			m_spriteShooting = std::make_shared<SpriteUnit>(ConfigReader::instance().getUnitConf(unittype)->getSpriteFilePathShootingRed());
 			m_spriteRunning = std::make_shared<SpriteUnit>(ConfigReader::instance().getUnitConf(unittype)->getSpriteFilePathRunningRed());
 		}
 		else {
-			m_spriteStanding = std::make_shared<SpriteUnit>(ConfigReader::instance().getUnitConf(unittype)->getSpriteFilePathStandingBlue());
+			m_spriteStanding = std::make_shared<SpriteUnit>(ConfigReader::instance().getUnitConf(unittype)->getSpriteFilePathStandingNeutralBlue());
 			m_spriteShooting = std::make_shared<SpriteUnit>(ConfigReader::instance().getUnitConf(unittype)->getSpriteFilePathShootingBlue());
 			m_spriteRunning = std::make_shared<SpriteUnit>(ConfigReader::instance().getUnitConf(unittype)->getSpriteFilePathRunningBlue());
 		}
