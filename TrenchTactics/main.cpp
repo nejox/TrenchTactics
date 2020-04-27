@@ -8,6 +8,7 @@
 #include "RendererImpl.h"
 #include "Unit.h"
 #include "Gamefield.h"
+#include "GameLoop.h"
 
 /// <summary>
 /// 
@@ -18,35 +19,11 @@
 int main(int argc, char* argv[])
 {
 
-	ConfigReader& confReader = ConfigReader::instance();
 
 	Logger::instance().log(LOGLEVEL::INFO, "Starting main");
-	confReader.initConfigurations();
 
-	if (RendererImpl::instance().init(confReader.getTechnicalConf()->getWindowSizeX(), confReader.getTechnicalConf()->getWindowSizeY()), 16, false)
-		return (0);
-
-
-	//if (g_pFramework->Init(1408, 768, 16, false) == false)
-	//	return (0);
-
-	//CGame Game;
-	//Game.Init();
-	//Game.Run();
-	//Game.Quit();
-
-	//g_pFramework->Quit();
-	//g_pFramework->Del();
-
-
-	Gamefield& gamefield = Gamefield::instance();
-	gamefield.init(0, 0, 0);
-	RendererImpl::instance().updateTimer();
-	while (true) {
-
-	}
-
-	RendererImpl::instance().destroy();
+	Game* game = new Game();
+	game->initGame();
 
 	return (0);
 
