@@ -379,19 +379,25 @@ void Gamefield::initiatePlayingFieldTiles()
  *
  * \param
  */
-void displayButtons(GAMEPHASES::GAMEPHASE phase) {
+void Gamefield::displayButtons(GAMEPHASES::GAMEPHASE phase) {
 	if (phase == GAMEPHASES::BUY) {
 		for (int i = 0; i < 3; i++)
 		{
 			int rnd = rand() % 3;
-			if (rnd ==1) {
-
+			if (rnd == 1) {
+				std::shared_ptr<Button> button = std::make_shared<Button>();
+				Sprite* buttonSprite = new Sprite();
+				buttonSprite->load("../Data/Sprites/Token/GRENADE_TOKEN.bmp");
+				button.get()->setSprite(buttonSprite);
+				this->getMenuBar().get()->at(1)->at(10).get();
 			}
 			else if (rnd == 2) {
-
+				Sprite* buttonSprite = new Sprite();
+				buttonSprite->load("../Data/Sprites/Token/GUNNER_TOKEN.bmp");
 			}
 			else if (rnd == 3) {
-
+				Sprite* buttonSprite = new Sprite();
+				buttonSprite->load("../Data/Sprites/Token/CC_TOKEN.bmp");
 			}
 
 

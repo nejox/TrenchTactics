@@ -2,21 +2,21 @@
 #include "Tile.h"
 #include "Button.h"
 
-/// <summary>
-/// MenuTile class for holding and locating Buttons
-/// </summary>
+/**
+ * MenuTile class for holding and locating Buttons
+ */
 class MenuTile : public Tile {
 private:
-	Button button;
+	std::shared_ptr<Button> button;
 public:
-	void setButton(Button button) {
+	void setButton(std::shared_ptr<Button> button) {
 		this->button = button;
 	}
-	Button getButton() {
+	std::shared_ptr<Button> getButton() {
 		return this->button;
 	}
 	int handleEvent();
 	MenuTile() {};
 	~MenuTile() {};
-	
+
 };
