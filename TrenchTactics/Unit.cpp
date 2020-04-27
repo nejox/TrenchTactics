@@ -11,7 +11,7 @@ void Unit::attack(std::shared_ptr<Unit> target)
 	}
 
 	updateAP(m_apCostAttack);
-	
+
 }
 
 void Unit::attack(Headquarter* target)
@@ -37,11 +37,9 @@ void Unit::resetAP()
 	m_currentAP = m_ap;
 }
 
-void Unit::update()
+void Unit::update(STATES::UNITSTATE state)
 {
-
-	m_sprite->render();
-
+	m_sprite->render(state);
 }
 
 

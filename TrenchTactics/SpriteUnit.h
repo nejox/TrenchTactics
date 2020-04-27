@@ -43,6 +43,7 @@ private:
 
 	void load(const string sFilename, int frameWidth, int frameHeight);
 	void render(int frame);
+	
 };
 
 

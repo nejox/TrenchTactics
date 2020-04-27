@@ -50,7 +50,7 @@ SpriteUnit::SpriteUnit(bool colourRed, UNITS::UnitType type)
 				animations.insert(std::pair<STATES::UNITSTATE, string>(state, unitConf->getSpriteFilePathRunningRed()));
 			}
 			else {
-				animations.insert(std::pair<STATES::UNITSTATE, string>(state, unitConf->getSpriteFilePathRunningRed()));
+				animations.insert(std::pair<STATES::UNITSTATE, string>(state, unitConf->getSpriteFilePathRunningBlue()));
 			}
 			break;
 		default:
@@ -66,12 +66,12 @@ void SpriteUnit::render()
 	//calculate currentPhase
 	m_fcurrentPhase += 5.0f * CTimer::Get()->GetElapsed();
 	//m_fcurrentPhase++;
-	int actFrame = static_cast<int>(m_fcurrentPhase);
+	int actFrame = static_cast<int>(m_fcurrentPhase)%m_numFrames;
 	// Ausschnitt der aktuellen Animationsphase berechnen
 	if (m_currentState == m_defaultState) {
 		actFrame = actFrame % m_numFrames;
-	}
-	else 
+	}/*
+	else
 	{
 		if (actFrame >= m_numFrames) {
 			//animation over - load default one
@@ -79,19 +79,24 @@ void SpriteUnit::render()
 			load(animations.at(m_currentState), 64, 64);
 			actFrame = 0;
 		}
-	}
+	}*/
 
 	render(actFrame);
 }
 
 void SpriteUnit::render(STATES::UNITSTATE state)
 {
-	m_currentState = state;
-	// load new animation
-	load(animations.at(m_currentState), 64, 64);
-	int actFrame = static_cast<int>(m_fcurrentPhase);
+	if (m_currentState == state) {
+		render();
+	}
+	else {
+		m_currentState = state;
+		// load new animation
+		load(animations.at(m_currentState), 64, 64);
+		int actFrame = static_cast<int>(m_fcurrentPhase);
 
-	render(actFrame);
+		render(actFrame);
+	}
 }
 
 void SpriteUnit::render(int frame) {

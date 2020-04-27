@@ -6,9 +6,9 @@
  */
 namespace UNITS {
 	enum UnitType {
-		CC,
+		GRENADE,
 		GUNNER,
-		GRENADE
+		CC,
 	};
 }
 

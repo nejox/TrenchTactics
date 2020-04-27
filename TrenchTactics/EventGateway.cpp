@@ -83,7 +83,7 @@ void EventGateway::handleBuyEvent(MouseClickEvent* event) {
 		//std::shared_ptr<MenuTile> tile = Gamefield::instance().getMenuBar()[event->getX()][yButton];
 		std::shared_ptr<MenuTile> tile = NULL;
 		if (tile != NULL) {
-			std::shared_ptr<Unit> purchasedUnit = std::make_shared<Unit>(Unit::UnitType(tile->getButton().getType()), this->activePlayer->getColor());
+			std::shared_ptr<Unit> purchasedUnit = std::make_shared<Unit>(UNITS::UnitType(tile->getButton().getType()), this->activePlayer->getColor());
 			Gamefield::instance().spawnUnitInSpawn(purchasedUnit, this->activePlayer->getColor());
 			this->activePlayer->setBuying(false);
 		}

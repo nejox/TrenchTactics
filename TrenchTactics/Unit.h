@@ -37,6 +37,7 @@ public:
 		m_spawnProbability = ConfigReader::instance().getUnitConf(unittype)->getSpawnProbability();
 		m_name = ConfigReader::instance().getUnitConf(unittype)->getName();		
 		m_sprite = make_shared<SpriteUnit>(colorRed, unittype);
+		m_state = STATES::UNITSTATE::STANDING_NEUTRAL;
 	}
 
 private:
@@ -56,6 +57,7 @@ private:
 	int m_spawnProbability;
 	std::string m_name;
 	std::shared_ptr<SpriteUnit>m_sprite;
+	STATES::UNITSTATE m_state;
 
 public:
 
@@ -80,7 +82,7 @@ public:
 	/// renders unit dependent on current state
 	/// </summary>
 	/// 
-	void update();
+	void update(STATES::UNITSTATE state);
 
 	std::shared_ptr<Unit> getptr() {
 		return shared_from_this();
