@@ -8,7 +8,7 @@
 SpriteUnit::SpriteUnit(bool colourRed, UNITS::UnitType type)
 {
 	m_colourRed = colourRed;
-	m_defaultState = STATES::UNITSTATE::STANDING;
+	m_defaultState = STATES::UNITSTATE::STANDING_NEUTRAL;
 	m_currentState = m_defaultState;
 	m_fcurrentPhase = 0;
 
@@ -19,13 +19,22 @@ SpriteUnit::SpriteUnit(bool colourRed, UNITS::UnitType type)
 
 		switch (state)
 		{
-		case STATES::STANDING:
+		case STATES::STANDING_NEUTRAL:
 			if (colourRed) {
-				animations.insert(std::pair<STATES::UNITSTATE, string>(state, unitConf->getSpriteFilePathStandingRed()));
+				animations.insert(std::pair<STATES::UNITSTATE, string>(state, unitConf->getSpriteFilePathStandingNeutralRed()));
 			}
 			else
 			{
-				animations.insert(std::pair<STATES::UNITSTATE, string>(state, unitConf->getSpriteFilePathStandingBlue()));
+				animations.insert(std::pair<STATES::UNITSTATE, string>(state, unitConf->getSpriteFilePathStandingNeutralBlue()));
+			}
+			break;
+		case STATES::STANDING:
+			if (colourRed) {
+				animations.insert(std::pair<STATES::UNITSTATE, string>(state, unitConf->getSpriteFilePathStandingActiveRed()));
+			}
+			else
+			{
+				animations.insert(std::pair<STATES::UNITSTATE, string>(state, unitConf->getSpriteFilePathStandingActiveBlue()));
 			}
 			break;
 		case STATES::SHOOTING:
@@ -55,28 +64,24 @@ SpriteUnit::SpriteUnit(bool colourRed, UNITS::UnitType type)
 void SpriteUnit::render()
 {
 	//calculate currentPhase
-	m_fcurrentPhase += 10.0f * CTimer::Get()->GetElapsed();
+	m_fcurrentPhase += 5.0f * CTimer::Get()->GetElapsed();
+	//m_fcurrentPhase++;
 	int actFrame = static_cast<int>(m_fcurrentPhase);
 	// Ausschnitt der aktuellen Animationsphase berechnen
-	if (m_currentState = m_defaultState) {
+	if (m_currentState == m_defaultState) {
 		actFrame = actFrame % m_numFrames;
 	}
 	else 
 	{
-		if (actFrame > m_numFrames) {
+		if (actFrame >= m_numFrames) {
 			//animation over - load default one
 			m_currentState = m_defaultState;
 			load(animations.at(m_currentState), 64, 64);
 			actFrame = 0;
-			m_fcurrentPhase = 0;
 		}
-
 	}
-	m_FrameRect.x = actFrame;
-	m_FrameRect.y = 0;
 
-	// Ausschnitt rendern
-	SDL_RenderCopy(m_pRenderer, m_pImage, &m_FrameRect, &m_Rect);
+	render(actFrame);
 }
 
 void SpriteUnit::render(STATES::UNITSTATE state)
@@ -84,8 +89,17 @@ void SpriteUnit::render(STATES::UNITSTATE state)
 	m_currentState = state;
 	// load new animation
 	load(animations.at(m_currentState), 64, 64);
-	m_fcurrentPhase = 0;
 	int actFrame = static_cast<int>(m_fcurrentPhase);
+
+	render(actFrame);
+}
+
+void SpriteUnit::render(int frame) {
+	m_FrameRect.x = frame * m_frameWidth;
+	m_FrameRect.y = 0;
+
+	// Ausschnitt rendern
+	SDL_RenderCopy(m_pRenderer, m_pImage, &m_FrameRect, &m_Rect);
 }
 
 /**
@@ -109,5 +123,7 @@ void SpriteUnit::load(const std::string sFilename, int frameWidth, int frameHeig
 	// Ziel-Rect korrigieren
 	m_Rect.w = frameWidth; // den aktuellen teil der animation
 	m_Rect.h = frameHeight;
+	// Current phase to 0
+	m_fcurrentPhase = 0;
 }
 

@@ -36,7 +36,7 @@ public:
 		m_apCostTrench = ConfigReader::instance().getUnitConf(unittype)->getApCostTrench();
 		m_spawnProbability = ConfigReader::instance().getUnitConf(unittype)->getSpawnProbability();
 		m_name = ConfigReader::instance().getUnitConf(unittype)->getName();		
-
+		m_sprite = make_shared<SpriteUnit>(colorRed, unittype);
 	}
 
 private:
@@ -80,8 +80,7 @@ public:
 	/// renders unit dependent on current state
 	/// </summary>
 	/// 
-	void update() {
-	}
+	void update();
 
 	std::shared_ptr<Unit> getptr() {
 		return shared_from_this();
@@ -118,6 +117,14 @@ public:
 	}
 	int getRange() {
 		return this->m_range;
+	}
+
+	std::shared_ptr<SpriteUnit> getSprite() {
+		return m_sprite;
+	}
+
+	void setSprite(std::shared_ptr<SpriteUnit> sprite) {
+		m_sprite = sprite;
 	}
 
 };

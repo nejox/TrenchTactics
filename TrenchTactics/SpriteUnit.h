@@ -8,11 +8,12 @@
 namespace STATES
 {
 	enum UNITSTATE {
+		STANDING_NEUTRAL,
 		STANDING,
 		SHOOTING,
 		RUNNING
 	};
-	static const UNITSTATE All[] = { STANDING, SHOOTING, RUNNING };
+	static const UNITSTATE All[] = { STANDING_NEUTRAL, STANDING, SHOOTING, RUNNING };
 }
 
 class SpriteUnit :
@@ -23,11 +24,11 @@ public:
 	
 	SpriteUnit(bool colourRed, UNITS::UnitType type);
 	void render();
-	void render(STATES::UNITSTATE state);
+	void render(STATES::UNITSTATE changedState);
 
 
 private:
-	SpriteUnit() {};
+	//SpriteUnit() {};
 	bool m_colourRed;
 	STATES::UNITSTATE m_defaultState;
 	STATES::UNITSTATE m_currentState;
@@ -41,6 +42,7 @@ private:
 	std::map<STATES::UNITSTATE, string> animations;
 
 	void load(const string sFilename, int frameWidth, int frameHeight);
+	void render(int frame);
 };
 
 

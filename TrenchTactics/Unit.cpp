@@ -1,7 +1,6 @@
 #include "Unit.h"
 #include "DeathEvent.h"
 
-
 void Unit::attack(std::shared_ptr<Unit> target)
 {
 	//this->setState(SHOOTING);
@@ -36,6 +35,13 @@ void Unit::changeHP(int damage)
 void Unit::resetAP()
 {
 	m_currentAP = m_ap;
+}
+
+void Unit::update()
+{
+
+	m_sprite->render();
+
 }
 
 
