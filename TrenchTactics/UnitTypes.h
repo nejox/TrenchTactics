@@ -4,7 +4,7 @@
  * UNITS namespace
  * has the UnitTypes enum 
  */
-namespace UNITS {
+namespace TYPES {
 	enum UnitType {
 		GRENADE,
 		GUNNER,

@@ -22,7 +22,7 @@ class SpriteUnit :
 {
 public: 
 	
-	SpriteUnit(bool colourRed, UNITS::UnitType type);
+	SpriteUnit(bool colourRed, TYPES::UnitType type);
 	void render();
 	void render(STATES::UNITSTATE changedState);
 

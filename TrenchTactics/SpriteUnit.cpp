@@ -5,7 +5,7 @@
 #include "ConfigReader.h"
 #include "Timer.hpp"
 
-SpriteUnit::SpriteUnit(bool colourRed, UNITS::UnitType type)
+SpriteUnit::SpriteUnit(bool colourRed, TYPES::UnitType type)
 {
 	m_colourRed = colourRed;
 	m_defaultState = STATES::UNITSTATE::STANDING_NEUTRAL;

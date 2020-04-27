@@ -20,7 +20,7 @@ public:
 	/// </summary>
 	/// <param name="unittype"></param>
 	/// <param name="colorRed"></param>
-	Unit(UNITS::UnitType unittype , bool colorRed) {
+	Unit(TYPES::UnitType unittype , bool colorRed) {
 
 		m_colorRed = colorRed;
 
