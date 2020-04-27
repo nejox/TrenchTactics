@@ -1,33 +1,47 @@
 #pragma once
+#ifndef SPRITE_UNIT
+#define SPRITE_UNIT
+#include <map>
 #include "Sprite.hpp"
+#include "UnitTypes.h"
+
+namespace STATES
+{
+	enum UNITSTATE {
+		STANDING,
+		SHOOTING,
+		RUNNING
+	};
+	static const UNITSTATE All[] = { STANDING, SHOOTING, RUNNING };
+}
 
 class SpriteUnit :
-	public Sprite,
-	std::enable_shared_from_this<SpriteUnit>
+	public Sprite
+	//std::enable_shared_from_this<SpriteUnit>
 {
 public: 
 	
-	SpriteUnit::SpriteUnit(const std::string filename);
-	void setAnimation(const std::string filename);
+	SpriteUnit(bool colourRed, UNITS::UnitType type);
 	void render();
+	void render(STATES::UNITSTATE state);
 
-	int getCurrentPhase()
-	{
-		return this->m_currentPhase
-	}
-
-	void setCurrentPhase(int currentPhase)
-	{
-		this->m_currentPhase = currentPhase;
-	}
-
-	std::shared_ptr<SpriteUnit> getptr() {
-		return shared_from_this();
-	}
 
 private:
-	int m_currentPhase;
+	SpriteUnit() {};
+	bool m_colourRed;
+	STATES::UNITSTATE m_defaultState;
+	STATES::UNITSTATE m_currentState;
+
+	float m_fcurrentPhase;
+
+	int m_numFrames;		// Anzahl der Animationsphasen
+	int m_frameWidth;		// Breite einer Animationsphase
+	int m_frameHeight;		// Höhe einer Animationsphase
+
+	std::map<STATES::UNITSTATE, string> animations;
+
+	void load(const string sFilename, int frameWidth, int frameHeight);
 };
 
 
-
+#endif

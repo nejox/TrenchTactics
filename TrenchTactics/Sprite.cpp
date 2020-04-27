@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Sprite.hpp"
 #include "RendererImpl.h"
 #include "Logger.hpp"
@@ -11,6 +13,8 @@ Sprite::Sprite()
 {
 	m_pRenderer = RendererImpl::instance().GetRenderer();
 	m_pImage = NULL;
+	m_posX = 0;
+	m_posY = 0;
 }
 
 /**
@@ -24,8 +28,20 @@ Sprite::~Sprite()
 
 void Sprite::setPos(int x, int y)
 {
+	m_posX = x;
+	m_posY = y;
 	m_Rect.x = x;
 	m_Rect.y = y;
+}
+
+int Sprite::getX()
+{
+	return m_posX;
+}
+
+int Sprite::getY()
+{
+	return m_posY;
 }
 
 /**
@@ -55,40 +71,14 @@ void Sprite::load(const string sFilename)
 
 	m_pImage = SDL_CreateTextureFromSurface(m_pRenderer, pTemp);
 
-	m_Rect.x = 0;
-	m_Rect.y = 0;
+	m_Rect.x = m_posX;
+	m_Rect.y = m_posY;
 	m_Rect.w = pTemp->w;
 	m_Rect.h = pTemp->h;
 
 	SDL_FreeSurface(pTemp);
-
-
 }
-/**
- *
- *
- * \param sFilename
- * \param FrameWidth
- * \param FrameHeight
- */
-void Sprite::load(const string sFilename, int FrameWidth, int FrameHeight)
-{
-	// Bitmap laden
-	load(sFilename);
 
-	// Rect für Animationsphase initialisieren
-
-	m_FrameWidth = FrameWidth;
-	m_FrameHeight = FrameHeight;
-	m_FrameRect.w = FrameWidth;  // welcher teil der animation
-	m_FrameRect.h = FrameHeight;
-	m_NumFramesX = m_Rect.w / m_FrameWidth; //anzahl der frames im bild
-	m_NumFrames = m_NumFramesX; //wie viele einzelbilder
-
-	// Ziel-Rect korrigieren
-	m_Rect.w = FrameWidth; // den aktuellen teil der animation
-	m_Rect.h = FrameHeight;
-}
 
 /**
  * wraps rendercopy of SDL Framework
@@ -98,12 +88,11 @@ void Sprite::load(const string sFilename, int FrameWidth, int FrameHeight)
 void Sprite::render()
 {
 	SDL_RenderCopy(m_pRenderer, m_pImage, NULL, &m_Rect);
-	SDL_RenderPresent(m_pRenderer);
 }
 
 /**
  *
- *
+ 
  * \param locX
  * \param locY
  */

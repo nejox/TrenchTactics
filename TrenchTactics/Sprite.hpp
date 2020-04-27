@@ -10,28 +10,20 @@ public:
 	~Sprite();
 
 	void setPos(int x, int y);
+	int getX();
+	int getY();
 	void load(const string sFilename);
 	void render(int locX, int locY);
-
 	void render();
-
-	int getNumFrames()
-	{
-		return this->m_NumFrames;
-	}
 
 protected:
 
-	void load(const string sFilename, int FrameWidth, int FrameHeight);
-
 	SDL_Renderer* m_pRenderer;	// Zeiger auf den Renderer
-	SDL_Texture* m_pImage;		// Das eigentliche Bild des Sprites
+	SDL_Texture*  m_pImage;		// Das eigentliche Bild des Sprites
 	SDL_Rect	  m_Rect;		// Rect des Sprites
 	SDL_Rect	  m_FrameRect;	// Ausschnitt für Animationsphase
-	int m_NumFrames;			// Anzahl der Animationsphasen
-	int m_FrameWidth;			// Breite einer Animationsphase
-	int m_FrameHeight;			// Höhe einer Animationsphase
-	int m_NumFramesX;			// Wie viele Anim-Phasen in X-Richtung?
+	int m_posX;
+	int m_posY;
 };
 
 #endif
