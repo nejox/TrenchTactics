@@ -66,7 +66,7 @@ public:
 
 	std::shared_ptr<FieldTile> findTileForUnit(std::shared_ptr<Unit> pUnit);
 
-	void displayButtons(GAMEPHASES::GAMEPHASE);
+	void displayButtons(GAMEPHASES::GAMEPHASE phase);
 
 
 	void setMenuBar(std::shared_ptr<vector<vector <std::shared_ptr<MenuTile>>>> menuBar) {
