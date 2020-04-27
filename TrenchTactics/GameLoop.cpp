@@ -30,14 +30,19 @@ void Game::initGame() {
 	this->playerBlue = std::make_shared<Player>();
 	this->playerBlue->init(false);
 
-	Logger::instance().log(LOGLEVEL::INFO, "Initializing Gamefield");
-	Gamefield::instance().init(ConfigReader::instance().getMapConf()->getSizeX(), ConfigReader::instance().getMapConf()->getSizeY(), ConfigReader::instance().getMapConf()->getSeed());
-
 	Logger::instance().log(LOGLEVEL::INFO, "Initializing Renderer");
-	renderer.init(ConfigReader::instance().getTechnicalConf()->getWindowSizeX(), ConfigReader::instance().getTechnicalConf()->getWindowSizeY(), 16, false);
+	this->renderer.init(ConfigReader::instance().getTechnicalConf()->getWindowSizeX(), ConfigReader::instance().getTechnicalConf()->getWindowSizeY(), 16, false);
+
+	Logger::instance().log(LOGLEVEL::INFO, "Initializing Gamefield");
+	this->field.init(ConfigReader::instance().getMapConf()->getSizeX(), ConfigReader::instance().getMapConf()->getSizeY(), ConfigReader::instance().getMapConf()->getSeed());
+
+	Logger::instance().log(LOGLEVEL::INFO, "Initializing Gateway");
+	this->gateway.init();
+
 	this->activePlayer = playerRed;
+	this->gateway.setActivePlayer(playerRed);
 	this->gameRunning = true;
-	EventGateway::instance().init();
+
 	gameLoop();
 }
 
@@ -107,8 +112,10 @@ void Game::quit() {
 void Game::switchActivePlayer() {
 	if (this->activePlayer->getColor()) {
 		this->activePlayer = playerRed;
+		this->gateway.setActivePlayer(playerRed);
 	}
 	else {
 		this->activePlayer = playerBlue;
+		this->gateway.setActivePlayer(playerBlue);
 	}
 }
