@@ -266,23 +266,32 @@ void Gamefield::initiateMenuTiles()
  */
 void Gamefield::initiateSpawnTilesBlue()
 {
+	int cnt = 0;
 	for (vector<vector<std::shared_ptr<FieldTile>>>::iterator xIter = spawnBlue->begin(); xIter != spawnBlue->end(); ++xIter) {
 		for (vector<std::shared_ptr<FieldTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
 
 			std::shared_ptr<FieldTile> tmpFieldTilePointer = std::make_shared<FieldTile>(FieldTile::terrainType::spawnterrain);
 			Sprite* terrainSprite = new Sprite();
-			terrainSprite->load("../Data/Sprites/Terrain/TERRAIN_SAMPLE_SPAWN.bmp");
+
+			terrainSprite->load("../Data/Sprites/Terrain/SPAWNTILE_BLUE_" + std::to_string(cnt) + ".bmp");
 			if ((yIter - xIter->begin()) >= 5) {
 				terrainSprite->setPos((xIter - spawnBlue->begin()) * 64, (yIter - xIter->begin()) * 64 + 2 * 64);
+				tmpFieldTilePointer->setSprite(terrainSprite);
+				tmpFieldTilePointer->getSprite()->render(((xIter - spawnBlue->begin()) % 2) * 64, ((yIter - xIter->begin()) % 2) * 64);
 			}
 			else {
 				terrainSprite->setPos((xIter - spawnBlue->begin()) * 64, (yIter - xIter->begin()) * 64);
+				tmpFieldTilePointer->setSprite(terrainSprite);
+				tmpFieldTilePointer->getSprite()->render(((xIter - spawnBlue->begin()) % 2) * 64, ((yIter - xIter->begin()) % 2) * 64);
 			}
 
-			tmpFieldTilePointer->setSprite(terrainSprite);
-			tmpFieldTilePointer->getSprite()->render();
 			*yIter = tmpFieldTilePointer;
-			//Spawn rendern fehlt noch!
+			if ((((yIter - xIter->begin())) % 4) == 3) {
+				cnt++;
+				if (cnt == 4) {
+					cnt = 0;
+				}
+			}
 		}
 	}
 }
@@ -293,26 +302,30 @@ void Gamefield::initiateSpawnTilesBlue()
  */
 void Gamefield::initiateSpawnTilesRed()
 {
+	int cnt = 0;
 	for (vector<vector<std::shared_ptr<FieldTile>>>::iterator xIter = spawnRed->begin(); xIter != spawnRed->end(); ++xIter) {
 		for (vector<std::shared_ptr<FieldTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
-
+			if ((((xIter - spawnRed->begin()) + (yIter - xIter->begin())) % 5) == 4) {
+				cnt++;
+				if (cnt == 4) {
+					cnt = 0;
+				}
+			}
 			std::shared_ptr<FieldTile> tmpFieldTilePointer = std::make_shared<FieldTile>(FieldTile::terrainType::spawnterrain);
 			Sprite* terrainSprite = new Sprite();
-			terrainSprite->load("../Data/Sprites/Terrain/TERRAIN_SAMPLE_SPAWN.bmp");
-			tmpFieldTilePointer->setSprite(terrainSprite);
-
+			terrainSprite->load("../Data/Sprites/Terrain/SPAWNTILE_RED_" + std::to_string(cnt) + ".bmp");
 			if ((yIter - xIter->begin()) >= 5) {
 				terrainSprite->setPos((xIter - spawnRed->begin()) * 64 + 20 * 64, (yIter - xIter->begin()) * 64 + 2 * 64);
+				tmpFieldTilePointer->setSprite(terrainSprite);
+				tmpFieldTilePointer->getSprite()->render(((xIter - spawnRed->begin()) % 2) * 64, ((yIter - xIter->begin()) % 2) * 64);
 			}
 			else {
 				terrainSprite->setPos((xIter - spawnRed->begin()) * 64 + 20 * 64, (yIter - xIter->begin()) * 64);
+				tmpFieldTilePointer->setSprite(terrainSprite);
+				tmpFieldTilePointer->getSprite()->render((xIter - spawnRed->begin()) * 64, ((yIter - xIter->begin()) % 2) * 64);
 			}
 
-			tmpFieldTilePointer->getSprite()->render();
 			*yIter = tmpFieldTilePointer;
-
-			//*yIter = std::shared_ptr < FieldTile>(new FieldTile(FieldTile::terrainType::spawnterrain));
-			//Spawn rendern fehlt noch!
 		}
 	}
 }
@@ -325,9 +338,9 @@ void Gamefield::initiatePlayingFieldTiles()
 {
 	for (vector<vector<std::shared_ptr<FieldTile>>>::iterator xIter = playingfield->begin(); xIter != playingfield->end(); ++xIter) {
 		for (vector<std::shared_ptr<FieldTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
-			int rnd = rand() % 3;
+			int rnd = rand() % 6;
 
-			if (rnd == 0) {
+			if (rnd <= 3) {
 
 				std::shared_ptr<FieldTile> tmpFieldTilePointer = std::make_shared<FieldTile>(FieldTile::terrainType::mud);
 				Sprite* terrainSprite = new Sprite();
@@ -340,11 +353,11 @@ void Gamefield::initiatePlayingFieldTiles()
 				//*yIter = std::shared_ptr <FieldTile>(new FieldTile(FieldTile::terrainType::stone));
 
 			}
-			if (rnd == 1) {
+			if (rnd == 4) {
 
 				std::shared_ptr<FieldTile> tmpFieldTilePointer = std::make_shared<FieldTile>(FieldTile::terrainType::mud);
 				Sprite* terrainSprite = new Sprite();
-				terrainSprite->load("../Data/Sprites/Terrain/TERRAIN_SAMPLE.bmp");
+				terrainSprite->load("../Data/Sprites/Terrain/TERRAIN_STONE_1.bmp");
 				terrainSprite->setPos((xIter - playingfield->begin()) * 64 + 2 * 64, (yIter - xIter->begin()) * 64);
 				tmpFieldTilePointer->setSprite(terrainSprite);
 				tmpFieldTilePointer->getSprite()->render();
@@ -352,11 +365,11 @@ void Gamefield::initiatePlayingFieldTiles()
 
 				//*yIter = std::shared_ptr <FieldTile>(new FieldTile(FieldTile::terrainType::clay));
 			}
-			if (rnd == 2) {
+			if (rnd == 5) {
 
 				std::shared_ptr<FieldTile> tmpFieldTilePointer = std::make_shared<FieldTile>(FieldTile::terrainType::mud);
 				Sprite* terrainSprite = new Sprite();
-				terrainSprite->load("../Data/Sprites/Terrain/TERRAIN_SAMPLE.bmp");
+				terrainSprite->load("../Data/Sprites/Terrain/TERRAIN_MUD_1.bmp");
 				terrainSprite->setPos((xIter - playingfield->begin()) * 64 + 2 * 64, (yIter - xIter->begin()) * 64);
 				tmpFieldTilePointer->setSprite(terrainSprite);
 				tmpFieldTilePointer->getSprite()->render();
