@@ -381,6 +381,21 @@ void Gamefield::initiatePlayingFieldTiles()
  */
 void displayButtons(GAMEPHASES::GAMEPHASE phase) {
 	if (phase == GAMEPHASES::BUY) {
+		for (int i = 0; i < 3; i++)
+		{
+			int rnd = rand() % 3;
+			if (rnd ==1) {
+
+			}
+			else if (rnd == 2) {
+
+			}
+			else if (rnd == 3) {
+
+			}
+
+
+		}
 
 	}
 	else if (phase == GAMEPHASES::MOVE)
