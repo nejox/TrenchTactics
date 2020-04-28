@@ -6,7 +6,6 @@
 #include "EventBus.h"
 #include "Event.h"
 #include "SpriteUnit.h"
-#include "DeathEvent.h"
 #include "Timer.hpp"
 
 /// <summary>
