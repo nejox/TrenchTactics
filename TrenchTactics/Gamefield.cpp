@@ -172,6 +172,37 @@ void Gamefield::selectTile(int xPos, int yPos)
 }
 
 
+/**
+*
+*Function to reset the selected- and marked-status for each spawn- and playingfieldtile.
+*/
+void Gamefield::deselectAndUnmarkAllTiles()
+{
+	//deselects and unmarks the playingfield
+	for (vector<vector<std::shared_ptr<FieldTile>>>::iterator xIter = playingfield->begin(); xIter != playingfield->end(); ++xIter) {
+		for (vector<std::shared_ptr<FieldTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
+			yIter->get()->setSelected(false);
+			yIter->get()->setMarked(false);
+		}
+	}
+	//deselects and unmarks the blue player's spawn
+	for (vector<vector<std::shared_ptr<FieldTile>>>::iterator xIter = spawnBlue->begin(); xIter != playingfield->end(); ++xIter) {
+		for (vector<std::shared_ptr<FieldTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
+			yIter->get()->setSelected(false);
+			yIter->get()->setMarked(false);
+		}
+	}
+	//deselects and unmarks the red player's spawn
+	for (vector<vector<std::shared_ptr<FieldTile>>>::iterator xIter = playingfield->begin(); xIter != playingfield->end(); ++xIter) {
+		for (vector<std::shared_ptr<FieldTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
+			yIter->get()->setSelected(false);
+			yIter->get()->setMarked(false);
+		}
+	}
+
+}
+
+
 
 
 // ------------ Setupfunctions for gamestart -------------------------
