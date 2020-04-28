@@ -25,14 +25,19 @@ private:
 	std::shared_ptr<Player>  activePlayer;
 	IEventManager& manager = EventManagerImpl::instance();
 	IRenderer& renderer = RendererImpl::instance();
+	Gamefield& field = Gamefield::instance();
+	EventGateway& gateway = EventGateway::instance();
 
 	bool gameRunning;
 	void switchActivePlayer();
+	void startBuyPhase();
+	void startMovePhase();
+	void startAttackPhase();
 public:
 	Game();
 	void initGame();
-	void startPhases();
-	void gameLoop();
+	void startPlayerPhase();
+	void startGame();
 	void quit();
 	void updateGame();
 

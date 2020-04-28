@@ -4,24 +4,27 @@
 #include "Logger.hpp"
 #include <string>
 
-/// <summary>
-/// Render constructor which sets both pointers to null pointers
-/// </summary>
+
+/**
+ * Render constructor which sets both pointers to null pointers
+ *
+ */
 RendererImpl::RendererImpl() {
 	m_pWindow = NULL;
 	m_pRenderer = NULL;
 }
 
-/// <summary>
-/// Init function which wraps the init of SDL
-/// Also creates a sdl window as well as the renderer
-/// On the way checks wether creation of all those things was succesfull
-/// </summary>
-/// <param name="ScreenWidth">int value to specifiy screen width</param>
-/// <param name="ScreenHeight">int value to specifiy screen height</param>
-/// <param name="ColorDepth">int specify colordepth standard value should be 16</param>
-/// <param name="bFullscreen">fullscreen or not</param>
-/// <returns></returns>
+/**
+ * Init function which wraps the init of SDL
+ * Also creates a sdl window as well as the renderer
+ * On the way checks wether creation of all those things was succesfull
+ *
+ * \param ScreenWidth int value to specifiy screen width
+ * \param ScreenHeight int value to specifiy screen height
+ * \param ColorDepth int specify colordepth standard value should be 16
+ * \param bFullscreen fullscreen or not
+ * \return
+ */
 bool RendererImpl::init(int ScreenWidth, int ScreenHeight,
 	int ColorDepth, bool bFullscreen)
 {
@@ -79,19 +82,21 @@ bool RendererImpl::init(int ScreenWidth, int ScreenHeight,
 	return (true);
 }
 
-/// <summary>
-/// Function to clear the screen from previously rendered objects
-/// </summary>
+/**
+ * Function to clear the screen from previously rendered objects
+ *
+ */
 void RendererImpl::clearScreen()
 {
 	SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 255);
 	SDL_RenderClear(m_pRenderer);
 }
 
-/// <summary>
-/// Function to quit the renderer class in a controlled way
-/// Destroys the window as well as the renderer initialized by the framework beforehand
-/// </summary>
+/**
+ * Function to quit the renderer class in a controlled way
+ * Destroys the window as well as the renderer initialized by the framework beforehand
+ *
+ */
 void RendererImpl::destroy()
 {
 	if (m_pRenderer != NULL)
@@ -106,12 +111,15 @@ void RendererImpl::destroy()
 	SDL_Quit();
 }
 
-/// <summary>
-/// Update function only used to update the timer though
-/// </summary>
+/**
+ * Update function only used to update the timer though
+ *
+ */
 void RendererImpl::updateTimer()
 {
 	CTimer::Get()->Update();
+	this->render();
+
 }
 
 void RendererImpl::renderTile()

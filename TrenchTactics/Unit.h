@@ -6,36 +6,25 @@
 #include "EventBus.h"
 #include "Event.h"
 #include "SpriteUnit.h"
+#include "UnitTypes.h"
+
+
 
 /// <summary>
 /// Baseclass for units
 /// </summary>
-class Unit: std::enable_shared_from_this<Unit>
+class Unit : std::enable_shared_from_this<Unit>
 {
 public:
-
-	enum UnitType {
-		CC,
-		GUNNER,
-		GRENADE
-	};
-
-	enum UnitState {
-		STANDING,
-		SHOOTING,
-		RUNNING
-	};
-
 
 	/// <summary>
 	/// Initializes Unit type with all values from config
 	/// </summary>
 	/// <param name="unittype"></param>
 	/// <param name="colorRed"></param>
-	Unit(UnitType unittype, bool colorRed) {
+	Unit(TYPES::UnitType unittype , bool colorRed) {
 
 		m_colorRed = colorRed;
-		m_state = STANDING;
 
 		m_hp = ConfigReader::instance().getUnitConf(unittype)->getHp();
 		m_currentHP = ConfigReader::instance().getUnitConf(unittype)->getHp();
@@ -48,27 +37,15 @@ public:
 		m_apCostMove = ConfigReader::instance().getUnitConf(unittype)->getApCostMove();
 		m_apCostTrench = ConfigReader::instance().getUnitConf(unittype)->getApCostTrench();
 		m_spawnProbability = ConfigReader::instance().getUnitConf(unittype)->getSpawnProbability();
-		m_name = ConfigReader::instance().getUnitConf(unittype)->getName();
-
-		if (colorRed) {
-			m_spriteStanding = std::make_shared<SpriteUnit>(ConfigReader::instance().getUnitConf(unittype)->getSpriteFilePathStandingRed());
-			m_spriteShooting = std::make_shared<SpriteUnit>(ConfigReader::instance().getUnitConf(unittype)->getSpriteFilePathShootingRed());
-			m_spriteRunning = std::make_shared<SpriteUnit>(ConfigReader::instance().getUnitConf(unittype)->getSpriteFilePathRunningRed());
-		}
-		else {
-			m_spriteStanding = std::make_shared<SpriteUnit>(ConfigReader::instance().getUnitConf(unittype)->getSpriteFilePathStandingBlue());
-			m_spriteShooting = std::make_shared<SpriteUnit>(ConfigReader::instance().getUnitConf(unittype)->getSpriteFilePathShootingBlue());
-			m_spriteRunning = std::make_shared<SpriteUnit>(ConfigReader::instance().getUnitConf(unittype)->getSpriteFilePathRunningBlue());
-		}
-
-		
+		m_name = ConfigReader::instance().getUnitConf(unittype)->getName();		
+		m_sprite = make_shared<SpriteUnit>(colorRed, unittype);
+		m_state = STATES::UNITSTATE::STANDING_NEUTRAL;
 
 	}
 
 private:
 	Unit() = delete;
 
-	UnitState m_state;
 	int m_colorRed;
 	int m_hp;
 	int m_currentHP;
@@ -82,9 +59,8 @@ private:
 	int m_apCostTrench;
 	int m_spawnProbability;
 	std::string m_name;
-	std::shared_ptr<SpriteUnit>m_spriteStanding;
-	std::shared_ptr<SpriteUnit>m_spriteShooting;
-	std::shared_ptr<SpriteUnit>m_spriteRunning;
+	std::shared_ptr<SpriteUnit>m_sprite;
+	STATES::UNITSTATE m_state;
 
 public:
 
@@ -109,34 +85,8 @@ public:
 	/// renders unit dependent on current state
 	/// </summary>
 	/// 
-	void update() {
+	void update(STATES::UNITSTATE state);
 
-		if (this->m_state == SHOOTING)
-		{
-			//TO DO: den kram in die spriteUnit klasse schmeißen
-			if (this->m_spriteShooting->getCurrentPhase() == 2* (this->m_spriteShooting->getNumFrames()))
-			{
-				this->setState(STANDING);
-				m_spriteShooting->setCurrentPhase(0);
-			}
-			else 
-			{
-				m_spriteStanding->render();
-			}
-			
-		}
-
-		if (this->m_state == RUNNING)
-		{
-			m_spriteStanding->render();
-		}
-
-		if (this->m_state == STANDING)
-		{
-			m_spriteStanding->render();
-		}
-
-	}
 
 	std::shared_ptr<Unit> getptr() {
 		return shared_from_this();
@@ -175,20 +125,17 @@ public:
 		return this->m_range;
 	}
 
-	int getState()
-	{
-		return this->m_state;
+	std::shared_ptr<SpriteUnit> getSprite() {
+		return m_sprite;
 	}
 
-	void setState(Unit::UnitState state)
-	{
-		this->m_state = state;
+	void setSprite(std::shared_ptr<SpriteUnit> sprite) {
+		m_sprite = sprite;
 	}
 	
 	std::string getName()
 	{
 		return this->m_name;
 	}
-
 
 };
