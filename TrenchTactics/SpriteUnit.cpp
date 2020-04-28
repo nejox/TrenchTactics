@@ -1,5 +1,4 @@
 #pragma once
-
 #include "SpriteUnit.h"
 #include "Sprite.hpp"
 #include "ConfigReader.h"

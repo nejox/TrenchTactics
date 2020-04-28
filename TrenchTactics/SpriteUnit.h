@@ -20,8 +20,8 @@ class SpriteUnit :
 	public Sprite
 	//std::enable_shared_from_this<SpriteUnit>
 {
-public: 
-	
+public:
+
 	SpriteUnit(bool colourRed, TYPES::UnitType type);
 	void render();
 	void render(STATES::UNITSTATE changedState);
@@ -43,7 +43,7 @@ private:
 
 	void load(const string sFilename, int frameWidth, int frameHeight);
 	void render(int frame);
-	
+
 };
 
 

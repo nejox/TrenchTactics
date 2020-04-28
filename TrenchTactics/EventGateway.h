@@ -1,11 +1,15 @@
 #pragma once
-#include "GameLoop.h"
 #include "EventBus.h"
 #include "MouseClickEvent.h"
 #include "Unit.h"
 #include "MoveEvent.h"
 #include "ConfigReader.h"
 #include "IEventManager.h"
+#include "Gamephases.h"
+#include "Player.h"
+#include "FieldTile.h"
+#include "MenuTile.h"
+#include "Gamefield.h"
 
 /**
  * EventGateway class which does most of the heavy lifting with event forwarding and controlling
@@ -36,7 +40,8 @@ public:
 	}
 
 private:
-	EventGateway() {};
+	EventGateway();
+	~EventGateway();
 	GAMEPHASES::GAMEPHASE currentPhase;
 	std::shared_ptr<Player> activePlayer;
 

@@ -1,5 +1,14 @@
 #include "Player.h"
 
+
+Player::Player() {
+	this->supply = 0;
+	this->money = 0;
+	this->buying = false;
+}
+
+
+
 /**
  * Init player with starting money as well as subscription to delete unit events
  *
@@ -8,6 +17,7 @@
 void Player::init(bool colorRed) {
 	this->colorRed = colorRed;
 	this->money = ConfigReader::instance().getBalanceConf()->getStartingGold();
+    //this->unitArray = std::vector<std::shared_ptr<Unit>>();
 	EventBus::instance().subscribe(this, &Player::deleteUnit);
 }
 
@@ -28,7 +38,7 @@ void Player::computeInterest() {
  */
 void Player::updatePlayer() {
 	computeInterest();
-	this->supply = this->unitArray.size();
+	//this->supply = this->unitArray.size();
 }
 
 /**

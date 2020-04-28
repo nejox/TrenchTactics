@@ -8,10 +8,12 @@
 #include "SpriteUnit.h"
 #include "UnitTypes.h"
 
+
+
 /// <summary>
 /// Baseclass for units
 /// </summary>
-class Unit: std::enable_shared_from_this<Unit>
+class Unit : std::enable_shared_from_this<Unit>
 {
 public:
 
@@ -38,6 +40,7 @@ public:
 		m_name = ConfigReader::instance().getUnitConf(unittype)->getName();		
 		m_sprite = make_shared<SpriteUnit>(colorRed, unittype);
 		m_state = STATES::UNITSTATE::STANDING_NEUTRAL;
+
 	}
 
 private:
@@ -83,6 +86,7 @@ public:
 	/// </summary>
 	/// 
 	void update(STATES::UNITSTATE state);
+
 
 	std::shared_ptr<Unit> getptr() {
 		return shared_from_this();

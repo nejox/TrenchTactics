@@ -13,7 +13,7 @@ typedef std::list<HandlerFunctionBase*> HandlerList;
 /// EventBus class based on singelton pattern
 /// for Event handling across modules
 /// </summary>
-class EventBus 
+class EventBus
 {
 public:
 

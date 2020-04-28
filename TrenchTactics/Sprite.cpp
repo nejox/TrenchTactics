@@ -28,10 +28,10 @@ Sprite::~Sprite()
 
 void Sprite::setPos(int x, int y)
 {
-	m_posX = x;
-	m_posY = y;
-	m_Rect.x = x;
-	m_Rect.y = y;
+	this->m_posX = x;
+	this->m_posY = y;
+	this->m_Rect.x = x;
+	this->m_Rect.y = y;
 }
 
 int Sprite::getX()
@@ -92,7 +92,7 @@ void Sprite::render()
 
 /**
  *
- 
+
  * \param locX
  * \param locY
  */

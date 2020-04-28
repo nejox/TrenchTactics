@@ -30,15 +30,23 @@ void Game::initGame() {
 	this->playerBlue = std::make_shared<Player>();
 	this->playerBlue->init(false);
 
-	Logger::instance().log(LOGLEVEL::INFO, "Initializing Gamefield");
-	Gamefield::instance().init(ConfigReader::instance().getMapConf()->getSizeX(), ConfigReader::instance().getMapConf()->getSizeY(), ConfigReader::instance().getMapConf()->getSeed());
-
 	Logger::instance().log(LOGLEVEL::INFO, "Initializing Renderer");
-	renderer.init(ConfigReader::instance().getTechnicalConf()->getWindowSizeX(), ConfigReader::instance().getTechnicalConf()->getWindowSizeY(), 16, false);
+	this->renderer.init(ConfigReader::instance().getTechnicalConf()->getWindowSizeX(), ConfigReader::instance().getTechnicalConf()->getWindowSizeY(), 16, false);
+
+	Logger::instance().log(LOGLEVEL::INFO, "Initializing Gamefield");
+	this->field.init(ConfigReader::instance().getMapConf()->getSizeX(), ConfigReader::instance().getMapConf()->getSizeY(), ConfigReader::instance().getMapConf()->getSeed());
+
+	Logger::instance().log(LOGLEVEL::INFO, "Initializing Gateway");
+	this->gateway.init();
+
 	this->activePlayer = playerRed;
+	this->gateway.setActivePlayer(playerRed);
 	this->gameRunning = true;
-	EventGateway::instance().init();
-	gameLoop();
+
+	this->renderer.updateTimer();
+	
+	startGame();
+
 }
 
 /**
@@ -48,10 +56,10 @@ void Game::initGame() {
  * controlled by gameRunning variable
  *
  */
-void Game::gameLoop() {
+void Game::startGame() {
 	Logger::instance().log(LOGLEVEL::INFO, "Game Running");
 	while (gameRunning) {
-		startPhases();
+		startPlayerPhase();
 		switchActivePlayer();
 		this->activePlayer->updatePlayer();
 	}
@@ -67,16 +75,24 @@ void Game::gameLoop() {
  * should update the game every time in the time waiting for the empty queue
  *
  */
-void Game::startPhases() {
+void Game::startPlayerPhase() {
 	this->activePlayer->copyUnitsToQueue();
 	for (GAMEPHASES::GAMEPHASE phase : GAMEPHASES::All) {
 		this->activePlayer->setCurrentPhase(phase);
 		if (phase == GAMEPHASES::BUY) {
 			this->activePlayer->setBuying(true);
+			this->startBuyPhase();
+		}
+		else if (phase == GAMEPHASES::MOVE) {
+			this->startMovePhase();
+		}
+		else if (phase == GAMEPHASES::ATTACK) {
+			this->startAttackPhase();
 		}
 		while (!this->activePlayer->getUnitQueue().empty() || this->activePlayer->getBuying()) {
 			updateGame();
 		}
+
 
 	}
 
@@ -107,8 +123,34 @@ void Game::quit() {
 void Game::switchActivePlayer() {
 	if (this->activePlayer->getColor()) {
 		this->activePlayer = playerRed;
+		this->gateway.setActivePlayer(playerRed);
 	}
 	else {
 		this->activePlayer = playerBlue;
+		this->gateway.setActivePlayer(playerBlue);
 	}
+}
+
+/**
+ *
+ *
+ */
+void Game::startAttackPhase() {
+
+}
+
+/**
+ *
+ *
+ */
+void Game::startBuyPhase() {
+	Gamefield::instance().displayButtons(GAMEPHASES::BUY);
+}
+
+/**
+ *
+ *
+ */
+void Game::startMovePhase() {
+
 }
