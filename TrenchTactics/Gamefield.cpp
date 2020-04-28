@@ -29,13 +29,12 @@ int Gamefield::spawnUnitInSpawn(std::shared_ptr<Unit> pUnit, bool redPlayerActiv
 	for (int i = 0; i < 2; ++i) {
 		for (int j = 0; j < 5; ++j) {
 			if (fieldTileIsFree(1 - i, 4 - j, *activeSpawn)) {
-				(*activeSpawn)[1 - i][4 - j]->setUnit(pUnit);
-				//startAnimation richtige Funktion? Hab beim Renderer noch keinen Ueberblick
-				//RendererImpl::instance().startAnimation((*activeSpawn)[1 - i][4 - j]->getUnit()->getSpriteFilePathStanding());
+				activeSpawn.get()->at(1 - i).at(4 - j)->setUnit(pUnit);
+				
 				return 1;
 			}
 			if (fieldTileIsFree(1 - i, 5 + j, *activeSpawn)) {
-				(*activeSpawn)[1 - i][5 + j]->setUnit(pUnit);
+				activeSpawn.get()->at(1 - i).at(5 + j)->setUnit(pUnit);
 				//startAnimation richtige Funktion? Hab beim Renderer noch keinen Ueberblick
 				//RendererImpl::instance().startAnimation((*activeSpawn)[1 - i][4 - j]->getUnit()->getSpriteFilePathStanding());
 				return 1;
@@ -144,7 +143,7 @@ std::shared_ptr<Tile> Gamefield::getTilePointerAt(int x, int y)
 
 
 
-// ------------ Setupfunctions for Gamestart -------------------------
+// ------------ Setupfunctions for gamestart -------------------------
 
 
 
@@ -161,6 +160,8 @@ void Gamefield::initiatePlayingFieldTiles()
 
 			if (rnd <= 3) {
 
+			//Sets the new tile to be of type mud
+
 				std::shared_ptr<FieldTile> tmpFieldTilePointer = std::make_shared<FieldTile>(FieldTile::terrainType::mud);
 				Sprite* terrainSprite = new Sprite();
 				terrainSprite->load("../Data/Sprites/Terrain/TERRAIN_SAND_1.bmp");
@@ -169,7 +170,11 @@ void Gamefield::initiatePlayingFieldTiles()
 				tmpFieldTilePointer->getSprite()->render();
 				*yIter = tmpFieldTilePointer;
 			}
+
 			if (rnd == 4) {
+
+			//Sets the new tile to be of type clay
+
 
 				std::shared_ptr<FieldTile> tmpFieldTilePointer = std::make_shared<FieldTile>(FieldTile::terrainType::mud);
 				Sprite* terrainSprite = new Sprite();
@@ -179,7 +184,11 @@ void Gamefield::initiatePlayingFieldTiles()
 				tmpFieldTilePointer->getSprite()->render();
 				*yIter = tmpFieldTilePointer;
 			}
+
 			if (rnd == 5) {
+
+			//Sets the new tile to be of type stone
+
 
 				std::shared_ptr<FieldTile> tmpFieldTilePointer = std::make_shared<FieldTile>(FieldTile::terrainType::mud);
 				Sprite* terrainSprite = new Sprite();
