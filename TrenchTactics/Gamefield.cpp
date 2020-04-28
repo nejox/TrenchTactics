@@ -42,7 +42,7 @@ int Gamefield::spawnUnitInSpawn(std::shared_ptr<Unit> pUnit, bool redPlayerActiv
 			}
 		}
 	}
-
+	pUnit.get()->update();
 	return 0;
 }
 
@@ -349,9 +349,6 @@ void Gamefield::initiatePlayingFieldTiles()
 				tmpFieldTilePointer->setSprite(terrainSprite);
 				tmpFieldTilePointer->getSprite()->render();
 				*yIter = tmpFieldTilePointer;
-
-				//*yIter = std::shared_ptr <FieldTile>(new FieldTile(FieldTile::terrainType::stone));
-
 			}
 			if (rnd == 4) {
 
@@ -361,9 +358,7 @@ void Gamefield::initiatePlayingFieldTiles()
 				terrainSprite->setPos((xIter - playingfield->begin()) * 64 + 2 * 64, (yIter - xIter->begin()) * 64);
 				tmpFieldTilePointer->setSprite(terrainSprite);
 				tmpFieldTilePointer->getSprite()->render();
-				*yIter = tmpFieldTilePointer;;
-
-				//*yIter = std::shared_ptr <FieldTile>(new FieldTile(FieldTile::terrainType::clay));
+				*yIter = tmpFieldTilePointer;
 			}
 			if (rnd == 5) {
 
@@ -374,12 +369,28 @@ void Gamefield::initiatePlayingFieldTiles()
 				tmpFieldTilePointer->setSprite(terrainSprite);
 				tmpFieldTilePointer->getSprite()->render();
 				*yIter = tmpFieldTilePointer;
-
-				//*yIter = std::shared_ptr <FieldTile>(new FieldTile(FieldTile::terrainType::mud));
 			}
-			//Playingfield rendern fehlt noch!
 		}
 	}
+}
+
+/**
+ *
+ *
+ * \param
+ */
+void displayButtons(GAMEPHASES::GAMEPHASE phase) {
+	if (phase == GAMEPHASES::BUY) {
+
+	}
+	else if (phase == GAMEPHASES::MOVE)
+	{
+
+	}
+	else if (phase == GAMEPHASES::ATTACK) {
+
+	}
+
 }
 
 /**
@@ -436,8 +447,6 @@ std::shared_ptr<Tile> Gamefield::getTilePointerAt(int x, int y)
 	if ((12 <= x <= 14) && (0 <= y <= 21))
 		pSearchedTile = Gamefield::menuBar.get()->at(x).at(y);
 
-
-
 	if ((2 <= x <= 19) && (0 <= y <= 11))
 		pSearchedTile = Gamefield::menuBar.get()->at(x - 2).at(y);
 
@@ -461,3 +470,4 @@ std::shared_ptr<Tile> Gamefield::getTilePointerAt(int x, int y)
 
 	return pSearchedTile;
 }
+

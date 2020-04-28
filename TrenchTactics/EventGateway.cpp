@@ -64,13 +64,15 @@ void EventGateway::handleAttackEvent(MouseClickEvent* event) {
 void EventGateway::handleMoveEvent(MouseClickEvent* event) {
 	if (checkEventInField(event)) {
 		std::shared_ptr<Unit> unitToBeMoved = this->activePlayer->getUnitQueue().front();
-		//std::shared_ptr<FieldTile> tileToMoveTo = Gamefield::instance().getField()[event->getX()][event->getY()];
-		std::shared_ptr<FieldTile> tileToMoveTo = NULL;
-		if (tileToMoveTo->getUnit() == NULL) {
-			MoveEvent* moveEvent = new MoveEvent(unitToBeMoved, event->getX(), event->getY());
-			EventBus::instance().publish(moveEvent);
-			this->activePlayer->getUnitQueue().pop();
-		}
+		std::shared_ptr<FieldTile> tileToMoveTo = Gamefield::instance().getField().get()->at(event->getX() / 64).at(event->getY() / 64);
+
+		tileToMoveTo.get()->setUnit(unitToBeMoved);
+		unitToBeMoved.get()->update();
+		//if (tileToMoveTo->getUnit() == NULL) {
+		//MoveEvent* moveEvent = new MoveEvent(unitToBeMoved, event->getX(), event->getY());
+		//EventBus::instance().publish(moveEvent);
+		//this->activePlayer->getUnitQueue().pop();
+		//}
 	}
 }
 
@@ -86,12 +88,18 @@ void EventGateway::handleBuyEvent(MouseClickEvent* event) {
 	}
 	else {
 		int yButton = event->getY() - ConfigReader::instance().getMapConf()->getSizeY();
-		std::shared_ptr<MenuTile> tile = Gamefield::instance().getMenuBar().get()->at(event->getX()).at(yButton);
-		if (tile != NULL) {
-			std::shared_ptr<Unit> purchasedUnit = std::make_shared<Unit>(TYPES::UnitType(tile->getButton().getType()), this->activePlayer->getColor());
-			Gamefield::instance().spawnUnitInSpawn(purchasedUnit, this->activePlayer->getColor());
-			this->activePlayer->setBuying(false);
-		}
+
+		//std::shared_ptr<MenuTile> tile = Gamefield::instance().getMenuBar().get()->at(event->getX()).at(yButton);
+		//if (tile != NULL) {
+		//	std::shared_ptr<Unit> purchasedUnit = std::make_shared<Unit>(Unit::UnitType(tile->getButton().getType()), this->activePlayer->getColor());
+		//	Gamefield::instance().spawnUnitInSpawn(purchasedUnit, this->activePlayer->getColor());
+		//	this->activePlayer->setBuying(false);
+		//}
+
+		std::shared_ptr<Unit> purchasedUnit = std::make_shared<Unit>(Unit::GUNNER, false);
+		//purchasedUnit->update();
+		Gamefield::instance().spawnUnitInSpawn(purchasedUnit, false);
+
 	}
 
 }

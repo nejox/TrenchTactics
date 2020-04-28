@@ -8,10 +8,11 @@
 #include "SpriteUnit.h"
 #include "UnitTypes.h"
 
+
 /// <summary>
 /// Baseclass for units
 /// </summary>
-class Unit: std::enable_shared_from_this<Unit>
+class Unit : std::enable_shared_from_this<Unit>
 {
 public:
 
@@ -82,7 +83,9 @@ public:
 	/// renders unit dependent on current state
 	/// </summary>
 	/// 
+
 	void update(STATES::UNITSTATE state);
+
 
 	std::shared_ptr<Unit> getptr() {
 		return shared_from_this();

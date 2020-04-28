@@ -44,11 +44,9 @@ void Game::initGame() {
 	this->gameRunning = true;
 
 	this->renderer.updateTimer();
-	// testing
-	std::shared_ptr<Unit> purchasedUnit = std::make_shared<Unit>(Unit::GUNNER, this->activePlayer->getColor());
-	Gamefield::instance().spawnUnitInSpawn(purchasedUnit, false);
+	
+	startGame();
 
-	gameLoop();
 }
 
 /**
@@ -58,10 +56,10 @@ void Game::initGame() {
  * controlled by gameRunning variable
  *
  */
-void Game::gameLoop() {
+void Game::startGame() {
 	Logger::instance().log(LOGLEVEL::INFO, "Game Running");
 	while (gameRunning) {
-		startPhases();
+		startPlayerPhase();
 		switchActivePlayer();
 		this->activePlayer->updatePlayer();
 	}
@@ -77,16 +75,24 @@ void Game::gameLoop() {
  * should update the game every time in the time waiting for the empty queue
  *
  */
-void Game::startPhases() {
+void Game::startPlayerPhase() {
 	this->activePlayer->copyUnitsToQueue();
 	for (GAMEPHASES::GAMEPHASE phase : GAMEPHASES::All) {
 		this->activePlayer->setCurrentPhase(phase);
 		if (phase == GAMEPHASES::BUY) {
 			this->activePlayer->setBuying(true);
+			this->startBuyPhase();
+		}
+		else if (phase == GAMEPHASES::MOVE) {
+			this->startMovePhase();
+		}
+		else if (phase == GAMEPHASES::ATTACK) {
+			this->startAttackPhase();
 		}
 		while (!this->activePlayer->getUnitQueue().empty() || this->activePlayer->getBuying()) {
 			updateGame();
 		}
+
 
 	}
 
@@ -123,4 +129,28 @@ void Game::switchActivePlayer() {
 		this->activePlayer = playerBlue;
 		this->gateway.setActivePlayer(playerBlue);
 	}
+}
+
+/**
+ *
+ *
+ */
+void Game::startAttackPhase() {
+
+}
+
+/**
+ *
+ *
+ */
+void Game::startBuyPhase() {
+
+}
+
+/**
+ *
+ *
+ */
+void Game::startMovePhase() {
+
 }

@@ -20,12 +20,12 @@ class SpriteUnit :
 	public Sprite
 	//std::enable_shared_from_this<SpriteUnit>
 {
-public: 
-	
-	SpriteUnit(bool colourRed, TYPES::UnitType type);
+public:
+
+	SpriteUnit(const std::string filename);
+	void setAnimation(const std::string filename);
 	void render();
 	void render(STATES::UNITSTATE changedState);
-
 
 private:
 	//SpriteUnit() {};
