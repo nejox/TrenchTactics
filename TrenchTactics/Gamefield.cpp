@@ -1,5 +1,4 @@
 ﻿#include "Gamefield.h"
-#include <memory>
 
 Gamefield::Gamefield() {
 }
