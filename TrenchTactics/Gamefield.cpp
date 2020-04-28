@@ -158,6 +158,19 @@ void Gamefield::markTilesAround(int xPos, int yPos, int range)
 	}
 }
 
+/**
+*Function to mark a tile as selected and call the function to mark surrounding tiles if needed. Positions counting from top left tile in playingfield.
+*
+*\param xPos Horizontal position of the tile
+*\param yPos Vertical position of the tile
+*/
+void Gamefield::selectTile(int xPos, int yPos)
+{
+	playingfield.get()->at(xPos).at(yPos)->setSelected(true);
+	if (nullptr != playingfield.get()->at(xPos).at(yPos)->getUnit())
+		markTilesAround(xPos, yPos, playingfield.get()->at(xPos).at(yPos)->getUnit()->getRange());
+}
+
 
 
 

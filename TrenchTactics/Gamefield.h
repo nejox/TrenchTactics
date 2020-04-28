@@ -131,5 +131,6 @@ public:
 	std::shared_ptr<Tile> getTilePointerAt(int x, int y);
 
 	void markTilesAround(int xPos, int yPos, int range);
+	void selectTile(int xPos, int yPos);
 
 };
