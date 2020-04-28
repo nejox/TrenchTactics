@@ -381,27 +381,47 @@ void Gamefield::initiatePlayingFieldTiles()
  */
 void Gamefield::displayButtons(GAMEPHASES::GAMEPHASE phase) {
 	if (phase == GAMEPHASES::BUY) {
+
+		std::shared_ptr<Button> button = std::make_shared<Button>();
+		std::shared_ptr<Button> button1 = std::make_shared<Button>();
+		std::shared_ptr<Button> button2 = std::make_shared<Button>();
+		std::unique_ptr<Sprite> buttonSprite = std::make_unique<Sprite>();
+		std::unique_ptr<Sprite> buttonSprite1 = std::make_unique<Sprite>();
+		std::unique_ptr<Sprite> buttonSprite2 = std::make_unique<Sprite>();
+
+		buttonSprite->load("../Data/Sprites/Token/GRENADE_TOKEN.bmp");
+		buttonSprite1->load("../Data/Sprites/Token/GUNNER_TOKEN.bmp");
+		buttonSprite2->load("../Data/Sprites/Token/CC_TOKEN.bmp");
+		/**
+		 * 			if (rnd == 1) {
+						buttonSprite->load("../Data/Sprites/Token/GRENADE_TOKEN.bmp");
+					}
+					else if (rnd == 2) {
+						buttonSprite->load("../Data/Sprites/Token/GUNNER_TOKEN.bmp");
+					}
+					else if (rnd == 3) {
+						buttonSprite->load("../Data/Sprites/Token/CC_TOKEN.bmp");
+					}
+		 *
+		 * \param phase
+		 */
 		for (int i = 0; i < 3; i++)
 		{
-			int rnd = rand() % 3;
-			std::unique_ptr<Sprite> buttonSprite = std::make_unique<Sprite>();
-			if (rnd == 1) {
-				buttonSprite->load("../Data/Sprites/Token/GRENADE_TOKEN.bmp");
+			if (i == 0) {
+				buttonSprite->setPos(i * 2 * 64 + 5 * 64, 64 * 13);
+				button.get()->setSprite(buttonSprite.get());
+				button.get()->getSprite()->render(64, 0);
 			}
-			else if (rnd == 2) {
-				buttonSprite->load("../Data/Sprites/Token/GUNNER_TOKEN.bmp");
+			else if (i == 1) {
+				buttonSprite1->setPos(i * 2 * 64 + 5 * 64, 64 * 13);
+				button1.get()->setSprite(buttonSprite1.get());
+				button1.get()->getSprite()->render(64, 0);
 			}
-			else if (rnd == 3) {
-				buttonSprite->load("../Data/Sprites/Token/CC_TOKEN.bmp");
+			else if (i == 2) {
+				buttonSprite2->setPos(i * 2 * 64 + 5 * 64, 64 * 13);
+				button2.get()->setSprite(buttonSprite2.get());
+				button2.get()->getSprite()->render(64, 0);
 			}
-			std::shared_ptr<Button> button = std::make_shared<Button>();
-			buttonSprite->setPos(i * 2 * 64 + 3 * 64, 64 * 13);
-			button.get()->setSprite(buttonSprite.get());
-			//this->getMenuBar().get()->at(10 + i * 2).at(1).get()->setButton(button);
-			button.get()->getSprite()->render(64, 0);
-
-
-
 		}
 
 	}
@@ -414,8 +434,6 @@ void Gamefield::displayButtons(GAMEPHASES::GAMEPHASE phase) {
 	}
 
 }
-
-
 
 /**
  * Function to search playingfield and both spawns for a tile on which a unit stands. Returns a nullpointer if unit was not found.
