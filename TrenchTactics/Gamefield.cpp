@@ -42,7 +42,7 @@ int Gamefield::spawnUnitInSpawn(std::shared_ptr<Unit> pUnit, bool redPlayerActiv
 			}
 		}
 	}
-	pUnit.get()->update();
+	pUnit.get()->update(STATES::STANDING_NEUTRAL);
 	return 0;
 }
 
@@ -384,7 +384,7 @@ void Gamefield::displayButtons(GAMEPHASES::GAMEPHASE phase) {
 		for (int i = 0; i < 3; i++)
 		{
 			int rnd = rand() % 3;
-			Sprite* buttonSprite = new Sprite();
+			std::unique_ptr<Sprite> buttonSprite = std::make_unique<Sprite>();
 			if (rnd == 1) {
 				buttonSprite->load("../Data/Sprites/Token/GRENADE_TOKEN.bmp");
 			}
@@ -395,9 +395,9 @@ void Gamefield::displayButtons(GAMEPHASES::GAMEPHASE phase) {
 				buttonSprite->load("../Data/Sprites/Token/CC_TOKEN.bmp");
 			}
 			std::shared_ptr<Button> button = std::make_shared<Button>();
-			buttonSprite->setPos(i * 2 + 5 * 64, 64 * 13);
-			button.get()->setSprite(buttonSprite);
-			this->getMenuBar().get()->at(10 + i * 2).at(1).get()->setButton(button);
+			buttonSprite->setPos(i * 2 * 64 + 3 * 64, 64 * 13);
+			button.get()->setSprite(buttonSprite.get());
+			//this->getMenuBar().get()->at(10 + i * 2).at(1).get()->setButton(button);
 			button.get()->getSprite()->render(64, 0);
 
 
@@ -414,6 +414,8 @@ void Gamefield::displayButtons(GAMEPHASES::GAMEPHASE phase) {
 	}
 
 }
+
+
 
 /**
  * Function to search playingfield and both spawns for a tile on which a unit stands. Returns a nullpointer if unit was not found.

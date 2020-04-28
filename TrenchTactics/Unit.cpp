@@ -55,15 +55,10 @@ void Unit::resetAP()
 	m_currentAP = m_ap;
 }
 
-<<<<<<< HEAD
 void Unit::update(STATES::UNITSTATE state)
 {
 	m_sprite->render(state);
 }
-
-
-=======
->>>>>>> 7a28419fc7cc51e325b866aeb0d6f6993a2c3b5f
 /**
  *
  *

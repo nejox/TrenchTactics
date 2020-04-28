@@ -22,10 +22,10 @@ class SpriteUnit :
 {
 public:
 
-	SpriteUnit(const std::string filename);
-	void setAnimation(const std::string filename);
+	SpriteUnit(bool colourRed, TYPES::UnitType type);
 	void render();
 	void render(STATES::UNITSTATE changedState);
+
 
 private:
 	//SpriteUnit() {};
@@ -43,7 +43,7 @@ private:
 
 	void load(const string sFilename, int frameWidth, int frameHeight);
 	void render(int frame);
-	
+
 };
 
 

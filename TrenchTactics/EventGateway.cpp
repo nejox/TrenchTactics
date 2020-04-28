@@ -67,7 +67,7 @@ void EventGateway::handleMoveEvent(MouseClickEvent* event) {
 		std::shared_ptr<FieldTile> tileToMoveTo = Gamefield::instance().getField().get()->at(event->getX() / 64).at(event->getY() / 64);
 
 		tileToMoveTo.get()->setUnit(unitToBeMoved);
-		unitToBeMoved.get()->update();
+		unitToBeMoved.get()->update(STATES::RUNNING);
 		//if (tileToMoveTo->getUnit() == NULL) {
 		//MoveEvent* moveEvent = new MoveEvent(unitToBeMoved, event->getX(), event->getY());
 		//EventBus::instance().publish(moveEvent);
@@ -96,7 +96,7 @@ void EventGateway::handleBuyEvent(MouseClickEvent* event) {
 		//	this->activePlayer->setBuying(false);
 		//}
 
-		std::shared_ptr<Unit> purchasedUnit = std::make_shared<Unit>(Unit::GUNNER, false);
+		std::shared_ptr<Unit> purchasedUnit = std::make_shared<Unit>(TYPES::GUNNER, false);
 		//purchasedUnit->update();
 		Gamefield::instance().spawnUnitInSpawn(purchasedUnit, false);
 
