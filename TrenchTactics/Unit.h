@@ -9,6 +9,7 @@
 #include "UnitTypes.h"
 
 
+
 /// <summary>
 /// Baseclass for units
 /// </summary>
@@ -39,6 +40,7 @@ public:
 		m_name = ConfigReader::instance().getUnitConf(unittype)->getName();		
 		m_sprite = make_shared<SpriteUnit>(colorRed, unittype);
 		m_state = STATES::UNITSTATE::STANDING_NEUTRAL;
+
 	}
 
 private:
@@ -83,7 +85,6 @@ public:
 	/// renders unit dependent on current state
 	/// </summary>
 	/// 
-
 	void update(STATES::UNITSTATE state);
 
 
