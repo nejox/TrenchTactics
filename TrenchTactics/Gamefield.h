@@ -56,6 +56,7 @@ public:
 		return gamefield;
 	}
 
+	//noch noetig?
 	void resetGameField();
 
 	int spawnUnitInSpawn(std::shared_ptr<Unit> unit, bool redPlayerActive);
@@ -106,4 +107,12 @@ public:
 		return this->spawnRed;
 	}
 
+
+	
+	// void assignEventToTile(MouseClickEvent event); -----noch noetig?
+
+	void markTilesAround(int xPos, int yPos, int range);
+	void selectTile(int xPos, int yPos);
+
+	void deselectAndUnmarkAllTiles();
 };
