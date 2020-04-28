@@ -106,4 +106,30 @@ public:
 		return this->spawnRed;
 	}
 
+
+	void resetGameField();
+	~Gamefield();
+	// void assignEventToTile(MouseClickEvent event); -----noch noetig?
+
+
+	Gamefield(const Gamefield&) = delete;
+	Gamefield& operator=(const Gamefield&) = delete;
+	Gamefield(Gamefield&&) = delete;
+	Gamefield& operator=(Gamefield&&) = delete;
+
+	static auto& instance() {
+		static Gamefield gamefield;
+		return gamefield;
+	}
+
+	int spawnUnitInSpawn(std::shared_ptr<Unit> unit, bool redPlayerActive);
+	bool fieldTileIsFree(int x, int y, vector<vector<std::shared_ptr<FieldTile>>> activeSpawn);
+
+	void init(int FieldWidth, int FieldHeight, int Seed);
+
+	std::shared_ptr<FieldTile> findTileForUnit(std::shared_ptr<Unit> pUnit);
+	std::shared_ptr<Tile> getTilePointerAt(int x, int y);
+
+	void markTilesAround(int xPos, int yPos, int range);
+
 };

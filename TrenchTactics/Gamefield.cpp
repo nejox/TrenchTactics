@@ -140,6 +140,24 @@ std::shared_ptr<Tile> Gamefield::getTilePointerAt(int x, int y)
 	return pSearchedTile;
 }
 
+/**
+*Function to mark the tiles around a given tile as in range. Positions counting from top left tile in playingfield.
+*
+*\param xPos Horizontal postion of the tile
+*\param yPos Vertical postion of the tile
+*/
+void Gamefield::markTilesAround(int xPos, int yPos, int range)
+{
+	for (int i = -range; i <= range; ++i) {
+		for (int j = range - abs(i); j <= range + abs(i); ++j) {
+			if ((0 <= xPos + i <= 17) && (0 <= yPos + j <= 11)) {
+				Gamefield::playingfield.get()->at(xPos + i).at(yPos + j)->setMarked(true);
+				//hier Marker rendern
+			}
+		}
+	}
+}
+
 
 
 
