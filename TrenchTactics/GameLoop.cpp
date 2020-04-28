@@ -48,7 +48,6 @@ void Game::initGame() {
 	std::shared_ptr<Unit> purchasedUnit = std::make_shared<Unit>(Unit::GUNNER, this->activePlayer->getColor());
 	Gamefield::instance().spawnUnitInSpawn(purchasedUnit, false);
 
-
 	gameLoop();
 }
 
