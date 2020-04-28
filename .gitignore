@@ -9,3 +9,11 @@ TrenchTactics.vcxproj.user
 *.log
 TrenchTactics/.vs/
 
+TrenchTactics_Test.sln
+TrenchTactics_Test.vcxproj
+TrenchTactics_Test.vcxproj.filters
+TrenchTactics_Test.vcxproj.user
+TrenchTactics_Test/.vs/
+TrenchTactics_Test/Debug/
+TrenchTactics_Test/x64/
+
