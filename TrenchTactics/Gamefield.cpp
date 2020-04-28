@@ -486,29 +486,30 @@ std::shared_ptr<Tile> Gamefield::getTilePointerAt(int x, int y)
 {
 	std::shared_ptr<Tile> pSearchedTile = NULL;
 
-	if ((12 <= x <= 14) && (0 <= y <= 21))
-		pSearchedTile = Gamefield::menuBar.get()->at(x).at(y);
+
+	if ((0 <= x <= 21) && (12 <= y <= 14))
+		pSearchedTile = Gamefield::menuBar.get()->at(x).at(y-12);
 
 	if ((2 <= x <= 19) && (0 <= y <= 11))
-		pSearchedTile = Gamefield::menuBar.get()->at(x - 2).at(y);
+		pSearchedTile = Gamefield::playingfield.get()->at(x - 2).at(y);
 
 	if ((0 <= x <= 1) && (5 <= y <= 6))
-		Gamefield::headquarterTilePlayerBlue.get()[x][y - 5];
+		pSearchedTile = Gamefield::headquarterTilePlayerBlue.get()->at(x).at(y - 5);
 
 	if ((20 <= x <= 21) && (5 <= y <= 6))
-		Gamefield::headquarterTilePlayerRed.get()[x - 20][y - 5];
+		pSearchedTile = Gamefield::headquarterTilePlayerRed.get()->at(x - 20).at(y - 5);
 
 	if ((0 <= x <= 1) && (0 <= y <= 4))
-		Gamefield::spawnBlue.get()[x][y];
+		pSearchedTile = Gamefield::spawnBlue.get()->at(x).at(y);
 
 	if ((0 <= x <= 1) && (7 <= y <= 11))
-		Gamefield::spawnBlue.get()[x][y - 2];
+		pSearchedTile = Gamefield::spawnBlue.get()->at(x).at(y - 2);
 
 	if ((20 <= x <= 21) && (0 <= y <= 4))
-		Gamefield::spawnRed.get()[x - 20][y];
+		pSearchedTile = Gamefield::spawnRed.get()->at(x - 20).at(y);
 
 	if ((20 <= x <= 21) && (7 <= y <= 11))
-		Gamefield::spawnRed.get()[x - 20][y - 2];
+		pSearchedTile = Gamefield::spawnRed.get()->at(x - 20).at(y - 2);
 
 	return pSearchedTile;
 }
