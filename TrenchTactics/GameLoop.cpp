@@ -144,7 +144,7 @@ void Game::startAttackPhase() {
  *
  */
 void Game::startBuyPhase() {
-
+	Gamefield::instance().displayButtons(GAMEPHASES::BUY);
 }
 
 /**
