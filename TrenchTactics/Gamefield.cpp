@@ -30,7 +30,7 @@ int Gamefield::spawnUnitInSpawn(std::shared_ptr<Unit> pUnit, bool redPlayerActiv
 		for (int j = 0; j < 5; ++j) {
 			if (fieldTileIsFree(1 - i, 4 - j, *activeSpawn)) {
 				activeSpawn.get()->at(1 - i).at(4 - j)->setUnit(pUnit);
-				
+
 				return 1;
 			}
 			if (fieldTileIsFree(1 - i, 5 + j, *activeSpawn)) {
@@ -114,7 +114,7 @@ std::shared_ptr<Tile> Gamefield::getTilePointerAt(int x, int y)
 
 
 	if ((0 <= x <= 21) && (12 <= y <= 14))
-		pSearchedTile = Gamefield::menuBar.get()->at(x).at(y-12);
+		pSearchedTile = Gamefield::menuBar.get()->at(x).at(y - 12);
 
 	if ((2 <= x <= 19) && (0 <= y <= 11))
 		pSearchedTile = Gamefield::playingfield.get()->at(x - 2).at(y);
@@ -169,6 +169,7 @@ void Gamefield::selectTile(int xPos, int yPos)
 	playingfield.get()->at(xPos).at(yPos)->setSelected(true);
 	if (nullptr != playingfield.get()->at(xPos).at(yPos)->getUnit())
 		markTilesAround(xPos, yPos, playingfield.get()->at(xPos).at(yPos)->getUnit()->getRange());
+	//nur fuer angriffe; neue variante fuer bewegung noetig
 }
 
 
@@ -203,7 +204,66 @@ void Gamefield::deselectAndUnmarkAllTiles()
 }
 
 
+/**
+ *
+ *
+ * \param
+ */
+void Gamefield::displayButtons(GAMEPHASES::GAMEPHASE phase) {
+	if (phase == GAMEPHASES::BUY) {
 
+		std::shared_ptr<Button> button = std::make_shared<Button>();
+		std::shared_ptr<Button> button1 = std::make_shared<Button>();
+		std::shared_ptr<Button> button2 = std::make_shared<Button>();
+		std::unique_ptr<Sprite> buttonSprite = std::make_unique<Sprite>();
+		std::unique_ptr<Sprite> buttonSprite1 = std::make_unique<Sprite>();
+		std::unique_ptr<Sprite> buttonSprite2 = std::make_unique<Sprite>();
+
+		buttonSprite->load("../Data/Sprites/Token/GRENADE_TOKEN.bmp");
+		buttonSprite1->load("../Data/Sprites/Token/GUNNER_TOKEN.bmp");
+		buttonSprite2->load("../Data/Sprites/Token/CC_TOKEN.bmp");
+		/**
+		 * 			if (rnd == 1) {
+						buttonSprite->load("../Data/Sprites/Token/GRENADE_TOKEN.bmp");
+					}
+					else if (rnd == 2) {
+						buttonSprite->load("../Data/Sprites/Token/GUNNER_TOKEN.bmp");
+					}
+					else if (rnd == 3) {
+						buttonSprite->load("../Data/Sprites/Token/CC_TOKEN.bmp");
+					}
+		 *
+		 * \param phase
+		 */
+		for (int i = 0; i < 3; i++)
+		{
+			if (i == 0) {
+				buttonSprite->setPos(i * 2 * 64 + 5 * 64, 64 * 13);
+				button.get()->setSprite(buttonSprite.get());
+				button.get()->getSprite()->render(64, 0);
+			}
+			else if (i == 1) {
+				buttonSprite1->setPos(i * 2 * 64 + 5 * 64, 64 * 13);
+				button1.get()->setSprite(buttonSprite1.get());
+				button1.get()->getSprite()->render(64, 0);
+			}
+			else if (i == 2) {
+				buttonSprite2->setPos(i * 2 * 64 + 5 * 64, 64 * 13);
+				button2.get()->setSprite(buttonSprite2.get());
+				button2.get()->getSprite()->render(64, 0);
+			}
+		}
+
+	}
+	else if (phase == GAMEPHASES::MOVE)
+	{
+
+	}
+	else if (phase == GAMEPHASES::ATTACK) {
+
+	}
+
+}
 
 // ------------ Setupfunctions for gamestart -------------------------
 
@@ -222,7 +282,7 @@ void Gamefield::initiatePlayingFieldTiles()
 
 			if (rnd <= 3) {
 
-			//Sets the new tile to be of type mud
+				//Sets the new tile to be of type mud
 
 				std::shared_ptr<FieldTile> tmpFieldTilePointer = std::make_shared<FieldTile>(FieldTile::terrainType::mud);
 				Sprite* terrainSprite = new Sprite();
@@ -235,7 +295,7 @@ void Gamefield::initiatePlayingFieldTiles()
 
 			if (rnd == 4) {
 
-			//Sets the new tile to be of type clay
+				//Sets the new tile to be of type clay
 
 
 				std::shared_ptr<FieldTile> tmpFieldTilePointer = std::make_shared<FieldTile>(FieldTile::terrainType::mud);
@@ -249,7 +309,7 @@ void Gamefield::initiatePlayingFieldTiles()
 
 			if (rnd == 5) {
 
-			//Sets the new tile to be of type stone
+				//Sets the new tile to be of type stone
 
 
 				std::shared_ptr<FieldTile> tmpFieldTilePointer = std::make_shared<FieldTile>(FieldTile::terrainType::mud);
@@ -368,66 +428,7 @@ void Gamefield::initiateMenuTiles()
 
 
 
-/**
- *
- *
- * \param
- */
-void Gamefield::displayButtons(GAMEPHASES::GAMEPHASE phase) {
-	if (phase == GAMEPHASES::BUY) {
 
-		std::shared_ptr<Button> button = std::make_shared<Button>();
-		std::shared_ptr<Button> button1 = std::make_shared<Button>();
-		std::shared_ptr<Button> button2 = std::make_shared<Button>();
-		std::unique_ptr<Sprite> buttonSprite = std::make_unique<Sprite>();
-		std::unique_ptr<Sprite> buttonSprite1 = std::make_unique<Sprite>();
-		std::unique_ptr<Sprite> buttonSprite2 = std::make_unique<Sprite>();
-
-		buttonSprite->load("../Data/Sprites/Token/GRENADE_TOKEN.bmp");
-		buttonSprite1->load("../Data/Sprites/Token/GUNNER_TOKEN.bmp");
-		buttonSprite2->load("../Data/Sprites/Token/CC_TOKEN.bmp");
-		/**
-		 * 			if (rnd == 1) {
-						buttonSprite->load("../Data/Sprites/Token/GRENADE_TOKEN.bmp");
-					}
-					else if (rnd == 2) {
-						buttonSprite->load("../Data/Sprites/Token/GUNNER_TOKEN.bmp");
-					}
-					else if (rnd == 3) {
-						buttonSprite->load("../Data/Sprites/Token/CC_TOKEN.bmp");
-					}
-		 *
-		 * \param phase
-		 */
-		for (int i = 0; i < 3; i++)
-		{
-			if (i == 0) {
-				buttonSprite->setPos(i * 2 * 64 + 5 * 64, 64 * 13);
-				button.get()->setSprite(buttonSprite.get());
-				button.get()->getSprite()->render(64, 0);
-			}
-			else if (i == 1) {
-				buttonSprite1->setPos(i * 2 * 64 + 5 * 64, 64 * 13);
-				button1.get()->setSprite(buttonSprite1.get());
-				button1.get()->getSprite()->render(64, 0);
-			}
-			else if (i == 2) {
-				buttonSprite2->setPos(i * 2 * 64 + 5 * 64, 64 * 13);
-				button2.get()->setSprite(buttonSprite2.get());
-				button2.get()->getSprite()->render(64, 0);
-			}
-		}
-
-	}
-	else if (phase == GAMEPHASES::MOVE)
-	{
-
-	}
-	else if (phase == GAMEPHASES::ATTACK) {
-
-	}
-
-}
 
 
 
@@ -454,12 +455,15 @@ void Gamefield::initiatePlayerTilesBlue()
 			// tell render function to only render the specific 64*64 slice of whole menu
 			tmpMenuTilePointer->getSprite()->render((xIter - headquarterTilePlayerBlue->begin()) * 64, (yIter - xIter->begin()) * 64);
 			*yIter = tmpMenuTilePointer;
+		}
+	}
+}
 
 
 
 /**
  * Function to set up the PlayerTiles for red player at gamestart.
- *
+*
  */
 void Gamefield::initiatePlayerTilesRed()
 {
