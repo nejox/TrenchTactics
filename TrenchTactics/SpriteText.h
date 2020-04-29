@@ -37,7 +37,15 @@ public:
 		}
 	}
 
-	void setPos(int x, int y)
+	void setPosGrid(int tileX, int tileY)
+	{
+		this->m_posX = tileX * 64;
+		this->m_posY = tileY * 64;
+		this->m_Rect.x = tileX * 64;
+		this->m_Rect.y = tileY * 64;
+	}
+
+	void SpriteText::setPos(int x, int y)
 	{
 		this->m_posX = x;
 		this->m_posY = y;
@@ -63,7 +71,7 @@ public:
 
 	void load(const char* text);
 	void render();
-	void render(int locX, int locY);
+	
 
 private:
 	TTF_Font* m_font;
