@@ -12,6 +12,7 @@
 #include "EventManagerImpl.h"
 #include "Gamephases.h"
 
+
 /**
  * Main class to start the game
  * initializes all necessary components: Renderer, Eventmanager, Players
@@ -27,6 +28,7 @@ private:
 	IRenderer& renderer = RendererImpl::instance();
 	Gamefield& field = Gamefield::instance();
 	EventGateway& gateway = EventGateway::instance();
+
 
 	bool gameRunning;
 	void switchActivePlayer();

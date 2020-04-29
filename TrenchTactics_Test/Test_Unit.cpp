@@ -4,13 +4,15 @@
 
 
 
-
+/*
 
 TEST_CASE("Units are Initialized")
 {
 
 	std::string name = "GUNNER";
-	Unit* test = new Unit(Unit::UnitType::GUNNER, true);
+	Unit* test = new Unit(TYPES::UnitType::GUNNER, true);
 	REQUIRE(name == test->getName());
 
 }
+
+*/

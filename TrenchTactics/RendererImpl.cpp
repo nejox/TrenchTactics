@@ -40,6 +40,18 @@ bool RendererImpl::init(int ScreenWidth, int ScreenHeight,
 		return (false);
 	}
 
+	if (TTF_Init() == -1)
+	{
+		std::string msg = "SDL_TTF konnte nicht initialisiert werden!\n Fehlermeldung: ";
+		msg.append(TTF_GetError());
+
+		Logger::instance().log(LOGLEVEL::FATAL, msg);
+
+		destroy();
+
+		return (false);
+	}
+
 	Uint32 WindowFlags = 0;
 
 	if (bFullscreen == true)
@@ -108,6 +120,8 @@ void RendererImpl::destroy()
 	{
 		SDL_DestroyWindow(m_pWindow);
 	}
+
+	TTF_Quit();
 	SDL_Quit();
 }
 

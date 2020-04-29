@@ -9,6 +9,7 @@
 #include "Unit.h"
 #include "Gamefield.h"
 #include "GameLoop.h"
+#include "SpriteText.h"
 
 /// <summary>
 /// 
