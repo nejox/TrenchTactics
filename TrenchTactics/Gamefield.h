@@ -61,7 +61,7 @@ public:
 
 	int spawnUnitInSpawn(std::shared_ptr<Unit> unit, bool redPlayerActive);
 
-	bool fieldTileIsFree(int x, int y, vector<vector<std::shared_ptr<FieldTile>>> activeSpawn);
+	bool fieldTileIsFree(int x, int y, std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> activeSpawn);
 
 	void init(int FieldWidth, int FieldHeight, int Seed);
 
