@@ -42,8 +42,8 @@ private:
 	void initiateSpawnTilesRed();
 	void initiatePlayingFieldTiles();
 
-	std::shared_ptr<FieldTile> getSpawnFieldRed();
-	std::shared_ptr<FieldTile> getSpawnFieldBlue();
+	std::shared_ptr<FieldTile> getSpawnFieldRed(int posY, int posX);
+	std::shared_ptr<FieldTile> getSpawnFieldBlue(int posY, int posX);
 
 public:
 	~Gamefield();
@@ -81,7 +81,7 @@ public:
 		this->menuBar = menuBar;
 	}
 	std::shared_ptr<vector<vector<std::shared_ptr<MenuTile>>>> getMenuBar() {
-		return this->menuBar;
+		return menuBar;
 	}
 	void setHqTilePlayerBlue(std::shared_ptr<vector<vector<std::shared_ptr<PlayerTile>>>> hqTilePlayer) {
 		this->headquarterTilePlayerBlue = hqTilePlayer;

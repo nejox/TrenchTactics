@@ -88,8 +88,7 @@ void EventGateway::handleBuyEvent(MouseClickEvent* event) {
 		std::cout << "not enough supply to purchase unit" << std::endl;
 	}
 	else {
-		std::cout << (event->getX() / 64) << " " << ((event->getY() / 64) - 12) << std::endl;
-		int unitType = Gamefield::instance().getMenuBar().get()->at((event->getX() / 64)).at(((event->getY() / 64) - 12)).get()->getButton().get()->getType();
+		int unitType = Gamefield::instance().getMenuTileFromXY(event->getY(), event->getX()).get()->getButton().get()->getType();
 		if (unitType != -1) {
 			std::shared_ptr<Unit> purchasedUnit = std::make_shared<Unit>(static_cast<TYPES::UnitType>(unitType), false);
 			Gamefield::instance().spawnUnitInSpawn(purchasedUnit, false);

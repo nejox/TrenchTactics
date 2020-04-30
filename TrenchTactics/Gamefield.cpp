@@ -2,6 +2,12 @@
 
 Gamefield::Gamefield() {
 	srand(time(NULL));
+	this->menuBar = std::make_shared<vector<vector<std::shared_ptr<MenuTile>>>>();
+	this->headquarterTilePlayerBlue = std::make_shared<vector<vector<std::shared_ptr<PlayerTile>>>>();
+	this->headquarterTilePlayerRed = std::make_shared<vector<vector<std::shared_ptr<PlayerTile>>>>();
+	this->playingfield = std::make_shared<vector<vector<std::shared_ptr<FieldTile>>>>();
+	this->spawnBlue = std::make_shared<vector<vector<std::shared_ptr<FieldTile>>>>();
+	this->spawnRed = std::make_shared<vector<vector<std::shared_ptr<FieldTile>>>>();
 }
 
 Gamefield::~Gamefield() {
@@ -15,8 +21,8 @@ Gamefield::~Gamefield() {
  * \return
  */
 std::shared_ptr<FieldTile> Gamefield::getSpawnFieldRed(int posY, int posX) {
-	int posY = posY / 64;
-	int posX = posX / 64;
+	posY = posY / 64;
+	posX = posX / 64;
 
 	if (posX >= 20 || posX <= 18) {
 		return nullptr;
@@ -38,8 +44,8 @@ std::shared_ptr<FieldTile> Gamefield::getSpawnFieldRed(int posY, int posX) {
  * \return
  */
 std::shared_ptr<FieldTile> Gamefield::getSpawnFieldBlue(int posY, int posX) {
-	int posY = posY / 64;
-	int posX = posX / 64;
+	posY = posY / 64;
+	posX = posX / 64;
 
 
 	if (posX >= 2 || posX <= 0) {
@@ -63,16 +69,17 @@ std::shared_ptr<FieldTile> Gamefield::getSpawnFieldBlue(int posY, int posX) {
  * \return
  */
 std::shared_ptr<MenuTile> Gamefield::getMenuTileFromXY(int posX, int posY) {
-	int posY = posY / 64;
-	int posX = posX / 64;
-	if (posX >= 19) {
+	posY = posY / 64;
+	posX = posX / 64;
+
+	if (posY >= 19) {
 		return nullptr;
 	}
-	else if (posY != 13) {
+	else if (posX != 13) {
 		return nullptr;
 	}
 	else {
-		return this->getMenuBar().get()->at(posX).at(posY);
+		return std::shared_ptr<MenuTile>(menuBar.get()->at(posX).at(1));
 	}
 }
 
@@ -84,8 +91,8 @@ std::shared_ptr<MenuTile> Gamefield::getMenuTileFromXY(int posX, int posY) {
  * \return
  */
 std::shared_ptr<FieldTile> Gamefield::getFieldTileFromXY(int posX, int posY) {
-	int posY = posY / 64;
-	int posX = posX / 64;
+	posY = posY / 64;
+	posX = posX / 64;
 	if (posX >= 19 || posX <= 1) {
 		return nullptr;
 	}
@@ -106,16 +113,11 @@ std::shared_ptr<FieldTile> Gamefield::getFieldTileFromXY(int posX, int posY) {
  * \return
  */
 std::shared_ptr<FieldTile> Gamefield::getSpawnTileFromXY(bool colorRed, int posX, int posY) {
-	int posY = posY / 64;
-	int posX = posX / 64;
-	if (posX >= 19) {
-		return nullptr;
-	}
-	else if (posY != 13) {
-		return nullptr;
+	if (colorRed) {
+		return this->getSpawnFieldRed(posX, posY);
 	}
 	else {
-		return this->getMenuBar().get()->at(posX).at(posY);
+		return this->getSpawnFieldBlue(posX, posY);
 	}
 }
 
@@ -284,7 +286,6 @@ void Gamefield::selectTile(int xPos, int yPos)
 	//nur fuer angriffe; neue variante fuer bewegung noetig
 }
 
-
 /**
 *
 *Function to reset the selected- and marked-status for each spawn- and playingfieldtile.
@@ -315,7 +316,12 @@ void Gamefield::deselectAndUnmarkAllTiles()
 
 }
 
-
+/**
+ *
+ *
+ * \param rndNumber
+ * \return
+ */
 Sprite* getRandomButtonSprite(int rndNumber) {
 	Sprite* buttonSprite = new Sprite();
 
@@ -348,22 +354,19 @@ void Gamefield::displayButtons(GAMEPHASES::GAMEPHASE phase) {
 			Sprite* buttonSprite = getRandomButtonSprite(rndo);
 
 			if (i == 0) {
-				buttonSprite->setPos(4 * 64, 64 * 13);
 				button.get()->setType(rndo);
 				button.get()->setSprite(buttonSprite);
-				button.get()->getSprite()->render(64, 0);
+				this->getMenuBar().get()->at(4).at(1).get()->setButton(button);
 			}
 			else if (i == 1) {
-				buttonSprite->setPos(6 * 64, 64 * 13);
 				button1.get()->setType(rndo);
 				button1.get()->setSprite(buttonSprite);
-				button1.get()->getSprite()->render(64, 0);
+				this->getMenuBar().get()->at(6).at(1).get()->setButton(button1);
 			}
 			else if (i == 2) {
-				buttonSprite->setPos(8 * 64, 64 * 13);
 				button2.get()->setType(rndo);
 				button2.get()->setSprite(buttonSprite);
-				button2.get()->getSprite()->render(64, 0);
+				this->getMenuBar().get()->at(8).at(1).get()->setButton(button2);
 			}
 		}
 
@@ -526,6 +529,7 @@ void Gamefield::initiateMenuTiles()
 			// set pos where sprite shall be renderd
 			terrainSprite->setPos((xIter - menuBar->begin()) * 64, (yIter - xIter->begin()) * 64 + 12 * 64);
 			tmpMenuTilePointer->setSprite(terrainSprite);
+			tmpMenuTilePointer->setPos((xIter - menuBar->begin()) * 64, (yIter - xIter->begin()) * 64 + 12 * 64);
 
 			// tell render function to only render the specific 64*64 slice of whole menu
 			tmpMenuTilePointer->getSprite()->render((xIter - menuBar->begin()) * 64, (yIter - xIter->begin()) * 64);
