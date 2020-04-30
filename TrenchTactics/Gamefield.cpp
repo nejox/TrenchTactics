@@ -1,6 +1,12 @@
 ﻿#include "Gamefield.h"
 
 Gamefield::Gamefield() {
+	this->menuBar = std::make_shared<vector<vector<std::shared_ptr<MenuTile>>>>();
+	this->headquarterTilePlayerBlue = std::make_shared<vector<vector<std::shared_ptr<PlayerTile>>>>();
+	this->headquarterTilePlayerRed = std::make_shared<vector<vector<std::shared_ptr<PlayerTile>>>>();
+	this->playingfield = std::make_shared<vector<vector<std::shared_ptr<FieldTile>>>>();
+	this->spawnBlue = std::make_shared<vector<vector<std::shared_ptr<FieldTile>>>>();
+	this->spawnRed = std::make_shared<vector<vector<std::shared_ptr<FieldTile>>>>();
 }
 
 Gamefield::~Gamefield() {
@@ -151,10 +157,19 @@ std::shared_ptr<Tile> Gamefield::getTilePointerAt(int x, int y)
 void Gamefield::markTilesAround(int xPos, int yPos, int range)
 {
 	for (int i = -range; i <= range; ++i) {
-		for (int j = range - abs(i); j <= range + abs(i); ++j) {
-			if ((0 <= xPos + i <= 17) && (0 <= yPos + j <= 11)) {
-				Gamefield::playingfield.get()->at(xPos + i).at(yPos + j)->setMarked(true);
-				//hier Marker rendern
+		for (int j = (range - abs(i)); j <= (range + abs(i)); ++j) {
+			if ((0 <= (xPos + i)) && ((xPos+i) <= 17) && (0 <= (yPos + j)) &&((yPos + j) <= 11)) {
+				try {
+					Gamefield::playingfield.get()->at(xPos + i).at(yPos + j)->setMarked(true);
+					SpriteMarker* tmpSprite = new SpriteMarker();
+					tmpSprite->load("../Data/Sprites/Token/REACHABLE_MARKER.bmp");
+					tmpSprite->makeTransparent();
+					tmpSprite->setPos((xPos + i) * 64, (yPos + j) * 64);
+					tmpSprite->render();
+				}
+				catch (exception e) {
+
+				}
 			}
 		}
 	}
@@ -169,7 +184,7 @@ void Gamefield::markTilesAround(int xPos, int yPos, int range)
 void Gamefield::selectTile(int xPos, int yPos)
 {
 	playingfield.get()->at(xPos).at(yPos)->setSelected(true);
-	if (nullptr != playingfield.get()->at(xPos).at(yPos)->getUnit())
+	if (playingfield.get()->at(xPos).at(yPos)->getUnit())
 		markTilesAround(xPos, yPos, playingfield.get()->at(xPos).at(yPos)->getUnit()->getRange());
 	//nur fuer angriffe; neue variante fuer bewegung noetig
 }

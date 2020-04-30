@@ -7,8 +7,8 @@
 /// </summary>
 class Tile {
 private:
-	bool marked;
-	bool selected;
+	bool marked = false;
+	bool selected = false;
 	Sprite* sprite;
 
 
@@ -31,7 +31,7 @@ public:
 	Sprite* getSprite() {
 		return this->sprite;
 	}
-	int startAnimation() {};
-	int update() {};
+	int startAnimation();
+	int update();
 	Tile() {};
 };

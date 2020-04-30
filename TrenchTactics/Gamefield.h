@@ -8,6 +8,7 @@
 #include "stdlib.h"
 #include <vector>
 #include "Gamephases.h"
+#include "SpriteMarker.h"
 
 /**
  * Gamefield class for generating and holding the playingfield
@@ -88,10 +89,10 @@ public:
 	std::shared_ptr<vector<vector<std::shared_ptr<PlayerTile>>>> getHqTilePlayerRed() {
 		return this->headquarterTilePlayerRed;
 	}
-	void setField(std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> field) {
+	void setPlayingfield(std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> field) {
 		this->playingfield = field;
 	}
-	std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> getField() {
+	std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> getPlayingfield() {
 		return this->playingfield;
 	}
 	void setSpawnBlue(std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> spawnBlue) {
