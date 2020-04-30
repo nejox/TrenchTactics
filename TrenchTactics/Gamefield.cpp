@@ -1,5 +1,4 @@
 ﻿#include "Gamefield.h"
-#include "SpriteText.h"
 
 Gamefield::Gamefield() {
 }
@@ -392,7 +391,6 @@ void Gamefield::displayButtons(GAMEPHASES::GAMEPHASE phase) {
 		buttonSprite->load("../Data/Sprites/Token/GRENADE_TOKEN.bmp");
 		buttonSprite1->load("../Data/Sprites/Token/GUNNER_TOKEN.bmp");
 		buttonSprite2->load("../Data/Sprites/Token/CC_TOKEN.bmp");
-		
 		/**
 		 * 			if (rnd == 1) {
 						buttonSprite->load("../Data/Sprites/Token/GRENADE_TOKEN.bmp");
@@ -406,7 +404,7 @@ void Gamefield::displayButtons(GAMEPHASES::GAMEPHASE phase) {
 		 *
 		 * \param phase
 		 */
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < 3; i++)
 		{
 			if (i == 0) {
 				buttonSprite->setPos(i * 2 * 64 + 5 * 64, 64 * 13);
@@ -423,8 +421,6 @@ void Gamefield::displayButtons(GAMEPHASES::GAMEPHASE phase) {
 				button2.get()->setSprite(buttonSprite2.get());
 				button2.get()->getSprite()->render(64, 0);
 			}
-
-			
 		}
 
 	}
