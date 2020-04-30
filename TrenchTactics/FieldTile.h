@@ -21,9 +21,18 @@ private:
 	terrainType terrain;
 public:
 
-	void setUnit(std::shared_ptr<Unit> unit) {
-		this->unit = unit;
+	FieldTile() {};
+
+	FieldTile(terrainType terrain) {
+		this->terrain = terrain;
 	}
+
+	~FieldTile() {};
+
+	void removeUnit();
+
+	void setUnit(std::shared_ptr<Unit> unit);
+
 	std::shared_ptr<Unit> getUnit() {
 		return this->unit;
 	}
@@ -33,10 +42,4 @@ public:
 	terrainType getTerrain() {
 		return this->terrain;
 	}
-
-	FieldTile(terrainType terrain) {
-		this->terrain = terrain;
-	};
-
-	~FieldTile() {};
 };

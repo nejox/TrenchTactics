@@ -10,6 +10,7 @@ private:
 	std::shared_ptr<Button> button;
 public:
 	void setButton(std::shared_ptr<Button> button) {
+		button.get()->getSprite()->setPos(this->getPosX(), getPosY());
 		this->button = button;
 	}
 	std::shared_ptr<Button> getButton() {

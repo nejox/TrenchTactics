@@ -10,6 +10,8 @@ private:
 	bool marked;
 	bool selected;
 	Sprite* sprite;
+	int posX;
+	int posY;
 
 
 public:
@@ -31,7 +33,21 @@ public:
 	Sprite* getSprite() {
 		return this->sprite;
 	}
+	void setPos(int x, int y) {
+		this->posY = y;
+		this->posX = x;
+	}
+	int getPosY() {
+		return this->posY;
+	}
+	int getPosX() {
+		return this->posX;
+	}
 	int startAnimation() {};
 	int update() {};
-	Tile() {};
+	Tile() {
+		this->marked = false;
+		this->selected = false;
+		this->sprite = NULL;
+	}
 };

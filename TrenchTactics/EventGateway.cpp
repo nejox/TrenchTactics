@@ -85,21 +85,16 @@ void EventGateway::handleMoveEvent(MouseClickEvent* event) {
 void EventGateway::handleBuyEvent(MouseClickEvent* event) {
 	if ((this->activePlayer->getSupply() + 1) > ConfigReader::instance().getBalanceConf()->getMaxAmountUnits()) {
 		this->activePlayer->setBuying(false);
+		std::cout << "not enough supply to purchase unit" << std::endl;
 	}
 	else {
-		int yButton = event->getY() - ConfigReader::instance().getMapConf()->getSizeY();
-
-		//std::shared_ptr<MenuTile> tile = Gamefield::instance().getMenuBar().get()->at(event->getX()).at(yButton);
-		//if (tile != NULL) {
-		//	std::shared_ptr<Unit> purchasedUnit = std::make_shared<Unit>(Unit::UnitType(tile->getButton().getType()), this->activePlayer->getColor());
-		//	Gamefield::instance().spawnUnitInSpawn(purchasedUnit, this->activePlayer->getColor());
-		//	this->activePlayer->setBuying(false);
-		//}
-
-		std::shared_ptr<Unit> purchasedUnit = std::make_shared<Unit>(TYPES::GUNNER, false);
-		//purchasedUnit->update();
-		Gamefield::instance().spawnUnitInSpawn(purchasedUnit, false);
-
+		std::cout << (event->getX() / 64) << " " << ((event->getY() / 64) - 12) << std::endl;
+		int unitType = Gamefield::instance().getMenuBar().get()->at((event->getX() / 64)).at(((event->getY() / 64) - 12)).get()->getButton().get()->getType();
+		if (unitType != -1) {
+			std::shared_ptr<Unit> purchasedUnit = std::make_shared<Unit>(static_cast<TYPES::UnitType>(unitType), false);
+			Gamefield::instance().spawnUnitInSpawn(purchasedUnit, false);
+			this->activePlayer->setBuying(false);
+		}
 	}
 
 }

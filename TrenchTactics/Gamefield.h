@@ -7,6 +7,7 @@
 #include "MapConf.h"
 #include "stdlib.h"
 #include <vector>
+#include <ctime>
 #include "Gamephases.h"
 
 /**
@@ -41,6 +42,9 @@ private:
 	void initiateSpawnTilesRed();
 	void initiatePlayingFieldTiles();
 
+	std::shared_ptr<FieldTile> getSpawnFieldRed();
+	std::shared_ptr<FieldTile> getSpawnFieldBlue();
+
 public:
 	~Gamefield();
 
@@ -69,6 +73,9 @@ public:
 
 	void displayButtons(GAMEPHASES::GAMEPHASE phase);
 
+	std::shared_ptr<MenuTile> getMenuTileFromXY(int posX, int posY);
+	std::shared_ptr<FieldTile> getFieldTileFromXY(int posX, int posY);
+	std::shared_ptr<FieldTile> getSpawnTileFromXY(bool colorRed, int posX, int posY);
 
 	void setMenuBar(std::shared_ptr<vector<vector <std::shared_ptr<MenuTile>>>> menuBar) {
 		this->menuBar = menuBar;
@@ -108,7 +115,7 @@ public:
 	}
 
 
-	
+
 	// void assignEventToTile(MouseClickEvent event); -----noch noetig?
 
 	void markTilesAround(int xPos, int yPos, int range);
