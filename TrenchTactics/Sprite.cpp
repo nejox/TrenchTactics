@@ -90,6 +90,7 @@ void Sprite::render()
 	SDL_RenderCopy(m_pRenderer, m_pImage, NULL, &m_Rect);
 }
 
+
 /**
  *
 
