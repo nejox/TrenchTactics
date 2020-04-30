@@ -388,12 +388,11 @@ void Gamefield::displayButtons(GAMEPHASES::GAMEPHASE phase) {
 		std::unique_ptr<Sprite> buttonSprite = std::make_unique<Sprite>();
 		std::unique_ptr<Sprite> buttonSprite1 = std::make_unique<Sprite>();
 		std::unique_ptr<Sprite> buttonSprite2 = std::make_unique<Sprite>();
-		std::unique_ptr<SpriteText> textSprite = std::make_unique<SpriteText>(25);
 
 		buttonSprite->load("../Data/Sprites/Token/GRENADE_TOKEN.bmp");
 		buttonSprite1->load("../Data/Sprites/Token/GUNNER_TOKEN.bmp");
 		buttonSprite2->load("../Data/Sprites/Token/CC_TOKEN.bmp");
-		textSprite->load("ich bin kein button");
+		
 		/**
 		 * 			if (rnd == 1) {
 						buttonSprite->load("../Data/Sprites/Token/GRENADE_TOKEN.bmp");
@@ -425,10 +424,7 @@ void Gamefield::displayButtons(GAMEPHASES::GAMEPHASE phase) {
 				button2.get()->getSprite()->render(64, 0);
 			}
 
-			else if (i == 3) {
-				textSprite->setPosGrid(i * 2 + 5,13);
-				textSprite->render();
-			}
+			
 		}
 
 	}
