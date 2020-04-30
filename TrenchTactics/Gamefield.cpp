@@ -27,18 +27,15 @@ int Gamefield::spawnUnitInSpawn(std::shared_ptr<Unit> pUnit, bool redPlayerActiv
 	//funktioniert bisher nur bei default Groesse des Spielfelds.
 	for (int i = 0; i < 2; ++i) {
 		for (int j = 0; j < 5; ++j) {
-			if (fieldTileIsFree(1 - i, 4 - j, activeSpawn)) {
-				pUnit->getSprite()->setPos((1-i) * 64, (4-j) * 64);
-				pUnit->getSprite()->Sprite::render((1-i) * 64, (4-j) * 64);
+			if (fieldTileIsFree(1 - i, 4 - j, *activeSpawn)) {
 				activeSpawn.get()->at(1 - i).at(4 - j)->setUnit(pUnit);
-				pUnit.get()->update(STATES::STANDING_NEUTRAL);
+
 				return 1;
 			}
-			if (fieldTileIsFree(1 - i, 5 + j, activeSpawn)) {
-				pUnit->getSprite()->setPos((1 - i) * 64, (5 + j) * 64);
-				pUnit->getSprite()->Sprite::render((1 - i) * 64, (5 + j) * 64);
+			if (fieldTileIsFree(1 - i, 5 + j, *activeSpawn)) {
 				activeSpawn.get()->at(1 - i).at(5 + j)->setUnit(pUnit);
-				pUnit.get()->update(STATES::STANDING_NEUTRAL);
+				//startAnimation richtige Funktion? Hab beim Renderer noch keinen Ueberblick
+				//RendererImpl::instance().startAnimation((*activeSpawn)[1 - i][4 - j]->getUnit()->getSpriteFilePathStanding());
 				return 1;
 			}
 		}
@@ -55,9 +52,9 @@ int Gamefield::spawnUnitInSpawn(std::shared_ptr<Unit> pUnit, bool redPlayerActiv
  * \param activeSpawn field that contains the tile
  * \return
  */
-bool Gamefield::fieldTileIsFree(int x, int y, std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> field)
+bool Gamefield::fieldTileIsFree(int x, int y, vector<vector<std::shared_ptr<FieldTile>>> activeSpawn)
 {
-	if (field->at(x).at(y).get()) return true;
+	if (activeSpawn[x][y] == nullptr) return true;
 	return false;
 }
 

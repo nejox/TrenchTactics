@@ -8,7 +8,6 @@
 #include "stdlib.h"
 #include <vector>
 #include "Gamephases.h"
-#include "Unit.h"
 
 /**
  * Gamefield class for generating and holding the playingfield
@@ -62,7 +61,7 @@ public:
 
 	int spawnUnitInSpawn(std::shared_ptr<Unit> unit, bool redPlayerActive);
 
-	bool fieldTileIsFree(int x, int y, std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> field);
+	bool fieldTileIsFree(int x, int y, vector<vector<std::shared_ptr<FieldTile>>> activeSpawn);
 
 	void init(int FieldWidth, int FieldHeight, int Seed);
 

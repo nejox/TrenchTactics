@@ -1,7 +1,6 @@
 #include "GameLoop.h"
-//changes
-#include "SpriteMarker.h"
-//end of changes
+
+
 
 /**
  * Constructor for game class
@@ -59,15 +58,6 @@ void Game::initGame() {
  */
 void Game::startGame() {
 	Logger::instance().log(LOGLEVEL::INFO, "Game Running");
-	//changes
-
-	/*
-	SpriteMarker marker = SpriteMarker();
-	marker.load("../Data/Sprites/Token/REACHABLE_MARKER.bmp");
-	marker.makeTransperant();
-	marker.render();
-	*/
-	//end of changes
 	while (gameRunning) {
 		startPlayerPhase();
 		switchActivePlayer();
