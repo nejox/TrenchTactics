@@ -157,19 +157,14 @@ std::shared_ptr<Tile> Gamefield::getTilePointerAt(int x, int y)
 void Gamefield::markTilesAround(int xPos, int yPos, int range)
 {
 	for (int i = -range; i <= range; ++i) {
-		for (int j = (range - abs(i)); j <= (range + abs(i)); ++j) {
-			if ((0 <= (xPos + i)) && ((xPos+i) <= 17) && (0 <= (yPos + j)) &&((yPos + j) <= 11)) {
-				try {
-					Gamefield::playingfield.get()->at(xPos + i).at(yPos + j)->setMarked(true);
-					SpriteMarker* tmpSprite = new SpriteMarker();
-					tmpSprite->load("../Data/Sprites/Token/REACHABLE_MARKER.bmp");
-					tmpSprite->makeTransparent();
-					tmpSprite->setPos((xPos + i) * 64, (yPos + j) * 64);
-					tmpSprite->render();
-				}
-				catch (exception e) {
-
-				}
+		for (int j = (abs(i) - range); j <= abs(abs(i) - range); ++j) {
+			if ((2 <= (xPos + i)) && ((xPos + i) <= 19) && (0 <= (yPos + j)) && ((yPos + j) <= 11)) {
+				Gamefield::playingfield.get()->at(xPos - 2 + i).at(yPos + j)->setMarked(true);
+				SpriteMarker* tmpSprite = new SpriteMarker();
+				tmpSprite->load("../Data/Sprites/Token/REACHABLE_MARKER.bmp");
+				tmpSprite->makeTransparent();
+				tmpSprite->setPos((xPos + i) * 64, (yPos + j) * 64);
+				tmpSprite->render();
 			}
 		}
 	}
