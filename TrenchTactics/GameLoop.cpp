@@ -58,6 +58,7 @@ void Game::initGame() {
  */
 void Game::startGame() {
 	Logger::instance().log(LOGLEVEL::INFO, "Game Running");
+
 	while (gameRunning) {
 		startPlayerPhase();
 		switchActivePlayer();

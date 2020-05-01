@@ -9,6 +9,7 @@
 #include <vector>
 #include <ctime>
 #include "Gamephases.h"
+#include "SpriteMarker.h"
 
 /**
  * Gamefield class for generating and holding the playingfield
@@ -65,7 +66,7 @@ public:
 
 	int spawnUnitInSpawn(std::shared_ptr<Unit> unit, bool redPlayerActive);
 
-	bool fieldTileIsFree(int x, int y, vector<vector<std::shared_ptr<FieldTile>>> activeSpawn);
+	bool fieldTileIsFree(int x, int y, std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> activeSpawn);
 
 	void init(int FieldWidth, int FieldHeight, int Seed);
 
@@ -95,10 +96,10 @@ public:
 	std::shared_ptr<vector<vector<std::shared_ptr<PlayerTile>>>> getHqTilePlayerRed() {
 		return this->headquarterTilePlayerRed;
 	}
-	void setField(std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> field) {
+	void setPlayingfield(std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> field) {
 		this->playingfield = field;
 	}
-	std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> getField() {
+	std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> getPlayingfield() {
 		return this->playingfield;
 	}
 	void setSpawnBlue(std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> spawnBlue) {

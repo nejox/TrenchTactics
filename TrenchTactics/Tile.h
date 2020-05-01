@@ -7,8 +7,8 @@
 /// </summary>
 class Tile {
 private:
-	bool marked;
-	bool selected;
+	bool marked = false;
+	bool selected = false;
 	Sprite* sprite;
 	int posX;
 	int posY;

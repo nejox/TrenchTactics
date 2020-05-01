@@ -19,9 +19,7 @@
 int main(int argc, char* argv[])
 {
 
-
 	Logger::instance().log(LOGLEVEL::INFO, "Starting main");
-
 	Game* game = new Game();
 	game->initGame();
 

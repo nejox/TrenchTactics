@@ -45,7 +45,7 @@ void EventGateway::handleEvent(MouseClickEvent* event) {
  */
 void EventGateway::handleAttackEvent(MouseClickEvent* event) {
 	if (checkEventInField(event)) {
-		std::shared_ptr<Unit>  unitToBeAttacked = Gamefield::instance().getField().get()->at(event->getX()).at(event->getY()).get()->getUnit();
+		std::shared_ptr<Unit>  unitToBeAttacked = Gamefield::instance().getPlayingfield().get()->at(event->getX()).at(event->getY()).get()->getUnit();
 		std::shared_ptr<Unit> unitAttacking = this->activePlayer->getUnitQueue().front();
 		if (checkRange(unitAttacking->getRange(), 0, 0, event->getX(), event->getY())) {
 			unitAttacking->attack(unitToBeAttacked);
@@ -64,7 +64,7 @@ void EventGateway::handleAttackEvent(MouseClickEvent* event) {
 void EventGateway::handleMoveEvent(MouseClickEvent* event) {
 	if (checkEventInField(event)) {
 		std::shared_ptr<Unit> unitToBeMoved = this->activePlayer->getUnitQueue().front();
-		std::shared_ptr<FieldTile> tileToMoveTo = Gamefield::instance().getField().get()->at(event->getX() / 64).at(event->getY() / 64);
+		std::shared_ptr<FieldTile> tileToMoveTo = Gamefield::instance().getPlayingfield().get()->at(event->getX() / 64).at(event->getY() / 64);
 
 		tileToMoveTo.get()->setUnit(unitToBeMoved);
 		unitToBeMoved.get()->update(STATES::RUNNING);
