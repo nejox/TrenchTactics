@@ -7,6 +7,7 @@
 #include "MapConf.h"
 #include "stdlib.h"
 #include <vector>
+#include <ctime>
 #include "Gamephases.h"
 #include "SpriteMarker.h"
 
@@ -42,6 +43,9 @@ private:
 	void initiateSpawnTilesRed();
 	void initiatePlayingFieldTiles();
 
+	std::shared_ptr<FieldTile> getSpawnFieldRed(int posY, int posX);
+	std::shared_ptr<FieldTile> getSpawnFieldBlue(int posY, int posX);
+
 public:
 	~Gamefield();
 
@@ -70,12 +74,15 @@ public:
 
 	void displayButtons(GAMEPHASES::GAMEPHASE phase);
 
+	std::shared_ptr<MenuTile> getMenuTileFromXY(int posX, int posY);
+	std::shared_ptr<FieldTile> getFieldTileFromXY(int posX, int posY);
+	std::shared_ptr<FieldTile> getSpawnTileFromXY(bool colorRed, int posX, int posY);
 
 	void setMenuBar(std::shared_ptr<vector<vector <std::shared_ptr<MenuTile>>>> menuBar) {
 		this->menuBar = menuBar;
 	}
 	std::shared_ptr<vector<vector<std::shared_ptr<MenuTile>>>> getMenuBar() {
-		return this->menuBar;
+		return menuBar;
 	}
 	void setHqTilePlayerBlue(std::shared_ptr<vector<vector<std::shared_ptr<PlayerTile>>>> hqTilePlayer) {
 		this->headquarterTilePlayerBlue = hqTilePlayer;
@@ -109,7 +116,7 @@ public:
 	}
 
 
-	
+
 	// void assignEventToTile(MouseClickEvent event); -----noch noetig?
 
 	void markTilesAround(int xPos, int yPos, int range);
