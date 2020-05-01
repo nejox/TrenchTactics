@@ -100,7 +100,7 @@ std::shared_ptr<FieldTile> Gamefield::getFieldTileFromXY(int posX, int posY) {
 		return nullptr;
 	}
 	else {
-		return this->getField().get()->at(posX).at(posY);
+		return this->getPlayingfield().get()->at(posX).at(posY);
 	}
 }
 
