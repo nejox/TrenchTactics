@@ -1,10 +1,7 @@
 ﻿#include "Gamefield.h"
 
 Gamefield::Gamefield() {
-<<<<<<< HEAD
-=======
 	srand(time(NULL));
->>>>>>> 34f102274403816074528cf23dac2d7270c37396
 	this->menuBar = std::make_shared<vector<vector<std::shared_ptr<MenuTile>>>>();
 	this->headquarterTilePlayerBlue = std::make_shared<vector<vector<std::shared_ptr<PlayerTile>>>>();
 	this->headquarterTilePlayerRed = std::make_shared<vector<vector<std::shared_ptr<PlayerTile>>>>();
@@ -192,7 +189,7 @@ int Gamefield::spawnUnitInSpawn(std::shared_ptr<Unit> pUnit, bool redPlayerActiv
  *
  * \param x horizontal position
  * \param y vertical position
- * \param activeSpawn field that contains the tile
+ * \param field Part of the field that contains the tile
  * \return
  */
 bool Gamefield::fieldTileIsFree(int x, int y, std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> field)
@@ -352,9 +349,8 @@ void Gamefield::deselectAndUnmarkAllTiles()
 	}
 
 }
-<<<<<<< HEAD
+
 -----------------------------------------------------------------------------------------------------------*/
-=======
 
 /**
  *
@@ -376,7 +372,6 @@ Sprite* getRandomButtonSprite(int rndNumber) {
 	}
 	return buttonSprite;
 }
->>>>>>> 34f102274403816074528cf23dac2d7270c37396
 
 /**
  *
