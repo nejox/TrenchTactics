@@ -83,17 +83,12 @@ void Game::startPlayerPhase() {
 	for (GAMEPHASES::GAMEPHASE phase : GAMEPHASES::All) {
 		this->activePlayer->setCurrentPhase(phase);
 		if (phase == GAMEPHASES::BUY) {
-			this->activePlayer->setBuying(true);
 			this->startBuyPhase();
-
 		}
 		else if (phase == GAMEPHASES::MOVE) {
-			this->activePlayer->copyUnitsToQueue();
 			this->startMovePhase();
 		}
 		else if (phase == GAMEPHASES::ATTACK) {
-			std::cout << "do we get here" << std::endl;
-			this->activePlayer->copyUnitsToQueue();
 			this->startAttackPhase();
 		}
 		while (!this->activePlayer->getUnitQueue().empty() || this->activePlayer->getBuying()) {
@@ -143,7 +138,10 @@ void Game::switchActivePlayer() {
  *
  */
 void Game::startAttackPhase() {
-
+	Gamefield::instance().deleteButtons();
+	this->gateway.setCurrentPhase(GAMEPHASES::ATTACK);
+	this->activePlayer->copyUnitsToQueue();
+	Gamefield::instance().displayButtons(GAMEPHASES::ATTACK);
 }
 
 /**
@@ -151,6 +149,9 @@ void Game::startAttackPhase() {
  *
  */
 void Game::startBuyPhase() {
+	Gamefield::instance().deleteButtons();
+	this->activePlayer->setBuying(true);
+	this->gateway.setCurrentPhase(GAMEPHASES::BUY);
 	Gamefield::instance().displayButtons(GAMEPHASES::BUY);
 }
 
@@ -159,5 +160,8 @@ void Game::startBuyPhase() {
  *
  */
 void Game::startMovePhase() {
-
+	Gamefield::instance().deleteButtons();
+	this->gateway.setCurrentPhase(GAMEPHASES::MOVE);
+	this->activePlayer->copyUnitsToQueue();
+	Gamefield::instance().displayButtons(GAMEPHASES::MOVE);
 }

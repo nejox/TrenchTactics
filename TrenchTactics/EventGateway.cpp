@@ -45,12 +45,15 @@ void EventGateway::handleEvent(MouseClickEvent* event) {
  */
 void EventGateway::handleAttackEvent(MouseClickEvent* event) {
 	if (checkEventInField(event)) {
-		std::shared_ptr<Unit>  unitToBeAttacked = Gamefield::instance().getPlayingfield().get()->at(event->getX()).at(event->getY()).get()->getUnit();
-		std::shared_ptr<Unit> unitAttacking = this->activePlayer->getUnitQueue().front();
-		if (checkRange(unitAttacking->getRange(), 0, 0, event->getX(), event->getY())) {
-			unitAttacking->attack(unitToBeAttacked);
-			this->activePlayer->getUnitQueue().pop();
+		if (Gamefield::instance().getFieldTileFromXY(event->getX(), event->getY())->getUnit()) {
+			std::shared_ptr<Unit>  unitToBeAttacked = Gamefield::instance().getPlayingfield().get()->at(event->getX()).at(event->getY()).get()->getUnit();
+			std::shared_ptr<Unit> unitAttacking = this->activePlayer->getUnitQueue().front();
+			if (checkRange(unitAttacking->getRange(), 0, 0, event->getX(), event->getY())) {
+				unitAttacking->attack(unitToBeAttacked);
+				this->activePlayer->getUnitQueue().pop();
+			}
 		}
+
 	}
 }
 
@@ -97,10 +100,9 @@ void EventGateway::handleBuyEvent(MouseClickEvent* event) {
 			Gamefield::instance().spawnUnitInSpawn(purchasedUnit, this->activePlayer.get()->getColor());
 			this->activePlayer.get()->addUnit(purchasedUnit);
 			this->activePlayer->setBuying(false);
-			this->currentPhase = GAMEPHASES::MOVE;
 		}
 	}
-	Gamefield::instance().deleteButtons(GAMEPHASES::BUY);
+
 
 }
 

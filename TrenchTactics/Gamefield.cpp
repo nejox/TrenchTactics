@@ -369,6 +369,10 @@ Sprite* Gamefield::getRandomButtonSprite(int rndNumber) {
 	return buttonSprite;
 }
 
+void Gamefield::displaySkipRoundButton() {
+
+}
+
 /**
  *
  *
@@ -386,13 +390,13 @@ void Gamefield::displayButtons(GAMEPHASES::GAMEPHASE phase) {
 			Sprite* buttonSprite = getRandomButtonSprite(rnd);
 
 			if (i == 0) {
-				button.get()->setType(rnd);
-				button.get()->setSprite(buttonSprite);
+				button->setType(rnd);
+				button->setSprite(buttonSprite);
 				this->getMenuBar().get()->at(4).at(1).get()->setButton(button);
 			}
 			else if (i == 1) {
-				button1.get()->setType(rnd);
-				button1.get()->setSprite(buttonSprite);
+				button1->setType(rnd);
+				button1->setSprite(buttonSprite);
 				this->getMenuBar().get()->at(6).at(1).get()->setButton(button1);
 			}
 			else if (i == 2) {
@@ -401,35 +405,47 @@ void Gamefield::displayButtons(GAMEPHASES::GAMEPHASE phase) {
 				this->getMenuBar().get()->at(8).at(1).get()->setButton(button2);
 			}
 		}
-
+		//NEXTPHASE_TOKEN.bmp NEXTUNIT_TOKEN.bmp PREVIOUSUNIT_TOKEN.bmp ENDTURN_TOKEN.bmp
 	}
-	else if (phase == GAMEPHASES::MOVE)
+	else if (phase == GAMEPHASES::MOVE || phase == GAMEPHASES::ATTACK)
 	{
 
-	}
-	else if (phase == GAMEPHASES::ATTACK) {
+		std::shared_ptr<Button> previousUnitButton = std::make_shared<Button>();
+		std::shared_ptr<Button> nextUnitButton = std::make_shared<Button>();
+		Sprite* nextUnit = new Sprite();
+		nextUnit->load("../Data/Sprites/Token/NEXTUNIT_TOKEN.bmp");
+		Sprite* previousUnit = new Sprite();
+		previousUnit->load("../Data/Sprites/Token/PREVIOUSUNIT_TOKEN.bmp");
 
+		previousUnitButton->setSprite(nextUnit);
+		nextUnitButton->setSprite(previousUnit);
+
+		this->getMenuBar().get()->at(4).at(1).get()->setButton(previousUnitButton);
+		this->getMenuBar().get()->at(6).at(1).get()->setButton(nextUnitButton);
 	}
 
+	std::shared_ptr<Button> nextPhaseButton = std::make_shared<Button>();
+	std::shared_ptr<Button> buttonEndTurn = std::make_shared<Button>();
+
+	Sprite* nextPhase = new Sprite();
+	nextPhase->load("../Data/Sprites/Token/NEXTPHASE_TOKEN.bmp");
+	Sprite* nextTurn = new Sprite();
+	nextTurn->load("../Data/Sprites/Token/ENDTURN_TOKEN.bmp");
+
+	nextPhaseButton->setSprite(nextPhase);
+	buttonEndTurn->setSprite(nextTurn);
+
+	this->getMenuBar().get()->at(13).at(1).get()->setButton(nextPhaseButton);
+	this->getMenuBar().get()->at(17).at(1).get()->setButton(buttonEndTurn);
 }
 
 /**
  *
  */
-void Gamefield::deleteButtons(GAMEPHASES::GAMEPHASE phase) {
-	if (phase == GAMEPHASES::BUY) {
-		for (int i = 4; i < 9; i = i + 2) {
-			this->getMenuBar().get()->at(i).at(1).get()->removeButton();
-		}
+void Gamefield::deleteButtons() {
+	for (int i = 4; i < 9; i = i + 2) {
+		this->getMenuBar().get()->at(i).at(1).get()->removeButton();
 	}
-	else if (phase == GAMEPHASES::MOVE)
-	{
-
-	}
-	else if (phase == GAMEPHASES::ATTACK) {
-
-	}
-
 }
 
 
@@ -446,7 +462,7 @@ void Gamefield::deleteButtons(GAMEPHASES::GAMEPHASE phase) {
  * \param type
  * \return
  */
-std::shared_ptr<FieldTile> createFieldTile(int posX, int posY, FieldTile::TERRAINTYPE type) {
+std::shared_ptr<FieldTile> Gamefield::createFieldTile(int posX, int posY, FieldTile::TERRAINTYPE type) {
 	std::shared_ptr<FieldTile> tmpFieldTilePointer = std::make_shared<FieldTile>();
 	Sprite* terrainSprite = new Sprite();
 	if (type == FieldTile::TERRAINTYPE::CLAY) {
