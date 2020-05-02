@@ -508,12 +508,14 @@ Sprite* Gamefield::getRandomSpawnTileSprite(int rndNumber, bool colorRed) {
 
 		terrainSprite->load(path + std::to_string(rndNumber) + ".bmp");
 	}
-
-	if (rndNumber == 1) {
+	else if (rndNumber == 1) {
 		terrainSprite->load(path + std::to_string(rndNumber) + ".bmp");
 	}
 
-	if (rndNumber == 2) {
+	else if (rndNumber == 2) {
+		terrainSprite->load(path + std::to_string(rndNumber) + ".bmp");
+	}
+	else if (rndNumber == 3) {
 		terrainSprite->load(path + std::to_string(rndNumber) + ".bmp");
 	}
 	return terrainSprite;
@@ -526,30 +528,30 @@ Sprite* Gamefield::getRandomSpawnTileSprite(int rndNumber, bool colorRed) {
 void Gamefield::initiateSpawnTilesBlue()
 {
 	int cnt = 0;
+	Sprite* terrain = getRandomSpawnTileSprite(rand() % 4, false);
 	for (vector<vector<std::shared_ptr<FieldTile>>>::iterator xIter = spawnBlue->begin(); xIter != spawnBlue->end(); ++xIter) {
 		for (vector<std::shared_ptr<FieldTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
+			if (cnt == 2) {
+				cnt = 0;
+				terrain = getRandomSpawnTileSprite(rand() % 4, false);
+			}
 			std::shared_ptr<FieldTile> tmpFieldTilePointer = std::make_shared<FieldTile>(FieldTile::TERRAINTYPE::SPAWNTERRAIN);
-			Sprite* terrainSprite = new Sprite();
 
-			terrainSprite->load("../Data/Sprites/Terrain/SPAWNTILE_BLUE_" + std::to_string(cnt) + ".bmp");
 			if ((yIter - xIter->begin()) >= 5) {
-				terrainSprite->setPos((xIter - spawnBlue->begin()) * 64, (yIter - xIter->begin()) * 64 + 2 * 64);
-				tmpFieldTilePointer->setSprite(terrainSprite);
-				tmpFieldTilePointer->getSprite()->render(((xIter - spawnBlue->begin()) % 2) * 64, ((yIter - xIter->begin()) % 2) * 64);
+				terrain->setPos((xIter - spawnBlue->begin()) * 64, (yIter - xIter->begin()) * 64 + 2 * 64);
+				tmpFieldTilePointer->setSprite(terrain);
+				tmpFieldTilePointer->setPos((xIter - spawnBlue->begin()) * 64, (yIter - xIter->begin()) * 64 + 2 * 64);
+				tmpFieldTilePointer->getSprite()->render((xIter - spawnBlue->begin()) * 64, ((yIter - xIter->begin()) % 2 * 64));
 			}
 			else {
-				terrainSprite->setPos((xIter - spawnBlue->begin()) * 64, (yIter - xIter->begin()) * 64);
-				tmpFieldTilePointer->setSprite(terrainSprite);
-				tmpFieldTilePointer->getSprite()->render(((xIter - spawnBlue->begin()) % 2) * 64, ((yIter - xIter->begin()) % 2) * 64);
+				terrain->setPos((xIter - spawnBlue->begin()) * 64, (yIter - xIter->begin()) * 64);
+				tmpFieldTilePointer->setSprite(terrain);
+				tmpFieldTilePointer->setPos((xIter - spawnBlue->begin()) * 64, (yIter - xIter->begin()) * 64);
+				tmpFieldTilePointer->getSprite()->render((xIter - spawnBlue->begin()) * 64, ((yIter - xIter->begin()) % 2 * 64));
 			}
 
 			*yIter = tmpFieldTilePointer;
-			if ((((yIter - xIter->begin())) % 4) == 3) {
-				cnt++;
-				if (cnt == 4) {
-					cnt = 0;
-				}
-			}
+			cnt++;
 		}
 	}
 }

@@ -70,9 +70,7 @@ void EventGateway::handleMoveEvent(MouseClickEvent* event) {
 		Gamefield::instance().findeTileByUnit(unitToBeMoved).get()->removeUnit();
 
 		tileToMoveTo.get()->setUnit(unitToBeMoved);
-		this->activePlayer->getUnitQueue().pop();
-		//unitToBeMoved.get()->update(STATES::RUNNING);
-
+		this->activePlayer->popUnit();
 	}
 }
 

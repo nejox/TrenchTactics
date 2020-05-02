@@ -45,6 +45,8 @@ void Game::initGame() {
 
 	this->renderer.updateTimer();
 
+
+
 	startGame();
 
 }
