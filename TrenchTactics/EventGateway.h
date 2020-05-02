@@ -10,6 +10,8 @@
 #include "FieldTile.h"
 #include "MenuTile.h"
 #include "Gamefield.h"
+#include "Logger.hpp"
+
 
 /**
  * EventGateway class which does most of the heavy lifting with event forwarding and controlling

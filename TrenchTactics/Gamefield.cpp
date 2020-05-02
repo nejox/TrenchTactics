@@ -72,14 +72,14 @@ std::shared_ptr<MenuTile> Gamefield::getMenuTileFromXY(int posX, int posY) {
 	posY = posY / 64;
 	posX = posX / 64;
 
-	if (posY >= 19) {
+	if (posX >= 19) {
 		return nullptr;
 	}
-	else if (posX != 13) {
+	else if (posY != 13) {
 		return nullptr;
 	}
 	else {
-		return std::shared_ptr<MenuTile>(menuBar.get()->at(posX).at(1));
+		return this->getMenuBar().get()->at(posX).at(1);
 	}
 }
 
@@ -142,15 +142,13 @@ int Gamefield::spawnUnitInSpawn(std::shared_ptr<Unit> pUnit, bool redPlayerActiv
 		for (int i = 1; i > 0; --i) {
 			for (int j = 0; j < 5; ++j) {
 				if (fieldTileIsFree(1 - i, 4 - j, activeSpawn)) {
-					pUnit->getSprite()->setPos((1 - i) * 64, (4 - j) * 64);
-					pUnit->getSprite()->Sprite::render((1 - i) * 64, (4 - j) * 64);
+					activeSpawn.get()->at(1 - i).at(4 - j)->setPos((1 - i) * 64, (4 - j) * 64);
 					activeSpawn.get()->at(1 - i).at(4 - j)->setUnit(pUnit);
 					pUnit.get()->update(STATES::STANDING_NEUTRAL);
 					return 1;
 				}
 				if (fieldTileIsFree(1 - i, 5 + j, activeSpawn)) {
-					pUnit->getSprite()->setPos((1 - i) * 64, (5 + j) * 64);
-					pUnit->getSprite()->Sprite::render((1 - i) * 64, (5 + j) * 64);
+					activeSpawn.get()->at(1 - i).at(5 + j)->setPos((1 - i) * 64, (5 + j) * 64);
 					activeSpawn.get()->at(1 - i).at(5 + j)->setUnit(pUnit);
 					pUnit.get()->update(STATES::STANDING_NEUTRAL);
 					return 1;
@@ -164,15 +162,13 @@ int Gamefield::spawnUnitInSpawn(std::shared_ptr<Unit> pUnit, bool redPlayerActiv
 		for (int i = 0; i < 2; ++i) {
 			for (int j = 0; j < 5; ++j) {
 				if (fieldTileIsFree(1 - i, 4 - j, activeSpawn)) {
-					pUnit->getSprite()->setPos((1 - i) * 64, (4 - j) * 64);
-					pUnit->getSprite()->Sprite::render((1 - i) * 64, (4 - j) * 64);
+					activeSpawn.get()->at(1 - i).at(4 - j)->setPos((1 - i) * 64, (4 - j) * 64);
 					activeSpawn.get()->at(1 - i).at(4 - j)->setUnit(pUnit);
 					pUnit.get()->update(STATES::STANDING_NEUTRAL);
 					return 1;
 				}
 				if (fieldTileIsFree(1 - i, 5 + j, activeSpawn)) {
-					pUnit->getSprite()->setPos((1 - i) * 64, (5 + j) * 64);
-					pUnit->getSprite()->Sprite::render((1 - i) * 64, (5 + j) * 64);
+					activeSpawn.get()->at(1 - i).at(5 + j)->setPos((1 - i) * 64, (5 + j) * 64);
 					activeSpawn.get()->at(1 - i).at(5 + j)->setUnit(pUnit);
 					pUnit.get()->update(STATES::STANDING_NEUTRAL);
 					return 1;
@@ -180,7 +176,7 @@ int Gamefield::spawnUnitInSpawn(std::shared_ptr<Unit> pUnit, bool redPlayerActiv
 			}
 		}
 	}
-	
+
 	return 0;
 }
 
@@ -206,7 +202,7 @@ bool Gamefield::fieldTileIsFree(int x, int y, std::shared_ptr<vector<vector<std:
  * \param pUnit unit to search for
  * \return tile holding the unit
  */
-std::shared_ptr<FieldTile> Gamefield::findTileForUnit(std::shared_ptr<Unit> pUnit)
+std::shared_ptr<FieldTile> Gamefield::findeTileByUnit(std::shared_ptr<Unit> pUnit)
 {
 	std::shared_ptr<FieldTile> pTileToTest = nullptr;
 
@@ -358,7 +354,7 @@ void Gamefield::deselectAndUnmarkAllTiles()
  * \param rndNumber
  * \return
  */
-Sprite* getRandomButtonSprite(int rndNumber) {
+Sprite* Gamefield::getRandomButtonSprite(int rndNumber) {
 	Sprite* buttonSprite = new Sprite();
 
 	if (rndNumber == 0) {
@@ -417,6 +413,27 @@ void Gamefield::displayButtons(GAMEPHASES::GAMEPHASE phase) {
 
 }
 
+/**
+ *
+ */
+void Gamefield::deleteButtons(GAMEPHASES::GAMEPHASE phase) {
+	if (phase == GAMEPHASES::BUY) {
+		for (int i = 4; i < 9; i = i + 2) {
+			this->getMenuBar().get()->at(i).at(1).get()->setButton(nullptr);
+		}
+	}
+	else if (phase == GAMEPHASES::MOVE)
+	{
+
+	}
+	else if (phase == GAMEPHASES::ATTACK) {
+
+	}
+
+}
+
+
+
 // ------------ Setupfunctions for gamestart -------------------------
 
 
@@ -447,6 +464,7 @@ std::shared_ptr<FieldTile> createFieldTile(int posX, int posY, FieldTile::terrai
 	terrainSprite->setPos(posX, posY);
 	tmpFieldTilePointer->setSprite(terrainSprite);
 	tmpFieldTilePointer->getSprite()->render();
+	tmpFieldTilePointer->setPos(posX, posY);
 	return tmpFieldTilePointer;
 }
 

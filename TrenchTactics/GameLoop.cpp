@@ -39,12 +39,12 @@ void Game::initGame() {
 	Logger::instance().log(LOGLEVEL::INFO, "Initializing Gateway");
 	this->gateway.init();
 
-	this->activePlayer = playerRed;
-	this->gateway.setActivePlayer(playerRed);
+	this->activePlayer = playerBlue;
+	this->gateway.setActivePlayer(playerBlue);
 	this->gameRunning = true;
 
 	this->renderer.updateTimer();
-	
+
 	startGame();
 
 }
@@ -77,17 +77,20 @@ void Game::startGame() {
  *
  */
 void Game::startPlayerPhase() {
-	this->activePlayer->copyUnitsToQueue();
+
 	for (GAMEPHASES::GAMEPHASE phase : GAMEPHASES::All) {
 		this->activePlayer->setCurrentPhase(phase);
 		if (phase == GAMEPHASES::BUY) {
 			this->activePlayer->setBuying(true);
 			this->startBuyPhase();
+
 		}
 		else if (phase == GAMEPHASES::MOVE) {
+			this->activePlayer->copyUnitsToQueue();
 			this->startMovePhase();
 		}
 		else if (phase == GAMEPHASES::ATTACK) {
+			this->activePlayer->copyUnitsToQueue();
 			this->startAttackPhase();
 		}
 		while (!this->activePlayer->getUnitQueue().empty() || this->activePlayer->getBuying()) {

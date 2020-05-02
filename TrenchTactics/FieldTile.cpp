@@ -2,13 +2,20 @@
 
 void FieldTile::removeUnit()
 {
-	this->unit = NULL;
+	this->unit = nullptr;
 	this->getSprite()->render();
 }
 
 void FieldTile::setUnit(std::shared_ptr<Unit> unit)
 {
-	unit.get()->getSprite().get()->setPos(this->getPosX() * 64, this->getPosY() * 64);
-	this->unit = unit;
+	if (unit) {
+		unit.get()->getSprite().get()->setPos(this->getPosX(), this->getPosY());
+		this->unit = unit;
+		this->unit->getSprite().get()->render();
+	}
+	else {
+		this->unit = nullptr;
+		this->getSprite()->render();
+	}
 }
 
