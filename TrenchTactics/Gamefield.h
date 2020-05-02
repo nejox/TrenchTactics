@@ -47,6 +47,7 @@ private:
 	std::shared_ptr<FieldTile> getSpawnFieldBlue(int posY, int posX);
 
 	Sprite* getRandomButtonSprite(int rndNumber);
+	Sprite* getRandomSpawnTileSprite(int rndNumber, bool colorRed);
 
 public:
 	~Gamefield();

@@ -67,7 +67,7 @@ void EventGateway::handleMoveEvent(MouseClickEvent* event) {
 		std::shared_ptr<Unit> unitToBeMoved = this->activePlayer->getUnitQueue().front();
 		std::shared_ptr<FieldTile> tileToMoveTo = Gamefield::instance().getFieldTileFromXY(event->getX(), event->getY());
 
-		Gamefield::instance().findeTileByUnit(unitToBeMoved).get()->setUnit(nullptr);
+		Gamefield::instance().findeTileByUnit(unitToBeMoved).get()->removeUnit();
 
 		tileToMoveTo.get()->setUnit(unitToBeMoved);
 		this->activePlayer->getUnitQueue().pop();

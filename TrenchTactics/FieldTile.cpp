@@ -15,7 +15,13 @@ void FieldTile::setUnit(std::shared_ptr<Unit> unit)
 	}
 	else {
 		this->unit = nullptr;
-		this->getSprite()->render();
+		if (this->getTerrain() == TERRAINTYPE::SPAWNTERRAIN) {
+			this->getSprite()->render(this->getPosX(), this->getPosY());
+		}
+		else {
+			this->getSprite()->render();
+		}
+
 	}
 }
 

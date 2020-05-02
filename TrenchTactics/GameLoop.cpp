@@ -90,6 +90,7 @@ void Game::startPlayerPhase() {
 			this->startMovePhase();
 		}
 		else if (phase == GAMEPHASES::ATTACK) {
+			std::cout << "do we get here" << std::endl;
 			this->activePlayer->copyUnitsToQueue();
 			this->startAttackPhase();
 		}

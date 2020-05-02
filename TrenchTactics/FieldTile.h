@@ -9,21 +9,21 @@
 class FieldTile : public Tile {
 
 public:
-	enum terrainType {
-		mud,
-		clay,
-		stone,
-		spawnterrain
+	enum TERRAINTYPE {
+		MUD,
+		CLAY,
+		STONE,
+		SPAWNTERRAIN
 	};
 
 private:
 	std::shared_ptr<Unit> unit;
-	terrainType terrain;
+	TERRAINTYPE terrain;
 public:
 
 	FieldTile() {};
 
-	FieldTile(terrainType terrain) {
+	FieldTile(TERRAINTYPE terrain) {
 		this->terrain = terrain;
 	}
 
@@ -36,10 +36,10 @@ public:
 	std::shared_ptr<Unit> getUnit() {
 		return this->unit;
 	}
-	void setTerrain(terrainType terrain) {
+	void setTerrain(TERRAINTYPE terrain) {
 		this->terrain = terrain;
 	}
-	terrainType getTerrain() {
+	TERRAINTYPE getTerrain() {
 		return this->terrain;
 	}
 };
