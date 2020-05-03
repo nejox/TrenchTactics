@@ -11,6 +11,7 @@
 #include "EventGateway.h"
 #include "EventManagerImpl.h"
 #include "Gamephases.h"
+#include "MenuBar.h"
 
 
 /**
@@ -28,6 +29,7 @@ private:
 	IRenderer& renderer = RendererImpl::instance();
 	Gamefield& field = Gamefield::instance();
 	EventGateway& gateway = EventGateway::instance();
+	MenuBar& menubar = MenuBar::instance();
 
 
 	bool gameRunning;

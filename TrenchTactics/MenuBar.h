@@ -3,26 +3,29 @@
 #include "Sprite.hpp"
 #include "Player.h"
 
-
-class MenuDisplayer
+/**
+* 
+*/
+class MenuBar
 {
 public:
-	/**
-	*Initializes a MenuDisplayer instance with fully initialized moneyToken and unitCountTOken 
-	*initializes money and unitCount and sets positions
-	*/
 
-	MenuDisplayer(const MenuDisplayer&) = delete; 
-	MenuDisplayer& operator=(const MenuDisplayer&) = delete;
-	MenuDisplayer(MenuDisplayer&&) = delete;
-	MenuDisplayer& operator=(MenuDisplayer&&) = delete;
+	MenuBar(const MenuBar&) = delete; 
+	MenuBar& operator=(const MenuBar&) = delete;
+	MenuBar(MenuBar&&) = delete;
+	MenuBar& operator=(MenuBar&&) = delete;
+	~MenuBar() {}
 
 	static auto& instance() {
-		static MenuDisplayer menuDisplayer;
-		return menuDisplayer;
+		static MenuBar menuBar;
+		return menuBar;
 	}
 
-	MenuDisplayer init()
+	/**
+*Initializes a MenuDisplayer instance with fully initialized moneyToken and unitCountTOken
+*initializes money and unitCount and sets positions
+*/
+	void init()
 	{
 		moneyToken = make_shared<Sprite>();
 		moneyToken->load("../Data/Sprites/Token/MONEY_TOKEN.bmp");
@@ -38,17 +41,17 @@ public:
 		unitCount = make_shared<SpriteText>(10);
 		unitCount->setPos((64 * 21), (14 * 64));
 
-		unitHP = make_shared<SpriteText>(10);
+		unitHP = make_shared<SpriteText>(25);
 		unitHP->setPos((64 * 11), (64 * 14));
 	}
 
-	~MenuDisplayer() {}
+	
 
 	/**
 	*renders the active players stats
 	*Overloaded funtion
 	*/
-	void render(Player* activePlayer)
+	void render(shared_ptr<Player> activePlayer)
 	{
 		showPlayerStats(activePlayer);
 	}	
@@ -56,14 +59,14 @@ public:
 	*renders the active players stats and the currently active Units HP
 	*Overloaded funtion
 	*/
-	void render(Player* activePlayer, Unit* unit)
+	void render(shared_ptr<Player> activePlayer, shared_ptr<Unit> unit)
 	{
 		showPlayerStats(activePlayer);
 		showUnitStats(unit);
 	}
 
-	void showPlayerStats(Player* activePlayer);
-	void showUnitStats(Unit* unit);
+	void showPlayerStats(shared_ptr<Player> activePlayer);
+	void showUnitStats(shared_ptr<Unit>unit);
 
 
 private:
@@ -73,5 +76,5 @@ private:
 	std::shared_ptr<SpriteText> unitCount;
 	std::shared_ptr<SpriteText> unitHP;
 
-	MenuDisplayer();
+	MenuBar() {};
 };

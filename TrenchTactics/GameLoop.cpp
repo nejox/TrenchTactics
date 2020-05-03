@@ -39,6 +39,9 @@ void Game::initGame() {
 	Logger::instance().log(LOGLEVEL::INFO, "Initializing Gateway");
 	this->gateway.init();
 
+	Logger::instance().log(LOGLEVEL::INFO, "Initializing Menubar");
+	this->menubar.init();
+
 	this->activePlayer = playerRed;
 	this->gateway.setActivePlayer(playerRed);
 	this->gameRunning = true;
@@ -145,6 +148,7 @@ void Game::startAttackPhase() {
  */
 void Game::startBuyPhase() {
 	Gamefield::instance().displayButtons(GAMEPHASES::BUY);
+	menubar.render(this->activePlayer);
 }
 
 /**

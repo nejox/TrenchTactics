@@ -1,6 +1,9 @@
-#include "MenuDisplayer.h"
+#include "MenuBar.h"
 
-void MenuDisplayer::showPlayerStats(Player* activePlayer)
+/**
+* Displays Players current money and number of units 
+*/
+void MenuBar::showPlayerStats(shared_ptr<Player> activePlayer)
 {
 	moneyToken->render();
 
@@ -12,8 +15,10 @@ void MenuDisplayer::showPlayerStats(Player* activePlayer)
 	unitCount->load((const char*) activePlayer->getUnitArray().size());
 	unitCount->render();
 }
-
-void MenuDisplayer::showUnitStats(Unit* unit)
+/**
+* Displays units currentHp/MaxHp
+*/
+void MenuBar::showUnitStats(shared_ptr<Unit> unit)
 {
 	unitHP->load((const char*)(unit->getCurrentHP() + " / " + unit->getHp()));
 	unitHP->render();
