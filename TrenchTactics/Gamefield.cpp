@@ -14,7 +14,8 @@ Gamefield::~Gamefield() {
 }
 
 /**
- *
+ * get a red spawn tile based on a pixel position x and y
+ * returns nullptr when not valid
  *
  * \param posY
  * \param posX
@@ -27,7 +28,7 @@ std::shared_ptr<FieldTile> Gamefield::getSpawnFieldRed(int posY, int posX) {
 	if (posX >= 20 || posX < 18) {
 		return nullptr;
 	}
-	else if (posY < 0 || posY >= 12) {
+	else if (posY < 0 || posY >= 11) {
 		return nullptr;
 	}
 	else {
@@ -37,7 +38,8 @@ std::shared_ptr<FieldTile> Gamefield::getSpawnFieldRed(int posY, int posX) {
 }
 
 /**
- *
+ * get a blue spawn tile based on a pixel position x and y
+ * returns nullptr when not valid
  *
  * \param posY
  * \param posX
@@ -48,10 +50,10 @@ std::shared_ptr<FieldTile> Gamefield::getSpawnFieldBlue(int posY, int posX) {
 	posX = posX / 64;
 
 
-	if (posX >= 2 || posX <= 0) {
+	if (posX >= 2 || posX < 0) {
 		return nullptr;
 	}
-	else if (posY < 0 || posY >= 12) {
+	else if (posY < 0 || posY >= 11) {
 		return nullptr;
 	}
 	else {
@@ -62,7 +64,8 @@ std::shared_ptr<FieldTile> Gamefield::getSpawnFieldBlue(int posY, int posX) {
 
 
 /**
- *
+ * get a menu tile based on a pixel position x and y
+ * returns nullptr when not valid
  *
  * \param posX
  * \param posY
@@ -84,7 +87,8 @@ std::shared_ptr<MenuTile> Gamefield::getMenuTileFromXY(int posX, int posY) {
 }
 
 /**
- *
+ * get a field tile based on a pixel position x and y
+ * returns nullptr when not valid
  *
  * \param posX
  * \param posY
@@ -105,7 +109,8 @@ std::shared_ptr<FieldTile> Gamefield::getFieldTileFromXY(int posX, int posY) {
 }
 
 /**
- *
+ * get a spawn tile based on a pixel position x and y and the color of a player
+ * returns nullptr when not valid
  *
  * \param colorRed
  * \param posX
@@ -349,12 +354,12 @@ void Gamefield::deselectAndUnmarkAllTiles()
 -----------------------------------------------------------------------------------------------------------*/
 
 /**
- *
+ * get a random unit button sprite based on a provided rndNumber
  *
  * \param rndNumber
  * \return
  */
-Sprite* Gamefield::getRandomButtonSprite(int rndNumber) {
+Sprite* Gamefield::getRandomUnitButtonSprite(int rndNumber) {
 	Sprite* buttonSprite = new Sprite();
 
 	if (rndNumber == 0) {
@@ -374,22 +379,26 @@ void Gamefield::displaySkipRoundButton() {
 }
 
 /**
+ * display necessary buttons based on phase
  *
- *
- * \param
+ * \param current gamephase
  */
 void Gamefield::displayButtons(GAMEPHASES::GAMEPHASE phase) {
 	if (phase == GAMEPHASES::BUY) {
 
+		//create the three buttons
 		std::shared_ptr<Button> button = std::make_shared<Button>();
 		std::shared_ptr<Button> button1 = std::make_shared<Button>();
 		std::shared_ptr<Button> button2 = std::make_shared<Button>();
 
 		for (int i = 0; i < 3; i++) {
 			int rnd = std::rand() % 3;
-			Sprite* buttonSprite = getRandomButtonSprite(rnd);
+
+			//get sprite based on rnd number
+			Sprite* buttonSprite = getRandomUnitButtonSprite(rnd);
 
 			if (i == 0) {
+				//set type, positon and reference
 				button->setType(rnd);
 				button->setSprite(buttonSprite);
 				this->getMenuBar().get()->at(4).at(1).get()->setButton(button);
@@ -405,11 +414,10 @@ void Gamefield::displayButtons(GAMEPHASES::GAMEPHASE phase) {
 				this->getMenuBar().get()->at(8).at(1).get()->setButton(button2);
 			}
 		}
-		//NEXTPHASE_TOKEN.bmp NEXTUNIT_TOKEN.bmp PREVIOUSUNIT_TOKEN.bmp ENDTURN_TOKEN.bmp
 	}
 	else if (phase == GAMEPHASES::MOVE || phase == GAMEPHASES::ATTACK)
 	{
-
+		//display buttons for next and previous unit
 		std::shared_ptr<Button> previousUnitButton = std::make_shared<Button>();
 		std::shared_ptr<Button> nextUnitButton = std::make_shared<Button>();
 		Sprite* nextUnit = new Sprite();
@@ -418,6 +426,7 @@ void Gamefield::displayButtons(GAMEPHASES::GAMEPHASE phase) {
 		previousUnit->load("../Data/Sprites/Token/PREVIOUSUNIT_TOKEN.bmp");
 
 		previousUnitButton->setSprite(nextUnit);
+		//dummy values until now -> move to a config style file required
 		previousUnitButton->setType(20);
 		nextUnitButton->setSprite(previousUnit);
 		nextUnitButton->setType(10);
@@ -426,6 +435,7 @@ void Gamefield::displayButtons(GAMEPHASES::GAMEPHASE phase) {
 		this->getMenuBar().get()->at(6).at(1).get()->setButton(nextUnitButton);
 	}
 
+	//always display end phase and end turn buttons
 	std::shared_ptr<Button> nextPhaseButton = std::make_shared<Button>();
 	std::shared_ptr<Button> buttonEndTurn = std::make_shared<Button>();
 
@@ -460,11 +470,11 @@ void Gamefield::deleteButtons() {
 
 
 /**
+ * Creates a complete field tile based on position and terraintype
  *
- *
- * \param posX
- * \param posY
- * \param type
+ * \param posX position in pixel size X
+ * \param posY position in pixel size Y
+ * \param type Terraintype enum
  * \return
  */
 std::shared_ptr<FieldTile> Gamefield::createFieldTile(int posX, int posY, FieldTile::TERRAINTYPE type) {
@@ -516,6 +526,13 @@ void Gamefield::initiatePlayingFieldTiles()
 }
 
 
+/**
+ * Provides a random spawntile based on a number between 0 and 3 for red and blue side
+ *
+ * \param rndNumber number between 0 and 3
+ * \param colorRed tile for red player or not
+ * \return
+ */
 Sprite* Gamefield::getRandomSpawnTileSprite(int rndNumber, bool colorRed) {
 	Sprite* terrainSprite = new Sprite();
 	std::string path = "../Data/Sprites/Terrain/SPAWNTILE_";

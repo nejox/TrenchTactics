@@ -1,5 +1,10 @@
 #include "FieldTile.h"
 
+/**
+ * remove the unit on a field tile
+ * also rerenders the empty tile afterwards
+ *
+ */
 void FieldTile::removeUnit()
 {
 	this->unit = nullptr;
@@ -12,6 +17,12 @@ void FieldTile::removeUnit()
 
 }
 
+/**
+ * function to attach a unit to fieldtile
+ * updates the sprite position with the position of the field tile and renders it
+ *
+ * \param unit
+ */
 void FieldTile::setUnit(std::shared_ptr<Unit> unit)
 {
 	if (unit) {
