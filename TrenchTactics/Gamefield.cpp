@@ -147,13 +147,13 @@ int Gamefield::spawnUnitInSpawn(std::shared_ptr<Unit> pUnit, bool redPlayerActiv
 		for (int i = 1; i > 0; --i) {
 			for (int j = 0; j < 5; ++j) {
 				if (fieldTileIsFree(1 - i, 4 - j, activeSpawn)) {
-					activeSpawn->at(1 - i).at(4 - j)->setPos((1 - i) * 64, (4 - j) * 64);
+					activeSpawn->at(1 - i).at(4 - j)->setPos((1 - i) * 64 + 20 * 64, (4 - j) * 64);
 					activeSpawn->at(1 - i).at(4 - j)->setUnit(pUnit);
 					pUnit.get()->update(STATES::STANDING_NEUTRAL);
 					return 1;
 				}
 				if (fieldTileIsFree(1 - i, 5 + j, activeSpawn)) {
-					activeSpawn.get()->at(1 - i).at(5 + j)->setPos((1 - i) * 64, (5 + j) * 64);
+					activeSpawn.get()->at(1 - i).at(5 + j)->setPos((1 - i) * 64 + 20 * 64, (5 + j) * 64);
 					activeSpawn.get()->at(1 - i).at(5 + j)->setUnit(pUnit);
 					pUnit.get()->update(STATES::STANDING_NEUTRAL);
 					return 1;
