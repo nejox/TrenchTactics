@@ -69,7 +69,7 @@ public:
 		SDL_DestroyTexture(m_pText);
 	}
 
-	void load(const char* text);
+	void load(std::string text);
 	void render();
 	
 

@@ -1,10 +1,11 @@
 #include "SpriteText.h"
 
-void SpriteText::load(const char* text)
+void SpriteText::load(std::string text)
 {
 	SDL_Color color = { 0,0,0 };
+	const char* ctext = text.c_str();
 
-	SDL_Surface* text_surface = TTF_RenderText_Solid(m_font, text, color);
+	SDL_Surface* text_surface = TTF_RenderText_Solid(m_font, ctext, color);
 
 	if (!text_surface) {
 

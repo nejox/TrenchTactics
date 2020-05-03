@@ -7,12 +7,12 @@ void MenuBar::showPlayerStats(shared_ptr<Player> activePlayer)
 {
 	moneyToken->render();
 
-	money->load((const char*) activePlayer->getMoney());
+	money->load(std::to_string(activePlayer->getMoney()));
 	money->render();
 
 	unitCountToken->render();
 
-	unitCount->load((const char*) activePlayer->getUnitArray().size());
+	unitCount->load((std::to_string(activePlayer->getUnitArray().size())));
 	unitCount->render();
 }
 /**
