@@ -31,6 +31,11 @@ public:
 	void updatePlayer();
 	void copyUnitsToQueue();
 
+	void emptyQueue() {
+		while (!this->unitQueue.empty()) {
+			this->unitQueue.pop();
+		}
+	}
 	void popUnit() {
 		this->unitQueue.pop();
 	}

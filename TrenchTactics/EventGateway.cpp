@@ -44,6 +44,13 @@ void EventGateway::handleEvent(MouseClickEvent* event) {
  * \param event provided event from eventbus, in this case mouseclickevent
  */
 void EventGateway::handleAttackEvent(MouseClickEvent* event) {
+	if (checkButtonClicked(event)) {
+		int type = Gamefield::instance().getMenuTileFromXY(event->getX(), event->getY())->getButton()->getType();
+		if (type == 50) {
+			this->activePlayer->emptyQueue();
+		}
+		return;
+	}
 	if (checkEventInField(event)) {
 		if (Gamefield::instance().getFieldTileFromXY(event->getX(), event->getY())->getUnit()) {
 			std::shared_ptr<Unit>  unitToBeAttacked = Gamefield::instance().getPlayingfield().get()->at(event->getX()).at(event->getY()).get()->getUnit();
@@ -65,7 +72,13 @@ void EventGateway::handleAttackEvent(MouseClickEvent* event) {
  * \param event provided event from eventbus, in this case mouseclickevent
  */
 void EventGateway::handleMoveEvent(MouseClickEvent* event) {
-
+	if (checkButtonClicked(event)) {
+		int type = Gamefield::instance().getMenuTileFromXY(event->getX(), event->getY())->getButton()->getType();
+		if (type == 50) {
+			this->activePlayer->emptyQueue();
+		}
+		return;
+	}
 	if (checkEventInField(event)) {
 		std::shared_ptr<Unit> unitToBeMoved = this->activePlayer->getUnitQueue().front();
 		std::shared_ptr<FieldTile> tileToMoveTo = Gamefield::instance().getFieldTileFromXY(event->getX(), event->getY());
@@ -84,27 +97,45 @@ void EventGateway::handleMoveEvent(MouseClickEvent* event) {
  * \param event provided event from eventbus, in this case mouseclickevent
  */
 void EventGateway::handleBuyEvent(MouseClickEvent* event) {
-
 	if ((this->activePlayer->getSupply() + 1) > ConfigReader::instance().getBalanceConf()->getMaxAmountUnits()) {
 		this->activePlayer->setBuying(false);
 		Logger::instance().log(LOGLEVEL::INFO, "not enough supply to purchase unit");
 	}
 	else {
-		if (!Gamefield::instance().getMenuTileFromXY(event->getX(), event->getY()).get() || !Gamefield::instance().getMenuTileFromXY(event->getX(), event->getY()).get()->getButton().get()) {
+		if (!checkButtonClicked(event)) {
 			Logger::instance().log(LOGLEVEL::INFO, "didnt click a button");
 			return;
 		}
-		int unitType = Gamefield::instance().getMenuTileFromXY(event->getX(), event->getY()).get()->getButton().get()->getType();
-		if (unitType != -1) {
-			std::shared_ptr<Unit> purchasedUnit = std::make_shared<Unit>(static_cast<TYPES::UnitType>(unitType), false);
-			Gamefield::instance().spawnUnitInSpawn(purchasedUnit, this->activePlayer.get()->getColor());
-			this->activePlayer.get()->addUnit(purchasedUnit);
+		int type = Gamefield::instance().getMenuTileFromXY(event->getX(), event->getY())->getButton()->getType();
+		if (type >= 0 && type <= 2) {
+			std::shared_ptr<Unit> purchasedUnit = std::make_shared<Unit>(static_cast<TYPES::UnitType>(type), this->activePlayer->getColor());
+			Gamefield::instance().spawnUnitInSpawn(purchasedUnit, this->activePlayer->getColor());
+			this->activePlayer->addUnit(purchasedUnit);
+			this->activePlayer->setBuying(false);
+		}
+		else if (type == 50) {
 			this->activePlayer->setBuying(false);
 		}
 	}
 
 
 }
+
+/**
+ * .
+ *
+ * \param event
+ * \return
+ */
+bool EventGateway::checkButtonClicked(MouseClickEvent* event) {
+	if (!Gamefield::instance().getMenuTileFromXY(event->getX(), event->getY()).get() || !Gamefield::instance().getMenuTileFromXY(event->getX(), event->getY())->getButton().get()) {
+		return false;
+	}
+	else {
+		return true;
+	}
+}
+
 
 /**
  * Check wether a mouseclickevent is in the field or not

@@ -82,6 +82,7 @@ void Game::startPlayerPhase() {
 
 	for (GAMEPHASES::GAMEPHASE phase : GAMEPHASES::All) {
 		this->activePlayer->setCurrentPhase(phase);
+		this->gateway.setCurrentPhase(phase);
 		if (phase == GAMEPHASES::BUY) {
 			this->startBuyPhase();
 		}
@@ -124,12 +125,12 @@ void Game::quit() {
  */
 void Game::switchActivePlayer() {
 	if (this->activePlayer->getColor()) {
-		this->activePlayer = playerRed;
-		this->gateway.setActivePlayer(playerRed);
-	}
-	else {
 		this->activePlayer = playerBlue;
 		this->gateway.setActivePlayer(playerBlue);
+	}
+	else {
+		this->activePlayer = playerRed;
+		this->gateway.setActivePlayer(playerRed);
 	}
 }
 
@@ -139,7 +140,7 @@ void Game::switchActivePlayer() {
  */
 void Game::startAttackPhase() {
 	Gamefield::instance().deleteButtons();
-	this->gateway.setCurrentPhase(GAMEPHASES::ATTACK);
+
 	this->activePlayer->copyUnitsToQueue();
 	Gamefield::instance().displayButtons(GAMEPHASES::ATTACK);
 }

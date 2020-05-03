@@ -13,7 +13,7 @@
 		"spawnProbability": 30,
 		"spritesRed": {
 			"standingActive": "../Data/Sprites/R_Units/R_GRENADE_STANDING_ACTIVE.bmp",
-			"standingNeutral": "../Data/Sprites/R_Units/R_GRENADE_STANDING_ACTIVE.bmp",
+			"standingNeutral": "../Data/Sprites/R_Units/R_GRENADE_STANDING_NEUTRAL.bmp",
 			"shooting": "../Data/Sprites/R_Units/R_GRENADE_SHOOTING.bmp",
 			"running": "../Data/Sprites/R_Units/R_GRENADE_RUNNING.bmp"
 		},
