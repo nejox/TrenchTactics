@@ -14,7 +14,8 @@ Gamefield::~Gamefield() {
 }
 
 /**
- *
+ * get a red spawn tile based on a pixel position x and y
+ * returns nullptr when not valid
  *
  * \param posY
  * \param posX
@@ -27,7 +28,7 @@ std::shared_ptr<FieldTile> Gamefield::getSpawnFieldRed(int posY, int posX) {
 	if (posX >= 20 || posX < 18) {
 		return nullptr;
 	}
-	else if (posY < 0 || posY >= 12) {
+	else if (posY < 0 || posY >= 11) {
 		return nullptr;
 	}
 	else {
@@ -37,7 +38,8 @@ std::shared_ptr<FieldTile> Gamefield::getSpawnFieldRed(int posY, int posX) {
 }
 
 /**
- *
+ * get a blue spawn tile based on a pixel position x and y
+ * returns nullptr when not valid
  *
  * \param posY
  * \param posX
@@ -48,10 +50,10 @@ std::shared_ptr<FieldTile> Gamefield::getSpawnFieldBlue(int posY, int posX) {
 	posX = posX / 64;
 
 
-	if (posX >= 2 || posX <= 0) {
+	if (posX >= 2 || posX < 0) {
 		return nullptr;
 	}
-	else if (posY < 0 || posY >= 12) {
+	else if (posY < 0 || posY >= 11) {
 		return nullptr;
 	}
 	else {
@@ -62,7 +64,8 @@ std::shared_ptr<FieldTile> Gamefield::getSpawnFieldBlue(int posY, int posX) {
 
 
 /**
- *
+ * get a menu tile based on a pixel position x and y
+ * returns nullptr when not valid
  *
  * \param posX
  * \param posY
@@ -84,7 +87,8 @@ std::shared_ptr<MenuTile> Gamefield::getMenuTileFromXY(int posX, int posY) {
 }
 
 /**
- *
+ * get a field tile based on a pixel position x and y
+ * returns nullptr when not valid
  *
  * \param posX
  * \param posY
@@ -105,7 +109,8 @@ std::shared_ptr<FieldTile> Gamefield::getFieldTileFromXY(int posX, int posY) {
 }
 
 /**
- *
+ * get a spawn tile based on a pixel position x and y and the color of a player
+ * returns nullptr when not valid
  *
  * \param colorRed
  * \param posX
@@ -342,12 +347,12 @@ void Gamefield::deselectAndUnmarkAllTiles()
 }
 
 /**
- *
+ * get a random unit button sprite based on a provided rndNumber
  *
  * \param rndNumber
  * \return
  */
-Sprite* Gamefield::getRandomButtonSprite(int rndNumber) {
+Sprite* Gamefield::getRandomUnitButtonSprite(int rndNumber) {
 	Sprite* buttonSprite = new Sprite();
 
 	if (rndNumber == 0) {
@@ -362,30 +367,38 @@ Sprite* Gamefield::getRandomButtonSprite(int rndNumber) {
 	return buttonSprite;
 }
 
+void Gamefield::displaySkipRoundButton() {
+
+}
+
 /**
+ * display necessary buttons based on phase
  *
- *
- * \param
+ * \param current gamephase
  */
 void Gamefield::displayButtons(GAMEPHASES::GAMEPHASE phase) {
 	if (phase == GAMEPHASES::BUY) {
 
+		//create the three buttons
 		std::shared_ptr<Button> button = std::make_shared<Button>();
 		std::shared_ptr<Button> button1 = std::make_shared<Button>();
 		std::shared_ptr<Button> button2 = std::make_shared<Button>();
 
 		for (int i = 0; i < 3; i++) {
 			int rnd = std::rand() % 3;
-			Sprite* buttonSprite = getRandomButtonSprite(rnd);
+
+			//get sprite based on rnd number
+			Sprite* buttonSprite = getRandomUnitButtonSprite(rnd);
 
 			if (i == 0) {
-				button.get()->setType(rnd);
-				button.get()->setSprite(buttonSprite);
+				//set type, positon and reference
+				button->setType(rnd);
+				button->setSprite(buttonSprite);
 				this->getMenuBar().get()->at(4).at(1).get()->setButton(button);
 			}
 			else if (i == 1) {
-				button1.get()->setType(rnd);
-				button1.get()->setSprite(buttonSprite);
+				button1->setType(rnd);
+				button1->setSprite(buttonSprite);
 				this->getMenuBar().get()->at(6).at(1).get()->setButton(button1);
 			}
 			else if (i == 2) {
@@ -394,35 +407,53 @@ void Gamefield::displayButtons(GAMEPHASES::GAMEPHASE phase) {
 				this->getMenuBar().get()->at(8).at(1).get()->setButton(button2);
 			}
 		}
-
 	}
-	else if (phase == GAMEPHASES::MOVE)
+	else if (phase == GAMEPHASES::MOVE || phase == GAMEPHASES::ATTACK)
 	{
+		//display buttons for next and previous unit
+		std::shared_ptr<Button> previousUnitButton = std::make_shared<Button>();
+		std::shared_ptr<Button> nextUnitButton = std::make_shared<Button>();
+		Sprite* nextUnit = new Sprite();
+		nextUnit->load("../Data/Sprites/Token/NEXTUNIT_TOKEN.bmp");
+		Sprite* previousUnit = new Sprite();
+		previousUnit->load("../Data/Sprites/Token/PREVIOUSUNIT_TOKEN.bmp");
 
+		previousUnitButton->setSprite(nextUnit);
+		//dummy values until now -> move to a config style file required
+		previousUnitButton->setType(20);
+		nextUnitButton->setSprite(previousUnit);
+		nextUnitButton->setType(10);
+
+		this->getMenuBar().get()->at(4).at(1).get()->setButton(previousUnitButton);
+		this->getMenuBar().get()->at(6).at(1).get()->setButton(nextUnitButton);
 	}
-	else if (phase == GAMEPHASES::ATTACK) {
 
-	}
+	//always display end phase and end turn buttons
+	std::shared_ptr<Button> nextPhaseButton = std::make_shared<Button>();
+	std::shared_ptr<Button> buttonEndTurn = std::make_shared<Button>();
 
+	Sprite* nextPhase = new Sprite();
+	nextPhase->load("../Data/Sprites/Token/NEXTPHASE_TOKEN.bmp");
+	Sprite* nextTurn = new Sprite();
+	nextTurn->load("../Data/Sprites/Token/ENDTURN_TOKEN.bmp");
+
+	nextPhaseButton->setSprite(nextPhase);
+	nextPhaseButton->setType(50);
+
+	buttonEndTurn->setSprite(nextTurn);
+	buttonEndTurn->setType(31);
+
+	this->getMenuBar().get()->at(13).at(1).get()->setButton(nextPhaseButton);
+	this->getMenuBar().get()->at(17).at(1).get()->setButton(buttonEndTurn);
 }
 
 /**
  *
  */
-void Gamefield::deleteButtons(GAMEPHASES::GAMEPHASE phase) {
-	if (phase == GAMEPHASES::BUY) {
-		for (int i = 4; i < 9; i = i + 2) {
-			this->getMenuBar().get()->at(i).at(1).get()->removeButton();
-		}
+void Gamefield::deleteButtons() {
+	for (int i = 4; i < 9; i = i + 2) {
+		this->getMenuBar().get()->at(i).at(1).get()->removeButton();
 	}
-	else if (phase == GAMEPHASES::MOVE)
-	{
-
-	}
-	else if (phase == GAMEPHASES::ATTACK) {
-
-	}
-
 }
 
 
@@ -432,27 +463,27 @@ void Gamefield::deleteButtons(GAMEPHASES::GAMEPHASE phase) {
 
 
 /**
+ * Creates a complete field tile based on position and terraintype
  *
- *
- * \param posX
- * \param posY
- * \param type
+ * \param posX position in pixel size X
+ * \param posY position in pixel size Y
+ * \param type Terraintype enum
  * \return
  */
-std::shared_ptr<FieldTile> createFieldTile(int posX, int posY, FieldTile::TERRAINTYPE type) {
+std::shared_ptr<FieldTile> Gamefield::createFieldTile(int posX, int posY, FieldTile::TERRAINTYPE type) {
 	std::shared_ptr<FieldTile> tmpFieldTilePointer = std::make_shared<FieldTile>();
 	Sprite* terrainSprite = new Sprite();
-	if (type == FieldTile::TERRAINTYPE::CLAY) {
-		tmpFieldTilePointer.get()->setTerrain(FieldTile::TERRAINTYPE::CLAY);
-		terrainSprite->load("../Data/Sprites/Terrain/TERRAIN_MUD_1.bmp");
-	}
-	else if (type == FieldTile::TERRAINTYPE::MUD) {
-		tmpFieldTilePointer.get()->setTerrain(FieldTile::TERRAINTYPE::CLAY);
+	if (type == FieldTile::TERRAINTYPE::MUD) {
+		tmpFieldTilePointer.get()->setTerrain(FieldTile::TERRAINTYPE::MUD);
 		terrainSprite->load("../Data/Sprites/Terrain/TERRAIN_MUD_1.bmp");
 	}
 	else if (type == FieldTile::TERRAINTYPE::STONE) {
+		tmpFieldTilePointer.get()->setTerrain(FieldTile::TERRAINTYPE::STONE);
+		terrainSprite->load("../Data/Sprites/Terrain/TERRAIN_STONE_1.bmp");
+	}
+	else if (type == FieldTile::TERRAINTYPE::CLAY) {
 		tmpFieldTilePointer.get()->setTerrain(FieldTile::TERRAINTYPE::CLAY);
-		terrainSprite->load("../Data/Sprites/Terrain/TERRAIN_MUD_1.bmp");
+		terrainSprite->load("../Data/Sprites/Terrain/TERRAIN_SAND_1.bmp");
 	}
 	terrainSprite->setPos(posX, posY);
 	tmpFieldTilePointer->setSprite(terrainSprite);
@@ -477,17 +508,24 @@ void Gamefield::initiatePlayingFieldTiles()
 			}
 
 			if (rnd == 4) {
-				*yIter = createFieldTile((xIter - playingfield->begin()) * 64 + 2 * 64, (yIter - xIter->begin()) * 64, FieldTile::TERRAINTYPE::MUD);
+				*yIter = createFieldTile((xIter - playingfield->begin()) * 64 + 2 * 64, (yIter - xIter->begin()) * 64, FieldTile::TERRAINTYPE::STONE);
 			}
 
 			if (rnd == 5) {
-				*yIter = createFieldTile((xIter - playingfield->begin()) * 64 + 2 * 64, (yIter - xIter->begin()) * 64, FieldTile::TERRAINTYPE::MUD);
+				*yIter = createFieldTile((xIter - playingfield->begin()) * 64 + 2 * 64, (yIter - xIter->begin()) * 64, FieldTile::TERRAINTYPE::CLAY);
 			}
 		}
 	}
 }
 
 
+/**
+ * Provides a random spawntile based on a number between 0 and 3 for red and blue side
+ *
+ * \param rndNumber number between 0 and 3
+ * \param colorRed tile for red player or not
+ * \return
+ */
 Sprite* Gamefield::getRandomSpawnTileSprite(int rndNumber, bool colorRed) {
 	Sprite* terrainSprite = new Sprite();
 	std::string path = "../Data/Sprites/Terrain/SPAWNTILE_";
@@ -501,12 +539,14 @@ Sprite* Gamefield::getRandomSpawnTileSprite(int rndNumber, bool colorRed) {
 
 		terrainSprite->load(path + std::to_string(rndNumber) + ".bmp");
 	}
-
-	if (rndNumber == 1) {
+	else if (rndNumber == 1) {
 		terrainSprite->load(path + std::to_string(rndNumber) + ".bmp");
 	}
 
-	if (rndNumber == 2) {
+	else if (rndNumber == 2) {
+		terrainSprite->load(path + std::to_string(rndNumber) + ".bmp");
+	}
+	else if (rndNumber == 3) {
 		terrainSprite->load(path + std::to_string(rndNumber) + ".bmp");
 	}
 	return terrainSprite;
@@ -519,30 +559,30 @@ Sprite* Gamefield::getRandomSpawnTileSprite(int rndNumber, bool colorRed) {
 void Gamefield::initiateSpawnTilesBlue()
 {
 	int cnt = 0;
+	Sprite* terrain = getRandomSpawnTileSprite(rand() % 4, false);
 	for (vector<vector<std::shared_ptr<FieldTile>>>::iterator xIter = spawnBlue->begin(); xIter != spawnBlue->end(); ++xIter) {
 		for (vector<std::shared_ptr<FieldTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
+			if (cnt == 2) {
+				cnt = 0;
+				terrain = getRandomSpawnTileSprite(rand() % 4, false);
+			}
 			std::shared_ptr<FieldTile> tmpFieldTilePointer = std::make_shared<FieldTile>(FieldTile::TERRAINTYPE::SPAWNTERRAIN);
-			Sprite* terrainSprite = new Sprite();
 
-			terrainSprite->load("../Data/Sprites/Terrain/SPAWNTILE_BLUE_" + std::to_string(cnt) + ".bmp");
 			if ((yIter - xIter->begin()) >= 5) {
-				terrainSprite->setPos((xIter - spawnBlue->begin()) * 64, (yIter - xIter->begin()) * 64 + 2 * 64);
-				tmpFieldTilePointer->setSprite(terrainSprite);
-				tmpFieldTilePointer->getSprite()->render(((xIter - spawnBlue->begin()) % 2) * 64, ((yIter - xIter->begin()) % 2) * 64);
+				terrain->setPos((xIter - spawnBlue->begin()) * 64, (yIter - xIter->begin()) * 64 + 2 * 64);
+				tmpFieldTilePointer->setSprite(terrain);
+				tmpFieldTilePointer->setPos((xIter - spawnBlue->begin()) * 64, (yIter - xIter->begin()) * 64 + 2 * 64);
+				tmpFieldTilePointer->getSprite()->render((xIter - spawnBlue->begin()) * 64, ((yIter - xIter->begin()) % 2 * 64));
 			}
 			else {
-				terrainSprite->setPos((xIter - spawnBlue->begin()) * 64, (yIter - xIter->begin()) * 64);
-				tmpFieldTilePointer->setSprite(terrainSprite);
-				tmpFieldTilePointer->getSprite()->render(((xIter - spawnBlue->begin()) % 2) * 64, ((yIter - xIter->begin()) % 2) * 64);
+				terrain->setPos((xIter - spawnBlue->begin()) * 64, (yIter - xIter->begin()) * 64);
+				tmpFieldTilePointer->setSprite(terrain);
+				tmpFieldTilePointer->setPos((xIter - spawnBlue->begin()) * 64, (yIter - xIter->begin()) * 64);
+				tmpFieldTilePointer->getSprite()->render((xIter - spawnBlue->begin()) * 64, ((yIter - xIter->begin()) % 2 * 64));
 			}
 
 			*yIter = tmpFieldTilePointer;
-			if ((((yIter - xIter->begin())) % 4) == 3) {
-				cnt++;
-				if (cnt == 4) {
-					cnt = 0;
-				}
-			}
+			cnt++;
 		}
 	}
 }
@@ -554,29 +594,30 @@ void Gamefield::initiateSpawnTilesBlue()
 void Gamefield::initiateSpawnTilesRed()
 {
 	int cnt = 0;
+	Sprite* terrain = getRandomSpawnTileSprite(rand() % 4, true);
 	for (vector<vector<std::shared_ptr<FieldTile>>>::iterator xIter = spawnRed->begin(); xIter != spawnRed->end(); ++xIter) {
 		for (vector<std::shared_ptr<FieldTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
-			if ((((xIter - spawnRed->begin()) + (yIter - xIter->begin())) % 5) == 4) {
-				cnt++;
-				if (cnt == 4) {
-					cnt = 0;
-				}
+			if (cnt == 2) {
+				cnt = 0;
+				terrain = getRandomSpawnTileSprite(rand() % 4, true);
 			}
 			std::shared_ptr<FieldTile> tmpFieldTilePointer = std::make_shared<FieldTile>(FieldTile::TERRAINTYPE::SPAWNTERRAIN);
-			Sprite* terrainSprite = new Sprite();
-			terrainSprite->load("../Data/Sprites/Terrain/SPAWNTILE_RED_" + std::to_string(cnt) + ".bmp");
+
 			if ((yIter - xIter->begin()) >= 5) {
-				terrainSprite->setPos((xIter - spawnRed->begin()) * 64 + 20 * 64, (yIter - xIter->begin()) * 64 + 2 * 64);
-				tmpFieldTilePointer->setSprite(terrainSprite);
-				tmpFieldTilePointer->getSprite()->render(((xIter - spawnRed->begin()) % 2) * 64, ((yIter - xIter->begin()) % 2) * 64);
+				terrain->setPos((xIter - spawnRed->begin()) * 64 + 20 * 64, (yIter - xIter->begin()) * 64 + 2 * 64);
+				tmpFieldTilePointer->setSprite(terrain);
+				tmpFieldTilePointer->setPos((xIter - spawnRed->begin()) * 64 + 20 * 64, (yIter - xIter->begin()) * 64 + 2 * 64);
+				tmpFieldTilePointer->getSprite()->render((xIter - spawnRed->begin()) * 64, ((yIter - xIter->begin()) % 2 * 64));
 			}
 			else {
-				terrainSprite->setPos((xIter - spawnRed->begin()) * 64 + 20 * 64, (yIter - xIter->begin()) * 64);
-				tmpFieldTilePointer->setSprite(terrainSprite);
-				tmpFieldTilePointer->getSprite()->render((xIter - spawnRed->begin()) * 64, ((yIter - xIter->begin()) % 2) * 64);
+				terrain->setPos((xIter - spawnRed->begin()) * 64 + 20 * 64, (yIter - xIter->begin()) * 64);
+				tmpFieldTilePointer->setSprite(terrain);
+				tmpFieldTilePointer->setPos((xIter - spawnRed->begin()) * 64 + 20 * 64, (yIter - xIter->begin()) * 64);
+				tmpFieldTilePointer->getSprite()->render((xIter - spawnRed->begin()) * 64, ((yIter - xIter->begin()) % 2 * 64));
 			}
 
 			*yIter = tmpFieldTilePointer;
+			cnt++;
 		}
 	}
 }

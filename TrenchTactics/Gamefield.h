@@ -46,8 +46,12 @@ private:
 	std::shared_ptr<FieldTile> getSpawnFieldRed(int posY, int posX);
 	std::shared_ptr<FieldTile> getSpawnFieldBlue(int posY, int posX);
 
-	Sprite* getRandomButtonSprite(int rndNumber);
+	Sprite* getRandomUnitButtonSprite(int rndNumber);
 	Sprite* getRandomSpawnTileSprite(int rndNumber, bool colorRed);
+
+	std::shared_ptr<FieldTile> createFieldTile(int posX, int posY, FieldTile::TERRAINTYPE type);
+
+	void displaySkipRoundButton();
 
 public:
 	~Gamefield();
@@ -76,7 +80,7 @@ public:
 	std::shared_ptr<FieldTile> findeTileByUnit(std::shared_ptr<Unit> pUnit);
 
 	void displayButtons(GAMEPHASES::GAMEPHASE phase);
-	void deleteButtons(GAMEPHASES::GAMEPHASE phase);
+	void deleteButtons();
 
 	std::shared_ptr<MenuTile> getMenuTileFromXY(int posX, int posY);
 	std::shared_ptr<FieldTile> getFieldTileFromXY(int posX, int posY);

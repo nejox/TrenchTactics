@@ -27,6 +27,7 @@ public:
 	void render(STATES::UNITSTATE changedState);
 
 
+
 private:
 	//SpriteUnit() {};
 	bool m_colourRed;

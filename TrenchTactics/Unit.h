@@ -132,5 +132,10 @@ public:
 	void setSprite(std::shared_ptr<SpriteUnit> sprite) {
 		m_sprite = sprite;
 	}
+	
+	std::string getName()
+	{
+		return this->m_name;
+	}
 
 };
