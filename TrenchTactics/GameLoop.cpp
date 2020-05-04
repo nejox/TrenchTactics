@@ -83,7 +83,6 @@ void Game::startPlayerPhase() {
 		if (phase == GAMEPHASES::BUY) {
 			this->activePlayer->setBuying(true);
 			this->startBuyPhase();
-
 		}
 		else if (phase == GAMEPHASES::MOVE) {
 			this->activePlayer->copyUnitsToQueue();
