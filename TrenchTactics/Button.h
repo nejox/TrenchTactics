@@ -3,11 +3,11 @@
 
 class Button {
 private:
-	Sprite *sprite;
+	Sprite* sprite;
 	int type;
 
 public:
-	void setSprite(Sprite *sprite) {
+	void setSprite(Sprite* sprite) {
 		this->sprite = sprite;
 	}
 
@@ -22,6 +22,9 @@ public:
 	int getType() {
 		return this->type;
 	}
-	Button() {};
+	Button() {
+		this->type = -1;
+		this->sprite = NULL;
+	}
 	~Button() {};
 };

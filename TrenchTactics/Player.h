@@ -30,6 +30,15 @@ public:
 	void computeInterest();
 	void updatePlayer();
 	void copyUnitsToQueue();
+
+	void emptyQueue() {
+		while (!this->unitQueue.empty()) {
+			this->unitQueue.pop();
+		}
+	}
+	void popUnit() {
+		this->unitQueue.pop();
+	}
 	void addUnit(std::shared_ptr<Unit> unit) {
 		this->unitArray.push_back(unit);
 	}

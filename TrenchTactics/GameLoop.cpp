@@ -39,12 +39,14 @@ void Game::initGame() {
 	Logger::instance().log(LOGLEVEL::INFO, "Initializing Gateway");
 	this->gateway.init();
 
-	this->activePlayer = playerRed;
-	this->gateway.setActivePlayer(playerRed);
+	this->activePlayer = playerBlue;
+	this->gateway.setActivePlayer(playerBlue);
 	this->gameRunning = true;
 
 	this->renderer.updateTimer();
-	
+
+
+
 	startGame();
 
 }
@@ -58,9 +60,11 @@ void Game::initGame() {
  */
 void Game::startGame() {
 	Logger::instance().log(LOGLEVEL::INFO, "Game Running");
+	// start a player phase and switch player afterwards
 	while (gameRunning) {
 		startPlayerPhase();
 		switchActivePlayer();
+		// update player with income and stuff
 		this->activePlayer->updatePlayer();
 	}
 	quit();
@@ -76,11 +80,11 @@ void Game::startGame() {
  *
  */
 void Game::startPlayerPhase() {
-	this->activePlayer->copyUnitsToQueue();
+	//loop over the different phases and wait for the active player to finish it
 	for (GAMEPHASES::GAMEPHASE phase : GAMEPHASES::All) {
 		this->activePlayer->setCurrentPhase(phase);
+		this->gateway.setCurrentPhase(phase);
 		if (phase == GAMEPHASES::BUY) {
-			this->activePlayer->setBuying(true);
 			this->startBuyPhase();
 		}
 		else if (phase == GAMEPHASES::MOVE) {
@@ -89,6 +93,7 @@ void Game::startPlayerPhase() {
 		else if (phase == GAMEPHASES::ATTACK) {
 			this->startAttackPhase();
 		}
+		// update game while in phase, buy phase as long as player buys, attack and move as long as there are units to move and stuff
 		while (!this->activePlayer->getUnitQueue().empty() || this->activePlayer->getBuying()) {
 			updateGame();
 		}
@@ -122,35 +127,50 @@ void Game::quit() {
  */
 void Game::switchActivePlayer() {
 	if (this->activePlayer->getColor()) {
-		this->activePlayer = playerRed;
-		this->gateway.setActivePlayer(playerRed);
-	}
-	else {
 		this->activePlayer = playerBlue;
 		this->gateway.setActivePlayer(playerBlue);
 	}
+	else {
+		this->activePlayer = playerRed;
+		this->gateway.setActivePlayer(playerRed);
+	}
 }
 
 /**
- *
+ * setup attack phase
+ * copys units to queue and displays buttons
+ * set the gateway state
  *
  */
 void Game::startAttackPhase() {
-
+	Gamefield::instance().deleteButtons();
+	this->gateway.setCurrentPhase(GAMEPHASES::ATTACK);
+	this->activePlayer->copyUnitsToQueue();
+	Gamefield::instance().displayButtons(GAMEPHASES::ATTACK);
 }
 
 /**
- *
+ * setup buy phase
+ * set active player to be in buying state and displays buttons
+ * set the gateway state
  *
  */
 void Game::startBuyPhase() {
+	Gamefield::instance().deleteButtons();
+	this->activePlayer->setBuying(true);
+	this->gateway.setCurrentPhase(GAMEPHASES::BUY);
 	Gamefield::instance().displayButtons(GAMEPHASES::BUY);
 }
 
 /**
- *
+ * setup move phase
+ * copys units to queue and displays buttons
+ * set the gateway state
  *
  */
 void Game::startMovePhase() {
-
+	Gamefield::instance().deleteButtons();
+	this->gateway.setCurrentPhase(GAMEPHASES::MOVE);
+	this->activePlayer->copyUnitsToQueue();
+	Gamefield::instance().displayButtons(GAMEPHASES::MOVE);
 }
