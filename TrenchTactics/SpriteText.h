@@ -4,6 +4,11 @@
 #include "Logger.hpp"
 #include <string>
 
+
+//-TTF einbinden nervt ab, ihr müsst das genau so machen wie bei SDL2 (include und lib), 
+//beim linker schreibt ihr den kompletten pfad zur lib datei rein -> quasi "C:/bla/blabla/SDL_TTF/blablabla/lib
+//bei mir gings nur so und ihr müsst alle .dll files in den debug ordner ziehen, falls nicht automatisch beim pull passiert
+
 class SpriteText
 {
 public:
