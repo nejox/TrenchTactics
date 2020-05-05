@@ -43,8 +43,8 @@ private:
 	void initiateSpawnTilesRed();
 	void initiatePlayingFieldTiles();
 
-	std::shared_ptr<FieldTile> getSpawnFieldRed(int posY, int posX);
-	std::shared_ptr<FieldTile> getSpawnFieldBlue(int posY, int posX);
+	std::shared_ptr<FieldTile> getSpawnFieldRed(int posX, int posY);
+	std::shared_ptr<FieldTile> getSpawnFieldBlue(int posX, int posY);
 
 	Sprite* getRandomUnitButtonSprite(int rndNumber);
 	Sprite* getRandomSpawnTileSprite(int rndNumber, bool colorRed);
