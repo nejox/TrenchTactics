@@ -144,16 +144,17 @@ int Gamefield::spawnUnitInSpawn(std::shared_ptr<Unit> pUnit, bool redPlayerActiv
 	// 
 	if (redPlayerActive) {
 		activeSpawn = spawnRed;
+
 		for (int i = 1; i > 0; --i) {
 			for (int j = 0; j < 5; ++j) {
 				if (fieldTileIsFree(1 - i, 4 - j, activeSpawn)) {
-					activeSpawn->at(1 - i).at(4 - j)->setPos((1 - i) * 64 + 20 * 64, (4 - j) * 64);
-					activeSpawn->at(1 - i).at(4 - j)->setUnit(pUnit);
+					activeSpawn.get()->at(1 - i).at(4 - j)->setPos((1 - i) * 64 + 20*64, (4 - j) * 64);
+					activeSpawn.get()->at(1 - i).at(4 - j)->setUnit(pUnit);
 					pUnit.get()->update(STATES::STANDING_NEUTRAL);
 					return 1;
 				}
 				if (fieldTileIsFree(1 - i, 5 + j, activeSpawn)) {
-					activeSpawn.get()->at(1 - i).at(5 + j)->setPos((1 - i) * 64 + 20 * 64, (5 + j) * 64);
+					activeSpawn.get()->at(1 - i).at(5 + j)->setPos((1 - i) * 64 +20*64, (5 + j) * 64 + 2 * 64);
 					activeSpawn.get()->at(1 - i).at(5 + j)->setUnit(pUnit);
 					pUnit.get()->update(STATES::STANDING_NEUTRAL);
 					return 1;
@@ -173,7 +174,7 @@ int Gamefield::spawnUnitInSpawn(std::shared_ptr<Unit> pUnit, bool redPlayerActiv
 					return 1;
 				}
 				if (fieldTileIsFree(1 - i, 5 + j, activeSpawn)) {
-					activeSpawn.get()->at(1 - i).at(5 + j)->setPos((1 - i) * 64, (5 + j) * 64);
+					activeSpawn.get()->at(1 - i).at(5 + j)->setPos((1 - i) * 64, (5 + j) * 64 + 2 * 64);
 					activeSpawn.get()->at(1 - i).at(5 + j)->setUnit(pUnit);
 					pUnit.get()->update(STATES::STANDING_NEUTRAL);
 					return 1;
@@ -188,15 +189,15 @@ int Gamefield::spawnUnitInSpawn(std::shared_ptr<Unit> pUnit, bool redPlayerActiv
 /**
  * Checks if a fieldtile is empty.
  *
- * \param x horizontal position
- * \param y vertical position
+ * \param x horizontal position in the field
+ * \param y vertical position in the field
  * \param field Part of the field that contains the tile
  * \return
  */
 bool Gamefield::fieldTileIsFree(int x, int y, std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> field)
 {
-	if (field->at(x).at(y).get()) return true;
-	return false;
+	if (field->at(x).at(y).get()->getUnit().get()) return false;
+	return true;
 }
 
 
@@ -320,8 +321,6 @@ void Gamefield::selectTile(int xPos, int yPos)
 *
 *Function to reset the selected- and marked-status for each spawn- and playingfieldtile.
 */
-/*------------- Funktioniert noch nicht richtig ----------------------------------------------------------
-
 void Gamefield::deselectAndUnmarkAllTiles()
 {
 	//deselects and unmarks the playingfield
@@ -333,25 +332,19 @@ void Gamefield::deselectAndUnmarkAllTiles()
 		}
 	}
 	//deselects and unmarks the blue player's spawn
-	for (vector<vector<std::shared_ptr<FieldTile>>>::iterator xIter1 = spawnBlue->begin(); xIter1 != playingfield->end(); ++xIter1) {
+	for (vector<vector<std::shared_ptr<FieldTile>>>::iterator xIter1 = spawnBlue->begin(); xIter1 != spawnBlue->end(); ++xIter1) {
 		for (vector<std::shared_ptr<FieldTile>>::iterator yIter1 = xIter1->begin(); yIter1 != xIter1->end(); ++yIter1) {
 			yIter1->get()->setSelected(false);
-			yIter1->get()->setMarked(false);
-			yIter1->get()->getSprite()->render();
 		}
 	}
 	//deselects and unmarks the red player's spawn
-	for (vector<vector<std::shared_ptr<FieldTile>>>::iterator xIter2 = playingfield->begin(); xIter2 != playingfield->end(); ++xIter2) {
+	for (vector<vector<std::shared_ptr<FieldTile>>>::iterator xIter2 = spawnRed->begin(); xIter2 != spawnRed->end(); ++xIter2) {
 		for (vector<std::shared_ptr<FieldTile>>::iterator yIter2 = xIter2->begin(); yIter2 != xIter2->end(); ++yIter2) {
 			yIter2->get()->setSelected(false);
-			yIter2->get()->setMarked(false);
-			yIter2->get()->getSprite()->render();
 		}
 	}
 
 }
-
------------------------------------------------------------------------------------------------------------*/
 
 /**
  * get a random unit button sprite based on a provided rndNumber
