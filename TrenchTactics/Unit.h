@@ -92,6 +92,11 @@ public:
 		return shared_from_this();
 	}
 
+	int getHp()
+	{
+		return this->m_hp;
+	}
+
 	int getCurrentHP()
 	{
 		return this->m_currentHP;
