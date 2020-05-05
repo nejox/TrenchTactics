@@ -89,21 +89,22 @@ std::shared_ptr<TileConf> ConfigReader::createTileConf() {
 	tileConf->setMoneyTokenSprite(root["moneyTokenSprite"].asString());
 	tileConf->setNextPhaseButtonSprite(root["nextPhaseButtonSprite"].asString());
 	tileConf->setEndTurnButtonSprite(root["endTurnButtonSprite"].asString());
+
 	std::vector<std::string> terrainSpriteList;
-	for (auto terrain : root["terrainSprites"]) {
-		terrainSpriteList.push_back(terrain.asString());
+	for (Json::Value::ArrayIndex i = 0; i != root["terrainSprites"].size(); i++) {
+		terrainSpriteList.push_back(root["terrainSprites"][i]["path"].asString());
 	}
 	tileConf->setTerrainSpriteList(terrainSpriteList);
 
 	std::vector<std::string> spawnTerrainSpriteListBlue;
-	for (auto terrain : root["spawnTileSpritesBlue"]) {
-		spawnTerrainSpriteListBlue.push_back(terrain.asString());
+	for (Json::Value::ArrayIndex i = 0; i != root["spawnTileSpritesBlue"].size(); i++) {
+		spawnTerrainSpriteListBlue.push_back(root["spawnTileSpritesBlue"][i]["path"].asString());
 	}
 	tileConf->setSpawnTileSpriteListBlue(spawnTerrainSpriteListBlue);
 
 	std::vector<std::string> spawnTerrainSpriteListRed;
-	for (auto terrain : root["spawnTileSpritesRed"]) {
-		spawnTerrainSpriteListRed.push_back(terrain.asString());
+	for (Json::Value::ArrayIndex i = 0; i != root["spawnTileSpritesRed"].size(); i++) {
+		spawnTerrainSpriteListBlue.push_back(root["spawnTileSpritesRed"][i]["path"].asString());
 	}
 	tileConf->setSpawnTileSpriteListRed(spawnTerrainSpriteListRed);
 
