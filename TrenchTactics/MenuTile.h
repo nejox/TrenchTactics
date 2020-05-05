@@ -8,10 +8,10 @@
 class MenuTile : public Tile {
 private:
 	std::shared_ptr<Button> button;
+
 public:
-	void setButton(std::shared_ptr<Button> button) {
-		this->button = button;
-	}
+	void setButton(std::shared_ptr<Button> button);
+	void removeButton();
 	std::shared_ptr<Button> getButton() {
 		return this->button;
 	}

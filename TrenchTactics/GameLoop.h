@@ -45,5 +45,4 @@ public:
 	void quit();
 	void updateGame();
 
-
 };

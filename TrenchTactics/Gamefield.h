@@ -7,7 +7,9 @@
 #include "MapConf.h"
 #include "stdlib.h"
 #include <vector>
+#include <ctime>
 #include "Gamephases.h"
+#include "SpriteMarker.h"
 
 /**
  * Gamefield class for generating and holding the playingfield
@@ -41,6 +43,16 @@ private:
 	void initiateSpawnTilesRed();
 	void initiatePlayingFieldTiles();
 
+	std::shared_ptr<FieldTile> getSpawnFieldRed(int posY, int posX);
+	std::shared_ptr<FieldTile> getSpawnFieldBlue(int posY, int posX);
+
+	Sprite* getRandomUnitButtonSprite(int rndNumber);
+	Sprite* getRandomSpawnTileSprite(int rndNumber, bool colorRed);
+
+	std::shared_ptr<FieldTile> createFieldTile(int posX, int posY, FieldTile::TERRAINTYPE type);
+
+	void displaySkipRoundButton();
+
 public:
 	~Gamefield();
 
@@ -56,24 +68,29 @@ public:
 		return gamefield;
 	}
 
+	//noch noetig?
 	void resetGameField();
 
 	int spawnUnitInSpawn(std::shared_ptr<Unit> unit, bool redPlayerActive);
 
-	bool fieldTileIsFree(int x, int y, vector<vector<std::shared_ptr<FieldTile>>> activeSpawn);
+	bool fieldTileIsFree(int x, int y, std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> activeSpawn);
 
 	void init(int FieldWidth, int FieldHeight, int Seed);
 
-	std::shared_ptr<FieldTile> findTileForUnit(std::shared_ptr<Unit> pUnit);
+	std::shared_ptr<FieldTile> findeTileByUnit(std::shared_ptr<Unit> pUnit);
 
 	void displayButtons(GAMEPHASES::GAMEPHASE phase);
+	void deleteButtons();
 
+	std::shared_ptr<MenuTile> getMenuTileFromXY(int posX, int posY);
+	std::shared_ptr<FieldTile> getFieldTileFromXY(int posX, int posY);
+	std::shared_ptr<FieldTile> getSpawnTileFromXY(bool colorRed, int posX, int posY);
 
 	void setMenuBar(std::shared_ptr<vector<vector <std::shared_ptr<MenuTile>>>> menuBar) {
 		this->menuBar = menuBar;
 	}
 	std::shared_ptr<vector<vector<std::shared_ptr<MenuTile>>>> getMenuBar() {
-		return this->menuBar;
+		return menuBar;
 	}
 	void setHqTilePlayerBlue(std::shared_ptr<vector<vector<std::shared_ptr<PlayerTile>>>> hqTilePlayer) {
 		this->headquarterTilePlayerBlue = hqTilePlayer;
@@ -87,10 +104,10 @@ public:
 	std::shared_ptr<vector<vector<std::shared_ptr<PlayerTile>>>> getHqTilePlayerRed() {
 		return this->headquarterTilePlayerRed;
 	}
-	void setField(std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> field) {
+	void setPlayingfield(std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> field) {
 		this->playingfield = field;
 	}
-	std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> getField() {
+	std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> getPlayingfield() {
 		return this->playingfield;
 	}
 	void setSpawnBlue(std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> spawnBlue) {
@@ -106,4 +123,12 @@ public:
 		return this->spawnRed;
 	}
 
+
+
+	// void assignEventToTile(MouseClickEvent event); -----noch noetig?
+
+	void markTilesAround(int xPos, int yPos, int range);
+	void selectTile(int xPos, int yPos);
+
+	void deselectAndUnmarkAllTiles();
 };

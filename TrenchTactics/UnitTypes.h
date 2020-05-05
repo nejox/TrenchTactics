@@ -9,6 +9,7 @@ namespace TYPES {
 		GRENADE,
 		GUNNER,
 		CC,
+		NOTAVAILABLE,
 	};
 }
 

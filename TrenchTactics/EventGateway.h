@@ -10,6 +10,8 @@
 #include "FieldTile.h"
 #include "MenuTile.h"
 #include "Gamefield.h"
+#include "Logger.hpp"
+
 
 /**
  * EventGateway class which does most of the heavy lifting with event forwarding and controlling
@@ -48,6 +50,7 @@ private:
 	void handleAttackEvent(MouseClickEvent* event);
 	void handleMoveEvent(MouseClickEvent* event);
 	void handleBuyEvent(MouseClickEvent* event);
+	bool checkButtonClicked(MouseClickEvent* event);
 	bool checkEventInField(MouseClickEvent* event);
 	bool checkRange(int range, int originX, int originY, int targetX, int targetY);
 
