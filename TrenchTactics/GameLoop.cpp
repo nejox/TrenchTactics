@@ -39,11 +39,12 @@ void Game::initGame() {
 	Logger::instance().log(LOGLEVEL::INFO, "Initializing Gateway");
 	this->gateway.init();
 
+	this->activePlayer = playerBlue;
+	this->gateway.setActivePlayer(playerBlue);
+
 	Logger::instance().log(LOGLEVEL::INFO, "Initializing Menubar");
 	this->menubar.init();
 
-	this->activePlayer = playerRed;
-	this->gateway.setActivePlayer(playerRed);
 	this->gameRunning = true;
 
 	this->renderer.updateTimer();
