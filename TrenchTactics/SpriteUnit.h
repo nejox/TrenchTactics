@@ -24,7 +24,7 @@ public:
 
 	SpriteUnit(bool colourRed, TYPES::UnitType type);
 	void render();
-	void render(STATES::UNITSTATE changedState);
+	STATES::UNITSTATE render(STATES::UNITSTATE changedState);
 
 
 

@@ -20,6 +20,7 @@
 class Game
 {
 private:
+	int ctrRounds;
 	std::shared_ptr<Player> playerRed;
 	std::shared_ptr<Player>  playerBlue;
 	std::shared_ptr<Player>  activePlayer;

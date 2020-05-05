@@ -12,6 +12,7 @@ Game::Game() {
 	playerBlue = NULL;
 	gameRunning = NULL;
 	activePlayer = NULL;
+	ctrRounds = 0;
 }
 
 /**
@@ -45,8 +46,6 @@ void Game::initGame() {
 
 	this->renderer.updateTimer();
 
-
-
 	startGame();
 
 }
@@ -61,7 +60,9 @@ void Game::initGame() {
 void Game::startGame() {
 	Logger::instance().log(LOGLEVEL::INFO, "Game Running");
 	// start a player phase and switch player afterwards
+	this->field.init(ConfigReader::instance().getMapConf()->getSizeX(), ConfigReader::instance().getMapConf()->getSizeY(), ConfigReader::instance().getMapConf()->getSeed());
 	while (gameRunning) {
+		this->ctrRounds++;
 		startPlayerPhase();
 		switchActivePlayer();
 		// update player with income and stuff
@@ -82,8 +83,10 @@ void Game::startGame() {
 void Game::startPlayerPhase() {
 	//loop over the different phases and wait for the active player to finish it
 	for (GAMEPHASES::GAMEPHASE phase : GAMEPHASES::All) {
+
 		this->activePlayer->setCurrentPhase(phase);
 		this->gateway.setCurrentPhase(phase);
+
 		if (phase == GAMEPHASES::BUY) {
 			this->startBuyPhase();
 		}
@@ -91,16 +94,17 @@ void Game::startPlayerPhase() {
 			this->startMovePhase();
 		}
 		else if (phase == GAMEPHASES::ATTACK) {
-			this->startAttackPhase();
+			if (ctrRounds > 2){ 
+				this->startAttackPhase();
+			}
 		}
+
 		// update game while in phase, buy phase as long as player buys, attack and move as long as there are units to move and stuff
 		while (!this->activePlayer->getUnitQueue().empty() || this->activePlayer->getBuying()) {
 			updateGame();
 		}
 
-
 	}
-
 }
 
 /**
@@ -109,6 +113,21 @@ void Game::startPlayerPhase() {
  *
  */
 void Game::updateGame() {
+	std::vector<std::shared_ptr<Unit>> unitsBlue = this->playerBlue->getUnitArray();
+	std::vector<std::shared_ptr<Unit>> unitsRed = this->playerRed->getUnitArray();
+
+	for (std::shared_ptr<Unit> &unit : unitsBlue)
+	{
+		Gamefield::instance().findeTileByUnit(unit).get()->refreshTile();
+		unit->update();
+	}
+
+	for (std::shared_ptr<Unit>& unit : unitsRed)
+	{
+		Gamefield::instance().findeTileByUnit(unit).get()->refreshTile();
+		unit->update();
+	}
+
 	renderer.updateTimer();
 	manager.processEvents();
 }
@@ -144,8 +163,8 @@ void Game::switchActivePlayer() {
  */
 void Game::startAttackPhase() {
 	Gamefield::instance().deleteButtons();
-	this->gateway.setCurrentPhase(GAMEPHASES::ATTACK);
 	this->activePlayer->copyUnitsToQueue();
+	this->activePlayer->popUnit();
 	Gamefield::instance().displayButtons(GAMEPHASES::ATTACK);
 }
 
@@ -158,7 +177,6 @@ void Game::startAttackPhase() {
 void Game::startBuyPhase() {
 	Gamefield::instance().deleteButtons();
 	this->activePlayer->setBuying(true);
-	this->gateway.setCurrentPhase(GAMEPHASES::BUY);
 	Gamefield::instance().displayButtons(GAMEPHASES::BUY);
 }
 
@@ -170,7 +188,10 @@ void Game::startBuyPhase() {
  */
 void Game::startMovePhase() {
 	Gamefield::instance().deleteButtons();
-	this->gateway.setCurrentPhase(GAMEPHASES::MOVE);
 	this->activePlayer->copyUnitsToQueue();
+	//mark the first unit to be moved as active 
+	//std::shared_ptr<Unit> unit = this->activePlayer->getUnitQueue().front();
+	//unit->setState(STATES::UNITSTATE::STANDING);
+
 	Gamefield::instance().displayButtons(GAMEPHASES::MOVE);
 }

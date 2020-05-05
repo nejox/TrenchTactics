@@ -150,13 +150,11 @@ int Gamefield::spawnUnitInSpawn(std::shared_ptr<Unit> pUnit, bool redPlayerActiv
 				if (fieldTileIsFree(1 - i, 4 - j, activeSpawn)) {
 					activeSpawn.get()->at(1 - i).at(4 - j)->setPos((1 - i) * 64 + 20*64, (4 - j) * 64);
 					activeSpawn.get()->at(1 - i).at(4 - j)->setUnit(pUnit);
-					pUnit.get()->update(STATES::STANDING_NEUTRAL);
 					return 1;
 				}
 				if (fieldTileIsFree(1 - i, 5 + j, activeSpawn)) {
-					activeSpawn.get()->at(1 - i).at(5 + j)->setPos((1 - i) * 64 +20*64, (5 + j) * 64 + 2 * 64);
+					activeSpawn.get()->at(1 - i).at(5 + j)->setPos((1 - i) * 64 + 20*64, (5 + j) * 64 + 2 * 64);
 					activeSpawn.get()->at(1 - i).at(5 + j)->setUnit(pUnit);
-					pUnit.get()->update(STATES::STANDING_NEUTRAL);
 					return 1;
 				}
 			}
@@ -170,13 +168,11 @@ int Gamefield::spawnUnitInSpawn(std::shared_ptr<Unit> pUnit, bool redPlayerActiv
 				if (fieldTileIsFree(1 - i, 4 - j, activeSpawn)) {
 					activeSpawn.get()->at(1 - i).at(4 - j)->setPos((1 - i) * 64, (4 - j) * 64);
 					activeSpawn.get()->at(1 - i).at(4 - j)->setUnit(pUnit);
-					pUnit.get()->update(STATES::STANDING_NEUTRAL);
 					return 1;
 				}
 				if (fieldTileIsFree(1 - i, 5 + j, activeSpawn)) {
 					activeSpawn.get()->at(1 - i).at(5 + j)->setPos((1 - i) * 64, (5 + j) * 64 + 2 * 64);
 					activeSpawn.get()->at(1 - i).at(5 + j)->setUnit(pUnit);
-					pUnit.get()->update(STATES::STANDING_NEUTRAL);
 					return 1;
 				}
 			}
@@ -569,13 +565,11 @@ void Gamefield::initiateSpawnTilesBlue()
 			std::shared_ptr<FieldTile> tmpFieldTilePointer = std::make_shared<FieldTile>(FieldTile::TERRAINTYPE::SPAWNTERRAIN);
 
 			if ((yIter - xIter->begin()) >= 5) {
-				terrain->setPos((xIter - spawnBlue->begin()) * 64, (yIter - xIter->begin()) * 64 + 2 * 64);
 				tmpFieldTilePointer->setSprite(terrain);
 				tmpFieldTilePointer->setPos((xIter - spawnBlue->begin()) * 64, (yIter - xIter->begin()) * 64 + 2 * 64);
 				tmpFieldTilePointer->getSprite()->render((xIter - spawnBlue->begin()) * 64, ((yIter - xIter->begin()) % 2 * 64));
 			}
 			else {
-				terrain->setPos((xIter - spawnBlue->begin()) * 64, (yIter - xIter->begin()) * 64);
 				tmpFieldTilePointer->setSprite(terrain);
 				tmpFieldTilePointer->setPos((xIter - spawnBlue->begin()) * 64, (yIter - xIter->begin()) * 64);
 				tmpFieldTilePointer->getSprite()->render((xIter - spawnBlue->begin()) * 64, ((yIter - xIter->begin()) % 2 * 64));

@@ -57,9 +57,9 @@ void EventGateway::handleAttackEvent(MouseClickEvent* event) {
 	if (checkEventInField(event)) {
 		// wip not tested right now just a dummy implementation
 		if (Gamefield::instance().getFieldTileFromXY(event->getX(), event->getY())->getUnit()) {
-			std::shared_ptr<Unit>  unitToBeAttacked = Gamefield::instance().getPlayingfield()->at(event->getX()).at(event->getY())->getUnit();
+			std::shared_ptr<Unit>  unitToBeAttacked = Gamefield::instance().getFieldTileFromXY(event->getX(), event->getY())->getUnit();
 			std::shared_ptr<Unit> unitAttacking = this->activePlayer->getUnitQueue().front();
-			if (checkRange(unitAttacking->getRange(), 0, 0, event->getX(), event->getY())) {
+			if (checkRange(unitAttacking->getRange(), unitAttacking->getSprite()->getX() , unitAttacking->getSprite()->getY(), event->getX(), event->getY())) {
 				unitAttacking->attack(unitToBeAttacked);
 				this->activePlayer->popUnit();
 			}
@@ -97,6 +97,7 @@ void EventGateway::handleMoveEvent(MouseClickEvent* event) {
 		tileToMoveTo.get()->setUnit(unitToBeMoved);
 		// delete the moved unit from the queue
 		this->activePlayer->popUnit();
+
 	}
 }
 
@@ -185,5 +186,17 @@ bool EventGateway::checkEventInField(MouseClickEvent* event) {
  * \return
  */
 bool EventGateway::checkRange(int range, int originX, int originY, int targetX, int targetY) {
-	return true;
+	
+	int x = targetX - originX;
+	int y = targetY - originY;
+	x = x / 64;
+	y = y / 64;
+	int result = x + y;
+
+	if (range >= result) {
+		return true;
+	}
+	else {
+		return false;
+	}
 }

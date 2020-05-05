@@ -13,7 +13,7 @@
 /// <summary>
 /// Baseclass for units
 /// </summary>
-class Unit : std::enable_shared_from_this<Unit>
+class Unit : public std::enable_shared_from_this<Unit>
 {
 public:
 
@@ -22,7 +22,7 @@ public:
 	/// </summary>
 	/// <param name="unittype"></param>
 	/// <param name="colorRed"></param>
-	Unit(TYPES::UnitType unittype , bool colorRed) {
+	Unit(TYPES::UnitType unittype, bool colorRed) {
 
 		m_colorRed = colorRed;
 
@@ -37,7 +37,7 @@ public:
 		m_apCostMove = ConfigReader::instance().getUnitConf(unittype)->getApCostMove();
 		m_apCostTrench = ConfigReader::instance().getUnitConf(unittype)->getApCostTrench();
 		m_spawnProbability = ConfigReader::instance().getUnitConf(unittype)->getSpawnProbability();
-		m_name = ConfigReader::instance().getUnitConf(unittype)->getName();		
+		m_name = ConfigReader::instance().getUnitConf(unittype)->getName();
 		m_sprite = make_shared<SpriteUnit>(colorRed, unittype);
 		m_state = STATES::UNITSTATE::STANDING_NEUTRAL;
 
@@ -82,15 +82,23 @@ public:
 	void resetAP();
 
 	/// <summary>
-	/// renders unit dependent on current state
+	/// renders unit dependent on given state
 	/// </summary>
 	/// 
 	void update(STATES::UNITSTATE state);
 
+	/// <summary>
+	/// renders unit dependent on current state
+	/// </summary>
+	/// 
+	void update();
 
 	std::shared_ptr<Unit> getptr() {
 		return shared_from_this();
 	}
+
+	void setState(STATES::UNITSTATE state);
+	STATES::UNITSTATE getState();
 
 	int getCurrentHP()
 	{
@@ -132,7 +140,7 @@ public:
 	void setSprite(std::shared_ptr<SpriteUnit> sprite) {
 		m_sprite = sprite;
 	}
-	
+
 	std::string getName()
 	{
 		return this->m_name;
