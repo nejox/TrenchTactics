@@ -1,0 +1,29 @@
+{
+	"headquarterSpriteBlue": "../Data/Sprites/HQ/B_HQ.bmp",
+	"headquarterSpriteRed": "../Data/Sprites/HQ/R_HQ.bmp",
+	"reachableMarkerSprite": "../Data/Sprites/Token/REACHABLE_MARKER.bmp",
+	"nextUnitButtonSprite": "../Data/Sprites/Token/NEXTUNIT_TOKEN.bmp",
+	"previousButtonSprite": "../Data/Sprites/Token/PREVIOUSUNIT_TOKEN.bmp",
+	"endTurnButtonSprite": "../Data/Sprites/Token/REACHABLE_MARKER.bmp",
+	"nextPhaseButtonSprite": "../Data/Sprites/Token/NEXTPHASE_TOKEN.bmp",
+	"unitCounterSprite": "../Data/Sprites/Token/UNIT_COUNTER.bmp",
+	"moneyTokenSprite": "../Data/Sprites/Token/MONEY_TOKEN.bmp"
+	"spawnTileSpritesBlue": [
+		"../Data/Sprites/Terain/SPAWNTILE_BLUE_0.bmp",
+		"../Data/Sprites/Terain/SPAWNTILE_BLUE_1.bmp",
+		"../Data/Sprites/Terain/SPAWNTILE_BLUE_2.bmp",
+		"../Data/Sprites/Terain/SPAWNTILE_BLUE_3.bmp"
+	],
+	"spawnTileSpritesRed": [
+		"../Data/Sprites/Terain/SPAWNTILE_RED_0.bmp",
+		"../Data/Sprites/Terain/SPAWNTILE_RED_1.bmp",
+		"../Data/Sprites/Terain/SPAWNTILE_RED_2.bmp",
+		"../Data/Sprites/Terain/SPAWNTILE_RED_3.bmp"
+	],
+	"terrainSprites": [
+		"../Data/Sprites/Terain/TERRAIN_SAND_1.bmp",
+		"../Data/Sprites/Terain/TERRAIN_STONE_1.bmp",
+		"../Data/Sprites/Terain/TERRAIN_MUD_1.bmp",
+		"../Data/Sprites/Terain/TERRAIN_MUD_2.bmp"
+	]
+}

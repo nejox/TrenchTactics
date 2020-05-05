@@ -34,6 +34,7 @@ void ConfigReader::initConfigurations()
 	this->balanceConf = createBalanceConf();
 	this->techConf = createTechConf();
 	this->mapConf = createMapConf();
+	this->tileConf = createTileConf();
 }
 
 /**
@@ -68,15 +69,45 @@ std::shared_ptr<MapConf> ConfigReader::createMapConf()
 	mapConf->setSeed(root["seed"].asInt());
 	mapConf->setSizeX(root["sizeX"].asInt());
 	mapConf->setSizeY(root["sizeY"].asInt());
-	mapConf->setHeadquarterSpriteBlue(root["headquarterSpriteBlue"].asString());
-	mapConf->setHeadquarterSpriteRed(root["headquarterSpirteRed"].asString());
+	return mapConf;
+}
+
+/**
+ * Wrapper function to create Tile Config
+ *
+ * \return tile configuration
+ */
+std::shared_ptr<TileConf> ConfigReader::createTileConf() {
+	Json::Value root = getJsonRootFromFile("../conf/tileConf.json");
+	std::shared_ptr<TileConf> tileConf = std::make_shared<TileConf>();
+	tileConf->setHeadquarterSpriteBlue(root["headquarterSpriteBlue"].asString());
+	tileConf->setHeadquarterSpriteRed(root["headquarterSpirteRed"].asString());
+	tileConf->setReachableMarkerSprite(root["reachableMarkerSprite"].asString());
+	tileConf->setNextUnitButtonSprite(root["nextUnitButtonSprite"].asString());
+	tileConf->setPreviousUnitButtonSprite(root["previousButtonSprite"].asString());
+	tileConf->setUnitCounterSprite(root["unitCounterSprite"].asString());
+	tileConf->setMoneyTokenSprite(root["moneyTokenSprite"].asString());
+	tileConf->setNextPhaseButtonSprite(root["nextPhaseButtonSprite"].asString());
+	tileConf->setEndTurnButtonSprite(root["endTurnButtonSprite"].asString());
 	std::vector<std::string> terrainSpriteList;
 	for (auto terrain : root["terrainSprites"]) {
 		terrainSpriteList.push_back(terrain.asString());
 	}
-	mapConf->setTerrainSpriteList(terrainSpriteList);
-	mapConf->setSpawnTileSprite(root["spawnSprite"].asString());
-	return mapConf;
+	tileConf->setTerrainSpriteList(terrainSpriteList);
+
+	std::vector<std::string> spawnTerrainSpriteListBlue;
+	for (auto terrain : root["spawnTileSpritesBlue"]) {
+		spawnTerrainSpriteListBlue.push_back(terrain.asString());
+	}
+	tileConf->setSpawnTileSpriteListBlue(spawnTerrainSpriteListBlue);
+
+	std::vector<std::string> spawnTerrainSpriteListRed;
+	for (auto terrain : root["spawnTileSpritesRed"]) {
+		spawnTerrainSpriteListRed.push_back(terrain.asString());
+	}
+	tileConf->setSpawnTileSpriteListRed(spawnTerrainSpriteListRed);
+
+	return tileConf;
 }
 
 /**
@@ -88,7 +119,7 @@ std::shared_ptr<TechConf> ConfigReader::createTechConf()
 {
 	Json::Value root = getJsonRootFromFile("../conf/gameConf.json")["technical"];
 	std::shared_ptr<TechConf> techConf = std::make_shared<TechConf>();
-	techConf->setFPS(root["seed"].asInt());
+	techConf->setFPS(root["fps"].asInt());
 	techConf->setWindowSizeX(root["windowSizeX"].asInt());
 	techConf->setWindowSizeY(root["windowSizeY"].asInt());
 	return techConf;

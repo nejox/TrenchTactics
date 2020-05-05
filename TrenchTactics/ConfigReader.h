@@ -3,13 +3,14 @@
 #include "UnitConf.h"
 #include "MapConf.h"
 #include "TechConf.h"
+#include "TileConf.h"
 #include "BalanceConf.h"
 #include <string>
 #include <map>
 
 /**
- * ConfigReader class which enables reading configs 
- * Provides a singelton instance 
+ * ConfigReader class which enables reading configs
+ * Provides a singelton instance
  * Then provides all instances of different configurations
  */
 class ConfigReader
@@ -43,6 +44,10 @@ public:
 		return this->techConf;
 	}
 
+	std::shared_ptr <TileConf> getTileConf() {
+		return this->tileConf;
+	}
+
 	void initConfigurations();
 
 private:
@@ -51,9 +56,11 @@ private:
 	std::shared_ptr<BalanceConf> balanceConf;
 	std::shared_ptr<MapConf> mapConf;
 	std::shared_ptr<TechConf> techConf;
+	std::shared_ptr<TileConf> tileConf;
 	Json::Value getJsonRootFromFile(std::string filePath);
 	std::shared_ptr<MapConf> createMapConf();
 	std::shared_ptr<TechConf> createTechConf();
 	std::shared_ptr<BalanceConf> createBalanceConf();
+	std::shared_ptr<TileConf> createTileConf();
 	std::map<int, std::shared_ptr<UnitConf>> createUnitConfMap();
 };
