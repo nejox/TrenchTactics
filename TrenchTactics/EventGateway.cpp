@@ -128,9 +128,18 @@ void EventGateway::handleAttackEvent(MouseClickEvent* event) {
 	//HQ attacked
 	else if (checkEventOnHQ(event)) {
 		//wip
-		if (Gamefield::instance().getFieldTileFromXY(event->getX(), event->getY())->getUnit()) {
+		std::shared_ptr<Unit> unitAttacking = this->activePlayer->getUnitQueue().front();
+		std::shared_ptr<vector<vector<std::shared_ptr<PlayerTile>>>> tile;
+		if (unitAttacking->getColorRed()) {
+			tile = Gamefield::instance().getHqTilePlayerBlue();
 		}
+		else {
+			tile = Gamefield::instance().getHqTilePlayerBlue();
+		}
+		std::shared_ptr < Headquarter> hq = tile->at(0).at(0)->getHeadquarter();
+		unitAttacking->attack(hq);
 	}
+
 }
 
 /**
@@ -267,14 +276,14 @@ bool EventGateway::checkEventInField(MouseClickEvent* event) {
  */
 bool EventGateway::checkEventOnHQ(MouseClickEvent* event) {
 	int fieldX = ConfigReader::instance().getMapConf()->getSizeX() * 64;
-	if ((event->getX() <= (fieldX + 2 * 64)) || (event->getX() >= fieldX+4*64)) {
+	if ((event->getX() <= (fieldX + 2 * 64)) || (event->getX() >= fieldX + 4 * 64)) {
 		return false;
 	}
 	int fieldY = (ConfigReader::instance().getMapConf()->getSizeY() - 2) * 64;
-	if (event->getY() <= (fieldY/2) || event->getY() >= (fieldY/2)+2 * 64) {
+	if (event->getY() <= (fieldY / 2) || event->getY() >= (fieldY / 2) + 2 * 64) {
 		return false;
 	}
-	
+
 	return true;
 }
 

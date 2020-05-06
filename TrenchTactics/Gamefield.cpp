@@ -647,10 +647,13 @@ void Gamefield::initiateMenuTiles()
  */
 void Gamefield::initiatePlayerTilesBlue()
 {
+	std::shared_ptr<Headquarter> hq = make_shared<Headquarter>(false);
+
 	for (vector<vector<std::shared_ptr<PlayerTile>>>::iterator xIter = headquarterTilePlayerBlue->begin(); xIter != headquarterTilePlayerBlue->end(); ++xIter) {
 		for (vector<std::shared_ptr<PlayerTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
 			// create PlayerTile as shared pointer 
 			std::shared_ptr<PlayerTile> tmpMenuTilePointer = std::make_shared<PlayerTile>();
+			//tmpMenuTilePointer->setHeadquarter(hq);
 
 			// create Sprite and load menuBar file with all individual sprites
 			Sprite* terrainSprite = new Sprite();
@@ -676,10 +679,14 @@ void Gamefield::initiatePlayerTilesBlue()
  */
 void Gamefield::initiatePlayerTilesRed()
 {
+
+	std::shared_ptr<Headquarter> hq = make_shared<Headquarter>(true);
+
 	for (vector<vector<std::shared_ptr<PlayerTile>>>::iterator xIter = headquarterTilePlayerRed->begin(); xIter != headquarterTilePlayerRed->end(); ++xIter) {
 		for (vector<std::shared_ptr<PlayerTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
 			// create PlayerTile as shared pointer 
 			std::shared_ptr<PlayerTile> tmpMenuTilePointer = std::make_shared<PlayerTile>();
+			//tmpMenuTilePointer->setHeadquarter(hq);
 
 			// create Sprite and load menuBar file with all individual sprites
 			Sprite* terrainSprite = new Sprite();
