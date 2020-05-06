@@ -680,7 +680,7 @@ void Gamefield::initiatePlayerTilesBlue()
 void Gamefield::initiatePlayerTilesRed()
 {
 
-	std::shared_ptr<Headquarter> hq = make_shared<Headquarter>(true);
+	//std::shared_ptr<Headquarter> hq = make_shared<Headquarter>(true);
 
 	for (vector<vector<std::shared_ptr<PlayerTile>>>::iterator xIter = headquarterTilePlayerRed->begin(); xIter != headquarterTilePlayerRed->end(); ++xIter) {
 		for (vector<std::shared_ptr<PlayerTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
