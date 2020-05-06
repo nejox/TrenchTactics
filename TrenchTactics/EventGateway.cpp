@@ -109,7 +109,7 @@ void EventGateway::handleAttackEvent(MouseClickEvent* event) {
 		return;
 	}
 	if (checkEventInField(event)) {
-		// wip not tested right now just a dummy implementation
+
 		if (Gamefield::instance().getFieldTileFromXY(event->getX(), event->getY())->getUnit()) {
 			std::shared_ptr<Unit>  unitToBeAttacked = Gamefield::instance().getFieldTileFromXY(event->getX(), event->getY())->getUnit();
 			std::shared_ptr<Unit> unitAttacking = this->activePlayer->getUnitQueue().front();
@@ -124,6 +124,12 @@ void EventGateway::handleAttackEvent(MouseClickEvent* event) {
 			}
 		}
 
+	}
+	//HQ attacked
+	else if (checkEventOnHQ(event)) {
+		//wip
+		if (Gamefield::instance().getFieldTileFromXY(event->getX(), event->getY())->getUnit()) {
+		}
 	}
 }
 
@@ -249,6 +255,26 @@ bool EventGateway::checkEventInField(MouseClickEvent* event) {
 	if (event->getY() <= 0 || event->getY() >= ConfigReader::instance().getMapConf()->getSizeY() * 64) {
 		return false;
 	}
+	return true;
+}
+
+
+/**
+ * Check wether a mouseclickevent is on the HQ or not
+ *
+ * \param event mouseclickevent to be checked
+ * \return event in field or not
+ */
+bool EventGateway::checkEventOnHQ(MouseClickEvent* event) {
+	int fieldX = ConfigReader::instance().getMapConf()->getSizeX() * 64;
+	if ((event->getX() <= (fieldX + 2 * 64)) || (event->getX() >= fieldX+4*64)) {
+		return false;
+	}
+	int fieldY = (ConfigReader::instance().getMapConf()->getSizeY() - 2) * 64;
+	if (event->getY() <= (fieldY/2) || event->getY() >= (fieldY/2)+2 * 64) {
+		return false;
+	}
+	
 	return true;
 }
 

@@ -57,6 +57,7 @@ private:
 	void handleBuyEvent(MouseClickEvent* event);
 	bool checkButtonClicked(MouseClickEvent* event);
 	bool checkEventInField(MouseClickEvent* event);
+	bool checkEventOnHQ(MouseClickEvent* event);
 	bool checkRange(int range, int originX, int originY, int targetX, int targetY);
 
 };
