@@ -125,13 +125,19 @@ void Game::updateGame() {
 
 	for (std::shared_ptr<Unit>& unit : unitsBlue)
 	{
-		Gamefield::instance().findeTileByUnit(unit).get()->refreshTile();
+		if (Gamefield::instance().findeTileByUnit(unit).get() != nullptr) {
+			Gamefield::instance().findeTileByUnit(unit).get()->refreshTile();
+		}
+
 		unit->update();
 	}
 
 	for (std::shared_ptr<Unit>& unit : unitsRed)
 	{
-		Gamefield::instance().findeTileByUnit(unit).get()->refreshTile();
+		if (Gamefield::instance().findeTileByUnit(unit).get() != nullptr) {
+			Gamefield::instance().findeTileByUnit(unit).get()->refreshTile();
+		}
+
 		unit->update();
 	}
 

@@ -115,7 +115,7 @@ void EventGateway::handleAttackEvent(MouseClickEvent* event) {
 			std::shared_ptr<Unit> unitAttacking = this->activePlayer->getUnitQueue().front();
 
 			if (unitToBeAttacked->getColorRed() != unitAttacking->getColorRed()) {
-			
+
 				if (checkRange(unitAttacking->getRange(), unitAttacking->getSprite()->getX(), unitAttacking->getSprite()->getY(), event->getX(), event->getY())) {
 					unitAttacking->attack(unitToBeAttacked);
 					this->activePlayer->popUnit();
@@ -137,7 +137,7 @@ void EventGateway::handleAttackEvent(MouseClickEvent* event) {
 void EventGateway::handleMoveEvent(MouseClickEvent* event) {
 	// see above
 	if (checkButtonClicked(event)) {
-		
+
 		int type = Gamefield::instance().getMenuTileFromXY(event->getX(), event->getY())->getButton()->getType();
 		if (type == 50) {
 			handleNextPhase();
@@ -161,17 +161,17 @@ void EventGateway::handleMoveEvent(MouseClickEvent* event) {
 		std::shared_ptr<Unit> unitToBeMoved = this->activePlayer->getUnitQueue().front();
 		// get target field based on the event
 		std::shared_ptr<FieldTile> tileToMoveTo = Gamefield::instance().getFieldTileFromXY(event->getX(), event->getY());
+		if (!tileToMoveTo->getUnit()) {
+			// find current tile of the unit to overwrite the sprite and remove the unit
+			Gamefield::instance().findeTileByUnit(unitToBeMoved).get()->removeUnit();
 
-		// find current tile of the unit to overwrite the sprite and remove the unit
-		Gamefield::instance().findeTileByUnit(unitToBeMoved).get()->removeUnit();
-
-		// attach unit to new tile 
-		tileToMoveTo.get()->setUnit(unitToBeMoved);
-		// delete the moved unit from the queue
-		this->activePlayer->popUnit();
-		unitToBeMoved->setState(STATES::UNITSTATE::STANDING_NEUTRAL);
-		this->activePlayer->markActiveUnit();
-
+			// attach unit to new tile 
+			tileToMoveTo.get()->setUnit(unitToBeMoved);
+			// delete the moved unit from the queue
+			this->activePlayer->popUnit();
+			unitToBeMoved->setState(STATES::UNITSTATE::STANDING_NEUTRAL);
+			this->activePlayer->markActiveUnit();
+		}
 	}
 }
 
