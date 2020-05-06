@@ -10,6 +10,7 @@
 #include <ctime>
 #include "Gamephases.h"
 #include "SpriteMarker.h"
+#include "SpriteButton.h"
 
 /**
  * Gamefield class for generating and holding the playingfield
@@ -46,12 +47,10 @@ private:
 	std::shared_ptr<FieldTile> getSpawnFieldRed(int posY, int posX);
 	std::shared_ptr<FieldTile> getSpawnFieldBlue(int posY, int posX);
 
-	Sprite* getRandomUnitButtonSprite(int rndNumber);
+	SpriteButton* getRandomUnitButtonSprite(int rndNumber);
 	Sprite* getRandomSpawnTileSprite(int rndNumber, bool colorRed);
 
 	std::shared_ptr<FieldTile> createFieldTile(int posX, int posY, FieldTile::TERRAINTYPE type);
-
-	void displaySkipRoundButton();
 
 public:
 	~Gamefield();

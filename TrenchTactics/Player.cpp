@@ -52,6 +52,30 @@ void Player::copyUnitsToQueue() {
 }
 
 /**
+ * marks the active Unit = the first one in the queue
+ *
+ */
+void Player::markActiveUnit()
+{
+    //mark the first unit to be moved as active 
+    if (!unitQueue.empty()) {
+        this->unitQueue.front()->setState(STATES::UNITSTATE::STANDING);
+    }
+}
+
+/**
+ * demarks the active Unit = the first one in the queue
+ *
+ */
+void Player::demarkActiveUnit()
+{
+    //mark the first unit to be moved as neutral
+    if (!unitQueue.empty()) {
+        this->unitQueue.front()->setState(STATES::UNITSTATE::STANDING_NEUTRAL);
+    }
+}
+
+/**
  * Delete unit from player after its death
  * Searching the player list to find the corresponding unit
  * \param deathEvent event holding unit to be deleted

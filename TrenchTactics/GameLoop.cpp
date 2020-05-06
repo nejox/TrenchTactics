@@ -13,6 +13,7 @@ Game::Game() {
 	gameRunning = NULL;
 	activePlayer = NULL;
 	ctrRounds = 0;
+	endTurn = false;
 }
 
 /**
@@ -30,6 +31,8 @@ void Game::initGame() {
 	this->playerRed->init(true);
 	this->playerBlue = std::make_shared<Player>();
 	this->playerBlue->init(false);
+
+	EventBus::instance().subscribe(this, &Game::handleEndTurn);
 
 	Logger::instance().log(LOGLEVEL::INFO, "Initializing Renderer");
 	this->renderer.init(ConfigReader::instance().getTechnicalConf()->getWindowSizeX(), ConfigReader::instance().getTechnicalConf()->getWindowSizeY(), 16, false);
@@ -94,9 +97,13 @@ void Game::startPlayerPhase() {
 			this->startMovePhase();
 		}
 		else if (phase == GAMEPHASES::ATTACK) {
-			if (ctrRounds > 2){ 
+			if (ctrRounds > 2) {
 				this->startAttackPhase();
 			}
+		}
+		if (this->endTurn == true) {
+			endTurn = false;
+			break;
 		}
 
 		// update game while in phase, buy phase as long as player buys, attack and move as long as there are units to move and stuff
@@ -116,7 +123,7 @@ void Game::updateGame() {
 	std::vector<std::shared_ptr<Unit>> unitsBlue = this->playerBlue->getUnitArray();
 	std::vector<std::shared_ptr<Unit>> unitsRed = this->playerRed->getUnitArray();
 
-	for (std::shared_ptr<Unit> &unit : unitsBlue)
+	for (std::shared_ptr<Unit>& unit : unitsBlue)
 	{
 		Gamefield::instance().findeTileByUnit(unit).get()->refreshTile();
 		unit->update();
@@ -130,6 +137,12 @@ void Game::updateGame() {
 
 	renderer.updateTimer();
 	manager.processEvents();
+
+}
+
+void Game::handleEndTurn(EndTurnEvent* event)
+{
+	this->endTurn = true;
 }
 
 /**
@@ -164,7 +177,8 @@ void Game::switchActivePlayer() {
 void Game::startAttackPhase() {
 	Gamefield::instance().deleteButtons();
 	this->activePlayer->copyUnitsToQueue();
-	this->activePlayer->popUnit();
+	this->activePlayer->markActiveUnit();
+	//this->activePlayer->popUnit();
 	Gamefield::instance().displayButtons(GAMEPHASES::ATTACK);
 }
 
@@ -189,9 +203,7 @@ void Game::startBuyPhase() {
 void Game::startMovePhase() {
 	Gamefield::instance().deleteButtons();
 	this->activePlayer->copyUnitsToQueue();
-	//mark the first unit to be moved as active 
-	//std::shared_ptr<Unit> unit = this->activePlayer->getUnitQueue().front();
-	//unit->setState(STATES::UNITSTATE::STANDING);
+	this->activePlayer->markActiveUnit();
 
 	Gamefield::instance().displayButtons(GAMEPHASES::MOVE);
 }

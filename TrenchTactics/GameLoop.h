@@ -11,6 +11,7 @@
 #include "EventGateway.h"
 #include "EventManagerImpl.h"
 #include "Gamephases.h"
+#include "EndTurnEvent.h"
 
 /**
  * Main class to start the game
@@ -21,6 +22,7 @@ class Game
 {
 private:
 	int ctrRounds;
+	bool endTurn;
 	std::shared_ptr<Player> playerRed;
 	std::shared_ptr<Player>  playerBlue;
 	std::shared_ptr<Player>  activePlayer;
@@ -41,5 +43,6 @@ public:
 	void startGame();
 	void quit();
 	void updateGame();
+	void handleEndTurn(EndTurnEvent* event);
 
 };

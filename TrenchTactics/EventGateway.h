@@ -47,6 +47,11 @@ private:
 	GAMEPHASES::GAMEPHASE currentPhase;
 	std::shared_ptr<Player> activePlayer;
 
+	void handleNextUnit();
+	void handlePrevUnit();
+	void handleEndTurn();
+	void handleNextPhase();
+
 	void handleAttackEvent(MouseClickEvent* event);
 	void handleMoveEvent(MouseClickEvent* event);
 	void handleBuyEvent(MouseClickEvent* event);

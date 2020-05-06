@@ -1,4 +1,5 @@
 ﻿#include "Gamefield.h"
+#include "SpriteButton.h"
 
 Gamefield::Gamefield() {
 	srand(time(NULL));
@@ -348,8 +349,8 @@ void Gamefield::deselectAndUnmarkAllTiles()
  * \param rndNumber
  * \return
  */
-Sprite* Gamefield::getRandomUnitButtonSprite(int rndNumber) {
-	Sprite* buttonSprite = new Sprite();
+SpriteButton* Gamefield::getRandomUnitButtonSprite(int rndNumber) {
+	SpriteButton* buttonSprite = new SpriteButton();
 
 	if (rndNumber == 0) {
 		buttonSprite->load("../Data/Sprites/Token/GRENADE_TOKEN.bmp");
@@ -361,10 +362,6 @@ Sprite* Gamefield::getRandomUnitButtonSprite(int rndNumber) {
 		buttonSprite->load("../Data/Sprites/Token/CC_TOKEN.bmp");
 	}
 	return buttonSprite;
-}
-
-void Gamefield::displaySkipRoundButton() {
-
 }
 
 /**
@@ -384,7 +381,7 @@ void Gamefield::displayButtons(GAMEPHASES::GAMEPHASE phase) {
 			int rnd = std::rand() % 3;
 
 			//get sprite based on rnd number
-			Sprite* buttonSprite = getRandomUnitButtonSprite(rnd);
+			SpriteButton* buttonSprite = getRandomUnitButtonSprite(rnd);
 
 			if (i == 0) {
 				//set type, positon and reference
@@ -409,9 +406,9 @@ void Gamefield::displayButtons(GAMEPHASES::GAMEPHASE phase) {
 		//display buttons for next and previous unit
 		std::shared_ptr<Button> previousUnitButton = std::make_shared<Button>();
 		std::shared_ptr<Button> nextUnitButton = std::make_shared<Button>();
-		Sprite* nextUnit = new Sprite();
+		SpriteButton* nextUnit = new SpriteButton();
 		nextUnit->load("../Data/Sprites/Token/NEXTUNIT_TOKEN.bmp");
-		Sprite* previousUnit = new Sprite();
+		SpriteButton* previousUnit = new SpriteButton();
 		previousUnit->load("../Data/Sprites/Token/PREVIOUSUNIT_TOKEN.bmp");
 
 		previousUnitButton->setSprite(nextUnit);
@@ -420,17 +417,17 @@ void Gamefield::displayButtons(GAMEPHASES::GAMEPHASE phase) {
 		nextUnitButton->setSprite(previousUnit);
 		nextUnitButton->setType(10);
 
-		this->getMenuBar().get()->at(4).at(1).get()->setButton(previousUnitButton);
-		this->getMenuBar().get()->at(6).at(1).get()->setButton(nextUnitButton);
+		this->getMenuBar().get()->at(6).at(1).get()->setButton(previousUnitButton);
+		this->getMenuBar().get()->at(5).at(1).get()->setButton(nextUnitButton);
 	}
 
 	//always display end phase and end turn buttons
 	std::shared_ptr<Button> nextPhaseButton = std::make_shared<Button>();
 	std::shared_ptr<Button> buttonEndTurn = std::make_shared<Button>();
 
-	Sprite* nextPhase = new Sprite();
+	SpriteButton* nextPhase = new SpriteButton();
 	nextPhase->load("../Data/Sprites/Token/NEXTPHASE_TOKEN.bmp");
-	Sprite* nextTurn = new Sprite();
+	SpriteButton* nextTurn = new SpriteButton();
 	nextTurn->load("../Data/Sprites/Token/ENDTURN_TOKEN.bmp");
 
 	nextPhaseButton->setSprite(nextPhase);
@@ -447,7 +444,7 @@ void Gamefield::displayButtons(GAMEPHASES::GAMEPHASE phase) {
  *
  */
 void Gamefield::deleteButtons() {
-	for (int i = 4; i < 9; i = i + 2) {
+	for (int i = 4; i < 9; i++) {
 		this->getMenuBar().get()->at(i).at(1).get()->removeButton();
 	}
 }

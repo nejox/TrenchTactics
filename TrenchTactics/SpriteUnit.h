@@ -14,6 +14,12 @@ namespace STATES
 		RUNNING
 	};
 	static const UNITSTATE All[] = { STANDING_NEUTRAL, STANDING, SHOOTING, RUNNING };
+
+	enum BUTTONSTATE {
+		NORMAL,
+		PRESSED,
+		DEACTIVATED
+	};
 }
 
 class SpriteUnit :

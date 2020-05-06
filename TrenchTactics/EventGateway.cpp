@@ -1,5 +1,5 @@
 #include "EventGateway.h"
-
+#include "EndTurnEvent.h"
 
 
 EventGateway::EventGateway() {
@@ -23,15 +23,55 @@ void EventGateway::init() {
  * \param event mouseclickevent with position of the event
  */
 void EventGateway::handleEvent(MouseClickEvent* event) {
-	if (this->currentPhase == GAMEPHASES::ATTACK) {
-		this->handleAttackEvent(event);
-	}
-	else if (this->currentPhase == GAMEPHASES::BUY) {
+	if (this->currentPhase == GAMEPHASES::BUY) {
 		this->handleBuyEvent(event);
 	}
 	else if (this->currentPhase == GAMEPHASES::MOVE) {
 		this->handleMoveEvent(event);
 	}
+	else if (this->currentPhase == GAMEPHASES::ATTACK) {
+		this->handleAttackEvent(event);
+	}
+}
+
+void EventGateway::handleNextUnit()
+{
+	const std::shared_ptr<Unit> unit = this->activePlayer->getUnitQueue().front();
+	this->activePlayer->demarkActiveUnit();
+
+	this->activePlayer->popUnit();
+	this->activePlayer->queueUnit(unit);
+
+	this->activePlayer->markActiveUnit();
+}
+
+void EventGateway::handlePrevUnit()
+{
+	const std::shared_ptr<Unit> unit = this->activePlayer->getUnitQueue().back();
+	this->activePlayer->demarkActiveUnit();
+
+	std::shared_ptr<Unit> tmp = nullptr;
+	tmp = this->activePlayer->getUnitQueue().front();
+	while (tmp != unit) {
+		this->activePlayer->popUnit();
+		this->activePlayer->queueUnit(tmp);
+		tmp = this->activePlayer->getUnitQueue().front();
+	}
+
+	this->activePlayer->markActiveUnit();
+}
+
+void EventGateway::handleEndTurn() {
+	this->activePlayer->demarkActiveUnit();
+	this->activePlayer->emptyQueue();
+	this->activePlayer->setBuying(false);
+	EventBus::instance().publish(new EndTurnEvent());
+}
+
+void EventGateway::handleNextPhase() {
+	this->activePlayer->demarkActiveUnit();
+	// empty the queue of the active player to get to the next phase
+	this->activePlayer->emptyQueue();
 }
 
 /**
@@ -47,10 +87,24 @@ void EventGateway::handleAttackEvent(MouseClickEvent* event) {
 	// check wether a skip phase button was clicked, 
 	// TODO: other buttons
 	if (checkButtonClicked(event)) {
+		//render click
+		Gamefield::instance().getMenuTileFromXY(event->getX(), event->getY())->getButton()->update(STATES::BUTTONSTATE::PRESSED);
 		int type = Gamefield::instance().getMenuTileFromXY(event->getX(), event->getY())->getButton()->getType();
 		if (type == 50) {
-			// empty the queue of the active player to get to the next phase
-			this->activePlayer->emptyQueue();
+
+			handleNextPhase();
+		}
+		// end turn
+		else if (type == 31) {
+			handleEndTurn();
+		}
+		//previous Unit
+		else if (type == 10) {
+			handlePrevUnit();
+		}
+		//next unit
+		else if (type == 20) {
+			handleNextUnit();
 		}
 		return;
 	}
@@ -59,9 +113,14 @@ void EventGateway::handleAttackEvent(MouseClickEvent* event) {
 		if (Gamefield::instance().getFieldTileFromXY(event->getX(), event->getY())->getUnit()) {
 			std::shared_ptr<Unit>  unitToBeAttacked = Gamefield::instance().getFieldTileFromXY(event->getX(), event->getY())->getUnit();
 			std::shared_ptr<Unit> unitAttacking = this->activePlayer->getUnitQueue().front();
-			if (checkRange(unitAttacking->getRange(), unitAttacking->getSprite()->getX() , unitAttacking->getSprite()->getY(), event->getX(), event->getY())) {
-				unitAttacking->attack(unitToBeAttacked);
-				this->activePlayer->popUnit();
+
+			if (unitToBeAttacked->getColorRed() != unitAttacking->getColorRed()) {
+			
+				if (checkRange(unitAttacking->getRange(), unitAttacking->getSprite()->getX(), unitAttacking->getSprite()->getY(), event->getX(), event->getY())) {
+					unitAttacking->attack(unitToBeAttacked);
+					this->activePlayer->popUnit();
+					this->activePlayer->markActiveUnit();
+				}
 			}
 		}
 
@@ -78,9 +137,22 @@ void EventGateway::handleAttackEvent(MouseClickEvent* event) {
 void EventGateway::handleMoveEvent(MouseClickEvent* event) {
 	// see above
 	if (checkButtonClicked(event)) {
+		
 		int type = Gamefield::instance().getMenuTileFromXY(event->getX(), event->getY())->getButton()->getType();
 		if (type == 50) {
-			this->activePlayer->emptyQueue();
+			handleNextPhase();
+		}
+		// end turn
+		else if (type == 31) {
+			handleEndTurn();
+		}
+		//previous Unit Button
+		else if (type == 10) {
+			handlePrevUnit();
+		}
+		//next unit Button
+		else if (type == 20) {
+			handleNextUnit();
 		}
 		return;
 	}
@@ -93,10 +165,12 @@ void EventGateway::handleMoveEvent(MouseClickEvent* event) {
 		// find current tile of the unit to overwrite the sprite and remove the unit
 		Gamefield::instance().findeTileByUnit(unitToBeMoved).get()->removeUnit();
 
-		// attach unit to new tile - also renders unit
+		// attach unit to new tile 
 		tileToMoveTo.get()->setUnit(unitToBeMoved);
 		// delete the moved unit from the queue
 		this->activePlayer->popUnit();
+		unitToBeMoved->setState(STATES::UNITSTATE::STANDING_NEUTRAL);
+		this->activePlayer->markActiveUnit();
 
 	}
 }
@@ -119,6 +193,7 @@ void EventGateway::handleBuyEvent(MouseClickEvent* event) {
 			Logger::instance().log(LOGLEVEL::INFO, "didnt click a button");
 			return;
 		}
+		Gamefield::instance().getMenuTileFromXY(event->getX(), event->getY())->getButton()->update(STATES::BUTTONSTATE::PRESSED);
 		// get the button type to decide what to do
 		int type = Gamefield::instance().getMenuTileFromXY(event->getX(), event->getY())->getButton()->getType();
 		//spawn unit if type is a unit type
@@ -136,13 +211,17 @@ void EventGateway::handleBuyEvent(MouseClickEvent* event) {
 		else if (type == 50) {
 			this->activePlayer->setBuying(false);
 		}
+		// end turn
+		else if (type == 31) {
+			handleEndTurn();
+		}
 	}
 
 
 }
 
 /**
- * Check wether a button was clicked by checking if a menutile was clicked and if menutile even has a button is returned from gamefield 
+ * Check wether a button was clicked by checking if a menutile was clicked and if menutile even has a button is returned from gamefield
  *
  * \param event
  * \return
@@ -186,7 +265,7 @@ bool EventGateway::checkEventInField(MouseClickEvent* event) {
  * \return
  */
 bool EventGateway::checkRange(int range, int originX, int originY, int targetX, int targetY) {
-	
+
 	int x = targetX - originX;
 	int y = targetY - originY;
 	x = x / 64;
