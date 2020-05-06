@@ -87,6 +87,11 @@ void Game::startPlayerPhase() {
 	//loop over the different phases and wait for the active player to finish it
 	for (GAMEPHASES::GAMEPHASE phase : GAMEPHASES::All) {
 
+		if (this->endTurn == true) {
+			endTurn = false;
+			break;
+		}
+
 		this->activePlayer->setCurrentPhase(phase);
 		this->gateway.setCurrentPhase(phase);
 
@@ -100,10 +105,6 @@ void Game::startPlayerPhase() {
 			if (ctrRounds > 2) {
 				this->startAttackPhase();
 			}
-		}
-		if (this->endTurn == true) {
-			endTurn = false;
-			break;
 		}
 
 		// update game while in phase, buy phase as long as player buys, attack and move as long as there are units to move and stuff
@@ -164,6 +165,7 @@ void Game::quit() {
  *
  */
 void Game::switchActivePlayer() {
+	this->activePlayer->demarkActiveUnit();
 	if (this->activePlayer->getColor()) {
 		this->activePlayer = playerBlue;
 		this->gateway.setActivePlayer(playerBlue);
