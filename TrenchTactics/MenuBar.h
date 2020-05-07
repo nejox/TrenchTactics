@@ -32,17 +32,17 @@ public:
 		moneyToken->setPos(27, 13 * 64);
 
 		money = make_shared<SpriteText>(40);
-		money->setPos((64 + 27), (13 * 64 + 9));
+		//money->setPos((64 + 27), (13 * 64 + 9));
 
 		unitCountToken = make_shared<Sprite>();
 		unitCountToken->load("../Data/Sprites/Token/UNIT_COUNTER.bmp");
 		unitCountToken->setPos((64 * 19 + 20), (13 * 64));
 
 		unitCount = make_shared<SpriteText>(40);
-		unitCount->setPos((64 * 20 + 20), (13 * 64 + 9));
+		//unitCount->setPos((64 * 20 + 20), (13 * 64 + 9));
 
 		unitHP = make_shared<SpriteText>(25);
-		unitHP->setPos((64 * 11), (64 * 13));
+		//unitHP->setPos((64 * 11), (64 * 13));
 	}
 
 	

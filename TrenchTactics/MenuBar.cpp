@@ -20,6 +20,6 @@ void MenuBar::showPlayerStats(shared_ptr<Player> activePlayer)
 */
 void MenuBar::showUnitStats(shared_ptr<Unit> unit)
 {
-	unitHP->load((const char*)(unit->getCurrentHP() + " / " + unit->getHp()));
-	unitHP->render();
+	//unitHP->load((const char*)(unit->getCurrentHP() + " / " + unit->getHp()));
+	//unitHP->render();
 }

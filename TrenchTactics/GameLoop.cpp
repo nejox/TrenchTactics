@@ -1,4 +1,5 @@
 #include "GameLoop.h"
+#include "MenuBar.h"
 
 
 
@@ -47,7 +48,6 @@ void Game::initGame() {
 	this->gateway.setActivePlayer(playerBlue);
 
 	Logger::instance().log(LOGLEVEL::INFO, "Initializing Menubar");
-	this->menubar.init();
 
 	this->gameRunning = true;
 
@@ -67,7 +67,7 @@ void Game::initGame() {
 void Game::startGame() {
 	Logger::instance().log(LOGLEVEL::INFO, "Game Running");
 	// start a player phase and switch player afterwards
-	//this->field.init(ConfigReader::instance().getMapConf()->getSizeX(), ConfigReader::instance().getMapConf()->getSizeY(), ConfigReader::instance().getMapConf()->getSeed());
+	
 	while (gameRunning) {
 		this->ctrRounds++;
 		startPlayerPhase();
@@ -204,7 +204,6 @@ void Game::startBuyPhase() {
 	Gamefield::instance().deleteButtons();
 	this->activePlayer->setBuying(true);
 	Gamefield::instance().displayButtons(GAMEPHASES::BUY);
-	menubar.render(this->activePlayer);
 }
 
 /**

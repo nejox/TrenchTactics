@@ -50,13 +50,13 @@ public:
 		this->m_Rect.y = tileY * 64;
 	}
 
-	void SpriteText::setPos(int x, int y)
+	/*void SpriteText::setPos(int x, int y)
 	{
 		this->m_posX = x;
 		this->m_posY = y;
 		this->m_Rect.x = x;
 		this->m_Rect.y = y;
-	}
+	}*/
 
 	int getX()
 	{
