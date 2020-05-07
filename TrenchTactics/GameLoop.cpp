@@ -175,7 +175,7 @@ void Game::startBuyPhase() {
  */
 void Game::startMovePhase() {
 	menuBar.updatePlayerStats(activePlayer);
-	//menuBar.updateMenuBar(GAMEPHASES::MOVE, activePlayer); //diese zeile bringt das game zum crashen
+	menuBar.updateMenuBar(GAMEPHASES::MOVE, activePlayer);
 	this->gateway.setCurrentPhase(GAMEPHASES::MOVE);
 	this->activePlayer->copyUnitsToQueue();
 	menuBar.updateButtons(GAMEPHASES::MOVE);  
