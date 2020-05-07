@@ -59,7 +59,7 @@ void EventGateway::handleAttackEvent(MouseClickEvent* event) {
 		if (Gamefield::instance().getFieldTileFromXY(event->getX(), event->getY())->getUnit()) {
 			std::shared_ptr<Unit>  unitToBeAttacked = Gamefield::instance().getPlayingfield()->at(event->getX()).at(event->getY())->getUnit();
 			std::shared_ptr<Unit> unitAttacking = this->activePlayer->getUnitQueue().front();
-			if (checkRange(unitAttacking->getRange(), 0, 0, event->getX(), event->getY())) {
+			if (checkRange(Gamefield::instance().findTileByUnit(unitToBeAttacked))) {
 				unitAttacking->attack(unitToBeAttacked);
 				this->activePlayer->popUnit();
 			}
@@ -89,15 +89,19 @@ void EventGateway::handleMoveEvent(MouseClickEvent* event) {
 		std::shared_ptr<Unit> unitToBeMoved = this->activePlayer->getUnitQueue().front();
 		// get target field based on the event
 		std::shared_ptr<FieldTile> tileToMoveTo = Gamefield::instance().getFieldTileFromXY(event->getX(), event->getY());
+		if (checkRange(tileToMoveTo)) {
+			// find current tile of the unit to overwrite the sprite and remove the unit
+			Gamefield::instance().findTileByUnit(unitToBeMoved).get()->removeUnit();
 
-		// find current tile of the unit to overwrite the sprite and remove the unit
-		Gamefield::instance().findeTileByUnit(unitToBeMoved).get()->removeUnit();
-
-		// attach unit to new tile - also renders unit
-		tileToMoveTo.get()->setUnit(unitToBeMoved);
-		// delete the moved unit from the queue
-		this->activePlayer->popUnit();
+			// attach unit to new tile - also renders unit
+			tileToMoveTo.get()->setUnit(unitToBeMoved);
+			// delete the moved unit from the queue
+			this->activePlayer->popUnit();
+		}
 	}
+	Gamefield::instance().deselectAndUnmarkAllTiles(); //--------------------------------------------------------------------
+	if(!this->activePlayer->getUnitQueue().empty())    //---------------------------------------------------------------------
+		Gamefield::instance().selectTileByUnit(this->activePlayer->getUnitQueue().front(), GAMEPHASES::MOVE); //----------------------------------------------------
 }
 
 /**
@@ -184,6 +188,6 @@ bool EventGateway::checkEventInField(MouseClickEvent* event) {
  * \param targetY unit that will be attacked unit y position
  * \return
  */
-bool EventGateway::checkRange(int range, int originX, int originY, int targetX, int targetY) {
-	return true;
+bool EventGateway::checkRange(shared_ptr<Tile> targetTile) {
+	return targetTile->getMarked();
 }

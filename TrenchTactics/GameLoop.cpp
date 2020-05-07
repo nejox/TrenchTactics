@@ -174,8 +174,11 @@ void Game::startBuyPhase() {
  *
  */
 void Game::startMovePhase() {
+	Gamefield::instance().deselectAndUnmarkAllTiles(); //----------------------------------------------
 	Gamefield::instance().deleteButtons();
 	this->gateway.setCurrentPhase(GAMEPHASES::MOVE);
 	this->activePlayer->copyUnitsToQueue();
+	if(!this->activePlayer->getUnitQueue().empty())    //-------------------------------------------------------------------------------------------
+		Gamefield::instance().selectTileByUnit(this->activePlayer->getUnitQueue().front(), GAMEPHASES::MOVE); //----------------------------------------------
 	Gamefield::instance().displayButtons(GAMEPHASES::MOVE);
 }
