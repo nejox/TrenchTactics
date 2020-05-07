@@ -55,6 +55,9 @@ public:
 	int getSupply() {
 		return this->supply;
 	}
+	int getMoney() {
+		return this->money;
+	}
 	bool getColor() {
 		return this->colorRed;
 	}

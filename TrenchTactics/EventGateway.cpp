@@ -123,7 +123,6 @@ void EventGateway::handleAttackEvent(MouseClickEvent* event) {
 				}
 			}
 		}
-
 	}
 	//HQ attacked
 	else if (checkEventOnHQ(event)) {

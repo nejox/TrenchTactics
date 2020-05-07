@@ -45,6 +45,10 @@ void Game::initGame() {
 
 	this->activePlayer = playerBlue;
 	this->gateway.setActivePlayer(playerBlue);
+
+	Logger::instance().log(LOGLEVEL::INFO, "Initializing Menubar");
+	this->menubar.init();
+
 	this->gameRunning = true;
 
 	this->renderer.updateTimer();
@@ -200,6 +204,7 @@ void Game::startBuyPhase() {
 	Gamefield::instance().deleteButtons();
 	this->activePlayer->setBuying(true);
 	Gamefield::instance().displayButtons(GAMEPHASES::BUY);
+	menubar.render(this->activePlayer);
 }
 
 /**
