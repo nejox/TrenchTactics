@@ -36,14 +36,14 @@ void Game::initGame() {
 	Logger::instance().log(LOGLEVEL::INFO, "Initializing Gamefield");
 	this->field.init(ConfigReader::instance().getMapConf()->getSizeX(), ConfigReader::instance().getMapConf()->getSizeY(), ConfigReader::instance().getMapConf()->getSeed());
 
+	Logger::instance().log(LOGLEVEL::INFO, "Initializing MenuBar");
+	this->menuBar.init();
+
 	Logger::instance().log(LOGLEVEL::INFO, "Initializing Gateway");
 	this->gateway.init();
 
 	this->activePlayer = playerBlue;
 	this->gateway.setActivePlayer(playerBlue);
-
-	Logger::instance().log(LOGLEVEL::INFO, "Initializing Menubar");
-	this->menubar.init();
 
 	this->gameRunning = true;
 
@@ -147,10 +147,10 @@ void Game::switchActivePlayer() {
  *
  */
 void Game::startAttackPhase() {
-	Gamefield::instance().deleteButtons();
+	menuBar.updateMenuBar(GAMEPHASES::ATTACK, activePlayer);
+	menuBar.updatePlayerStats(activePlayer);
 	this->gateway.setCurrentPhase(GAMEPHASES::ATTACK);
 	this->activePlayer->copyUnitsToQueue();
-	Gamefield::instance().displayButtons(GAMEPHASES::ATTACK);
 }
 
 /**
@@ -160,11 +160,11 @@ void Game::startAttackPhase() {
  *
  */
 void Game::startBuyPhase() {
-	Gamefield::instance().deleteButtons();
+	menuBar.updateMenuBar(GAMEPHASES::BUY, activePlayer);
+	menuBar.updatePlayerStats(activePlayer);
 	this->activePlayer->setBuying(true);
 	this->gateway.setCurrentPhase(GAMEPHASES::BUY);
-	Gamefield::instance().displayButtons(GAMEPHASES::BUY);
-	menubar.render(this->activePlayer);
+	
 }
 
 /**
@@ -174,8 +174,10 @@ void Game::startBuyPhase() {
  *
  */
 void Game::startMovePhase() {
-	Gamefield::instance().deleteButtons();
+	
+	menuBar.updateMenuBar(GAMEPHASES::MOVE, activePlayer);
+	menuBar.updatePlayerStats(activePlayer);
 	this->gateway.setCurrentPhase(GAMEPHASES::MOVE);
 	this->activePlayer->copyUnitsToQueue();
-	Gamefield::instance().displayButtons(GAMEPHASES::MOVE);
+	menuBar.updateButtons(GAMEPHASES::MOVE);  
 }

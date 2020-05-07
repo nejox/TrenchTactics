@@ -47,7 +47,7 @@ void EventGateway::handleAttackEvent(MouseClickEvent* event) {
 	// check wether a skip phase button was clicked, 
 	// TODO: other buttons
 	if (checkButtonClicked(event)) {
-		int type = Gamefield::instance().getMenuTileFromXY(event->getX(), event->getY())->getButton()->getType();
+		int type = MenuBar::instance().getMenuTileFromXY(event->getX(), event->getY())->getButton()->getType();
 		if (type == 50) {
 			// empty the queue of the active player to get to the next phase
 			this->activePlayer->emptyQueue();
@@ -78,7 +78,7 @@ void EventGateway::handleAttackEvent(MouseClickEvent* event) {
 void EventGateway::handleMoveEvent(MouseClickEvent* event) {
 	// see above
 	if (checkButtonClicked(event)) {
-		int type = Gamefield::instance().getMenuTileFromXY(event->getX(), event->getY())->getButton()->getType();
+		int type = MenuBar::instance().getMenuTileFromXY(event->getX(), event->getY())->getButton()->getType();
 		if (type == 50) {
 			this->activePlayer->emptyQueue();
 		}
@@ -119,7 +119,7 @@ void EventGateway::handleBuyEvent(MouseClickEvent* event) {
 			return;
 		}
 		// get the button type to decide what to do
-		int type = Gamefield::instance().getMenuTileFromXY(event->getX(), event->getY())->getButton()->getType();
+		int type = MenuBar::instance().getMenuTileFromXY(event->getX(), event->getY())->getButton()->getType();
 		//spawn unit if type is a unit type
 		if (type >= 0 && type <= 2) {
 			// create new unit that will be spawned
@@ -147,7 +147,7 @@ void EventGateway::handleBuyEvent(MouseClickEvent* event) {
  * \return
  */
 bool EventGateway::checkButtonClicked(MouseClickEvent* event) {
-	if (!Gamefield::instance().getMenuTileFromXY(event->getX(), event->getY()).get() || !Gamefield::instance().getMenuTileFromXY(event->getX(), event->getY())->getButton().get()) {
+	if (!MenuBar::instance().getMenuTileFromXY(event->getX(), event->getY()).get() || !MenuBar::instance().getMenuTileFromXY(event->getX(), event->getY())->getButton().get()) {
 		return false;
 	}
 	else {
