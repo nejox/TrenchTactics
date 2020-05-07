@@ -20,9 +20,19 @@ void MenuBar::showPlayerStats(shared_ptr<Player> activePlayer)
 	income->load(std::to_string(activePlayer->getSupply())); 
 	income->render();
 
-	cout << (activePlayer->getUnitArray().size());
-	unitCount->load((std::to_string(activePlayer->getUnitArray().size())));  // TO DO
-	unitCount->render();
+	if (activePlayer->getUnitArray().empty())
+	{
+		unitCount->load((std::to_string(0)));  
+		unitCount->render();
+	}
+
+	else
+	{
+		unitCount->load(to_string((activePlayer->getUnitArray().size())));  
+		unitCount->render();
+	}
+
+	
 }
 
 void MenuBar::deletePlayerStats()
