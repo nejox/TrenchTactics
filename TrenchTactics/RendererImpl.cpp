@@ -59,7 +59,7 @@ bool RendererImpl::init(int ScreenWidth, int ScreenHeight,
 	else
 		WindowFlags = SDL_WINDOW_SHOWN;
 
-	m_pWindow = SDL_CreateWindow("SDL_Game",
+	m_pWindow = SDL_CreateWindow("Trench Tactics",
 		SDL_WINDOWPOS_UNDEFINED,
 		SDL_WINDOWPOS_UNDEFINED,
 		ScreenWidth,

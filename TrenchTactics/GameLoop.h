@@ -29,7 +29,7 @@ private:
 	IRenderer& renderer = RendererImpl::instance();
 	Gamefield& field = Gamefield::instance();
 	EventGateway& gateway = EventGateway::instance();
-	MenuBar& menubar = MenuBar::instance();
+	MenuBar& menuBar = MenuBar::instance();
 
 
 	bool gameRunning;
