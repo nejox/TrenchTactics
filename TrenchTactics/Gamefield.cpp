@@ -24,7 +24,7 @@ Gamefield::~Gamefield() {
  * \param posX
  * \return
  */
-std::shared_ptr<FieldTile> Gamefield::getSpawnFieldRed(int posY, int posX) {
+std::shared_ptr<FieldTile> Gamefield::getSpawnFieldRed(int posX, int posY) {
 	//changing coordinates from pixels to tiles
 	posY = posY / 64;
 	posX = posX / 64;
@@ -59,7 +59,7 @@ std::shared_ptr<FieldTile> Gamefield::getSpawnFieldRed(int posY, int posX) {
  * \param posX
  * \return
  */
-std::shared_ptr<FieldTile> Gamefield::getSpawnFieldBlue(int posY, int posX) {
+std::shared_ptr<FieldTile> Gamefield::getSpawnFieldBlue(int posX, int posY) {
 	//changing position from pixels to tiles
 	posY = posY / 64;
 	posX = posX / 64;
@@ -100,10 +100,10 @@ std::shared_ptr<MenuTile> Gamefield::getMenuTileFromXY(int posX, int posY) {
 	posY = posY / 64 - 12;
 	posX = posX / 64;
 
-	if (posX >= 19) {
+	if (posX > 21 || posX < 0) {
 		return nullptr;
 	}
-	else if (posY != 1) {
+	else if (posY > 3 || posY < 0) {
 		return nullptr;
 	}
 	else {
@@ -285,11 +285,12 @@ std::shared_ptr<FieldTile> Gamefield::findeTileByUnit(std::shared_ptr<Unit> pUni
 }
 
 /**
- * Function to get a pointer to tile at x and y. x and y counting from top left.
+ * Function to get a shared pointer to the tile containing pixel at x and y.
+ * Returns a nullpointer if no tile is found.
  *
- * \param x Horizontal position of tile
- * \param y Vertical position of tile
- * \return Pointer to searched Tile.
+ * \param x Horizontal position of pixel
+ * \param y Vertical position of pixel
+ * \return Shared pointer to searched Tile.
  */
 std::shared_ptr<Tile> Gamefield::getTilePointerAt(int x, int y)
 {
@@ -327,10 +328,11 @@ std::shared_ptr<Tile> Gamefield::getTilePointerAt(int x, int y)
 }
 
 /**
-*Function to mark the tiles around a given tile as in range. Positions counting from top left tile in playingfield.
+* Function to mark the tiles around a given pixel that are in range. Findes tile containing the pixel.
+* Renders a transparent marker on all tiles, that are in range of selected tile and on playingfield. Sets their 'marked'
 *
-*\param xPos Horizontal postion of the tile
-*\param yPos Vertical postion of the tile
+* \param xPos Horizontal postion of the pixel
+* \param yPos Vertical postion of the pixel
 */
 void Gamefield::markTilesAround(int xPos, int yPos, int range)
 {
@@ -355,10 +357,11 @@ void Gamefield::markTilesAround(int xPos, int yPos, int range)
 }
 
 /**
-*Function to mark a tile as selected and call the function to mark surrounding tiles if needed. Positions counting from top left tile in playingfield.
+* Function to mark a tile containing a given pixel as selected and call the function to mark surrounding tiles if needed. Positions in pixels.
+* Just working for attackrange, movementrange coming soon
 *
-*\param xPos Horizontal position of the tile
-*\param yPos Vertical position of the tile
+*\param xPos Horizontal position of the pixel
+*\param yPos Vertical position of the pixel
 */
 void Gamefield::selectTile(int xPos, int yPos)
 {
