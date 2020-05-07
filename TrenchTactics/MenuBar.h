@@ -37,9 +37,13 @@ public:
 
 	void updateMenuBar(GAMEPHASES::GAMEPHASE phase, shared_ptr<Player> activePlayer)
 	{
+		this->resetMenuBar();
 		this->updateButtons(phase);
 		this->updateTokens(activePlayer);
+		this->updatePlayerStats(activePlayer);
 	}
+
+	void resetMenuBar();
 
 	/**
 	*renders the active players stats
@@ -48,8 +52,6 @@ public:
 	void updatePlayerStats(shared_ptr<Player> activePlayer)
 	{
 		deletePlayerStats();
-		//this->menuBarBackGround.get()->at(2).at(0).get()->getSprite()->render(128, 0);
-		//this->menuBarBackGround.get()->at(3).at(0).get()->getSprite()->render(192, 0);
 		showPlayerStats(activePlayer);
 	}	
 	void showPlayerStats(shared_ptr<Player> activePlayer);

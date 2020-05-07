@@ -1,5 +1,28 @@
 #include "MenuBar.h"
 
+
+void MenuBar::resetMenuBar()
+{
+
+//is this a workaround? is this just fantasy?
+//tut erstmal was es soll, bisschen billige lösung, wird noch bisschen straffer gemacht aber reicht erstmal so
+
+for (int x = 0; x < 3; x++)
+{
+	for (int y = 0; y < 3; y++)
+	{
+		this->menuBarBackGround.get()->at(x).at(y).get()->getSprite()->render(x * 64, y * 64);
+	}
+}
+
+for (int x = 19; x < 22; x++)
+{
+	for (int y = 0; y < 3; y++)
+	{
+		this->menuBarBackGround.get()->at(x).at(y).get()->getSprite()->render(x * 64, y * 64);
+	}
+}
+}
 /**
 * Displays Players current money and number of units 
 */
@@ -252,6 +275,8 @@ void MenuBar::displayTokens(shared_ptr<Player> activePlayer)
 
 void MenuBar::deleteTokens()
 {
+
+
 	activePlayerFlag = nullptr;
 	unitCountToken = nullptr;
 	activePhaseToken = nullptr;
