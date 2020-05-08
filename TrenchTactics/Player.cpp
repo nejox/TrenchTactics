@@ -84,8 +84,8 @@ void Player::demarkActiveUnit()
 void Player::deleteUnit(DeathEvent* deathEvent) {
 
 	if (this->colorRed == deathEvent->getKilledUnit()->getColorRed()) {
-		if (Gamefield::instance().findeTileByUnit(deathEvent->getKilledUnit()).get()) {
-			Gamefield::instance().findeTileByUnit(deathEvent->getKilledUnit()).get()->removeUnit();
+		if (Gamefield::instance().findTileByUnit(deathEvent->getKilledUnit()).get()) {
+			Gamefield::instance().findTileByUnit(deathEvent->getKilledUnit()).get()->removeUnit();
 		}
 		std::vector<std::shared_ptr<Unit>>::iterator position = std::find(this->unitArray.begin(), this->unitArray.end(), deathEvent->getKilledUnit());
 

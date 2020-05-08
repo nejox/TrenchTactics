@@ -131,8 +131,8 @@ void Game::updateGame() {
 
 	for (std::shared_ptr<Unit>& unit : unitsBlue)
 	{
-		if (Gamefield::instance().findeTileByUnit(unit).get() != nullptr) {
-			Gamefield::instance().findeTileByUnit(unit).get()->refreshTile();
+		if (Gamefield::instance().findTileByUnit(unit).get() != nullptr) {
+			Gamefield::instance().findTileByUnit(unit).get()->refreshTile();
 		}
 
 		unit->update();
@@ -140,8 +140,8 @@ void Game::updateGame() {
 
 	for (std::shared_ptr<Unit>& unit : unitsRed)
 	{
-		if (Gamefield::instance().findeTileByUnit(unit).get() != nullptr) {
-			Gamefield::instance().findeTileByUnit(unit).get()->refreshTile();
+		if (Gamefield::instance().findTileByUnit(unit).get() != nullptr) {
+			Gamefield::instance().findTileByUnit(unit).get()->refreshTile();
 		}
 
 		unit->update();
@@ -220,11 +220,17 @@ void Game::startBuyPhase() {
  *
  */
 void Game::startMovePhase() {
-	
+
+
+
+Gamefield::instance().deselectAndUnmarkAllTiles();
 	menuBar.updateMenuBar(GAMEPHASES::MOVE, activePlayer);
 	menuBar.updatePlayerStats(activePlayer);
 	this->gateway.setCurrentPhase(GAMEPHASES::MOVE);
 	this->activePlayer->copyUnitsToQueue();
+	if (!this->activePlayer->getUnitQueue().empty())
+		Gamefield::instance().selectTileByUnit(this->activePlayer->getUnitQueue().front(), GAMEPHASES::MOVE);
 	menuBar.updateButtons(GAMEPHASES::MOVE);  
 	this->activePlayer->markActiveUnit();
+
 }
