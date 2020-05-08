@@ -99,9 +99,9 @@ void EventGateway::handleMoveEvent(MouseClickEvent* event) {
 			this->activePlayer->popUnit();
 		}
 	}
-	Gamefield::instance().deselectAndUnmarkAllTiles(); //--------------------------------------------------------------------
-	if(!this->activePlayer->getUnitQueue().empty())    //---------------------------------------------------------------------
-		Gamefield::instance().selectTileByUnit(this->activePlayer->getUnitQueue().front(), GAMEPHASES::MOVE); //----------------------------------------------------
+	Gamefield::instance().deselectAndUnmarkAllTiles();
+	if(!this->activePlayer->getUnitQueue().empty())
+		Gamefield::instance().selectTileByUnit(this->activePlayer->getUnitQueue().front(), GAMEPHASES::MOVE);
 }
 
 /**
