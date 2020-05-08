@@ -188,7 +188,7 @@ void MenuBar::displayButtons(GAMEPHASES::GAMEPHASE phase) {
 		nextUnitButton->setType(10);
 
 		this->getMenuBarBackGround().get()->at(4).at(1).get()->setButton(previousUnitButton);
-		this->getMenuBarBackGround().get()->at(6).at(1).get()->setButton(nextUnitButton);
+		this->getMenuBarBackGround().get()->at(5).at(1).get()->setButton(nextUnitButton);
 	}
 
 	//always display end phase and end turn buttons
@@ -206,7 +206,7 @@ void MenuBar::displayButtons(GAMEPHASES::GAMEPHASE phase) {
 	buttonEndTurn->setSprite(nextTurn);
 	buttonEndTurn->setType(31);
 
-	this->getMenuBarBackGround().get()->at(15).at(1).get()->setButton(nextPhaseButton);
+	this->getMenuBarBackGround().get()->at(16).at(1).get()->setButton(nextPhaseButton);
 	this->getMenuBarBackGround().get()->at(17).at(1).get()->setButton(buttonEndTurn);
 }
 
@@ -214,7 +214,7 @@ void MenuBar::displayButtons(GAMEPHASES::GAMEPHASE phase) {
  *
  */
 void MenuBar::deleteButtons() {
-	for (int i = 4; i < 9; i = i + 2) {
+	for (int i = 4; i < 9; i = i++) {
 		this->getMenuBarBackGround().get()->at(i).at(1).get()->removeButton();
 	}
 }

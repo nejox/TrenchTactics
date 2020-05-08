@@ -190,7 +190,6 @@ void Game::switchActivePlayer() {
 void Game::startAttackPhase() {
 
 	menuBar.updateMenuBar(GAMEPHASES::ATTACK, activePlayer);
-	menuBar.updatePlayerStats(activePlayer);
 	this->gateway.setCurrentPhase(GAMEPHASES::ATTACK);
 	this->activePlayer->copyUnitsToQueue();
 
@@ -207,7 +206,6 @@ void Game::startAttackPhase() {
  */
 void Game::startBuyPhase() {
 	menuBar.updateMenuBar(GAMEPHASES::BUY, activePlayer);
-	menuBar.updatePlayerStats(activePlayer);
 	this->activePlayer->setBuying(true);
 	this->gateway.setCurrentPhase(GAMEPHASES::BUY);
 
@@ -222,9 +220,7 @@ void Game::startBuyPhase() {
 void Game::startMovePhase() {
 	
 	menuBar.updateMenuBar(GAMEPHASES::MOVE, activePlayer);
-	menuBar.updatePlayerStats(activePlayer);
 	this->gateway.setCurrentPhase(GAMEPHASES::MOVE);
 	this->activePlayer->copyUnitsToQueue();
-	menuBar.updateButtons(GAMEPHASES::MOVE);  
 	this->activePlayer->markActiveUnit();
 }
