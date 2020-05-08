@@ -149,4 +149,8 @@ public:
 	int getHp() {
 		return this->m_hp;
 	}
+
+	int getApCostAttack() {
+		return this->m_apCostAttack;
+	}
 };

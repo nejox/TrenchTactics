@@ -303,35 +303,6 @@ std::shared_ptr<Tile> Gamefield::getTilePointerAt(int xPos, int yPos)
 }
 
 /**
-* Function to mark the tiles around a given pixel that are in range. Findes tile containing the pixel.
-* Renders a transparent marker on all tiles, that are in range of selected tile and on playingfield. Sets their 'marked'
-*
-* \param xPos Horizontal postion of the pixel
-* \param yPos Vertical postion of the pixel
-*/
-void Gamefield::markTilesAround(int xPos, int yPos, int range)
-{
-	//change position from pixels to tiles
-	xPos = xPos / 64;
-	yPos = yPos / 64;
-	//iterates over all tiles, that are in range of selected tile
-	for (int i = -range; i <= range; ++i) {
-		for (int j = (abs(i) - range); j <= abs(abs(i) - range); ++j) {
-			//checks if the current tile is on playingfield
-			if ((2 <= (xPos + i)) && ((xPos + i) <= 19) && (0 <= (yPos + j)) && ((yPos + j) <= 11)) {
-				//mark the current tile
-				Gamefield::playingfield.get()->at(xPos - 2 + i).at(yPos + j)->setMarked(true);
-				SpriteMarker* tmpSprite = new SpriteMarker();
-				tmpSprite->load("../Data/Sprites/Token/REACHABLE_MARKER.bmp");
-				tmpSprite->makeTransparent();
-				tmpSprite->setPos((xPos + i) * 64, (yPos + j) * 64);
-				tmpSprite->render();
-			}
-		}
-	}
-}
-
-/**
 * Function to mark a tile containing a given pixel as selected and call the function to mark surrounding tiles if needed. Positions in pixels.
 * Just working for attackrange, movementrange coming soon
 *
@@ -343,13 +314,39 @@ void Gamefield::selectTileByUnit(shared_ptr<Unit> pUnit, GAMEPHASES::GAMEPHASE g
 	//change position from pixels to tiles
 	int xPos = findTileByUnit(pUnit).get()->getPosX() / 64;
 	int yPos = findTileByUnit(pUnit).get()->getPosY() / 64;
-	//select the chosen tile and mark tiles in range, if there is a unit on the tile markes the tiles in range of the unit
-	findTileByUnit(pUnit).get()->setSelected(true);
+
+	int range = 0;
+	int rangeMoveAndAttack = 0;
+	//set range according to phase
 	if (gamephase == GAMEPHASES::MOVE) {
-		markTilesAround(xPos * 64, yPos * 64, pUnit.get()->getCurrentAP());
+		range = pUnit.get()->getCurrentAP();
+		rangeMoveAndAttack = range - pUnit.get()->getApCostAttack();
 	}
-	else if(gamephase == GAMEPHASES::ATTACK) {
-		markTilesAround(xPos * 64, yPos * 64, pUnit.get()->getRange());
+	else if (gamephase == GAMEPHASES::ATTACK) {
+		range = pUnit.get()->getRange();
+	}
+
+	findTileByUnit(pUnit).get()->setSelected(true);
+
+	//iterates over all tiles, that are in range of selected tile
+	for (int i = -range; i <= range; ++i) {
+		for (int j = (abs(i) - range); j <= abs(abs(i) - range); ++j) {
+			//checks if the current tile is on playingfield
+			if ((2 <= (xPos + i)) && ((xPos + i) <= 19) && (0 <= (yPos + j)) && ((yPos + j) <= 11)) {
+				//mark the current tile
+				Gamefield::playingfield.get()->at(xPos - 2 + i).at(yPos + j)->setMarked(true);
+				SpriteMarker* tmpSprite = new SpriteMarker();
+				if (gamephase == GAMEPHASES::MOVE && rangeMoveAndAttack < abs(i) + abs(j)) {
+					tmpSprite->load("../Data/Sprites/Token/ONLY_MOVMENT_MARKER.bmp");
+				}
+				else {
+					tmpSprite->load("../Data/Sprites/Token/REACHABLE_MARKER.bmp");
+				}
+				tmpSprite->makeTransparent();
+				tmpSprite->setPos((xPos + i) * 64, (yPos + j) * 64);
+				tmpSprite->render();
+			}
+		}
 	}
 }
 

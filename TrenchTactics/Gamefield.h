@@ -67,9 +67,6 @@ public:
 		return gamefield;
 	}
 
-	//noch noetig?
-	void resetGameField();
-
 	int spawnUnitInSpawn(std::shared_ptr<Unit> unit, bool redPlayerActive);
 
 	bool fieldTileIsFree(int x, int y, std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> activeSpawn);
@@ -112,11 +109,6 @@ public:
 		return this->spawnRed;
 	}
 
-
-
-	// void assignEventToTile(MouseClickEvent event); -----noch noetig?
-
-	void markTilesAround(int xPos, int yPos, int range);
 	void selectTileByUnit(shared_ptr<Unit> pUnit, GAMEPHASES::GAMEPHASE gamephase);
 
 	void deselectAndUnmarkAllTiles();
