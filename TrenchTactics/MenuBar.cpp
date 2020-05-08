@@ -181,14 +181,14 @@ void MenuBar::displayButtons(GAMEPHASES::GAMEPHASE phase) {
 		SpriteButton* previousUnit = new SpriteButton();
 		previousUnit->load("../Data/Sprites/Token/PREVIOUSUNIT_TOKEN.bmp");
 
-		previousUnitButton->setSprite(nextUnit);
+		previousUnitButton->setSprite(previousUnit);
 		//dummy values until now -> move to a config style file required
 		previousUnitButton->setType(20);
-		nextUnitButton->setSprite(previousUnit);
+		nextUnitButton->setSprite(nextUnit);
 		nextUnitButton->setType(10);
 
-		this->getMenuBarBackGround().get()->at(6).at(1).get()->setButton(previousUnitButton);
-		this->getMenuBarBackGround().get()->at(4).at(1).get()->setButton(nextUnitButton);
+		this->getMenuBarBackGround().get()->at(4).at(1).get()->setButton(previousUnitButton);
+		this->getMenuBarBackGround().get()->at(6).at(1).get()->setButton(nextUnitButton);
 	}
 
 	//always display end phase and end turn buttons
