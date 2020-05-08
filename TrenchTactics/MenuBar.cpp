@@ -206,7 +206,7 @@ void MenuBar::displayButtons(GAMEPHASES::GAMEPHASE phase) {
 	buttonEndTurn->setSprite(nextTurn);
 	buttonEndTurn->setType(31);
 
-	this->getMenuBarBackGround().get()->at(13).at(1).get()->setButton(nextPhaseButton);
+	this->getMenuBarBackGround().get()->at(15).at(1).get()->setButton(nextPhaseButton);
 	this->getMenuBarBackGround().get()->at(17).at(1).get()->setButton(buttonEndTurn);
 }
 
