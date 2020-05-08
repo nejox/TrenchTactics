@@ -63,13 +63,16 @@ SpriteUnit::SpriteUnit(bool colourRed, TYPES::UnitType type)
 void SpriteUnit::render()
 {
 	//calculate currentPhase
-	m_fcurrentPhase += 5.0f * CTimer::Get()->GetElapsed();
-	//m_fcurrentPhase++;
-	int actFrame = static_cast<int>(m_fcurrentPhase)%m_numFrames;
+	m_fcurrentPhase += 1.5f * CTimer::Get()->GetElapsed();
+
+	int actFrame = static_cast<int>(m_fcurrentPhase);
 	// Ausschnitt der aktuellen Animationsphase berechnen
 	if (m_currentState == m_defaultState) {
 		actFrame = actFrame % m_numFrames;
-	}/*
+	}
+	else if (m_currentState == STATES::STANDING) {
+		actFrame = actFrame % m_numFrames;
+	}
 	else
 	{
 		if (actFrame >= m_numFrames) {
@@ -78,12 +81,12 @@ void SpriteUnit::render()
 			load(animations.at(m_currentState), 64, 64);
 			actFrame = 0;
 		}
-	}*/
+	}
 
 	render(actFrame);
 }
 
-void SpriteUnit::render(STATES::UNITSTATE state)
+STATES::UNITSTATE SpriteUnit::render(STATES::UNITSTATE state)
 {
 	if (m_currentState == state) {
 		render();
@@ -96,6 +99,8 @@ void SpriteUnit::render(STATES::UNITSTATE state)
 
 		render(actFrame);
 	}
+
+	return m_currentState;
 }
 
 void SpriteUnit::render(int frame) {
@@ -122,7 +127,7 @@ void SpriteUnit::load(const std::string sFilename, int frameWidth, int frameHeig
 	m_frameHeight = frameHeight;
 	m_FrameRect.w = frameWidth;  // welcher teil der animation
 	m_FrameRect.h = frameHeight;
-	m_numFrames = m_Rect.w / m_frameWidth;; //wie viele einzelbilder
+	m_numFrames = m_Rect.w / m_frameWidth; //wie viele einzelbilder
 
 	// Ziel-Rect korrigieren
 	m_Rect.w = frameWidth; // den aktuellen teil der animation

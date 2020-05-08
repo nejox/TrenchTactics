@@ -1,5 +1,5 @@
 #include "EventGateway.h"
-
+#include "EndTurnEvent.h"
 
 
 EventGateway::EventGateway() {
@@ -23,15 +23,55 @@ void EventGateway::init() {
  * \param event mouseclickevent with position of the event
  */
 void EventGateway::handleEvent(MouseClickEvent* event) {
-	if (this->currentPhase == GAMEPHASES::ATTACK) {
-		this->handleAttackEvent(event);
-	}
-	else if (this->currentPhase == GAMEPHASES::BUY) {
+	if (this->currentPhase == GAMEPHASES::BUY) {
 		this->handleBuyEvent(event);
 	}
 	else if (this->currentPhase == GAMEPHASES::MOVE) {
 		this->handleMoveEvent(event);
 	}
+	else if (this->currentPhase == GAMEPHASES::ATTACK) {
+		this->handleAttackEvent(event);
+	}
+}
+
+void EventGateway::handleNextUnit()
+{
+	const std::shared_ptr<Unit> unit = this->activePlayer->getUnitQueue().front();
+	this->activePlayer->demarkActiveUnit();
+
+	this->activePlayer->popUnit();
+	this->activePlayer->queueUnit(unit);
+
+	this->activePlayer->markActiveUnit();
+}
+
+void EventGateway::handlePrevUnit()
+{
+	const std::shared_ptr<Unit> unit = this->activePlayer->getUnitQueue().back();
+	this->activePlayer->demarkActiveUnit();
+
+	std::shared_ptr<Unit> tmp = nullptr;
+	tmp = this->activePlayer->getUnitQueue().front();
+	while (tmp != unit) {
+		this->activePlayer->popUnit();
+		this->activePlayer->queueUnit(tmp);
+		tmp = this->activePlayer->getUnitQueue().front();
+	}
+
+	this->activePlayer->markActiveUnit();
+}
+
+void EventGateway::handleEndTurn() {
+	this->activePlayer->demarkActiveUnit();
+	this->activePlayer->emptyQueue();
+	this->activePlayer->setBuying(false);
+	EventBus::instance().publish(new EndTurnEvent());
+}
+
+void EventGateway::handleNextPhase() {
+	this->activePlayer->demarkActiveUnit();
+	// empty the queue of the active player to get to the next phase
+	this->activePlayer->emptyQueue();
 }
 
 /**
@@ -48,24 +88,56 @@ void EventGateway::handleAttackEvent(MouseClickEvent* event) {
 	// TODO: other buttons
 	if (checkButtonClicked(event)) {
 		int type = MenuBar::instance().getMenuTileFromXY(event->getX(), event->getY())->getButton()->getType();
+		
 		if (type == 50) {
-			// empty the queue of the active player to get to the next phase
-			this->activePlayer->emptyQueue();
+
+			handleNextPhase();
+		}
+		// end turn
+		else if (type == 31) {
+			handleEndTurn();
+		}
+		//previous Unit
+		else if (type == 10) {
+			handlePrevUnit();
+		}
+		//next unit
+		else if (type == 20) {
+			handleNextUnit();
 		}
 		return;
 	}
 	if (checkEventInField(event)) {
-		// wip not tested right now just a dummy implementation
+
 		if (Gamefield::instance().getFieldTileFromXY(event->getX(), event->getY())->getUnit()) {
-			std::shared_ptr<Unit>  unitToBeAttacked = Gamefield::instance().getPlayingfield()->at(event->getX()).at(event->getY())->getUnit();
+			std::shared_ptr<Unit>  unitToBeAttacked = Gamefield::instance().getFieldTileFromXY(event->getX(), event->getY())->getUnit();
 			std::shared_ptr<Unit> unitAttacking = this->activePlayer->getUnitQueue().front();
-			if (checkRange(unitAttacking->getRange(), 0, 0, event->getX(), event->getY())) {
-				unitAttacking->attack(unitToBeAttacked);
-				this->activePlayer->popUnit();
+
+			if (unitToBeAttacked->getColorRed() != unitAttacking->getColorRed()) {
+
+				if (checkRange(unitAttacking->getRange(), unitAttacking->getSprite()->getX(), unitAttacking->getSprite()->getY(), event->getX(), event->getY())) {
+					unitAttacking->attack(unitToBeAttacked);
+					this->activePlayer->popUnit();
+					this->activePlayer->markActiveUnit();
+				}
 			}
 		}
-
 	}
+	//HQ attacked
+	else if (checkEventOnHQ(event)) {
+		//wip
+		std::shared_ptr<Unit> unitAttacking = this->activePlayer->getUnitQueue().front();
+		std::shared_ptr<vector<vector<std::shared_ptr<PlayerTile>>>> tile;
+		if (unitAttacking->getColorRed()) {
+			tile = Gamefield::instance().getHqTilePlayerBlue();
+		}
+		else {
+			tile = Gamefield::instance().getHqTilePlayerBlue();
+		}
+		std::shared_ptr < Headquarter> hq = tile->at(0).at(0)->getHeadquarter();
+		unitAttacking->attack(hq);
+	}
+
 }
 
 /**
@@ -78,9 +150,23 @@ void EventGateway::handleAttackEvent(MouseClickEvent* event) {
 void EventGateway::handleMoveEvent(MouseClickEvent* event) {
 	// see above
 	if (checkButtonClicked(event)) {
+
 		int type = MenuBar::instance().getMenuTileFromXY(event->getX(), event->getY())->getButton()->getType();
+
 		if (type == 50) {
-			this->activePlayer->emptyQueue();
+			handleNextPhase();
+		}
+		// end turn
+		else if (type == 31) {
+			handleEndTurn();
+		}
+		//previous Unit Button
+		else if (type == 10) {
+			handlePrevUnit();
+		}
+		//next unit Button
+		else if (type == 20) {
+			handleNextUnit();
 		}
 		return;
 	}
@@ -89,14 +175,17 @@ void EventGateway::handleMoveEvent(MouseClickEvent* event) {
 		std::shared_ptr<Unit> unitToBeMoved = this->activePlayer->getUnitQueue().front();
 		// get target field based on the event
 		std::shared_ptr<FieldTile> tileToMoveTo = Gamefield::instance().getFieldTileFromXY(event->getX(), event->getY());
+		if (!tileToMoveTo->getUnit()) {
+			// find current tile of the unit to overwrite the sprite and remove the unit
+			Gamefield::instance().findeTileByUnit(unitToBeMoved).get()->removeUnit();
 
-		// find current tile of the unit to overwrite the sprite and remove the unit
-		Gamefield::instance().findeTileByUnit(unitToBeMoved).get()->removeUnit();
-
-		// attach unit to new tile - also renders unit
-		tileToMoveTo.get()->setUnit(unitToBeMoved);
-		// delete the moved unit from the queue
-		this->activePlayer->popUnit();
+			// attach unit to new tile 
+			tileToMoveTo.get()->setUnit(unitToBeMoved);
+			// delete the moved unit from the queue
+			this->activePlayer->popUnit();
+			unitToBeMoved->setState(STATES::UNITSTATE::STANDING_NEUTRAL);
+			this->activePlayer->markActiveUnit();
+		}
 	}
 }
 
@@ -118,6 +207,7 @@ void EventGateway::handleBuyEvent(MouseClickEvent* event) {
 			Logger::instance().log(LOGLEVEL::INFO, "didnt click a button");
 			return;
 		}
+		MenuBar::instance().getMenuTileFromXY(event->getX(), event->getY())->getButton()->update(STATES::BUTTONSTATE::PRESSED);
 		// get the button type to decide what to do
 		int type = MenuBar::instance().getMenuTileFromXY(event->getX(), event->getY())->getButton()->getType();
 		//spawn unit if type is a unit type
@@ -135,13 +225,17 @@ void EventGateway::handleBuyEvent(MouseClickEvent* event) {
 		else if (type == 50) {
 			this->activePlayer->setBuying(false);
 		}
+		// end turn
+		else if (type == 31) {
+			handleEndTurn();
+		}
 	}
 
 
 }
 
 /**
- * Check wether a button was clicked by checking if a menutile was clicked and if menutile even has a button is returned from gamefield 
+ * Check wether a button was clicked by checking if a menutile was clicked and if menutile even has a button is returned from gamefield
  *
  * \param event
  * \return
@@ -172,6 +266,26 @@ bool EventGateway::checkEventInField(MouseClickEvent* event) {
 	return true;
 }
 
+
+/**
+ * Check wether a mouseclickevent is on the HQ or not
+ *
+ * \param event mouseclickevent to be checked
+ * \return event in field or not
+ */
+bool EventGateway::checkEventOnHQ(MouseClickEvent* event) {
+	int fieldX = ConfigReader::instance().getMapConf()->getSizeX() * 64;
+	if ((event->getX() <= (fieldX + 2 * 64)) || (event->getX() >= fieldX + 4 * 64)) {
+		return false;
+	}
+	int fieldY = (ConfigReader::instance().getMapConf()->getSizeY() - 2) * 64;
+	if (event->getY() <= (fieldY / 2) || event->getY() >= (fieldY / 2) + 2 * 64) {
+		return false;
+	}
+
+	return true;
+}
+
 /**
  * TODO: implement
  *
@@ -185,5 +299,17 @@ bool EventGateway::checkEventInField(MouseClickEvent* event) {
  * \return
  */
 bool EventGateway::checkRange(int range, int originX, int originY, int targetX, int targetY) {
-	return true;
+
+	int x = targetX - originX;
+	int y = targetY - originY;
+	x = x / 64;
+	y = y / 64;
+	int result = x + y;
+
+	if (range >= result) {
+		return true;
+	}
+	else {
+		return false;
+	}
 }

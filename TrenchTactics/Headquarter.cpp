@@ -1,5 +1,5 @@
 #include "Headquarter.h"
-
+#include "EventBus.h"
 
 
 void Headquarter::changeHP(int damage)
@@ -13,7 +13,7 @@ void Headquarter::changeHP(int damage)
 
 	if (this->getCurrentHP() <= 0)
 	{
-		GameEndEvent* gameEndEvent = new GameEndEvent(this->getColorRed());
+		EventBus::instance().publish(new GameEndEvent(this->getColorRed()));
 	}
 }
 

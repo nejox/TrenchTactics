@@ -30,6 +30,7 @@ public:
 */
 	void init()
 	{
+
 		menuBarBackGround = make_shared<vector<vector<std::shared_ptr<MenuTile>>>>();
 		setSizeMenuBar();
 		initiateMenuTiles();
@@ -83,7 +84,7 @@ public:
 	}
 
 	void displaySkipRoundButton();
-	Sprite* getRandomUnitButtonSprite(int rndNumber);
+	SpriteButton* getRandomUnitButtonSprite(int rndNumber);
 	void displayButtons(GAMEPHASES::GAMEPHASE phase);
 	void deleteButtons();
 

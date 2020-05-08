@@ -1,4 +1,5 @@
 #include "GameLoop.h"
+#include "MenuBar.h"
 
 
 
@@ -12,6 +13,8 @@ Game::Game() {
 	playerBlue = NULL;
 	gameRunning = NULL;
 	activePlayer = NULL;
+	ctrRounds = 0;
+	endTurn = false;
 }
 
 /**
@@ -29,6 +32,8 @@ void Game::initGame() {
 	this->playerRed->init(true);
 	this->playerBlue = std::make_shared<Player>();
 	this->playerBlue->init(false);
+
+	EventBus::instance().subscribe(this, &Game::handleEndTurn);
 
 	Logger::instance().log(LOGLEVEL::INFO, "Initializing Renderer");
 	this->renderer.init(ConfigReader::instance().getTechnicalConf()->getWindowSizeX(), ConfigReader::instance().getTechnicalConf()->getWindowSizeY(), 16, false);
@@ -49,8 +54,6 @@ void Game::initGame() {
 
 	this->renderer.updateTimer();
 
-
-
 	startGame();
 
 }
@@ -65,7 +68,9 @@ void Game::initGame() {
 void Game::startGame() {
 	Logger::instance().log(LOGLEVEL::INFO, "Game Running");
 	// start a player phase and switch player afterwards
+	
 	while (gameRunning) {
+		this->ctrRounds++;
 		startPlayerPhase();
 		switchActivePlayer();
 		// update player with income and stuff
@@ -86,8 +91,15 @@ void Game::startGame() {
 void Game::startPlayerPhase() {
 	//loop over the different phases and wait for the active player to finish it
 	for (GAMEPHASES::GAMEPHASE phase : GAMEPHASES::All) {
+
+		if (this->endTurn == true) {
+			endTurn = false;
+			break;
+		}
+
 		this->activePlayer->setCurrentPhase(phase);
 		this->gateway.setCurrentPhase(phase);
+
 		if (phase == GAMEPHASES::BUY) {
 			this->startBuyPhase();
 		}
@@ -95,16 +107,17 @@ void Game::startPlayerPhase() {
 			this->startMovePhase();
 		}
 		else if (phase == GAMEPHASES::ATTACK) {
-			this->startAttackPhase();
+			if (ctrRounds > 2) {
+				this->startAttackPhase();
+			}
 		}
+
 		// update game while in phase, buy phase as long as player buys, attack and move as long as there are units to move and stuff
 		while (!this->activePlayer->getUnitQueue().empty() || this->activePlayer->getBuying()) {
 			updateGame();
 		}
 
-
 	}
-
 }
 
 /**
@@ -113,8 +126,35 @@ void Game::startPlayerPhase() {
  *
  */
 void Game::updateGame() {
+	std::vector<std::shared_ptr<Unit>> unitsBlue = this->playerBlue->getUnitArray();
+	std::vector<std::shared_ptr<Unit>> unitsRed = this->playerRed->getUnitArray();
+
+	for (std::shared_ptr<Unit>& unit : unitsBlue)
+	{
+		if (Gamefield::instance().findeTileByUnit(unit).get() != nullptr) {
+			Gamefield::instance().findeTileByUnit(unit).get()->refreshTile();
+		}
+
+		unit->update();
+	}
+
+	for (std::shared_ptr<Unit>& unit : unitsRed)
+	{
+		if (Gamefield::instance().findeTileByUnit(unit).get() != nullptr) {
+			Gamefield::instance().findeTileByUnit(unit).get()->refreshTile();
+		}
+
+		unit->update();
+	}
+
 	renderer.updateTimer();
 	manager.processEvents();
+
+}
+
+void Game::handleEndTurn(EndTurnEvent* event)
+{
+	this->endTurn = true;
 }
 
 /**
@@ -130,6 +170,7 @@ void Game::quit() {
  *
  */
 void Game::switchActivePlayer() {
+	this->activePlayer->demarkActiveUnit();
 	if (this->activePlayer->getColor()) {
 		this->activePlayer = playerBlue;
 		this->gateway.setActivePlayer(playerBlue);
@@ -147,10 +188,15 @@ void Game::switchActivePlayer() {
  *
  */
 void Game::startAttackPhase() {
+
 	menuBar.updateMenuBar(GAMEPHASES::ATTACK, activePlayer);
 	menuBar.updatePlayerStats(activePlayer);
 	this->gateway.setCurrentPhase(GAMEPHASES::ATTACK);
 	this->activePlayer->copyUnitsToQueue();
+
+	this->activePlayer->markActiveUnit();
+	//this->activePlayer->popUnit();
+
 }
 
 /**
@@ -164,7 +210,7 @@ void Game::startBuyPhase() {
 	menuBar.updatePlayerStats(activePlayer);
 	this->activePlayer->setBuying(true);
 	this->gateway.setCurrentPhase(GAMEPHASES::BUY);
-	
+
 }
 
 /**
@@ -180,4 +226,5 @@ void Game::startMovePhase() {
 	this->gateway.setCurrentPhase(GAMEPHASES::MOVE);
 	this->activePlayer->copyUnitsToQueue();
 	menuBar.updateButtons(GAMEPHASES::MOVE);  
+	this->activePlayer->markActiveUnit();
 }

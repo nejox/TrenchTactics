@@ -115,8 +115,8 @@ std::shared_ptr<MenuTile> MenuBar::getMenuTileFromXY(int posX, int posY) {
  * \param rndNumber
  * \return random button sprite
  */
-Sprite* MenuBar::getRandomUnitButtonSprite(int rndNumber) {
-	Sprite* buttonSprite = new Sprite();
+SpriteButton* MenuBar::getRandomUnitButtonSprite(int rndNumber) {
+	SpriteButton* buttonSprite = new SpriteButton();
 
 	if (rndNumber == 0) {
 		buttonSprite->load("../Data/Sprites/Token/GRENADE_TOKEN.bmp");
@@ -151,7 +151,7 @@ void MenuBar::displayButtons(GAMEPHASES::GAMEPHASE phase) {
 			int rnd = std::rand() % 3;
 
 			//get sprite based on rnd number
-			Sprite* buttonSprite = getRandomUnitButtonSprite(rnd);
+			SpriteButton* buttonSprite = getRandomUnitButtonSprite(rnd);
 
 			if (i == 0) {
 				//set type, positon and reference
@@ -176,15 +176,15 @@ void MenuBar::displayButtons(GAMEPHASES::GAMEPHASE phase) {
 		//display buttons for next and previous unit
 		std::shared_ptr<Button> previousUnitButton = std::make_shared<Button>();
 		std::shared_ptr<Button> nextUnitButton = std::make_shared<Button>();
-		Sprite* nextUnit = new Sprite();
+		SpriteButton* nextUnit = new SpriteButton();
 		nextUnit->load("../Data/Sprites/Token/NEXTUNIT_TOKEN.bmp");
-		Sprite* previousUnit = new Sprite();
+		SpriteButton* previousUnit = new SpriteButton();
 		previousUnit->load("../Data/Sprites/Token/PREVIOUSUNIT_TOKEN.bmp");
 
-		previousUnitButton->setSprite(nextUnit);
+		previousUnitButton->setSprite(previousUnit);
 		//dummy values until now -> move to a config style file required
 		previousUnitButton->setType(20);
-		nextUnitButton->setSprite(previousUnit);
+		nextUnitButton->setSprite(nextUnit);
 		nextUnitButton->setType(10);
 
 		this->getMenuBarBackGround().get()->at(4).at(1).get()->setButton(previousUnitButton);
@@ -195,9 +195,9 @@ void MenuBar::displayButtons(GAMEPHASES::GAMEPHASE phase) {
 	std::shared_ptr<Button> nextPhaseButton = std::make_shared<Button>();
 	std::shared_ptr<Button> buttonEndTurn = std::make_shared<Button>();
 
-	Sprite* nextPhase = new Sprite();
+	SpriteButton* nextPhase = new SpriteButton();
 	nextPhase->load("../Data/Sprites/Token/NEXTPHASE_TOKEN.bmp");
-	Sprite* nextTurn = new Sprite();
+	SpriteButton* nextTurn = new SpriteButton();
 	nextTurn->load("../Data/Sprites/Token/ENDTURN_TOKEN.bmp");
 
 	nextPhaseButton->setSprite(nextPhase);
@@ -206,7 +206,7 @@ void MenuBar::displayButtons(GAMEPHASES::GAMEPHASE phase) {
 	buttonEndTurn->setSprite(nextTurn);
 	buttonEndTurn->setType(31);
 
-	this->getMenuBarBackGround().get()->at(13).at(1).get()->setButton(nextPhaseButton);
+	this->getMenuBarBackGround().get()->at(15).at(1).get()->setButton(nextPhaseButton);
 	this->getMenuBarBackGround().get()->at(17).at(1).get()->setButton(buttonEndTurn);
 }
 
