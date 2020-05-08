@@ -34,7 +34,9 @@ public:
 		}
 	}
 	void update(STATES::BUTTONSTATE state) {
-		sprite->render(state);
+		if (sprite != nullptr) {
+			sprite->render(state);
+		}
 	}
 
 };

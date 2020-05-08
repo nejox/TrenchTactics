@@ -42,6 +42,15 @@ public:
 		}
 	}
 
+	//sets position to tile
+	void setPosGrid(int tileX, int tileY)
+	{
+		this->m_posX = tileX * 64;
+		this->m_posY = tileY * 64;
+		this->m_Rect.x = tileX * 64;
+		this->m_Rect.y = tileY * 64;
+	}
+
 	void setPos(int x, int y)
 	{
 		this->m_posX = x;
@@ -49,14 +58,6 @@ public:
 		this->m_Rect.x = x;
 		this->m_Rect.y = y;
 	}
-
-	/*void SpriteText::setPos(int x, int y)
-	{
-		this->m_posX = x;
-		this->m_posY = y;
-		this->m_Rect.x = x;
-		this->m_Rect.y = y;
-	}*/
 
 	int getX()
 	{
