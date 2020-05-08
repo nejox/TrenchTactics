@@ -30,6 +30,7 @@ public:
 	~FieldTile() {};
 
 	void removeUnit();
+	void refreshTile();
 
 	void setUnit(std::shared_ptr<Unit> unit);
 

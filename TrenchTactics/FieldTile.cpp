@@ -8,13 +8,24 @@
 void FieldTile::removeUnit()
 {
 	this->unit = nullptr;
+	refreshTile();
+
+}
+
+/**
+ *
+ * refresh Tile
+ *
+ */
+void FieldTile::refreshTile() {
 	if (this->getTerrain() == TERRAINTYPE::SPAWNTERRAIN) {
-		this->getSprite()->render();
+		int x = (this->getPosX() / 64) % 2 * 64;
+		int y = (this->getPosY() / 64) % 2 * 64;
+		this->getSprite()->render(x, y);
 	}
 	else {
 		this->getSprite()->render();
 	}
-
 }
 
 /**
@@ -28,7 +39,6 @@ void FieldTile::setUnit(std::shared_ptr<Unit> unit)
 	if (unit) {
 		unit.get()->getSprite().get()->setPos(this->getPosX(), this->getPosY());
 		this->unit = unit;
-		this->unit->getSprite().get()->render();
 	}
 
 }

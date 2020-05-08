@@ -36,6 +36,8 @@ public:
 	void setPos(int x, int y) {
 		this->posY = y;
 		this->posX = x;
+		this->sprite->setPos(x, y);
+		
 	}
 	int getPosY() {
 		return this->posY;

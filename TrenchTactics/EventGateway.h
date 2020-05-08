@@ -47,11 +47,17 @@ private:
 	GAMEPHASES::GAMEPHASE currentPhase;
 	std::shared_ptr<Player> activePlayer;
 
+	void handleNextUnit();
+	void handlePrevUnit();
+	void handleEndTurn();
+	void handleNextPhase();
+
 	void handleAttackEvent(MouseClickEvent* event);
 	void handleMoveEvent(MouseClickEvent* event);
 	void handleBuyEvent(MouseClickEvent* event);
 	bool checkButtonClicked(MouseClickEvent* event);
 	bool checkEventInField(MouseClickEvent* event);
+	bool checkEventOnHQ(MouseClickEvent* event);
 	bool checkRange(int range, int originX, int originY, int targetX, int targetY);
 
 };

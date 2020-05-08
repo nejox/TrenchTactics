@@ -5,8 +5,6 @@
 #include "ConfigReader.h"
 #include "SpriteHQ.h"
 
-
-
 class Headquarter
 {
 
@@ -17,8 +15,6 @@ private:
 	bool m_damaged;
 	std::string m_spriteFilePath;
 	std::shared_ptr<SpriteHQ> m_spriteHQ;
-
-
 	
 public:
 	Headquarter(bool colourRed)
@@ -67,10 +63,13 @@ public:
 		return this->m_damaged;
 	}
 
+	void setSprite(std::shared_ptr<SpriteHQ> sprite)
+	{
+		m_spriteHQ = sprite;
+	};
 
-
-
-
-
+	std::shared_ptr<SpriteHQ> getSprite() {
+		return m_spriteHQ;
+	}
 
 };

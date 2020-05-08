@@ -12,6 +12,7 @@
 #include "SpriteMarker.h"
 #include "MenuBar.h"
 
+
 /**
  * Gamefield class for generating and holding the playingfield
  */
@@ -46,12 +47,10 @@ private:
 	std::shared_ptr<FieldTile> getSpawnFieldRed(int posX, int posY);
 	std::shared_ptr<FieldTile> getSpawnFieldBlue(int posX, int posY);
 
-	
 	Sprite* getRandomSpawnTileSprite(int rndNumber, bool colorRed);
 
 	std::shared_ptr<FieldTile> createFieldTile(int posX, int posY, FieldTile::TERRAINTYPE type);
 
-	
 
 public:
 	~Gamefield();
