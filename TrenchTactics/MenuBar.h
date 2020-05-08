@@ -34,6 +34,21 @@ public:
 		menuBarBackGround = make_shared<vector<vector<std::shared_ptr<MenuTile>>>>();
 		setSizeMenuBar();
 		initiateMenuTiles();
+
+		money = make_shared<SpriteText>(40);
+		money->setPos((64 + 27), (12 * 64 + 9 + 32));
+
+		income = make_shared<SpriteText>(40);
+		income->setPos((64 + 27), (13 * 64 + 9 + 32));
+
+		unitCount = make_shared<SpriteText>(40);
+		unitCount->setPos((64 * 20 + 20), (12 * 64 + 9 + 32));
+
+		unitHP = make_shared<SpriteText>(25);
+		unitHP->setPos((64 * 9 + 40), (64 * 13));
+
+		unitAP = make_shared<SpriteText>(25);
+		unitAP->setPos((64 * 9 + 40), (64 * 13 + 32));
 	}
 
 	void updateMenuBar(GAMEPHASES::GAMEPHASE phase, shared_ptr<Player> activePlayer)
@@ -52,11 +67,9 @@ public:
 	*/
 	void updatePlayerStats(shared_ptr<Player> activePlayer)
 	{
-		deletePlayerStats();
 		showPlayerStats(activePlayer);
 	}	
 	void showPlayerStats(shared_ptr<Player> activePlayer);
-	void deletePlayerStats();
 	
 	/**
 	*renders the active players stats and the currently active Units HP
@@ -64,11 +77,12 @@ public:
 	*/
 	void updateUnitStats( shared_ptr<Unit> unit)
 	{
-		deleteUnitStats();
+		resetUnitStats();
 		showUnitStats(unit);
 	}
+
+	void resetUnitStats();
 	void showUnitStats(shared_ptr<Unit>unit);
-	void deleteUnitStats();
 
 	void setSizeMenuBar();
 	void initiateMenuTiles();
@@ -111,6 +125,7 @@ private:
 	std::shared_ptr<Sprite> unitCountToken;
 	std::shared_ptr<SpriteText> unitCount;
 	std::shared_ptr<SpriteText> unitHP;
+	std::shared_ptr<SpriteText> unitAP;
 
 	MenuBar() {};
 };

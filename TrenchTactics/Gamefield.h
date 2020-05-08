@@ -55,7 +55,7 @@ private:
 public:
 	~Gamefield();
 
-	std::shared_ptr<Tile> getTilePointerAt(int x, int y);
+	std::shared_ptr<Tile> getTilePointerAt(int xPos, int yPos);
 
 	Gamefield(const Gamefield&) = delete;
 	Gamefield& operator=(const Gamefield&) = delete;
@@ -76,7 +76,7 @@ public:
 
 	void init(int FieldWidth, int FieldHeight, int Seed);
 
-	std::shared_ptr<FieldTile> findeTileByUnit(std::shared_ptr<Unit> pUnit);
+	std::shared_ptr<FieldTile> findTileByUnit(std::shared_ptr<Unit> pUnit);
 
 	std::shared_ptr<FieldTile> getFieldTileFromXY(int posX, int posY);
 	std::shared_ptr<FieldTile> getSpawnTileFromXY(bool colorRed, int posX, int posY);
@@ -117,7 +117,7 @@ public:
 	// void assignEventToTile(MouseClickEvent event); -----noch noetig?
 
 	void markTilesAround(int xPos, int yPos, int range);
-	void selectTile(int xPos, int yPos);
+	void selectTileByUnit(shared_ptr<Unit> pUnit, GAMEPHASES::GAMEPHASE gamephase);
 
 	void deselectAndUnmarkAllTiles();
 };

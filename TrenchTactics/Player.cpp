@@ -28,17 +28,17 @@ void Player::init(bool colorRed) {
  * base income plus 15% of the current money of the player
  *
  */
-void Player::computeInterest() {
-	this->money += 30 + 0.15 * this->money;
-
+int Player::computeInterest() {
+	return (30 + 0.15 * this->money);
 }
+
 
 /**
  * update player by computing the interest as well as updating current supply
  *
  */
 void Player::updatePlayer() {
-	computeInterest();
+	this->updateMoney(computeInterest());
 	//this->supply = this->unitArray.size();
 }
 
@@ -61,7 +61,10 @@ void Player::markActiveUnit()
 	//mark the first unit to be moved as active 
 	if (!unitQueue.empty()) {
 		this->unitQueue.front()->setState(STATES::UNITSTATE::STANDING);
+		MenuBar::instance().updateUnitStats(this->getUnitQueue().front());
 	}
+	
+
 }
 
 /**
@@ -73,6 +76,7 @@ void Player::demarkActiveUnit()
 	//mark the first unit to be moved as neutral
 	if (!unitQueue.empty()) {
 		this->unitQueue.front()->setState(STATES::UNITSTATE::STANDING_NEUTRAL);
+		MenuBar::instance().resetUnitStats();
 	}
 }
 
@@ -84,8 +88,8 @@ void Player::demarkActiveUnit()
 void Player::deleteUnit(DeathEvent* deathEvent) {
 
 	if (this->colorRed == deathEvent->getKilledUnit()->getColorRed()) {
-		if (Gamefield::instance().findeTileByUnit(deathEvent->getKilledUnit()).get()) {
-			Gamefield::instance().findeTileByUnit(deathEvent->getKilledUnit()).get()->removeUnit();
+		if (Gamefield::instance().findTileByUnit(deathEvent->getKilledUnit()).get()) {
+			Gamefield::instance().findTileByUnit(deathEvent->getKilledUnit()).get()->removeUnit();
 		}
 		std::vector<std::shared_ptr<Unit>>::iterator position = std::find(this->unitArray.begin(), this->unitArray.end(), deathEvent->getKilledUnit());
 

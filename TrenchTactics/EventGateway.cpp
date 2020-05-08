@@ -113,13 +113,11 @@ void EventGateway::handleAttackEvent(MouseClickEvent* event) {
 			std::shared_ptr<Unit>  unitToBeAttacked = Gamefield::instance().getFieldTileFromXY(event->getX(), event->getY())->getUnit();
 			std::shared_ptr<Unit> unitAttacking = this->activePlayer->getUnitQueue().front();
 
-			if (unitToBeAttacked->getColorRed() != unitAttacking->getColorRed()) {
+			if (checkRange(Gamefield::instance().findTileByUnit(unitToBeAttacked))) {
+				unitAttacking->attack(unitToBeAttacked);
+				this->activePlayer->popUnit();
+				this->activePlayer->markActiveUnit();
 
-				if (checkRange(unitAttacking->getRange(), unitAttacking->getSprite()->getX(), unitAttacking->getSprite()->getY(), event->getX(), event->getY())) {
-					unitAttacking->attack(unitToBeAttacked);
-					this->activePlayer->popUnit();
-					this->activePlayer->markActiveUnit();
-				}
 			}
 		}
 	}
@@ -175,9 +173,10 @@ void EventGateway::handleMoveEvent(MouseClickEvent* event) {
 		std::shared_ptr<Unit> unitToBeMoved = this->activePlayer->getUnitQueue().front();
 		// get target field based on the event
 		std::shared_ptr<FieldTile> tileToMoveTo = Gamefield::instance().getFieldTileFromXY(event->getX(), event->getY());
-		if (!tileToMoveTo->getUnit()) {
+
+		if (!tileToMoveTo->getUnit() && checkRange(tileToMoveTo)) {
 			// find current tile of the unit to overwrite the sprite and remove the unit
-			Gamefield::instance().findeTileByUnit(unitToBeMoved).get()->removeUnit();
+			Gamefield::instance().findTileByUnit(unitToBeMoved).get()->removeUnit();
 
 			// attach unit to new tile 
 			tileToMoveTo.get()->setUnit(unitToBeMoved);
@@ -187,6 +186,9 @@ void EventGateway::handleMoveEvent(MouseClickEvent* event) {
 			this->activePlayer->markActiveUnit();
 		}
 	}
+	Gamefield::instance().deselectAndUnmarkAllTiles();
+	if(!this->activePlayer->getUnitQueue().empty())
+		Gamefield::instance().selectTileByUnit(this->activePlayer->getUnitQueue().front(), GAMEPHASES::MOVE);
 }
 
 /**
@@ -199,7 +201,7 @@ void EventGateway::handleBuyEvent(MouseClickEvent* event) {
 	// check wether a player is even allowed to buy a unit based on their supply
 	if ((this->activePlayer->getSupply() + 1) > ConfigReader::instance().getBalanceConf()->getMaxAmountUnits()) {
 		this->activePlayer->setBuying(false);
-		Logger::instance().log(LOGLEVEL::INFO, "not enough supply to purchase unit");
+		Logger::instance().log(LOGLEVEL::INFO, "not enough supply  to purchase unit");
 	}
 	else {
 		// make sure a button was clicked
@@ -210,16 +212,24 @@ void EventGateway::handleBuyEvent(MouseClickEvent* event) {
 		MenuBar::instance().getMenuTileFromXY(event->getX(), event->getY())->getButton()->update(STATES::BUTTONSTATE::PRESSED);
 		// get the button type to decide what to do
 		int type = MenuBar::instance().getMenuTileFromXY(event->getX(), event->getY())->getButton()->getType();
+
 		//spawn unit if type is a unit type
 		if (type >= 0 && type <= 2) {
-			// create new unit that will be spawned
-			std::shared_ptr<Unit> purchasedUnit = std::make_shared<Unit>(static_cast<TYPES::UnitType>(type), this->activePlayer->getColor());
-			// spawn unit
-			Gamefield::instance().spawnUnitInSpawn(purchasedUnit, this->activePlayer->getColor());
-			// add unit to vector of the player
-			this->activePlayer->addUnit(purchasedUnit);
-			// remove player from buying phase
-			this->activePlayer->setBuying(false);
+
+			//check if player can afford the unit
+			if (activePlayer->getMoney() >= ConfigReader::instance().getUnitConf(type)->getCost()) {
+
+				// create new unit that will be spawned
+				std::shared_ptr<Unit> purchasedUnit = std::make_shared<Unit>(static_cast<TYPES::UnitType>(type), this->activePlayer->getColor());
+				// spawn unit
+				Gamefield::instance().spawnUnitInSpawn(purchasedUnit, this->activePlayer->getColor());
+				// add unit to vector of the player
+				this->activePlayer->addUnit(purchasedUnit);
+				this->activePlayer->updateMoney(-(purchasedUnit->getCost()));
+				MenuBar::instance().updateMenuBar(GAMEPHASES::BUY, activePlayer);
+				// remove player from buying phase
+				//this->activePlayer->setBuying(false);
+			}
 		}
 		// react to next phase
 		else if (type == 50) {
@@ -298,18 +308,7 @@ bool EventGateway::checkEventOnHQ(MouseClickEvent* event) {
  * \param targetY unit that will be attacked unit y position
  * \return
  */
-bool EventGateway::checkRange(int range, int originX, int originY, int targetX, int targetY) {
 
-	int x = targetX - originX;
-	int y = targetY - originY;
-	x = x / 64;
-	y = y / 64;
-	int result = x + y;
-
-	if (range >= result) {
-		return true;
-	}
-	else {
-		return false;
-	}
+bool EventGateway::checkRange(shared_ptr<Tile> targetTile) {
+	return targetTile->getMarked();
 }

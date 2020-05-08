@@ -222,7 +222,7 @@ bool Gamefield::fieldTileIsFree(int x, int y, std::shared_ptr<vector<vector<std:
  * \param pUnit unit to search for
  * \return tile holding the unit
  */
-std::shared_ptr<FieldTile> Gamefield::findeTileByUnit(std::shared_ptr<Unit> pUnit)
+std::shared_ptr<FieldTile> Gamefield::findTileByUnit(std::shared_ptr<Unit> pUnit)
 {
 	std::shared_ptr<FieldTile> pTileToTest = nullptr;
 
@@ -267,37 +267,37 @@ std::shared_ptr<FieldTile> Gamefield::findeTileByUnit(std::shared_ptr<Unit> pUni
  * \param y Vertical position of pixel
  * \return Shared pointer to searched Tile.
  */
-std::shared_ptr<Tile> Gamefield::getTilePointerAt(int x, int y)
+std::shared_ptr<Tile> Gamefield::getTilePointerAt(int xPos, int yPos)
 {
 	// change position from pixels to tiles
-	x = x / 64;
-	y = y / 64;
+	xPos = xPos / 64;
+	yPos = yPos / 64;
 	std::shared_ptr<Tile> pSearchedTile = nullptr;
 
 	//if position is in menu
-	if ((0 <= x <= 21) && (12 <= y <= 14))
-		pSearchedTile = MenuBar::instance().getMenuBarBackGround().get()->at(x).at(y - 12);
+	if ((0 <= xPos <= 21) && (12 <= yPos <= 14))
+		pSearchedTile = MenuBar::instance().getMenuBarBackGround().get()->at(xPos).at(yPos - 12);
 	//if position is in playingfield
-	if ((2 <= x <= 19) && (0 <= y <= 11))
-		pSearchedTile = Gamefield::playingfield.get()->at(x - 2).at(y);
+	if ((2 <= xPos <= 19) && (0 <= yPos <= 11))
+		pSearchedTile = Gamefield::playingfield.get()->at(xPos - 2).at(yPos);
 	//if position is in blue HQ
-	if ((0 <= x <= 1) && (5 <= y <= 6))
-		pSearchedTile = Gamefield::headquarterTilePlayerBlue.get()->at(x).at(y - 5);
+	if ((0 <= xPos <= 1) && (5 <= yPos <= 6))
+		pSearchedTile = Gamefield::headquarterTilePlayerBlue.get()->at(xPos).at(yPos - 5);
 	//if position is in red HQ
-	if ((20 <= x <= 21) && (5 <= y <= 6))
-		pSearchedTile = Gamefield::headquarterTilePlayerRed.get()->at(x - 20).at(y - 5);
+	if ((20 <= xPos <= 21) && (5 <= yPos <= 6))
+		pSearchedTile = Gamefield::headquarterTilePlayerRed.get()->at(xPos - 20).at(yPos - 5);
 	//if position is in top half of blue spawn
-	if ((0 <= x <= 1) && (0 <= y <= 4))
-		pSearchedTile = Gamefield::spawnBlue.get()->at(x).at(y);
+	if ((0 <= xPos <= 1) && (0 <= yPos <= 4))
+		pSearchedTile = Gamefield::spawnBlue.get()->at(xPos).at(yPos);
 	//if position is in bottom half of blue spawn
-	if ((0 <= x <= 1) && (7 <= y <= 11))
-		pSearchedTile = Gamefield::spawnBlue.get()->at(x).at(y - 2);
+	if ((0 <= xPos <= 1) && (7 <= yPos <= 11))
+		pSearchedTile = Gamefield::spawnBlue.get()->at(xPos).at(yPos - 2);
 	//if position is in top half of red spawn
-	if ((20 <= x <= 21) && (0 <= y <= 4))
-		pSearchedTile = Gamefield::spawnRed.get()->at(x - 20).at(y);
+	if ((20 <= xPos <= 21) && (0 <= yPos <= 4))
+		pSearchedTile = Gamefield::spawnRed.get()->at(xPos - 20).at(yPos);
 	//if position is in bottom half of red spawn
-	if ((20 <= x <= 21) && (7 <= y <= 11))
-		pSearchedTile = Gamefield::spawnRed.get()->at(x - 20).at(y - 2);
+	if ((20 <= xPos <= 21) && (7 <= yPos <= 11))
+		pSearchedTile = Gamefield::spawnRed.get()->at(xPos - 20).at(yPos - 2);
 
 	return pSearchedTile;
 }
@@ -338,15 +338,19 @@ void Gamefield::markTilesAround(int xPos, int yPos, int range)
 *\param xPos Horizontal position of the pixel
 *\param yPos Vertical position of the pixel
 */
-void Gamefield::selectTile(int xPos, int yPos)
+void Gamefield::selectTileByUnit(shared_ptr<Unit> pUnit, GAMEPHASES::GAMEPHASE gamephase)
 {
 	//change position from pixels to tiles
-	xPos = xPos / 64;
-	yPos = yPos / 64;
+	int xPos = findTileByUnit(pUnit).get()->getPosX() / 64;
+	int yPos = findTileByUnit(pUnit).get()->getPosY() / 64;
 	//select the chosen tile and mark tiles in range, if there is a unit on the tile markes the tiles in range of the unit
-	playingfield.get()->at(xPos - 2).at(yPos)->setSelected(true);
-	if (playingfield.get()->at(xPos - 2).at(yPos)->getUnit())
-		markTilesAround(xPos * 64, yPos * 64, playingfield.get()->at(xPos - 2).at(yPos)->getUnit()->getRange());
+	findTileByUnit(pUnit).get()->setSelected(true);
+	if (gamephase == GAMEPHASES::MOVE) {
+		markTilesAround(xPos * 64, yPos * 64, pUnit.get()->getCurrentAP());
+	}
+	else if(gamephase == GAMEPHASES::ATTACK) {
+		markTilesAround(xPos * 64, yPos * 64, pUnit.get()->getRange());
+	}
 }
 
 /**
@@ -361,6 +365,8 @@ void Gamefield::deselectAndUnmarkAllTiles()
 			yIter->get()->setSelected(false);
 			yIter->get()->setMarked(false);
 			yIter->get()->getSprite()->render();
+			if (yIter->get()->getUnit().get())
+				yIter->get()->getUnit()->getSprite()->render();
 		}
 	}
 	//deselects and unmarks the blue player's spawn
@@ -478,10 +484,12 @@ Sprite* Gamefield::getRandomSpawnTileSprite(int rndNumber, bool colorRed) {
  */
 void Gamefield::initiateSpawnTilesBlue()
 {
-	int cnt = 0;
-	Sprite* terrain = getRandomSpawnTileSprite(rand() % 4, false);
+	int cnt = 0;	
+	//iterates over the blue spawn from top left 
 	for (vector<vector<std::shared_ptr<FieldTile>>>::iterator xIter = spawnBlue->begin(); xIter != spawnBlue->end(); ++xIter) {
 		for (vector<std::shared_ptr<FieldTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
+			Sprite* terrain = getRandomSpawnTileSprite(rand() % 4, false);
+			//gets a new sprite, when entering a new row
 			if (cnt == 2) {
 				cnt = 0;
 				terrain = getRandomSpawnTileSprite(rand() % 4, false);
@@ -512,9 +520,12 @@ void Gamefield::initiateSpawnTilesBlue()
 void Gamefield::initiateSpawnTilesRed()
 {
 	int cnt = 0;
-	Sprite* terrain = getRandomSpawnTileSprite(rand() % 4, true);
+
+	//iterates over the red spawn from top left 
 	for (vector<vector<std::shared_ptr<FieldTile>>>::iterator xIter = spawnRed->begin(); xIter != spawnRed->end(); ++xIter) {
 		for (vector<std::shared_ptr<FieldTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
+			Sprite* terrain = getRandomSpawnTileSprite(rand() % 4, true);
+			//gets a new sprite, when entering a new row
 			if (cnt == 2) {
 				cnt = 0;
 				terrain = getRandomSpawnTileSprite(rand() % 4, true);

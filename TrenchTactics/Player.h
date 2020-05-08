@@ -27,7 +27,7 @@ private:
 public:
 	Player();
 	void init(bool colorRed);
-	void computeInterest();
+	int computeInterest();
 	void updatePlayer();
 	void copyUnitsToQueue();
 	void demarkActiveUnit();
@@ -58,6 +58,12 @@ public:
 	int getMoney() {
 		return this->money;
 	}
+
+	void updateMoney(int amount)
+	{
+		this->money += amount;
+	}
+
 	bool getColor() {
 		return this->colorRed;
 	}
