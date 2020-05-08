@@ -12,7 +12,7 @@
 #include "EventManagerImpl.h"
 #include "Gamephases.h"
 #include "MenuBar.h"
-
+#include "EndTurnEvent.h"
 
 /**
  * Main class to start the game
@@ -22,6 +22,8 @@
 class Game
 {
 private:
+	int ctrRounds;
+	bool endTurn;
 	std::shared_ptr<Player> playerRed;
 	std::shared_ptr<Player>  playerBlue;
 	std::shared_ptr<Player>  activePlayer;
@@ -29,7 +31,7 @@ private:
 	IRenderer& renderer = RendererImpl::instance();
 	Gamefield& field = Gamefield::instance();
 	EventGateway& gateway = EventGateway::instance();
-	MenuBar& menubar = MenuBar::instance();
+	MenuBar& menuBar = MenuBar::instance();
 
 
 	bool gameRunning;
@@ -44,5 +46,6 @@ public:
 	void startGame();
 	void quit();
 	void updateGame();
+	void handleEndTurn(EndTurnEvent* event);
 
 };

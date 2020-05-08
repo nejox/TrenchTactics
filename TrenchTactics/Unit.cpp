@@ -8,12 +8,8 @@
  */
 void Unit::attack(std::shared_ptr<Unit> target)
 {
-	//this->setState(SHOOTING);
+    this->m_state = STATES::UNITSTATE::SHOOTING;
 	target->changeHP(m_dmg);
-	if (target->getCurrentHP() <= 0)
-	{
-		DeathEvent* deathEvent = new DeathEvent(target);
-	}
 
 	updateAP(m_apCostAttack);
 
@@ -24,9 +20,8 @@ void Unit::attack(std::shared_ptr<Unit> target)
  *
  * \param target
  */
-void Unit::attack(Headquarter* target)
+void Unit::attack(std::shared_ptr<Headquarter> target)
 {
-	//this->setState(SHOOTING);
 	target->changeHP(m_dmg);
 	updateAP(m_apCostAttack);
 }
@@ -40,9 +35,9 @@ void Unit::changeHP(int damage)
 {
 	m_currentHP -= damage;
 
-	if (this->getCurrentHP() <= 0)
+	if (m_currentHP <= 0)
 	{
-		DeathEvent* deathEvent = new DeathEvent(this->getptr());
+	    EventBus::instance().publish( new DeathEvent(this->getptr()));
 	}
 }
 
@@ -55,9 +50,23 @@ void Unit::resetAP()
 	m_currentAP = m_ap;
 }
 
+void Unit::update() {
+    m_state = m_sprite->render(m_state);
+}
+
+void Unit::setState(STATES::UNITSTATE state)
+{
+    this->m_state = state;
+}
+
+STATES::UNITSTATE Unit::getState()
+{
+    return this->m_state;
+}
+
 void Unit::update(STATES::UNITSTATE state)
 {
-	m_sprite->render(state);
+    m_state = m_sprite->render(state);
 }
 /**
  *

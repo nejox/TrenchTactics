@@ -10,6 +10,8 @@
 #include <ctime>
 #include "Gamephases.h"
 #include "SpriteMarker.h"
+#include "MenuBar.h"
+
 
 /**
  * Gamefield class for generating and holding the playingfield
@@ -19,7 +21,6 @@ private:
 	static const int defaultXSizeField = 18;
 	static const int defaultYSizeField = 12;
 
-	std::shared_ptr<vector<vector<std::shared_ptr<MenuTile>>>> menuBar;
 	std::shared_ptr<vector<vector<std::shared_ptr<PlayerTile>>>> headquarterTilePlayerBlue;
 	std::shared_ptr<vector<vector<std::shared_ptr<PlayerTile>>>> headquarterTilePlayerRed;
 	std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> playingfield;
@@ -31,14 +32,14 @@ private:
 	void setAllFieldSizes();
 	void setSizePlayerTilesBlue();
 	void setSizePlayerTilesRed();
-	void setSizeMenuBar();
+	
 	void setSizePlayingField();
 	void setSizeSpawnBlue();
 	void setSizeSpawnRed();
 
 	void initiatePlayerTilesBlue();
 	void initiatePlayerTilesRed();
-	void initiateMenuTiles();
+	
 	void initiateSpawnTilesBlue();
 	void initiateSpawnTilesRed();
 	void initiatePlayingFieldTiles();
@@ -46,12 +47,10 @@ private:
 	std::shared_ptr<FieldTile> getSpawnFieldRed(int posX, int posY);
 	std::shared_ptr<FieldTile> getSpawnFieldBlue(int posX, int posY);
 
-	Sprite* getRandomUnitButtonSprite(int rndNumber);
 	Sprite* getRandomSpawnTileSprite(int rndNumber, bool colorRed);
 
 	std::shared_ptr<FieldTile> createFieldTile(int posX, int posY, FieldTile::TERRAINTYPE type);
 
-	void displaySkipRoundButton();
 
 public:
 	~Gamefield();
@@ -79,19 +78,9 @@ public:
 
 	std::shared_ptr<FieldTile> findTileByUnit(std::shared_ptr<Unit> pUnit);
 
-	void displayButtons(GAMEPHASES::GAMEPHASE phase);
-	void deleteButtons();
-
-	std::shared_ptr<MenuTile> getMenuTileFromXY(int posX, int posY);
 	std::shared_ptr<FieldTile> getFieldTileFromXY(int posX, int posY);
 	std::shared_ptr<FieldTile> getSpawnTileFromXY(bool colorRed, int posX, int posY);
 
-	void setMenuBar(std::shared_ptr<vector<vector <std::shared_ptr<MenuTile>>>> menuBar) {
-		this->menuBar = menuBar;
-	}
-	std::shared_ptr<vector<vector<std::shared_ptr<MenuTile>>>> getMenuBar() {
-		return menuBar;
-	}
 	void setHqTilePlayerBlue(std::shared_ptr<vector<vector<std::shared_ptr<PlayerTile>>>> hqTilePlayer) {
 		this->headquarterTilePlayerBlue = hqTilePlayer;
 	}

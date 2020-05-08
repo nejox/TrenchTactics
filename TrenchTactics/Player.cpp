@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "Gamefield.h"
 
 
 Player::Player() {
@@ -17,7 +18,7 @@ Player::Player() {
 void Player::init(bool colorRed) {
 	this->colorRed = colorRed;
 	this->money = ConfigReader::instance().getBalanceConf()->getStartingGold();
-    //this->unitArray = std::vector<std::shared_ptr<Unit>>();
+	//this->unitArray = std::vector<std::shared_ptr<Unit>>();
 	EventBus::instance().subscribe(this, &Player::deleteUnit);
 }
 
@@ -52,14 +53,49 @@ void Player::copyUnitsToQueue() {
 }
 
 /**
+ * marks the active Unit = the first one in the queue
+ *
+ */
+void Player::markActiveUnit()
+{
+	//mark the first unit to be moved as active 
+	if (!unitQueue.empty()) {
+		this->unitQueue.front()->setState(STATES::UNITSTATE::STANDING);
+	}
+}
+
+/**
+ * demarks the active Unit = the first one in the queue
+ *
+ */
+void Player::demarkActiveUnit()
+{
+	//mark the first unit to be moved as neutral
+	if (!unitQueue.empty()) {
+		this->unitQueue.front()->setState(STATES::UNITSTATE::STANDING_NEUTRAL);
+	}
+}
+
+/**
  * Delete unit from player after its death
  * Searching the player list to find the corresponding unit
  * \param deathEvent event holding unit to be deleted
  */
 void Player::deleteUnit(DeathEvent* deathEvent) {
-	std::vector<std::shared_ptr<Unit>>::iterator position = std::find(this->unitArray.begin(), this->unitArray.end(), deathEvent->getKilledUnit());
-	if (position != this->unitArray.end()) {// == myVector.end() means the element was not found
-		this->unitArray.erase(position);
-	}
 
+	if (this->colorRed == deathEvent->getKilledUnit()->getColorRed()) {
+		if (Gamefield::instance().findTileByUnit(deathEvent->getKilledUnit()).get()) {
+			Gamefield::instance().findTileByUnit(deathEvent->getKilledUnit()).get()->removeUnit();
+		}
+		std::vector<std::shared_ptr<Unit>>::iterator position = std::find(this->unitArray.begin(), this->unitArray.end(), deathEvent->getKilledUnit());
+
+		if (unitArray.size() > 1) {
+			if (position != this->unitArray.end()) { // == myVector.end() means the element was not found
+				this->unitArray.erase(position);
+			}
+		}
+		else {
+			this->unitArray.erase(unitArray.begin());
+		}
+	}
 }

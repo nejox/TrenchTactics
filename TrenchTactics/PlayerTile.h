@@ -12,7 +12,7 @@ public:
 	void setHeadquarter(std::shared_ptr<Headquarter> headquarter) {
 		this->headquarter = headquarter;
 	}
-	std::shared_ptr < Headquarter> getHeadquarter() {
+	std::shared_ptr<Headquarter> getHeadquarter() {
 		return this->headquarter;
 	}
 
