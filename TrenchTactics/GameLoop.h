@@ -22,7 +22,7 @@
 class Game
 {
 private:
-	int ctrRounds;
+	int ctrTurns;
 	bool endTurn;
 	std::shared_ptr<Player> playerRed;
 	std::shared_ptr<Player>  playerBlue;

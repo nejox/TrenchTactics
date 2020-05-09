@@ -208,7 +208,7 @@ void EventGateway::handleBuyEvent(MouseClickEvent* event) {
 	// check wether a player is even allowed to buy a unit based on their supply
 	if ((this->activePlayer->getSupply() + 1) > ConfigReader::instance().getBalanceConf()->getMaxAmountUnits()) {
 		this->activePlayer->setBuying(false);
-		Logger::instance().log(LOGLEVEL::INFO, "not enough supply to purchase unit");
+		Logger::instance().log(LOGLEVEL::INFO, "not enough supply  to purchase unit");
 	}
 	else {
 		// make sure a button was clicked
@@ -219,16 +219,24 @@ void EventGateway::handleBuyEvent(MouseClickEvent* event) {
 		MenuBar::instance().getMenuTileFromXY(event->getX(), event->getY())->getButton()->update(STATES::BUTTONSTATE::PRESSED);
 		// get the button type to decide what to do
 		int type = MenuBar::instance().getMenuTileFromXY(event->getX(), event->getY())->getButton()->getType();
+
 		//spawn unit if type is a unit type
 		if (type >= 0 && type <= 2) {
-			// create new unit that will be spawned
-			std::shared_ptr<Unit> purchasedUnit = std::make_shared<Unit>(static_cast<TYPES::UnitType>(type), this->activePlayer->getColor());
-			// spawn unit
-			Gamefield::instance().spawnUnitInSpawn(purchasedUnit, this->activePlayer->getColor());
-			// add unit to vector of the player
-			this->activePlayer->addUnit(purchasedUnit);
-			// remove player from buying phase
-			this->activePlayer->setBuying(false);
+
+			//check if player can afford the unit
+			if (activePlayer->getMoney() >= ConfigReader::instance().getUnitConf(type)->getCost()) {
+
+				// create new unit that will be spawned
+				std::shared_ptr<Unit> purchasedUnit = std::make_shared<Unit>(static_cast<TYPES::UnitType>(type), this->activePlayer->getColor());
+				// spawn unit
+				Gamefield::instance().spawnUnitInSpawn(purchasedUnit, this->activePlayer->getColor());
+				// add unit to vector of the player
+				this->activePlayer->addUnit(purchasedUnit);
+				this->activePlayer->updateMoney(-(purchasedUnit->getCost()));
+				MenuBar::instance().updateMenuBar(GAMEPHASES::BUY, activePlayer);
+				// remove player from buying phase
+				//this->activePlayer->setBuying(false);
+			}
 		}
 		// react to next phase
 		else if (type == 50) {

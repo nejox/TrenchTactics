@@ -153,4 +153,17 @@ public:
 	int getApCostAttack() {
 		return this->m_apCostAttack;
 	}
+	int getAp() {
+		return this->m_ap;
+	}
+
+	int getDmg()
+	{
+		return this->m_dmg;
+	}
+
+	int getCost()
+	{
+		return this->m_cost;
+	}
 };
