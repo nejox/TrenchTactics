@@ -71,14 +71,15 @@ void Game::startGame() {
 	
 	while (gameRunning) {
 		this->ctrTurns++; 
-		startPlayerPhase();
-		switchActivePlayer();
-		
+
 		if (this->ctrTurns > 2)
 		{
-			// update player with income and stuff
+			// update player with income and stuff  
 			this->activePlayer->updatePlayer();
 		}
+
+		startPlayerPhase();
+		switchActivePlayer();
 	}
 	quit();
 }
@@ -105,8 +106,15 @@ void Game::startPlayerPhase() {
 		this->gateway.setCurrentPhase(phase);
 
 		if (phase == GAMEPHASES::BUY) {
-			this->startBuyPhase();
+			
+
+				this->startBuyPhase();
+			
+
+
 		}
+
+		
 		else if (phase == GAMEPHASES::MOVE) {
 			this->startMovePhase();
 		}
@@ -211,10 +219,11 @@ void Game::startAttackPhase() {
  *
  */
 void Game::startBuyPhase() {
-	menuBar.resetUnitStats();
-	menuBar.updateMenuBar(GAMEPHASES::BUY, activePlayer);
-	this->activePlayer->setBuying(true);
-	this->gateway.setCurrentPhase(GAMEPHASES::BUY);
+		menuBar.resetUnitStats();
+
+			menuBar.updateMenuBar(GAMEPHASES::BUY, activePlayer);
+			this->activePlayer->setBuying(true);
+			this->gateway.setCurrentPhase(GAMEPHASES::BUY);
 
 }
 
