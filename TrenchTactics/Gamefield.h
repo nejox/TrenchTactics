@@ -21,8 +21,8 @@ private:
 	static const int defaultXSizeField = 18;
 	static const int defaultYSizeField = 12;
 
-	std::shared_ptr<vector<vector<std::shared_ptr<PlayerTile>>>> headquarterTilePlayerBlue;
-	std::shared_ptr<vector<vector<std::shared_ptr<PlayerTile>>>> headquarterTilePlayerRed;
+	std::shared_ptr<PlayerTile> headquarterTilePlayerBlue;
+	std::shared_ptr<PlayerTile> headquarterTilePlayerRed;
 	std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> playingfield;
 	std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> spawnBlue;
 	std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> spawnRed;
@@ -30,8 +30,6 @@ private:
 	Gamefield();
 
 	void setAllFieldSizes();
-	void setSizePlayerTilesBlue();
-	void setSizePlayerTilesRed();
 	
 	void setSizePlayingField();
 	void setSizeSpawnBlue();
@@ -79,16 +77,16 @@ public:
 	std::shared_ptr<FieldTile> getSpawnTileFromXY(bool colorRed, int posX, int posY);
 	std::shared_ptr<PlayerTile> getPlayerTileFromXY(int posX, int posY);
 
-	void setHqTilePlayerBlue(std::shared_ptr<vector<vector<std::shared_ptr<PlayerTile>>>> hqTilePlayer) {
+	void setHqTilePlayerBlue(std::shared_ptr<PlayerTile> hqTilePlayer) {
 		this->headquarterTilePlayerBlue = hqTilePlayer;
 	}
-	std::shared_ptr<vector<vector<std::shared_ptr<PlayerTile>>>> getHqTilePlayerBlue() {
+	std::shared_ptr<PlayerTile> getHqTilePlayerBlue() {
 		return this->headquarterTilePlayerBlue;
 	}
-	void setHqTilePlayerRed(std::shared_ptr<vector<vector<std::shared_ptr<PlayerTile>>>> hqTilePlayer) {
+	void setHqTilePlayerRed(std::shared_ptr<PlayerTile> hqTilePlayer) {
 		this->headquarterTilePlayerRed = hqTilePlayer;
 	}
-	std::shared_ptr<vector<vector<std::shared_ptr<PlayerTile>>>> getHqTilePlayerRed() {
+	std::shared_ptr<PlayerTile> getHqTilePlayerRed() {
 		return this->headquarterTilePlayerRed;
 	}
 	void setPlayingfield(std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> field) {

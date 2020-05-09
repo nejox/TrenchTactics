@@ -78,6 +78,7 @@ void EventGateway::handleNextPhase() {
 	this->activePlayer->demarkActiveUnit();
 	// empty the queue of the active player to get to the next phase
 	this->activePlayer->emptyQueue();
+	Gamefield::instance().deselectAndUnmarkAllTiles();
 }
 
 /**
@@ -131,14 +132,14 @@ void EventGateway::handleAttackEvent(MouseClickEvent* event) {
 	else if (checkEventOnHQ(event)) {
 		//wip
 		std::shared_ptr<Unit> unitAttacking = this->activePlayer->getUnitQueue().front();
-		std::shared_ptr<vector<vector<std::shared_ptr<PlayerTile>>>> tile;
+		std::shared_ptr<PlayerTile> tile;
 		if (unitAttacking->getColorRed()) {
 			tile = Gamefield::instance().getHqTilePlayerBlue();
 		}
 		else {
 			tile = Gamefield::instance().getHqTilePlayerBlue();
 		}
-		std::shared_ptr < Headquarter> hq = tile->at(0).at(0)->getHeadquarter();
+		std::shared_ptr < Headquarter> hq = tile->getHeadquarter();
 		unitAttacking->attack(hq);
 	}
 
