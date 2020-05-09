@@ -149,4 +149,18 @@ public:
 	int getHp() {
 		return this->m_hp;
 	}
+
+	int getAp() {
+		return this->m_ap;
+	}
+
+	int getDmg()
+	{
+		return this->m_dmg;
+	}
+
+	int getCost()
+	{
+		return this->m_cost;
+	}
 };

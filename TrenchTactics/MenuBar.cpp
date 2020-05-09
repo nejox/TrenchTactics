@@ -28,19 +28,11 @@ for (int x = 19; x < 22; x++)
 */
 void MenuBar::showPlayerStats(shared_ptr<Player> activePlayer)
 {
-	money = make_shared<SpriteText>(40);
-	money->setPos((64 + 27), (12 * 64 + 9 + 32));
 
-	income = make_shared<SpriteText>(40);
-	income->setPos((64 + 27), (13 * 64 + 9 + 32));
-
-	unitCount = make_shared<SpriteText>(40);
-	unitCount->setPos((64 * 20 + 20), (12 * 64 + 9 + 32));
-	
 	money->load(std::to_string(activePlayer->getMoney()));
 	money->render();
 
-	income->load(std::to_string(activePlayer->getSupply())); 
+	income->load(std::to_string(activePlayer->computeInterest())); 
 	income->render();
 
 	if (activePlayer->getUnitArray().empty())
@@ -58,27 +50,35 @@ void MenuBar::showPlayerStats(shared_ptr<Player> activePlayer)
 	
 }
 
-void MenuBar::deletePlayerStats()
+void MenuBar::resetUnitStats()
 {
-	money = nullptr;
-	income = nullptr;
-	unitCount = nullptr;
+	for (int x = 9; x < 13; x++)
+	{
+		for (int y = 1; y < 3; y++)
+		{
+				this->menuBarBackGround.get()->at(x).at(y).get()->getSprite()->render(x * 64, y * 64);
+			
+		}
+	}
 }
+
+
 /**
 * Displays units currentHp/MaxHp
 */
 void MenuBar::showUnitStats(shared_ptr<Unit> unit)
 {
-	unitHP = make_shared<SpriteText>(25);
-	unitHP->setPos((64 * 11), (64 * 13));
-	unitHP->load((const char*)(unit->getCurrentHP() + " / " + unit->getHp()));
+	std::string hp = "HP: ";
+	std::string slash = " / ";
+	std::string ap = "AP: ";
+
+	unitHP->load(hp + std::to_string(unit->getCurrentHP()) + slash + std::to_string(unit->getHp()));
 	unitHP->render();
+
+	unitAP->load(ap + std::to_string(unit->getCurrentAP()) + slash + std::to_string(unit->getAp()));
+	unitAP->render();
 }
 
-void MenuBar::deleteUnitStats()
-{
-	unitHP = nullptr;
-}
 
 
 
@@ -188,7 +188,7 @@ void MenuBar::displayButtons(GAMEPHASES::GAMEPHASE phase) {
 		nextUnitButton->setType(10);
 
 		this->getMenuBarBackGround().get()->at(4).at(1).get()->setButton(previousUnitButton);
-		this->getMenuBarBackGround().get()->at(6).at(1).get()->setButton(nextUnitButton);
+		this->getMenuBarBackGround().get()->at(5).at(1).get()->setButton(nextUnitButton);
 	}
 
 	//always display end phase and end turn buttons
@@ -206,7 +206,7 @@ void MenuBar::displayButtons(GAMEPHASES::GAMEPHASE phase) {
 	buttonEndTurn->setSprite(nextTurn);
 	buttonEndTurn->setType(31);
 
-	this->getMenuBarBackGround().get()->at(15).at(1).get()->setButton(nextPhaseButton);
+	this->getMenuBarBackGround().get()->at(16).at(1).get()->setButton(nextPhaseButton);
 	this->getMenuBarBackGround().get()->at(17).at(1).get()->setButton(buttonEndTurn);
 }
 
@@ -214,7 +214,7 @@ void MenuBar::displayButtons(GAMEPHASES::GAMEPHASE phase) {
  *
  */
 void MenuBar::deleteButtons() {
-	for (int i = 4; i < 9; i = i + 2) {
+	for (int i = 4; i < 9; i = i++) {
 		this->getMenuBarBackGround().get()->at(i).at(1).get()->removeButton();
 	}
 }
