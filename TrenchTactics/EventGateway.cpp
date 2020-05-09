@@ -43,6 +43,9 @@ void EventGateway::handleNextUnit()
 	this->activePlayer->queueUnit(unit);
 
 	this->activePlayer->markActiveUnit();
+
+	Gamefield::instance().deselectAndUnmarkAllTiles();
+	Gamefield::instance().selectAndMarkeTilesByUnit(this->activePlayer->getUnitQueue().front(), this->currentPhase, this->activePlayer->getColor());
 }
 
 void EventGateway::handlePrevUnit()
@@ -59,6 +62,9 @@ void EventGateway::handlePrevUnit()
 	}
 
 	this->activePlayer->markActiveUnit();
+
+	Gamefield::instance().deselectAndUnmarkAllTiles();
+	Gamefield::instance().selectAndMarkeTilesByUnit(this->activePlayer->getUnitQueue().front(), this->currentPhase, this->activePlayer->getColor());
 }
 
 void EventGateway::handleEndTurn() {
@@ -188,7 +194,7 @@ void EventGateway::handleMoveEvent(MouseClickEvent* event) {
 	}
 	Gamefield::instance().deselectAndUnmarkAllTiles();
 	if(!this->activePlayer->getUnitQueue().empty())
-		Gamefield::instance().selectTileByUnit(this->activePlayer->getUnitQueue().front(), GAMEPHASES::MOVE);
+		Gamefield::instance().selectAndMarkeTilesByUnit(this->activePlayer->getUnitQueue().front(), GAMEPHASES::MOVE, this->activePlayer->getColor());
 }
 
 /**
@@ -289,8 +295,6 @@ bool EventGateway::checkEventOnHQ(MouseClickEvent* event) {
 }
 
 /**
- * TODO: implement
- *
  * checks wether unit is in range
  *
  * \param range range of the attacking unit

@@ -223,13 +223,13 @@ void Game::startMovePhase() {
 
 
 
-Gamefield::instance().deselectAndUnmarkAllTiles();
+	Gamefield::instance().deselectAndUnmarkAllTiles();
 	menuBar.updateMenuBar(GAMEPHASES::MOVE, activePlayer);
 	menuBar.updatePlayerStats(activePlayer);
 	this->gateway.setCurrentPhase(GAMEPHASES::MOVE);
 	this->activePlayer->copyUnitsToQueue();
 	if (!this->activePlayer->getUnitQueue().empty())
-		Gamefield::instance().selectTileByUnit(this->activePlayer->getUnitQueue().front(), GAMEPHASES::MOVE);
+		Gamefield::instance().selectAndMarkeTilesByUnit(this->activePlayer->getUnitQueue().front(), GAMEPHASES::MOVE, this->activePlayer->getColor());
 	menuBar.updateButtons(GAMEPHASES::MOVE);  
 	this->activePlayer->markActiveUnit();
 

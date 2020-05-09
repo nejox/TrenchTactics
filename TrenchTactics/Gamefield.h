@@ -77,6 +77,7 @@ public:
 
 	std::shared_ptr<FieldTile> getFieldTileFromXY(int posX, int posY);
 	std::shared_ptr<FieldTile> getSpawnTileFromXY(bool colorRed, int posX, int posY);
+	std::shared_ptr<PlayerTile> getPlayerTileFromXY(int posX, int posY);
 
 	void setHqTilePlayerBlue(std::shared_ptr<vector<vector<std::shared_ptr<PlayerTile>>>> hqTilePlayer) {
 		this->headquarterTilePlayerBlue = hqTilePlayer;
@@ -109,7 +110,7 @@ public:
 		return this->spawnRed;
 	}
 
-	void selectTileByUnit(shared_ptr<Unit> pUnit, GAMEPHASES::GAMEPHASE gamephase);
+	void selectAndMarkeTilesByUnit(shared_ptr<Unit> pUnit, GAMEPHASES::GAMEPHASE gamephase, bool redPlayerActiv);
 
 	void deselectAndUnmarkAllTiles();
 };
