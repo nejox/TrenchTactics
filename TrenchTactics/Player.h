@@ -27,10 +27,11 @@ private:
 public:
 	Player();
 	void init(bool colorRed);
-	void computeInterest();
+	int computeInterest();
 	void updatePlayer();
 	void copyUnitsToQueue();
-
+	void demarkActiveUnit();
+	void markActiveUnit();
 	void emptyQueue() {
 		while (!this->unitQueue.empty()) {
 			this->unitQueue.pop();
@@ -38,6 +39,9 @@ public:
 	}
 	void popUnit() {
 		this->unitQueue.pop();
+	}
+	void queueUnit(std::shared_ptr<Unit> unit) {
+		this->unitQueue.push(unit);
 	}
 	void addUnit(std::shared_ptr<Unit> unit) {
 		this->unitArray.push_back(unit);
@@ -51,6 +55,15 @@ public:
 	int getSupply() {
 		return this->supply;
 	}
+	int getMoney() {
+		return this->money;
+	}
+
+	void updateMoney(int amount)
+	{
+		this->money += amount;
+	}
+
 	bool getColor() {
 		return this->colorRed;
 	}

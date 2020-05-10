@@ -1,17 +1,17 @@
 #pragma once
-#include "Sprite.hpp"
+#include "SpriteButton.h"
 
 class Button {
 private:
-	Sprite* sprite;
+	SpriteButton* sprite;
 	int type;
 
 public:
-	void setSprite(Sprite* sprite) {
+	void setSprite(SpriteButton* sprite) {
 		this->sprite = sprite;
 	}
 
-	Sprite* getSprite() {
+	SpriteButton* getSprite() {
 		return this->sprite;
 	}
 
@@ -27,4 +27,16 @@ public:
 		this->sprite = NULL;
 	}
 	~Button() {};
+
+	void update() {
+		if (sprite != nullptr) {
+			sprite->render();
+		}
+	}
+	void update(STATES::BUTTONSTATE state) {
+		if (sprite != nullptr) {
+			sprite->render(state);
+		}
+	}
+
 };

@@ -81,7 +81,7 @@ std::shared_ptr<TileConf> ConfigReader::createTileConf() {
 	Json::Value root = getJsonRootFromFile("../conf/tileConf.json");
 	std::shared_ptr<TileConf> tileConf = std::make_shared<TileConf>();
 	tileConf->setHeadquarterSpriteBlue(root["headquarterSpriteBlue"].asString());
-	tileConf->setHeadquarterSpriteRed(root["headquarterSpirteRed"].asString());
+	tileConf->setHeadquarterSpriteRed(root["headquarterSpriteRed"].asString());
 	tileConf->setReachableMarkerSprite(root["reachableMarkerSprite"].asString());
 	tileConf->setNextUnitButtonSprite(root["nextUnitButtonSprite"].asString());
 	tileConf->setPreviousUnitButtonSprite(root["previousButtonSprite"].asString());

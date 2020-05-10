@@ -12,8 +12,6 @@ SpriteHQ::SpriteHQ(bool colorRed)
 		m_spritePath = ConfigReader::instance().getTileConf()->getHeadquarterSpriteBlue();
 	}
 
-
-
 	load(m_spritePath, 128, 128);
 }
 

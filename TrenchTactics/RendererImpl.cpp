@@ -40,6 +40,18 @@ bool RendererImpl::init(int ScreenWidth, int ScreenHeight,
 		return (false);
 	}
 
+	if (TTF_Init() == -1)
+	{
+		std::string msg = "SDL_TTF konnte nicht initialisiert werden!\n Fehlermeldung: ";
+		msg.append(TTF_GetError());
+
+		Logger::instance().log(LOGLEVEL::FATAL, msg);
+
+		destroy();
+
+		return (false);
+	}
+
 	Uint32 WindowFlags = 0;
 
 	if (bFullscreen == true)
@@ -47,7 +59,7 @@ bool RendererImpl::init(int ScreenWidth, int ScreenHeight,
 	else
 		WindowFlags = SDL_WINDOW_SHOWN;
 
-	m_pWindow = SDL_CreateWindow("SDL_Game",
+	m_pWindow = SDL_CreateWindow("Trench Tactics",
 		SDL_WINDOWPOS_UNDEFINED,
 		SDL_WINDOWPOS_UNDEFINED,
 		ScreenWidth,
@@ -108,6 +120,8 @@ void RendererImpl::destroy()
 	{
 		SDL_DestroyWindow(m_pWindow);
 	}
+
+	TTF_Quit();
 	SDL_Quit();
 }
 

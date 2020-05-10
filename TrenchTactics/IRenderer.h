@@ -1,5 +1,6 @@
 #pragma once
 #include "Timer.hpp"
+#include <SDL_ttf.h>
 
 /// <summary>
 /// IRenderer interface to achieve capsulation

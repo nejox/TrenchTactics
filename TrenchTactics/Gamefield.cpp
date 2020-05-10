@@ -1,10 +1,12 @@
 ﻿#include "Gamefield.h"
+#include "SpriteButton.h"
 
 Gamefield::Gamefield() {
+	//setting up the randomnumbergenerator
 	srand(time(NULL));
-	this->menuBar = std::make_shared<vector<vector<std::shared_ptr<MenuTile>>>>();
-	this->headquarterTilePlayerBlue = std::make_shared<vector<vector<std::shared_ptr<PlayerTile>>>>();
-	this->headquarterTilePlayerRed = std::make_shared<vector<vector<std::shared_ptr<PlayerTile>>>>();
+	//making all parts of the map into shared pointers 
+	this->headquarterTilePlayerBlue = std::make_shared<PlayerTile>();
+	this->headquarterTilePlayerRed = std::make_shared<PlayerTile>();
 	this->playingfield = std::make_shared<vector<vector<std::shared_ptr<FieldTile>>>>();
 	this->spawnBlue = std::make_shared<vector<vector<std::shared_ptr<FieldTile>>>>();
 	this->spawnRed = std::make_shared<vector<vector<std::shared_ptr<FieldTile>>>>();
@@ -21,18 +23,29 @@ Gamefield::~Gamefield() {
  * \param posX
  * \return
  */
-std::shared_ptr<FieldTile> Gamefield::getSpawnFieldRed(int posY, int posX) {
+std::shared_ptr<FieldTile> Gamefield::getSpawnFieldRed(int posX, int posY) {
+	//changing coordinates from pixels to tiles
 	posY = posY / 64;
 	posX = posX / 64;
-
+	//checking if horizontal position is out of red spawn
 	if (posX >= 20 || posX < 18) {
 		return nullptr;
 	}
+	//checking if vertical position is out of 
 	else if (posY < 0 || posY >= 11) {
 		return nullptr;
 	}
+	//checking if position is on red HQ
+	else if (posY == 5 || posY == 6) {
+		return nullptr;
+	}
+	//checking if position is in upper half of red spawn, if yes returns the tile
+	else if (posY < 5) {
+		return this->getSpawnRed().get()->at(posX - -20).at(posY);
+	}
+	//position can only be in bottom half of red spawn and returns rhe tile
 	else {
-		return this->getSpawnRed().get()->at(posX).at(posY);
+		return this->getSpawnRed().get()->at(posX - 20).at(posY - 2);
 	}
 
 }
@@ -45,45 +58,32 @@ std::shared_ptr<FieldTile> Gamefield::getSpawnFieldRed(int posY, int posX) {
  * \param posX
  * \return
  */
-std::shared_ptr<FieldTile> Gamefield::getSpawnFieldBlue(int posY, int posX) {
+std::shared_ptr<FieldTile> Gamefield::getSpawnFieldBlue(int posX, int posY) {
+	//changing position from pixels to tiles
 	posY = posY / 64;
 	posX = posX / 64;
 
-
+	//checking if horizontal position is out of blue spawn
 	if (posX >= 2 || posX < 0) {
 		return nullptr;
 	}
+	//checking if vertical position is out of blue spawn
 	else if (posY < 0 || posY >= 11) {
 		return nullptr;
 	}
-	else {
+	//checking if position is on blue HQ
+	else if (posY == 5 || posY == 6) {
+		return nullptr;
+	}
+	//checking if position is in upper half of blue spawn, if yes returns the tile
+	else if (posY < 5) {
 		return this->getSpawnBlue().get()->at(posX).at(posY);
 	}
-
-}
-
-
-/**
- * get a menu tile based on a pixel position x and y
- * returns nullptr when not valid
- *
- * \param posX
- * \param posY
- * \return
- */
-std::shared_ptr<MenuTile> Gamefield::getMenuTileFromXY(int posX, int posY) {
-	posY = posY / 64 - 12;
-	posX = posX / 64;
-
-	if (posX >= 19) {
-		return nullptr;
-	}
-	else if (posY != 1) {
-		return nullptr;
-	}
+	//position can only be in bottom half of blue spawn and returns the tile
 	else {
-		return this->getMenuBar().get()->at(posX).at(posY);
+		return this->getSpawnBlue().get()->at(posX).at(posY - 2);
 	}
+
 }
 
 /**
@@ -95,17 +95,44 @@ std::shared_ptr<MenuTile> Gamefield::getMenuTileFromXY(int posX, int posY) {
  * \return
  */
 std::shared_ptr<FieldTile> Gamefield::getFieldTileFromXY(int posX, int posY) {
+	//change position from pixels to tiles of playingfield
 	posY = posY / 64;
 	posX = posX / 64 - 2;
+	//checking if horizontal position is out of playingfield
 	if (posX >= 18 || posX < 0) {
 		return nullptr;
 	}
+	//checking if vertical position if out of playingfield
 	else if (posY < 0 || posY >= 12) {
 		return nullptr;
 	}
+	//position in playingfield, return the tile
 	else {
 		return this->getPlayingfield().get()->at(posX).at(posY);
 	}
+}
+
+/**
+* get a player tile based on a pixel position posX and posY 
+* returns a nullptr if the tile does not exist or is not a playertile
+*
+* \param posX horizontal pixelposition
+* \param posY vertical pixelposition
+*/
+std::shared_ptr<PlayerTile> Gamefield::getPlayerTileFromXY(int posX, int posY) {
+	//change position from pixels to tiles of map
+	posX = posX / 64;
+	posY = posY / 64;
+	//checks if the tile at the given position is a player tile and returns it
+	if (posY == 5 || posY == 6) {
+		if (posX == 0 || posX == 1) {
+			return this->headquarterTilePlayerBlue;
+		}
+		else if (posX == 20 || posX == 21) {
+			return this->headquarterTilePlayerRed;
+		}
+	}
+	return nullptr;
 }
 
 /**
@@ -118,9 +145,11 @@ std::shared_ptr<FieldTile> Gamefield::getFieldTileFromXY(int posX, int posY) {
  * \return
  */
 std::shared_ptr<FieldTile> Gamefield::getSpawnTileFromXY(bool colorRed, int posX, int posY) {
+	//searches in red spawn
 	if (colorRed) {
 		return this->getSpawnFieldRed(posX, posY);
 	}
+	//searches in blue spawn
 	else {
 		return this->getSpawnFieldBlue(posX, posY);
 	}
@@ -138,25 +167,26 @@ std::shared_ptr<FieldTile> Gamefield::getSpawnTileFromXY(bool colorRed, int posX
 int Gamefield::spawnUnitInSpawn(std::shared_ptr<Unit> pUnit, bool redPlayerActive)
 {
 	std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> activeSpawn;
-
-	//funktioniert bisher nur bei default Groesse des Spielfelds.
-
-	// 
+	
+	//spawn unit for red player
 	if (redPlayerActive) {
 		activeSpawn = spawnRed;
-
-		for (int i = 1; i > 0; --i) {
+		//iterates over the two spawncolumns from center to edge of map
+		for (int i = 1; i >= 0; --i) {
+			//iterates over the tiles in the spawncolums
 			for (int j = 0; j < 5; ++j) {
+				//checks the upper half of the spawn for the next free tile in current column from center to the edge of map
 				if (fieldTileIsFree(1 - i, 4 - j, activeSpawn)) {
-					activeSpawn.get()->at(1 - i).at(4 - j)->setPos((1 - i) * 64 + 20*64, (4 - j) * 64);
+					//sets the position of the new sprite, places unit on tile and gets the neutral-sprite for unit
+					activeSpawn.get()->at(1 - i).at(4 - j)->setPos((1 - i) * 64 + 20 * 64, (4 - j) * 64);
 					activeSpawn.get()->at(1 - i).at(4 - j)->setUnit(pUnit);
-					pUnit.get()->update(STATES::STANDING_NEUTRAL);
 					return 1;
 				}
+				//checks the lower half of the spawn for the next free tile in current column from center to the edge of map
 				if (fieldTileIsFree(1 - i, 5 + j, activeSpawn)) {
-					activeSpawn.get()->at(1 - i).at(5 + j)->setPos((1 - i) * 64 +20*64, (5 + j) * 64 + 2 * 64);
+					//sets the position of the new sprite, places unit on tile and gets the neutral-sprite for unit
+					activeSpawn.get()->at(1 - i).at(5 + j)->setPos((1 - i) * 64 + 20 * 64, (5 + j) * 64 + 2 * 64);
 					activeSpawn.get()->at(1 - i).at(5 + j)->setUnit(pUnit);
-					pUnit.get()->update(STATES::STANDING_NEUTRAL);
 					return 1;
 				}
 			}
@@ -164,19 +194,22 @@ int Gamefield::spawnUnitInSpawn(std::shared_ptr<Unit> pUnit, bool redPlayerActiv
 	}
 	else {
 		activeSpawn = spawnBlue;
-
+		//iterates over the two spawncolumns from center to edge of map
 		for (int i = 0; i < 2; ++i) {
+			//iterates over the tiles in the spawncolums
 			for (int j = 0; j < 5; ++j) {
+				//checks the upper half of the spawn for the next free tile in current column from center to the edge of map
 				if (fieldTileIsFree(1 - i, 4 - j, activeSpawn)) {
+					//sets the position of the new sprite, places unit on tile and gets the neutral-sprite for unit
 					activeSpawn.get()->at(1 - i).at(4 - j)->setPos((1 - i) * 64, (4 - j) * 64);
 					activeSpawn.get()->at(1 - i).at(4 - j)->setUnit(pUnit);
-					pUnit.get()->update(STATES::STANDING_NEUTRAL);
 					return 1;
 				}
+				//checks the lower half of the spawn for the next free tile in current column from center to the edge of map
 				if (fieldTileIsFree(1 - i, 5 + j, activeSpawn)) {
+					//sets the position of the new sprite, places unit on tile and gets the neutral-sprite for unit
 					activeSpawn.get()->at(1 - i).at(5 + j)->setPos((1 - i) * 64, (5 + j) * 64 + 2 * 64);
 					activeSpawn.get()->at(1 - i).at(5 + j)->setUnit(pUnit);
-					pUnit.get()->update(STATES::STANDING_NEUTRAL);
 					return 1;
 				}
 			}
@@ -187,20 +220,24 @@ int Gamefield::spawnUnitInSpawn(std::shared_ptr<Unit> pUnit, bool redPlayerActiv
 }
 
 /**
- * Checks if a fieldtile is empty.
+ * Checks if there is no unit on a fieldtile. Position of the Tile is counted from top left corner of the field. Field can be a spawn or the playingfield.
+ * No pixel position!
  *
- * \param x horizontal position in the field
- * \param y vertical position in the field
+ * \param x horizontal position in the field (can be a spawn or playingfield)
+ * \param y vertical position in the field (can be a spawn or playingfield)
  * \param field Part of the field that contains the tile
  * \return
  */
 bool Gamefield::fieldTileIsFree(int x, int y, std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> field)
 {
-	if (field->at(x).at(y).get()->getUnit().get()) return false;
-	return true;
+	//checks for a unit at the given position in the field and returns false, if there is a unit in tile
+	if (field->at(x).at(y).get()->getUnit().get()) {
+		return false;
+	}
+	else {
+		return true;
+	}
 }
-
-
 
 /**
  * Function to search playingfield and both spawns for a tile on which a unit stands. Returns a nullpointer if unit was not found.
@@ -208,32 +245,35 @@ bool Gamefield::fieldTileIsFree(int x, int y, std::shared_ptr<vector<vector<std:
  * \param pUnit unit to search for
  * \return tile holding the unit
  */
-std::shared_ptr<FieldTile> Gamefield::findeTileByUnit(std::shared_ptr<Unit> pUnit)
+std::shared_ptr<FieldTile> Gamefield::findTileByUnit(std::shared_ptr<Unit> pUnit)
 {
 	std::shared_ptr<FieldTile> pTileToTest = nullptr;
 
-	//Searches playingfield
-
+	//Iterates over columns of playingfield from left to right
 	for (vector<vector<std::shared_ptr<FieldTile>>>::iterator xIter = playingfield->begin(); xIter != playingfield->end(); ++xIter) {
+		//Iterates over the tiles in the column from top to bottom
 		for (vector< std::shared_ptr<FieldTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
+			//checks the current tile for the unit and returns the a pointer ti the tile, if the unit is found
 			pTileToTest = *yIter;
 			if (pTileToTest->getUnit() == pUnit) return pTileToTest;
 		}
 	}
 
-	//Searches blue player's spawn
-
+	//Iterates over columns of blue spawn from left to right
 	for (vector<vector<std::shared_ptr<FieldTile>>>::iterator xIter = spawnBlue->begin(); xIter != spawnBlue->end(); ++xIter) {
+		//Iterates over the tiles in the column from top to bottom
 		for (vector<std::shared_ptr<FieldTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
+			//checks the current tile for the unit and returns the a pointer ti the tile, if the unit is found
 			pTileToTest = *yIter;
 			if (pTileToTest->getUnit() == pUnit) return pTileToTest;
 		}
 	}
 
-	//Searches red player's spawn
-
+	//Iterates over the columns of red spawn from left to right
 	for (vector<vector<std::shared_ptr<FieldTile>>>::iterator xIter = spawnRed->begin(); xIter != spawnRed->end(); ++xIter) {
+		//Iterates over the tiles in the column from top to bottom
 		for (vector<std::shared_ptr<FieldTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
+			//checks the current tile for the unit and returns the a pointer ti the tile, if the unit is found
 			pTileToTest = *yIter;
 			if (pTileToTest->getUnit() == pUnit) return pTileToTest;
 		}
@@ -243,78 +283,127 @@ std::shared_ptr<FieldTile> Gamefield::findeTileByUnit(std::shared_ptr<Unit> pUni
 }
 
 /**
- * Function to get a pointer to tile at x and y. x and y counting from top left.
+ * Function to get a shared pointer to the tile containing pixel at x and y.
+ * Returns a nullpointer if no tile is found.
  *
- * \param x Horizontal position of tile
- * \param y Vertical position of tile
- * \return Pointer to searched Tile.
+ * \param x Horizontal position of pixel
+ * \param y Vertical position of pixel
+ * \return Shared pointer to searched Tile.
  */
-std::shared_ptr<Tile> Gamefield::getTilePointerAt(int x, int y)
+std::shared_ptr<Tile> Gamefield::getTilePointerAt(int xPos, int yPos)
 {
-	std::shared_ptr<Tile> pSearchedTile = NULL;
+	// change position from pixels to tiles
+	xPos = xPos / 64;
+	yPos = yPos / 64;
+	std::shared_ptr<Tile> pSearchedTile = nullptr;
 
-
-	if ((0 <= x <= 21) && (12 <= y <= 14))
-		pSearchedTile = Gamefield::menuBar.get()->at(x).at(y - 12);
-
-	if ((2 <= x <= 19) && (0 <= y <= 11))
-		pSearchedTile = Gamefield::playingfield.get()->at(x - 2).at(y);
-
-	if ((0 <= x <= 1) && (5 <= y <= 6))
-		pSearchedTile = Gamefield::headquarterTilePlayerBlue.get()->at(x).at(y - 5);
-
-	if ((20 <= x <= 21) && (5 <= y <= 6))
-		pSearchedTile = Gamefield::headquarterTilePlayerRed.get()->at(x - 20).at(y - 5);
-
-	if ((0 <= x <= 1) && (0 <= y <= 4))
-		pSearchedTile = Gamefield::spawnBlue.get()->at(x).at(y);
-
-	if ((0 <= x <= 1) && (7 <= y <= 11))
-		pSearchedTile = Gamefield::spawnBlue.get()->at(x).at(y - 2);
-
-	if ((20 <= x <= 21) && (0 <= y <= 4))
-		pSearchedTile = Gamefield::spawnRed.get()->at(x - 20).at(y);
-
-	if ((20 <= x <= 21) && (7 <= y <= 11))
-		pSearchedTile = Gamefield::spawnRed.get()->at(x - 20).at(y - 2);
+	//if position is in menu
+	if ((0 <= xPos <= 21) && (12 <= yPos <= 14))
+		pSearchedTile = MenuBar::instance().getMenuBarBackGround().get()->at(xPos).at(yPos - 12);
+	//if position is in playingfield
+	if ((2 <= xPos <= 19) && (0 <= yPos <= 11))
+		pSearchedTile = Gamefield::playingfield.get()->at(xPos - 2).at(yPos);
+	//if position is in blue HQ
+	if ((0 <= xPos <= 1) && (5 <= yPos <= 6))
+		pSearchedTile = Gamefield::headquarterTilePlayerBlue;
+	//if position is in red HQ
+	if ((20 <= xPos <= 21) && (5 <= yPos <= 6))
+		pSearchedTile = Gamefield::headquarterTilePlayerRed;
+	//if position is in top half of blue spawn
+	if ((0 <= xPos <= 1) && (0 <= yPos <= 4))
+		pSearchedTile = Gamefield::spawnBlue.get()->at(xPos).at(yPos);
+	//if position is in bottom half of blue spawn
+	if ((0 <= xPos <= 1) && (7 <= yPos <= 11))
+		pSearchedTile = Gamefield::spawnBlue.get()->at(xPos).at(yPos - 2);
+	//if position is in top half of red spawn
+	if ((20 <= xPos <= 21) && (0 <= yPos <= 4))
+		pSearchedTile = Gamefield::spawnRed.get()->at(xPos - 20).at(yPos);
+	//if position is in bottom half of red spawn
+	if ((20 <= xPos <= 21) && (7 <= yPos <= 11))
+		pSearchedTile = Gamefield::spawnRed.get()->at(xPos - 20).at(yPos - 2);
 
 	return pSearchedTile;
 }
 
 /**
-*Function to mark the tiles around a given tile as in range. Positions counting from top left tile in playingfield.
+* Function to mark a tile containing a given pixel as selected and call the function to mark surrounding tiles if needed. Positions in pixels.
+* Just working for attackrange, movementrange coming soon
 *
-*\param xPos Horizontal postion of the tile
-*\param yPos Vertical postion of the tile
+*\param xPos Horizontal position of the pixel
+*\param yPos Vertical position of the pixel
 */
-void Gamefield::markTilesAround(int xPos, int yPos, int range)
+void Gamefield::selectAndMarkeTilesByUnit(shared_ptr<Unit> pUnit, GAMEPHASES::GAMEPHASE gamephase, bool redPlayerActiv)
 {
+	//change position from pixels to tiles
+	int xPos = findTileByUnit(pUnit).get()->getPosX() / 64;
+	int yPos = findTileByUnit(pUnit).get()->getPosY() / 64;
+
+	int range = 0;
+	int rangeMoveAndAttack = 0;
+	//set range according to phase
+	if (gamephase == GAMEPHASES::MOVE) {
+		range = pUnit.get()->getCurrentAP();
+		rangeMoveAndAttack = range - pUnit.get()->getApCostAttack();
+	}
+	else if (gamephase == GAMEPHASES::ATTACK) {
+		range = pUnit.get()->getRange();
+	}
+
+	findTileByUnit(pUnit).get()->setSelected(true);
+
+	bool redHqInRange = false;
+	bool blueHqInRange = false;
+
+	//iterates over all tiles, that are in range of selected tile
 	for (int i = -range; i <= range; ++i) {
 		for (int j = (abs(i) - range); j <= abs(abs(i) - range); ++j) {
+			//checks if the current tile is on playingfield
 			if ((2 <= (xPos + i)) && ((xPos + i) <= 19) && (0 <= (yPos + j)) && ((yPos + j) <= 11)) {
+				
 				Gamefield::playingfield.get()->at(xPos - 2 + i).at(yPos + j)->setMarked(true);
-				SpriteMarker* tmpSprite = new SpriteMarker();
-				tmpSprite->load("../Data/Sprites/Token/REACHABLE_MARKER.bmp");
-				tmpSprite->makeTransparent();
-				tmpSprite->setPos((xPos + i) * 64, (yPos + j) * 64);
-				tmpSprite->render();
+				SpriteMarker* tmpMarkerSprite = new SpriteMarker();
+				//markes the tiles on which the unit can only move and not shoot in movephase
+				if (gamephase == GAMEPHASES::MOVE && rangeMoveAndAttack < abs(i) + abs(j)) {
+					tmpMarkerSprite->load("../Data/Sprites/Token/ONLY_MOVMENT_MARKER.bmp");
+				}
+				//markes the other tiles, that are in range in movephase. Markes all attackable tiles in attackphase
+				else {
+					tmpMarkerSprite->load("../Data/Sprites/Token/REACHABLE_MARKER.bmp");
+				}
+				tmpMarkerSprite->makeTransparent();
+				tmpMarkerSprite->setPos((xPos + i) * 64, (yPos + j) * 64);
+				tmpMarkerSprite->render();
+			}
+			//check if blue hq needs to be marked as attackable
+			else if (redPlayerActiv && (xPos + i == 0 || xPos + i == 1) && (yPos + j == 5 || yPos + j == 6)) {
+				blueHqInRange = true;
+			}
+			//checks if red hq needs to be marked as attackable
+			else if ((!redPlayerActiv) && (xPos + i == 20 || xPos + i == 21) && (yPos + j == 5 || yPos + j == 6)) {
+				redHqInRange = true;
 			}
 		}
 	}
-}
-
-/**
-*Function to mark a tile as selected and call the function to mark surrounding tiles if needed. Positions counting from top left tile in playingfield.
-*
-*\param xPos Horizontal position of the tile
-*\param yPos Vertical position of the tile
-*/
-void Gamefield::selectTile(int xPos, int yPos)
-{
-	playingfield.get()->at(xPos).at(yPos)->setSelected(true);
-	if (playingfield.get()->at(xPos).at(yPos)->getUnit())
-		markTilesAround(xPos, yPos, playingfield.get()->at(xPos).at(yPos)->getUnit()->getRange());
-	//nur fuer angriffe; neue variante fuer bewegung noetig
+	//markes the blue hq as attackable
+	if (blueHqInRange && gamephase == GAMEPHASES::ATTACK) {
+		SpriteMarker* tmpHqMarkerSprite = new SpriteMarker();
+		tmpHqMarkerSprite->load("../Data/Sprites/Token/REACHABLE_MARKER.bmp");
+		tmpHqMarkerSprite->makeTransparent();
+		for (int i = 0; i < 4; ++i) {
+			tmpHqMarkerSprite->setPos((i % 2) * 64, (i / 2) * 64 + 5 * 64);
+			tmpHqMarkerSprite->render();
+		}
+	}
+	//markes the red hq as attackable
+	else if (redHqInRange && gamephase == GAMEPHASES::ATTACK) {
+		SpriteMarker* tmpHqMarkerSprite = new SpriteMarker();
+		tmpHqMarkerSprite->load("../Data/Sprites/Token/REACHABLE_MARKER.bmp");
+		tmpHqMarkerSprite->makeTransparent();
+		for (int i = 0; i < 4; ++i) {
+			tmpHqMarkerSprite->setPos((i % 2) * 64 + 20 * 64, (i / 2) * 64 + 5* 64);
+			tmpHqMarkerSprite->render();
+		}
+	}
 }
 
 /**
@@ -329,6 +418,8 @@ void Gamefield::deselectAndUnmarkAllTiles()
 			yIter->get()->setSelected(false);
 			yIter->get()->setMarked(false);
 			yIter->get()->getSprite()->render();
+			if (yIter->get()->getUnit().get())
+				yIter->get()->getUnit()->getSprite()->render();
 		}
 	}
 	//deselects and unmarks the blue player's spawn
@@ -343,120 +434,17 @@ void Gamefield::deselectAndUnmarkAllTiles()
 			yIter2->get()->setSelected(false);
 		}
 	}
-
+	
+	//unmarks blue headquarters
+	std::shared_ptr<Headquarter> tmpBlue = getPlayerTileFromXY(0, 5 * 64).get()->getHeadquarter();
+	tmpBlue->getSprite().get()->setPos(0, 5 * 64);
+	tmpBlue->getSprite().get()->render(tmpBlue->getDamaged());
+	//unmark red headquarters
+	std::shared_ptr<Headquarter> tmpRed = getPlayerTileFromXY(20 * 64, 5 * 64).get()->getHeadquarter();
+	tmpRed->getSprite().get()->setPos(20 * 64, 5 * 64);
+	tmpRed->getSprite().get()->render(tmpRed->getDamaged());
+	
 }
-
-/**
- * get a random unit button sprite based on a provided rndNumber
- *
- * \param rndNumber
- * \return
- */
-Sprite* Gamefield::getRandomUnitButtonSprite(int rndNumber) {
-	Sprite* buttonSprite = new Sprite();
-
-	if (rndNumber == 0) {
-		buttonSprite->load("../Data/Sprites/Token/GRENADE_TOKEN.bmp");
-	}
-	else if (rndNumber == 1) {
-		buttonSprite->load("../Data/Sprites/Token/GUNNER_TOKEN.bmp");
-	}
-	else if (rndNumber == 2) {
-		buttonSprite->load("../Data/Sprites/Token/CC_TOKEN.bmp");
-	}
-	return buttonSprite;
-}
-
-void Gamefield::displaySkipRoundButton() {
-
-}
-
-/**
- * display necessary buttons based on phase
- *
- * \param current gamephase
- */
-void Gamefield::displayButtons(GAMEPHASES::GAMEPHASE phase) {
-	if (phase == GAMEPHASES::BUY) {
-
-		//create the three buttons
-		std::shared_ptr<Button> button = std::make_shared<Button>();
-		std::shared_ptr<Button> button1 = std::make_shared<Button>();
-		std::shared_ptr<Button> button2 = std::make_shared<Button>();
-
-		for (int i = 0; i < 3; i++) {
-			int rnd = std::rand() % 3;
-
-			//get sprite based on rnd number
-			Sprite* buttonSprite = getRandomUnitButtonSprite(rnd);
-
-			if (i == 0) {
-				//set type, positon and reference
-				button->setType(rnd);
-				button->setSprite(buttonSprite);
-				this->getMenuBar().get()->at(4).at(1).get()->setButton(button);
-			}
-			else if (i == 1) {
-				button1->setType(rnd);
-				button1->setSprite(buttonSprite);
-				this->getMenuBar().get()->at(6).at(1).get()->setButton(button1);
-			}
-			else if (i == 2) {
-				button2.get()->setType(rnd);
-				button2.get()->setSprite(buttonSprite);
-				this->getMenuBar().get()->at(8).at(1).get()->setButton(button2);
-			}
-		}
-	}
-	else if (phase == GAMEPHASES::MOVE || phase == GAMEPHASES::ATTACK)
-	{
-		//display buttons for next and previous unit
-		std::shared_ptr<Button> previousUnitButton = std::make_shared<Button>();
-		std::shared_ptr<Button> nextUnitButton = std::make_shared<Button>();
-		Sprite* nextUnit = new Sprite();
-		nextUnit->load("../Data/Sprites/Token/NEXTUNIT_TOKEN.bmp");
-		Sprite* previousUnit = new Sprite();
-		previousUnit->load("../Data/Sprites/Token/PREVIOUSUNIT_TOKEN.bmp");
-
-		previousUnitButton->setSprite(nextUnit);
-		//dummy values until now -> move to a config style file required
-		previousUnitButton->setType(20);
-		nextUnitButton->setSprite(previousUnit);
-		nextUnitButton->setType(10);
-
-		this->getMenuBar().get()->at(4).at(1).get()->setButton(previousUnitButton);
-		this->getMenuBar().get()->at(6).at(1).get()->setButton(nextUnitButton);
-	}
-
-	//always display end phase and end turn buttons
-	std::shared_ptr<Button> nextPhaseButton = std::make_shared<Button>();
-	std::shared_ptr<Button> buttonEndTurn = std::make_shared<Button>();
-
-	Sprite* nextPhase = new Sprite();
-	nextPhase->load("../Data/Sprites/Token/NEXTPHASE_TOKEN.bmp");
-	Sprite* nextTurn = new Sprite();
-	nextTurn->load("../Data/Sprites/Token/ENDTURN_TOKEN.bmp");
-
-	nextPhaseButton->setSprite(nextPhase);
-	nextPhaseButton->setType(50);
-
-	buttonEndTurn->setSprite(nextTurn);
-	buttonEndTurn->setType(31);
-
-	this->getMenuBar().get()->at(13).at(1).get()->setButton(nextPhaseButton);
-	this->getMenuBar().get()->at(17).at(1).get()->setButton(buttonEndTurn);
-}
-
-/**
- *
- */
-void Gamefield::deleteButtons() {
-	for (int i = 4; i < 9; i = i + 2) {
-		this->getMenuBar().get()->at(i).at(1).get()->removeButton();
-	}
-}
-
-
 
 // ------------ Setupfunctions for gamestart -------------------------
 
@@ -558,10 +546,12 @@ Sprite* Gamefield::getRandomSpawnTileSprite(int rndNumber, bool colorRed) {
  */
 void Gamefield::initiateSpawnTilesBlue()
 {
-	int cnt = 0;
-	Sprite* terrain = getRandomSpawnTileSprite(rand() % 4, false);
+	int cnt = 0;	
+	//iterates over the blue spawn from top left 
 	for (vector<vector<std::shared_ptr<FieldTile>>>::iterator xIter = spawnBlue->begin(); xIter != spawnBlue->end(); ++xIter) {
 		for (vector<std::shared_ptr<FieldTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
+			Sprite* terrain = getRandomSpawnTileSprite(rand() % 4, false);
+			//gets a new sprite, when entering a new row
 			if (cnt == 2) {
 				cnt = 0;
 				terrain = getRandomSpawnTileSprite(rand() % 4, false);
@@ -569,13 +559,11 @@ void Gamefield::initiateSpawnTilesBlue()
 			std::shared_ptr<FieldTile> tmpFieldTilePointer = std::make_shared<FieldTile>(FieldTile::TERRAINTYPE::SPAWNTERRAIN);
 
 			if ((yIter - xIter->begin()) >= 5) {
-				terrain->setPos((xIter - spawnBlue->begin()) * 64, (yIter - xIter->begin()) * 64 + 2 * 64);
 				tmpFieldTilePointer->setSprite(terrain);
 				tmpFieldTilePointer->setPos((xIter - spawnBlue->begin()) * 64, (yIter - xIter->begin()) * 64 + 2 * 64);
 				tmpFieldTilePointer->getSprite()->render((xIter - spawnBlue->begin()) * 64, ((yIter - xIter->begin()) % 2 * 64));
 			}
 			else {
-				terrain->setPos((xIter - spawnBlue->begin()) * 64, (yIter - xIter->begin()) * 64);
 				tmpFieldTilePointer->setSprite(terrain);
 				tmpFieldTilePointer->setPos((xIter - spawnBlue->begin()) * 64, (yIter - xIter->begin()) * 64);
 				tmpFieldTilePointer->getSprite()->render((xIter - spawnBlue->begin()) * 64, ((yIter - xIter->begin()) % 2 * 64));
@@ -594,9 +582,12 @@ void Gamefield::initiateSpawnTilesBlue()
 void Gamefield::initiateSpawnTilesRed()
 {
 	int cnt = 0;
-	Sprite* terrain = getRandomSpawnTileSprite(rand() % 4, true);
+
+	//iterates over the red spawn from top left 
 	for (vector<vector<std::shared_ptr<FieldTile>>>::iterator xIter = spawnRed->begin(); xIter != spawnRed->end(); ++xIter) {
 		for (vector<std::shared_ptr<FieldTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
+			Sprite* terrain = getRandomSpawnTileSprite(rand() % 4, true);
+			//gets a new sprite, when entering a new row
 			if (cnt == 2) {
 				cnt = 0;
 				terrain = getRandomSpawnTileSprite(rand() % 4, true);
@@ -622,33 +613,6 @@ void Gamefield::initiateSpawnTilesRed()
 	}
 }
 
-/**
- * Function to set up the MenuTiles at gamestart.
- *
- */
-void Gamefield::initiateMenuTiles()
-{
-	for (vector<vector<std::shared_ptr<MenuTile>>>::iterator xIter = menuBar->begin(); xIter != menuBar->end(); ++xIter) {
-		for (vector<std::shared_ptr<MenuTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
-
-			// create MenuTile as shared pointer 
-			std::shared_ptr<MenuTile> tmpMenuTilePointer = std::make_shared<MenuTile>();
-
-			// create Sprite and load menuBar file with all individual sprites
-			Sprite* terrainSprite = new Sprite();
-			terrainSprite->load("../Data/Sprites/Token/MENUE_BAR.bmp");
-
-			// set pos where sprite shall be renderd
-			terrainSprite->setPos((xIter - menuBar->begin()) * 64, (yIter - xIter->begin()) * 64 + 12 * 64);
-			tmpMenuTilePointer->setSprite(terrainSprite);
-			tmpMenuTilePointer->setPos((xIter - menuBar->begin()) * 64, (yIter - xIter->begin()) * 64 + 12 * 64);
-
-			// tell render function to only render the specific 64*64 slice of whole menu
-			tmpMenuTilePointer->getSprite()->render((xIter - menuBar->begin()) * 64, (yIter - xIter->begin()) * 64);
-			*yIter = tmpMenuTilePointer;
-		}
-	}
-}
 
 /**
  * Function to set up the PlayerTiles for blue player at gamestart.
@@ -656,25 +620,28 @@ void Gamefield::initiateMenuTiles()
  */
 void Gamefield::initiatePlayerTilesBlue()
 {
-	for (vector<vector<std::shared_ptr<PlayerTile>>>::iterator xIter = headquarterTilePlayerBlue->begin(); xIter != headquarterTilePlayerBlue->end(); ++xIter) {
-		for (vector<std::shared_ptr<PlayerTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
-			// create PlayerTile as shared pointer 
-			std::shared_ptr<PlayerTile> tmpMenuTilePointer = std::make_shared<PlayerTile>();
+	std::shared_ptr<Headquarter> hq = make_shared<Headquarter>(false);
 
-			// create Sprite and load menuBar file with all individual sprites
-			Sprite* terrainSprite = new Sprite();
-			terrainSprite->load("../Data/Sprites/HQ/B_HQ.bmp");
+	// create PlayerTile as shared pointer 
+	std::shared_ptr<PlayerTile> tmpPlayerTilePointer = std::make_shared<PlayerTile>();
+	tmpPlayerTilePointer->setHeadquarter(hq);
 
-			// set pos where sprite shall be renderd
+	// create Sprite and load menuBar file with all individual sprites
+	std::shared_ptr<SpriteHQ> hqSprite = make_shared<SpriteHQ>(false);
 
-			terrainSprite->setPos((xIter - headquarterTilePlayerBlue->begin()) * 64, (yIter - xIter->begin()) * 64 + 5 * 64);
-			tmpMenuTilePointer->setSprite(terrainSprite);
+	// set pos where sprite shall be renderd
 
-			// tell render function to only render the specific 64*64 slice of whole menu
-			tmpMenuTilePointer->getSprite()->render((xIter - headquarterTilePlayerBlue->begin()) * 64, (yIter - xIter->begin()) * 64);
-			*yIter = tmpMenuTilePointer;
-		}
-	}
+	hqSprite->setPos(0 * 64, 5 * 64);
+	tmpPlayerTilePointer->setSpriteHq(hqSprite);
+
+	tmpPlayerTilePointer->getSpriteHq()->render(false);
+
+	this->setHqTilePlayerBlue(tmpPlayerTilePointer);
+
+
+	//std::shared_ptr<Headquarter> tmpBlue = getPlayerTileFromXY(0, 5 * 64).get()->getHeadquarter();
+	//tmpBlue->getSprite().get()->setPos(0, 5 * 64);
+	//tmpBlue->getSprite().get()->render(tmpBlue->getDamaged());
 }
 
 
@@ -685,24 +652,24 @@ void Gamefield::initiatePlayerTilesBlue()
  */
 void Gamefield::initiatePlayerTilesRed()
 {
-	for (vector<vector<std::shared_ptr<PlayerTile>>>::iterator xIter = headquarterTilePlayerRed->begin(); xIter != headquarterTilePlayerRed->end(); ++xIter) {
-		for (vector<std::shared_ptr<PlayerTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
-			// create PlayerTile as shared pointer 
-			std::shared_ptr<PlayerTile> tmpMenuTilePointer = std::make_shared<PlayerTile>();
 
-			// create Sprite and load menuBar file with all individual sprites
-			Sprite* terrainSprite = new Sprite();
-			terrainSprite->load("../Data/Sprites/HQ/R_HQ.bmp");
+	std::shared_ptr<Headquarter> hq = make_shared<Headquarter>(true);
 
-			// set pos where sprite shall be renderd
-			terrainSprite->setPos((xIter - headquarterTilePlayerRed->begin()) * 64 + 20 * 64, (yIter - xIter->begin()) * 64 + 5 * 64);
-			tmpMenuTilePointer->setSprite(terrainSprite);
+	// create PlayerTile as shared pointer 
+	std::shared_ptr<PlayerTile> tmpPlayerTilePointer = std::make_shared<PlayerTile>();
+	tmpPlayerTilePointer->setHeadquarter(hq);
 
-			// tell render function to only render the specific 64*64 slice of whole menu
-			tmpMenuTilePointer->getSprite()->render((xIter - headquarterTilePlayerRed->begin()) * 64, (yIter - xIter->begin()) * 64);
-			*yIter = tmpMenuTilePointer;
-		}
-	}
+	// create Sprite and load menuBar file with all individual sprites
+	std::shared_ptr<SpriteHQ> hqSprite = make_shared<SpriteHQ>(true);
+
+	// set pos where sprite shall be renderd
+
+	hqSprite->setPos(20 * 64, 5 * 64);
+	tmpPlayerTilePointer->setSpriteHq(hqSprite);
+
+	tmpPlayerTilePointer->getSpriteHq()->render(false);
+
+	this->setHqTilePlayerRed(tmpPlayerTilePointer);
 }
 
 
@@ -712,55 +679,13 @@ void Gamefield::initiatePlayerTilesRed()
  */
 void Gamefield::setAllFieldSizes()
 {
-	Gamefield::setSizePlayerTilesBlue();
-	Gamefield::setSizePlayerTilesRed();
-	Gamefield::setSizeMenuBar();
+	// ?? sollte ausgelagert werden in MenuBar ??
 	Gamefield::setSizePlayingField();
 	Gamefield::setSizeSpawnBlue();
 	Gamefield::setSizeSpawnRed();
 
 }
 
-/**
- * Sets the size of the blue player's spawn to 2x2.
- *
- */
-void Gamefield::setSizePlayerTilesBlue()
-{
-	headquarterTilePlayerBlue->resize(2);
-	for (vector<vector<shared_ptr<PlayerTile>>>::iterator hqBlue = headquarterTilePlayerBlue->begin(); hqBlue != headquarterTilePlayerBlue->end(); ++hqBlue)
-	{
-		hqBlue->resize(2);
-	}
-}
-
-/**
- * Sets the size of the blue player's spawn to 2x2.
- *
- */
-void Gamefield::setSizePlayerTilesRed()
-{
-	headquarterTilePlayerRed->resize(2);
-	for (vector<vector<shared_ptr<PlayerTile>>>::iterator hqRed = headquarterTilePlayerRed->begin(); hqRed != headquarterTilePlayerRed->end(); ++hqRed)
-	{
-		hqRed->resize(2);
-	}
-}
-
-/**
- * Sets the size of the menubar at the gamestart.
- *
- */
-void Gamefield::setSizeMenuBar()
-{
-	menuBar->resize(22);
-
-	for (vector<vector<shared_ptr<MenuTile>>>::iterator menuCol = menuBar->begin(); menuCol != menuBar->end(); ++menuCol)
-	{
-		menuCol->resize(3);
-	}
-
-}
 
 /**
  * Sets the size of the playingfield at the gamestart.
@@ -811,16 +736,15 @@ void Gamefield::setSizeSpawnRed()
  * \param Seed int for regenerating certain playingfieldlayout. Not used yet.
  */
 void Gamefield::init(int FieldWidth, int FieldHeight, int Seed) {
-	menuBar = std::make_shared<vector<vector<std::shared_ptr<MenuTile>>>>();
+	//initiates all parts of the map als shared pointers
 	playingfield = std::make_shared<vector<vector<std::shared_ptr<FieldTile>>>>();
 	spawnBlue = std::make_shared<vector<vector<std::shared_ptr<FieldTile>>>>();
 	spawnRed = std::make_shared<vector<vector<std::shared_ptr<FieldTile>>>>();
-	headquarterTilePlayerBlue = std::make_shared<vector<vector<std::shared_ptr<PlayerTile>>>>();
-	headquarterTilePlayerRed = std::make_shared<vector<vector<std::shared_ptr<PlayerTile>>>>();
+	headquarterTilePlayerBlue = std::make_shared<PlayerTile>();
+	headquarterTilePlayerRed = std::make_shared<PlayerTile>();
 	Gamefield::setAllFieldSizes();
 	Gamefield::initiatePlayerTilesBlue();
 	Gamefield::initiatePlayerTilesRed();
-	Gamefield::initiateMenuTiles();
 	Gamefield::initiateSpawnTilesBlue();
 	Gamefield::initiateSpawnTilesRed();
 	Gamefield::initiatePlayingFieldTiles();
