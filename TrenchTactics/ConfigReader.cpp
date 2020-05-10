@@ -69,7 +69,7 @@ std::shared_ptr<MapConf> ConfigReader::createMapConf()
 	mapConf->setSizeX(root["sizeX"].asInt());
 	mapConf->setSizeY(root["sizeY"].asInt());
 	mapConf->setHeadquarterSpriteBlue(root["headquarterSpriteBlue"].asString());
-	mapConf->setHeadquarterSpriteRed(root["headquarterSpirteRed"].asString());
+	mapConf->setHeadquarterSpriteRed(root["headquarterSpriteRed"].asString());
 	std::vector<std::string> terrainSpriteList;
 	for (auto terrain : root["terrainSprites"]) {
 		terrainSpriteList.push_back(terrain.asString());

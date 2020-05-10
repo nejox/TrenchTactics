@@ -150,6 +150,9 @@ public:
 		return this->m_hp;
 	}
 
+	int getApCostAttack() {
+		return this->m_apCostAttack;
+	}
 	int getAp() {
 		return this->m_ap;
 	}
