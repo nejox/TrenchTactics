@@ -6,10 +6,10 @@ SpriteHQ::SpriteHQ(bool colorRed)
 	m_colourRed = colorRed;
 	m_damaged = false;
 	if (m_colourRed) {
-		m_spritePath = ConfigReader::instance().getMapConf()->getHeadquarterSpriteRed();
+		m_spritePath = ConfigReader::instance().getTileConf()->getHeadquarterSpriteRed();
 	}
 	else {
-		m_spritePath = ConfigReader::instance().getMapConf()->getHeadquarterSpriteBlue();
+		m_spritePath = ConfigReader::instance().getTileConf()->getHeadquarterSpriteBlue();
 	}
 
 	load(m_spritePath, 128, 128);
