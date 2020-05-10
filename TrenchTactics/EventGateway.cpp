@@ -205,12 +205,12 @@ void EventGateway::handleMoveEvent(MouseClickEvent* event) {
  * \param event provided event from eventbus, in this case mouseclickevent
  */
 void EventGateway::handleBuyEvent(MouseClickEvent* event) {
-	// check wether a player is even allowed to buy a unit based on their supply
-	if ((this->activePlayer->getSupply() + 1) > ConfigReader::instance().getBalanceConf()->getMaxAmountUnits()) {
-		this->activePlayer->setBuying(false);
-		Logger::instance().log(LOGLEVEL::INFO, "not enough supply  to purchase unit");
-	}
-	else {
+	// check wether a player is even allowed to buy a unit based on their supply and money  TO DO: vielleicht woanders hin die condition, wenn sie hier steht muss man erst klicken dass die buyphase geskippt wird
+	if ((this->activePlayer->getUnitArray().size() + 1) <= ConfigReader::instance().getBalanceConf()->getMaxAmountUnits() && (
+		this->activePlayer->getMoney() >= ConfigReader::instance().getUnitConf(0)->getCost() ||
+		this->activePlayer->getMoney() >= ConfigReader::instance().getUnitConf(1)->getCost() ||
+		this->activePlayer->getMoney() >= ConfigReader::instance().getUnitConf(2)->getCost()))
+	{
 		// make sure a button was clicked
 		if (!checkButtonClicked(event)) {
 			Logger::instance().log(LOGLEVEL::INFO, "didnt click a button");
@@ -224,7 +224,7 @@ void EventGateway::handleBuyEvent(MouseClickEvent* event) {
 		if (type >= 0 && type <= 2) {
 
 			//check if player can afford the unit
-			if (activePlayer->getMoney() >= ConfigReader::instance().getUnitConf(type)->getCost()) {
+			if (activePlayer->getMoney() >= ConfigReader::instance().getUnitConf(type)->getCost()) { 
 
 				// create new unit that will be spawned
 				std::shared_ptr<Unit> purchasedUnit = std::make_shared<Unit>(static_cast<TYPES::UnitType>(type), this->activePlayer->getColor());
@@ -247,7 +247,12 @@ void EventGateway::handleBuyEvent(MouseClickEvent* event) {
 			handleEndTurn();
 		}
 	}
+	else
+	{
+		this->activePlayer->setBuying(false);
+		Logger::instance().log(LOGLEVEL::INFO, "not enough supply or money to purchase unit");
 
+	}
 
 }
 
