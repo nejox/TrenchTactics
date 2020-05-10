@@ -52,6 +52,7 @@ void Unit::resetAP()
 
 void Unit::update() {
     m_state = m_sprite->render(m_state);
+    m_spriteHealthBar->render(this->getHp(), this->getCurrentHP());
 }
 
 void Unit::setState(STATES::UNITSTATE state)
@@ -67,6 +68,7 @@ STATES::UNITSTATE Unit::getState()
 void Unit::update(STATES::UNITSTATE state)
 {
     m_state = m_sprite->render(state);
+    m_spriteHealthBar->render(this->getHp(), this->getCurrentHP());
 }
 /**
  *

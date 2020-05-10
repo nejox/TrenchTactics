@@ -4,6 +4,7 @@
 #include "BalanceConf.h"
 #include "ConfigReader.h"
 #include "SpriteHQ.h"
+#include "SpriteHealthBar.h"
 
 class Headquarter
 {
@@ -15,6 +16,7 @@ private:
 	bool m_damaged;
 	std::string m_spriteFilePath;
 	std::shared_ptr<SpriteHQ> m_spriteHQ;
+	std::shared_ptr<SpriteHealthBar> m_spriteHealthBar;
 	
 public:
 	Headquarter(bool colourRed)
@@ -25,6 +27,7 @@ public:
 		m_damaged = false;
 
 		m_spriteHQ = make_shared<SpriteHQ>(m_colorRed);
+		m_spriteHealthBar = make_shared<SpriteHealthBar>(SpriteHealthBar::TYPE::HQ);
 				
 	}
 	/// <summary>
@@ -34,6 +37,7 @@ public:
 	void render()
 	{
 		this->m_spriteHQ->render(this->getDamaged());
+		this->m_spriteHealthBar->render(this->m_maxHP, this->m_currentHP);
 	}
 
 	void changeHP(int damage);
@@ -41,6 +45,11 @@ public:
 	int getCurrentHP()
 	{
 		return m_currentHP;
+	}
+
+	int getHP()
+	{
+		return m_maxHP;
 	}
 
 	std::string getSpriteFilePath()
@@ -71,5 +80,6 @@ public:
 	std::shared_ptr<SpriteHQ> getSprite() {
 		return m_spriteHQ;
 	}
+	
 
 };

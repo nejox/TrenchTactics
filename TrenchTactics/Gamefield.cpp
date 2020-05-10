@@ -628,13 +628,17 @@ void Gamefield::initiatePlayerTilesBlue()
 
 	// create Sprite and load menuBar file with all individual sprites
 	std::shared_ptr<SpriteHQ> hqSprite = make_shared<SpriteHQ>(false);
+	std::shared_ptr<SpriteHealthBar> hqHealthBar = make_shared<SpriteHealthBar>(SpriteHealthBar::TYPE::HQ);
 
 	// set pos where sprite shall be renderd
 
 	hqSprite->setPos(0 * 64, 5 * 64);
+	hqHealthBar->setPos(0 * 64, 5 * 64);
 	tmpPlayerTilePointer->setSpriteHq(hqSprite);
+	tmpPlayerTilePointer->setSpriteHealthBar(hqHealthBar);
 
 	tmpPlayerTilePointer->getSpriteHq()->render(false);
+	tmpPlayerTilePointer->getSpriteHealthBar()->render(hq->getHP(),hq->getCurrentHP());
 
 	this->setHqTilePlayerBlue(tmpPlayerTilePointer);
 
@@ -654,6 +658,7 @@ void Gamefield::initiatePlayerTilesRed()
 {
 
 	std::shared_ptr<Headquarter> hq = make_shared<Headquarter>(true);
+	std::shared_ptr<SpriteHealthBar> hqHealthBar = make_shared<SpriteHealthBar>(SpriteHealthBar::TYPE::HQ);
 
 	// create PlayerTile as shared pointer 
 	std::shared_ptr<PlayerTile> tmpPlayerTilePointer = std::make_shared<PlayerTile>();
@@ -665,9 +670,12 @@ void Gamefield::initiatePlayerTilesRed()
 	// set pos where sprite shall be renderd
 
 	hqSprite->setPos(20 * 64, 5 * 64);
+	hqHealthBar->setPos(20 * 64, 5 * 64);
 	tmpPlayerTilePointer->setSpriteHq(hqSprite);
+	tmpPlayerTilePointer->setSpriteHealthBar(hqHealthBar);
 
 	tmpPlayerTilePointer->getSpriteHq()->render(false);
+	tmpPlayerTilePointer->getSpriteHealthBar()->render(hq->getHP(), hq->getCurrentHP());
 
 	this->setHqTilePlayerRed(tmpPlayerTilePointer);
 }
