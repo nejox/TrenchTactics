@@ -149,7 +149,7 @@ int Gamefield::spawnUnitInSpawn(std::shared_ptr<Unit> pUnit, bool redPlayerActiv
 	if (redPlayerActive) {
 		activeSpawn = spawnRed;
 		//iterates over the two spawncolumns from center to edge of map
-		for (int i = 1; i > 0; --i) {
+		for (int i = 1; i >= 0; --i) {
 			//iterates over the tiles in the spawncolums
 			for (int j = 0; j < 5; ++j) {
 				//checks the upper half of the spawn for the next free tile in current column from center to the edge of map

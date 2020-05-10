@@ -24,7 +24,7 @@ for (int x = 19; x < 22; x++)
 }
 }
 /**
-* Displays Players current money and number of units 
+* Displays Players current money, income and number of units 
 */
 void MenuBar::showPlayerStats(shared_ptr<Player> activePlayer)
 {
@@ -50,6 +50,9 @@ void MenuBar::showPlayerStats(shared_ptr<Player> activePlayer)
 	
 }
 
+
+//is this a workaround? is this just fantasy?
+//tut erstmal was es soll, bisschen billige lösung, wird noch bisschen straffer gemacht aber reicht erstmal so
 void MenuBar::resetUnitStats()
 {
 	for (int x = 9; x < 13; x++)
@@ -71,12 +74,16 @@ void MenuBar::showUnitStats(shared_ptr<Unit> unit)
 	std::string hp = "HP: ";
 	std::string slash = " / ";
 	std::string ap = "AP: ";
+	std::string dmg = "DMG: ";
 
 	unitHP->load(hp + std::to_string(unit->getCurrentHP()) + slash + std::to_string(unit->getHp()));
 	unitHP->render();
 
 	unitAP->load(ap + std::to_string(unit->getCurrentAP()) + slash + std::to_string(unit->getAp()));
 	unitAP->render();
+
+	unitDMG->load(dmg + std::to_string(unit->getDmg()));
+	unitDMG->render();
 }
 
 
@@ -128,10 +135,6 @@ SpriteButton* MenuBar::getRandomUnitButtonSprite(int rndNumber) {
 		buttonSprite->load("../Data/Sprites/Token/CC_TOKEN.bmp");
 	}
 	return buttonSprite;
-}
-
-void MenuBar::displaySkipRoundButton() {
-
 }
 
 /**
@@ -221,67 +224,40 @@ void MenuBar::deleteButtons() {
 
 void MenuBar::displayTokens(shared_ptr<Player> activePlayer)
 {
-	activePlayerFlag = make_shared<Sprite>();
-	activePlayerFlag->setPos(9 * 64 + 37, 12 * 64 + 11);
-
 	if (activePlayer->getColor())
 	{
 		activePlayerFlag->load("../Data/Sprites/Token/R_FLAG_SMOL.bmp");
 	}
-
 	else
 	{
 		activePlayerFlag->load("../Data/Sprites/Token/B_FLAG_SMOL.bmp");
 	}
 
-	activePlayerFlag->render();
-
-	unitCountToken = make_shared<Sprite>();
-	unitCountToken->load("../Data/Sprites/Token/UNIT_COUNTER.bmp");
-	unitCountToken->setPos((64 * 19 + 20), (12 * 64 + 32));
-	unitCountToken->render();
-
-	activePhaseToken = make_shared<Sprite>();
-	activePhaseToken->setPos((64 * 19 + 20), (13 * 64 + 32));
-
 	if (activePlayer->getCurrentPhase() == GAMEPHASES::BUY)
 	{
 		activePhaseToken->load("../Data/Sprites/Token/BUYPHASE_TOKEN.bmp");
+		activePhaseText->load("BUY");
 	}
-
 	else if (activePlayer->getCurrentPhase() == GAMEPHASES::MOVE)
 	{
 		activePhaseToken->load("../Data/Sprites/Token/MOVEPHASE_TOKEN.bmp");
+		activePhaseText->load("MOVE");
+		
 	}
-
 	else
 	{
 		activePhaseToken->load("../Data/Sprites/Token/ATTACKPHASE_TOKEN.bmp");
+		activePhaseText->load("ATTACK");
+		
 	}
-
-	activePhaseToken->render();
-
-	moneyToken = make_shared<Sprite>();
-	moneyToken->load("../Data/Sprites/Token/MONEY_TOKEN.bmp");
-	moneyToken->setPos(27, 12 * 64 + 32);
-	moneyToken->render();
-
-	incomeToken = make_shared<Sprite>();
-	incomeToken->load("../Data/Sprites/Token/INCOME_TOKEN.bmp");
-	incomeToken->setPos(27, 13 * 64 + 32);
-	incomeToken->render();
-
-}
-
-void MenuBar::deleteTokens()
-{
-
-
-	activePlayerFlag = nullptr;
-	unitCountToken = nullptr;
-	activePhaseToken = nullptr;
-	moneyToken = nullptr;
-	incomeToken = nullptr;
+		activePlayerFlag->render();
+		unitCountToken->render();
+		activePhaseToken->render();
+		activePhaseText->render();
+		phaseText->render();
+		moneyToken->render();
+		incomeToken->render();
+	
 }
 
 
