@@ -62,6 +62,10 @@ public:
 	void updateMoney(int amount)
 	{
 		this->money += amount;
+		if (this->money > 9999)
+		{
+			this->money = 9999;
+		}
 	}
 
 	bool getColor() {

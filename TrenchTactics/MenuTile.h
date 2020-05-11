@@ -15,6 +15,9 @@ public:
 	std::shared_ptr<Button> getButton() {
 		return this->button;
 	}
+
+	void removeButtonDisplay();
+
 	int handleEvent();
 	MenuTile() {};
 	~MenuTile() {};

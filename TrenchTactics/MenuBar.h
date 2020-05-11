@@ -32,7 +32,7 @@ public:
 	void init()
 	{
 
-		menuBarBackGround = make_shared<vector<vector<std::shared_ptr<MenuTile>>>>();
+		menuBar = make_shared<vector<vector<std::shared_ptr<MenuTile>>>>();
 		setSizeMenuBar();
 		initiateMenuTiles();
 
@@ -124,12 +124,12 @@ public:
 
 	std::shared_ptr<vector<vector<std::shared_ptr<MenuTile>>>> getMenuBarBackGround()
 	{
-		return this->menuBarBackGround;
+		return this->menuBar;
 	}
 
 
 private:
-	std::shared_ptr<vector<vector<std::shared_ptr<MenuTile>>>> menuBarBackGround;
+	std::shared_ptr<vector<vector<std::shared_ptr<MenuTile>>>> menuBar;
 	std::shared_ptr<Sprite> activePlayerFlag;
 	std::shared_ptr<Sprite> activePhaseToken;
 	std::shared_ptr<SpriteText> activePhaseText;

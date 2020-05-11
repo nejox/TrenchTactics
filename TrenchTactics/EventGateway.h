@@ -61,4 +61,6 @@ private:
 	bool checkRange(shared_ptr<Tile> targetTile);
 
 	bool checkEventOnHQ(MouseClickEvent* event);
+
+	std::shared_ptr<Unit> purchasedUnit = nullptr;
 };
