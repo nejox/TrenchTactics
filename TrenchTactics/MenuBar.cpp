@@ -32,18 +32,18 @@ void MenuBar::showPlayerStats(shared_ptr<Player> activePlayer)
 	money->load(std::to_string(activePlayer->getMoney()));
 	money->render();
 
-	income->load(std::to_string(activePlayer->computeInterest())); 
+	income->load("+" + std::to_string(activePlayer->computeInterest())); 
 	income->render();
 
 	if (activePlayer->getUnitArray().empty())
 	{
-		unitCount->load((std::to_string(0)));  
+		unitCount->load((std::to_string(0)) + " / " + (std::to_string(ConfigReader::instance().getBalanceConf()->getMaxAmountUnits())));  
 		unitCount->render();
 	}
 
 	else
 	{
-		unitCount->load(to_string((activePlayer->getUnitArray().size())));  
+		unitCount->load(to_string((activePlayer->getUnitArray().size())) + " / " + (std::to_string(ConfigReader::instance().getBalanceConf()->getMaxAmountUnits())));
 		unitCount->render();
 	}
 
@@ -149,8 +149,10 @@ void MenuBar::displayButtons(GAMEPHASES::GAMEPHASE phase) {
 		std::shared_ptr<Button> button = std::make_shared<Button>();
 		std::shared_ptr<Button> button1 = std::make_shared<Button>();
 		std::shared_ptr<Button> button2 = std::make_shared<Button>();
+		std::shared_ptr<Button> button3 = std::make_shared<Button>();
+		std::shared_ptr<Button> button4 = std::make_shared<Button>();
 
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < 5; i++) {
 			int rnd = std::rand() % 3;
 
 			//get sprite based on rnd number
@@ -165,12 +167,24 @@ void MenuBar::displayButtons(GAMEPHASES::GAMEPHASE phase) {
 			else if (i == 1) {
 				button1->setType(rnd);
 				button1->setSprite(buttonSprite);
-				this->getMenuBarBackGround().get()->at(6).at(1).get()->setButton(button1);
+				this->getMenuBarBackGround().get()->at(5).at(1).get()->setButton(button1);
 			}
 			else if (i == 2) {
 				button2.get()->setType(rnd);
 				button2.get()->setSprite(buttonSprite);
-				this->getMenuBarBackGround().get()->at(8).at(1).get()->setButton(button2);
+				this->getMenuBarBackGround().get()->at(6).at(1).get()->setButton(button2);
+			}
+
+			else if (i == 3) {
+				button3.get()->setType(rnd);
+				button3.get()->setSprite(buttonSprite);
+				this->getMenuBarBackGround().get()->at(6).at(1).get()->setButton(button3);
+			}
+
+			else if (i == 4) {
+				button4.get()->setType(rnd);
+				button4.get()->setSprite(buttonSprite);
+				this->getMenuBarBackGround().get()->at(6).at(1).get()->setButton(button4);
 			}
 		}
 	}
@@ -251,12 +265,9 @@ void MenuBar::displayTokens(shared_ptr<Player> activePlayer)
 		
 	}
 		activePlayerFlag->render();
-		unitCountToken->render();
 		activePhaseToken->render();
 		activePhaseText->render();
 		phaseText->render();
-		moneyToken->render();
-		incomeToken->render();
 	
 }
 
