@@ -80,6 +80,10 @@ public:
 	std::shared_ptr<SpriteHQ> getSprite() {
 		return m_spriteHQ;
 	}
+
+	std::shared_ptr<SpriteHealthBar> getSpriteHealthBar() {
+		return m_spriteHealthBar;
+	}
 	
 
 };

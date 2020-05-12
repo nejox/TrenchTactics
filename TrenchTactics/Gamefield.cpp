@@ -299,7 +299,7 @@ std::shared_ptr<Tile> Gamefield::getTilePointerAt(int xPos, int yPos)
 
 	//if position is in menu
 	if ((0 <= xPos <= 21) && (12 <= yPos <= 14))
-		pSearchedTile = MenuBar::instance().getMenuBarBackGround().get()->at(xPos).at(yPos - 12);
+		pSearchedTile = MenuBar::instance().getMenuBar().get()->at(xPos).at(yPos - 12);
 	//if position is in playingfield
 	if ((2 <= xPos <= 19) && (0 <= yPos <= 11))
 		pSearchedTile = Gamefield::playingfield.get()->at(xPos - 2).at(yPos);
@@ -438,11 +438,14 @@ void Gamefield::deselectAndUnmarkAllTiles()
 	//unmarks blue headquarters
 	std::shared_ptr<Headquarter> tmpBlue = getPlayerTileFromXY(0, 5 * 64).get()->getHeadquarter();
 	tmpBlue->getSprite().get()->setPos(0, 5 * 64);
-	tmpBlue->getSprite().get()->render(tmpBlue->getDamaged());
+	tmpBlue->getSpriteHealthBar()->setPos(0, 5 * 64);
+	tmpBlue->render();
+	
 	//unmark red headquarters
 	std::shared_ptr<Headquarter> tmpRed = getPlayerTileFromXY(20 * 64, 5 * 64).get()->getHeadquarter();
 	tmpRed->getSprite().get()->setPos(20 * 64, 5 * 64);
-	tmpRed->getSprite().get()->render(tmpRed->getDamaged());
+	tmpRed->getSpriteHealthBar()->setPos(20 * 64, 5 * 64);
+	tmpRed->render();
 	
 }
 

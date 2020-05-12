@@ -115,6 +115,8 @@ public:
 	SpriteButton* getRandomUnitButtonSprite(int rndNumber);
 	void displayButtons(GAMEPHASES::GAMEPHASE phase);
 	void deleteButtons();
+	void MenuBar::deleteAllButtonDisplays();
+	void refreshAllButtonDisplays();
 
 	void updateButtons(GAMEPHASES::GAMEPHASE phase)
 	{
@@ -122,7 +124,7 @@ public:
 		this->displayButtons(phase);
 	}
 
-	std::shared_ptr<vector<vector<std::shared_ptr<MenuTile>>>> getMenuBarBackGround()
+	std::shared_ptr<vector<vector<std::shared_ptr<MenuTile>>>> getMenuBar()
 	{
 		return this->menuBar;
 	}

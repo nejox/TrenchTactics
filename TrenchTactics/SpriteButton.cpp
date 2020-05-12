@@ -2,6 +2,7 @@
 
 void SpriteButton::render(STATES::BUTTONSTATE state)
 {
+	
 	//Set rendering space and render to screen
 	SDL_Rect renderQuad = { 0, 0, 64, 64 };
 	renderQuad.x = state  * 64;
