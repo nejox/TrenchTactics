@@ -68,7 +68,7 @@ void Game::initGame() {
 void Game::startGame() {
 	Logger::instance().log(LOGLEVEL::INFO, "Game Running");
 	// start a player phase and switch player afterwards
-	
+
 	while (gameRunning) {
 		this->ctrTurns++; 
 
@@ -106,12 +106,7 @@ void Game::startPlayerPhase() {
 		this->gateway.setCurrentPhase(phase);
 
 		if (phase == GAMEPHASES::BUY) {
-			
-
-				this->startBuyPhase();
-			
-
-
+			this->startBuyPhase();
 		}
 
 		
@@ -184,6 +179,7 @@ void Game::quit() {
  */
 void Game::switchActivePlayer() {
 	this->activePlayer->demarkActiveUnit();
+	this->endTurn = false;
 	if (this->activePlayer->getColor()) {
 		this->activePlayer = playerBlue;
 		this->gateway.setActivePlayer(playerBlue);
@@ -206,6 +202,10 @@ void Game::startAttackPhase() {
 	menuBar.updateMenuBar(GAMEPHASES::ATTACK, activePlayer);
 	this->gateway.setCurrentPhase(GAMEPHASES::ATTACK);
 	this->activePlayer->copyUnitsToQueue();
+
+
+	//if (!this->activePlayer->getUnitQueue().empty())
+		//Gamefield::instance().selectAndMarkeTilesByUnit(this->activePlayer->getUnitQueue().front(), GAMEPHASES::ATTACK, this->activePlayer->getColor());
 
 	this->activePlayer->markActiveUnit();
 	//this->activePlayer->popUnit();
@@ -242,8 +242,8 @@ void Game::startMovePhase() {
 	this->gateway.setCurrentPhase(GAMEPHASES::MOVE);
 	this->activePlayer->copyUnitsToQueue();
 
-	if (!this->activePlayer->getUnitQueue().empty())
-		Gamefield::instance().selectAndMarkeTilesByUnit(this->activePlayer->getUnitQueue().front(), GAMEPHASES::MOVE, this->activePlayer->getColor());
+	//if (!this->activePlayer->getUnitQueue().empty())
+		//Gamefield::instance().selectAndMarkeTilesByUnit(this->activePlayer->getUnitQueue().front(), GAMEPHASES::MOVE, this->activePlayer->getColor());
 	
 	menuBar.updateButtons(GAMEPHASES::MOVE);  
 	this->activePlayer->markActiveUnit();

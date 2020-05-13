@@ -44,8 +44,7 @@ void EventGateway::handleNextUnit()
 
 	this->activePlayer->markActiveUnit();
 
-	Gamefield::instance().deselectAndUnmarkAllTiles();
-	Gamefield::instance().selectAndMarkeTilesByUnit(this->activePlayer->getUnitQueue().front(), this->currentPhase, this->activePlayer->getColor());
+
 }
 
 void EventGateway::handlePrevUnit()
@@ -63,8 +62,8 @@ void EventGateway::handlePrevUnit()
 
 	this->activePlayer->markActiveUnit();
 
-	Gamefield::instance().deselectAndUnmarkAllTiles();
-	Gamefield::instance().selectAndMarkeTilesByUnit(this->activePlayer->getUnitQueue().front(), this->currentPhase, this->activePlayer->getColor());
+	/*Gamefield::instance().deselectAndUnmarkAllTiles();
+	Gamefield::instance().selectAndMarkeTilesByUnit(this->activePlayer->getUnitQueue().front(), this->currentPhase, this->activePlayer->getColor());*/
 }
 
 void EventGateway::handleEndTurn() {
@@ -78,7 +77,6 @@ void EventGateway::handleNextPhase() {
 	this->activePlayer->demarkActiveUnit();
 	// empty the queue of the active player to get to the next phase
 	this->activePlayer->emptyQueue();
-	Gamefield::instance().deselectAndUnmarkAllTiles();
 }
 
 /**
@@ -95,7 +93,7 @@ void EventGateway::handleAttackEvent(MouseClickEvent* event) {
 	// TODO: other buttons
 	if (checkButtonClicked(event)) {
 		int type = MenuBar::instance().getMenuTileFromXY(event->getX(), event->getY())->getButton()->getType();
-		
+
 		if (type == 50) {
 
 			handleNextPhase();
@@ -123,6 +121,7 @@ void EventGateway::handleAttackEvent(MouseClickEvent* event) {
 			if (checkRange(Gamefield::instance().findTileByUnit(unitToBeAttacked))) {
 				unitAttacking->attack(unitToBeAttacked);
 				this->activePlayer->popUnit();
+
 				this->activePlayer->markActiveUnit();
 
 			}
@@ -137,12 +136,19 @@ void EventGateway::handleAttackEvent(MouseClickEvent* event) {
 			tile = Gamefield::instance().getHqTilePlayerBlue();
 		}
 		else {
-			tile = Gamefield::instance().getHqTilePlayerBlue();
+			tile = Gamefield::instance().getHqTilePlayerRed();
 		}
-		std::shared_ptr < Headquarter> hq = tile->getHeadquarter();
-		unitAttacking->attack(hq);
-	}
+		if (checkRange(tile)) {
+			std::shared_ptr < Headquarter> hq = tile->getHeadquarter();
+			unitAttacking->attack(hq);
 
+			this->activePlayer->popUnit();
+			this->activePlayer->markActiveUnit();
+		}
+	}
+	//Gamefield::instance().deselectAndUnmarkAllTiles();
+	//if (!this->activePlayer->getUnitQueue().empty())
+		//Gamefield::instance().selectAndMarkeTilesByUnit(this->activePlayer->getUnitQueue().front(), GAMEPHASES::MOVE, this->activePlayer->getColor());
 }
 
 /**
@@ -188,14 +194,15 @@ void EventGateway::handleMoveEvent(MouseClickEvent* event) {
 			// attach unit to new tile 
 			tileToMoveTo.get()->setUnit(unitToBeMoved);
 			// delete the moved unit from the queue
+			this->activePlayer->demarkActiveUnit();
 			this->activePlayer->popUnit();
 			unitToBeMoved->setState(STATES::UNITSTATE::STANDING_NEUTRAL);
 			this->activePlayer->markActiveUnit();
 		}
 	}
-	Gamefield::instance().deselectAndUnmarkAllTiles();
+	/*Gamefield::instance().deselectAndUnmarkAllTiles();
 	if(!this->activePlayer->getUnitQueue().empty())
-		Gamefield::instance().selectAndMarkeTilesByUnit(this->activePlayer->getUnitQueue().front(), GAMEPHASES::MOVE, this->activePlayer->getColor());
+		Gamefield::instance().selectAndMarkeTilesByUnit(this->activePlayer->getUnitQueue().front(), GAMEPHASES::MOVE, this->activePlayer->getColor());*/
 }
 
 /**
@@ -224,7 +231,7 @@ void EventGateway::handleBuyEvent(MouseClickEvent* event) {
 		if (type >= 0 && type <= 2) {
 
 			//check if player can afford the unit
-			if (activePlayer->getMoney() >= ConfigReader::instance().getUnitConf(type)->getCost()) { 
+			if (activePlayer->getMoney() >= ConfigReader::instance().getUnitConf(type)->getCost()) {
 
 				// create new unit that will be spawned
 				std::shared_ptr<Unit> purchasedUnit = std::make_shared<Unit>(static_cast<TYPES::UnitType>(type), this->activePlayer->getColor());
