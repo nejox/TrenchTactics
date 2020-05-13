@@ -9,6 +9,7 @@ void Headquarter::changeHP(int damage)
 	if (this->getCurrentHP() <= 250 && this->getCurrentHP() > 0)
 	{
 		this->setDamaged(true);
+		this->m_spriteHQ->render(this->getDamaged());
 	}
 
 	if (this->getCurrentHP() <= 0)

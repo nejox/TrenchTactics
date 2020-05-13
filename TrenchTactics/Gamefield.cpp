@@ -386,6 +386,7 @@ void Gamefield::selectAndMarkeTilesByUnit(shared_ptr<Unit> pUnit, GAMEPHASES::GA
 	}
 	//markes the blue hq as attackable
 	if (blueHqInRange && gamephase == GAMEPHASES::ATTACK) {
+		this->headquarterTilePlayerBlue->setMarked(true);
 		SpriteMarker* tmpHqMarkerSprite = new SpriteMarker();
 		tmpHqMarkerSprite->load("../Data/Sprites/Token/REACHABLE_MARKER.bmp");
 		tmpHqMarkerSprite->makeTransparent();
@@ -396,6 +397,7 @@ void Gamefield::selectAndMarkeTilesByUnit(shared_ptr<Unit> pUnit, GAMEPHASES::GA
 	}
 	//markes the red hq as attackable
 	else if (redHqInRange && gamephase == GAMEPHASES::ATTACK) {
+		this->headquarterTilePlayerRed->setMarked(true);
 		SpriteMarker* tmpHqMarkerSprite = new SpriteMarker();
 		tmpHqMarkerSprite->load("../Data/Sprites/Token/REACHABLE_MARKER.bmp");
 		tmpHqMarkerSprite->makeTransparent();
@@ -439,10 +441,13 @@ void Gamefield::deselectAndUnmarkAllTiles()
 	std::shared_ptr<Headquarter> tmpBlue = getPlayerTileFromXY(0, 5 * 64).get()->getHeadquarter();
 	tmpBlue->getSprite().get()->setPos(0, 5 * 64);
 	tmpBlue->getSprite().get()->render(tmpBlue->getDamaged());
+	this->headquarterTilePlayerBlue->setMarked(false);
+
 	//unmark red headquarters
 	std::shared_ptr<Headquarter> tmpRed = getPlayerTileFromXY(20 * 64, 5 * 64).get()->getHeadquarter();
 	tmpRed->getSprite().get()->setPos(20 * 64, 5 * 64);
 	tmpRed->getSprite().get()->render(tmpRed->getDamaged());
+	this->headquarterTilePlayerRed->setMarked(false);
 	
 }
 
@@ -634,7 +639,7 @@ void Gamefield::initiatePlayerTilesBlue()
 	hqSprite->setPos(0 * 64, 5 * 64);
 	tmpPlayerTilePointer->setSpriteHq(hqSprite);
 
-	tmpPlayerTilePointer->getSpriteHq()->render(false);
+	tmpPlayerTilePointer->getSpriteHq()->render();
 
 	this->setHqTilePlayerBlue(tmpPlayerTilePointer);
 
@@ -667,7 +672,7 @@ void Gamefield::initiatePlayerTilesRed()
 	hqSprite->setPos(20 * 64, 5 * 64);
 	tmpPlayerTilePointer->setSpriteHq(hqSprite);
 
-	tmpPlayerTilePointer->getSpriteHq()->render(false);
+	tmpPlayerTilePointer->getSpriteHq()->render();
 
 	this->setHqTilePlayerRed(tmpPlayerTilePointer);
 }
