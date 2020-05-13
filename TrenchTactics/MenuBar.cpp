@@ -178,14 +178,14 @@ void MenuBar::displayButtons(GAMEPHASES::GAMEPHASE phase) {
 		std::shared_ptr<Button> button4 = std::make_shared<Button>();
 		button4->setType(11);
 		SpriteButton* button4Sprite = new SpriteButton();
-		button4Sprite->load("../Data/Sprites/Token/BLANK_TOKEN.bmp");
+		button4Sprite->load("../Data/Sprites/Token/ADD_TOKEN.bmp");
 		button4->setSprite(button4Sprite);
 		this->getMenuBar().get()->at(10).at(1).get()->setButton(button4);
 
 		std::shared_ptr<Button> button5 = std::make_shared<Button>();
 		button5->setType(11);
 		SpriteButton* button5Sprite = new SpriteButton();
-		button5Sprite->load("../Data/Sprites/Token/BLANK_TOKEN.bmp");
+		button5Sprite->load("../Data/Sprites/Token/ADD_TOKEN.bmp");
 		button5->setSprite(button5Sprite);
 		this->getMenuBar().get()->at(11).at(1).get()->setButton(button5);
 
