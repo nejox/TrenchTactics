@@ -22,6 +22,7 @@ void Unit::attack(std::shared_ptr<Unit> target)
  */
 void Unit::attack(std::shared_ptr<Headquarter> target)
 {
+    this->m_state = STATES::UNITSTATE::SHOOTING;
 	target->changeHP(m_dmg);
 	updateAP(m_apCostAttack);
 }

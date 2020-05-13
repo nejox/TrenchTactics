@@ -7,6 +7,7 @@ class SpriteHQ : public Sprite
 public:
 	SpriteHQ(bool colorRed);
 	void render(bool damaged);
+	void render();
 
 private:
 	bool m_colourRed;

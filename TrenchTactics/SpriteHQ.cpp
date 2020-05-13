@@ -18,6 +18,12 @@ SpriteHQ::SpriteHQ(bool colorRed)
 void SpriteHQ::render(bool damaged)
 {
 	m_damaged = damaged;
+	
+	render();
+}
+
+void SpriteHQ::render() {
+
 	// Ausschnitt der aktuellen Animationsphase berechnen
 	m_FrameRect.x = (m_damaged * m_frameWidth);
 	m_FrameRect.y = 0;
@@ -25,6 +31,8 @@ void SpriteHQ::render(bool damaged)
 	// Ausschnitt rendern
 	SDL_RenderCopy(m_pRenderer, m_pImage, &m_FrameRect, &m_Rect);
 }
+
+
 
 /**
  *

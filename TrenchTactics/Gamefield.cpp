@@ -386,6 +386,7 @@ void Gamefield::selectAndMarkeTilesByUnit(shared_ptr<Unit> pUnit, GAMEPHASES::GA
 	}
 	//markes the blue hq as attackable
 	if (blueHqInRange && gamephase == GAMEPHASES::ATTACK) {
+		this->headquarterTilePlayerBlue->setMarked(true);
 		SpriteMarker* tmpHqMarkerSprite = new SpriteMarker();
 		tmpHqMarkerSprite->load("../Data/Sprites/Token/REACHABLE_MARKER.bmp");
 		tmpHqMarkerSprite->makeTransparent();
@@ -396,6 +397,7 @@ void Gamefield::selectAndMarkeTilesByUnit(shared_ptr<Unit> pUnit, GAMEPHASES::GA
 	}
 	//markes the red hq as attackable
 	else if (redHqInRange && gamephase == GAMEPHASES::ATTACK) {
+		this->headquarterTilePlayerRed->setMarked(true);
 		SpriteMarker* tmpHqMarkerSprite = new SpriteMarker();
 		tmpHqMarkerSprite->load("../Data/Sprites/Token/REACHABLE_MARKER.bmp");
 		tmpHqMarkerSprite->makeTransparent();
@@ -438,6 +440,7 @@ void Gamefield::deselectAndUnmarkAllTiles()
 	//unmarks blue headquarters
 	std::shared_ptr<Headquarter> tmpBlue = getPlayerTileFromXY(0, 5 * 64).get()->getHeadquarter();
 	tmpBlue->getSprite().get()->setPos(0, 5 * 64);
+
 	tmpBlue->getSpriteHealthBar()->setPos(0, 5 * 64);
 	tmpBlue->render();
 	
@@ -446,7 +449,7 @@ void Gamefield::deselectAndUnmarkAllTiles()
 	tmpRed->getSprite().get()->setPos(20 * 64, 5 * 64);
 	tmpRed->getSpriteHealthBar()->setPos(20 * 64, 5 * 64);
 	tmpRed->render();
-	
+
 }
 
 // ------------ Setupfunctions for gamestart -------------------------
@@ -640,8 +643,10 @@ void Gamefield::initiatePlayerTilesBlue()
 	tmpPlayerTilePointer->setSpriteHq(hqSprite);
 	tmpPlayerTilePointer->setSpriteHealthBar(hqHealthBar);
 
+
 	tmpPlayerTilePointer->getSpriteHq()->render(false);
 	tmpPlayerTilePointer->getSpriteHealthBar()->render(hq->getHP(),hq->getCurrentHP());
+
 
 	this->setHqTilePlayerBlue(tmpPlayerTilePointer);
 
