@@ -94,12 +94,12 @@ void EventGateway::handleAttackEvent(MouseClickEvent* event) {
 	if (checkButtonClicked(event)) {
 		int type = MenuBar::instance().getMenuTileFromXY(event->getX(), event->getY())->getButton()->getType();
 
-		if (type == 50) {
+		if (type == 31) {
 
 			handleNextPhase();
 		}
 		// end turn
-		else if (type == 31) {
+		else if (type == 30) {
 			handleEndTurn();
 		}
 		//previous Unit
@@ -107,7 +107,7 @@ void EventGateway::handleAttackEvent(MouseClickEvent* event) {
 			handlePrevUnit();
 		}
 		//next unit
-		else if (type == 20) {
+		else if (type == 11) {
 			handleNextUnit();
 		}
 		return;
@@ -164,11 +164,11 @@ void EventGateway::handleMoveEvent(MouseClickEvent* event) {
 
 		int type = MenuBar::instance().getMenuTileFromXY(event->getX(), event->getY())->getButton()->getType();
 
-		if (type == 50) {
+		if (type == 31) {
 			handleNextPhase();
 		}
 		// end turn
-		else if (type == 31) {
+		else if (type == 30) {
 			handleEndTurn();
 		}
 		//previous Unit Button
@@ -176,7 +176,7 @@ void EventGateway::handleMoveEvent(MouseClickEvent* event) {
 			handlePrevUnit();
 		}
 		//next unit Button
-		else if (type == 20) {
+		else if (type == 11) {
 			handleNextUnit();
 		}
 		return;
@@ -233,8 +233,6 @@ void EventGateway::handleBuyEvent(MouseClickEvent* event) {
 			return;
 		}
 
-
-
 		// get the button type to decide what to do
 		int type = MenuBar::instance().getMenuTileFromXY(event->getX(), event->getY())->getButton()->getType();
 
@@ -246,42 +244,95 @@ void EventGateway::handleBuyEvent(MouseClickEvent* event) {
 
 				//render over button
 				MenuBar::instance().getMenuTileFromXY(event->getX(), event->getY())->removeButtonDisplay();
-				//render pressed button
-				MenuBar::instance().getMenuTileFromXY(event->getX(), event->getY())->getButton()->getSprite()->render(STATES::BUTTONSTATE::PRESSED);
-
-				// create new unit that will be purchased
-				purchasedUnit = std::make_shared<Unit>(static_cast<TYPES::UnitType>(type), this->activePlayer->getColor());
+				//toggle buttonstate
+				MenuBar::instance().getMenuTileFromXY(event->getX(), event->getY())->getButton()->push();
+				//render button 
+				MenuBar::instance().getMenuTileFromXY(event->getX(), event->getY())->getButton()->update();
 
 			}
 		}
+
+		//add an additional unit button
+		if (type == 23)
+		{
+			if (activePlayer->getMoney() >= 5) {
+				this->activePlayer->updateMoney(-5);
+				MenuBar::instance().getMenuTileFromXY(event->getX(), event->getY())->removeButtonDisplay();
+				MenuBar::instance().getMenuTileFromXY(event->getX(), event->getY())->getButton()->setType((Button::BUTTONTYPE)(std::rand() % 3));
+				MenuBar::instance().getMenuTileFromXY(event->getX(), event->getY())->getButton()->update();
+				MenuBar::instance().refreshMenuBar(this->activePlayer);
+			}
+		}
+
 		//confirm purchase of unit
-		else if (type == 12)
+		else if (type == 20)
 		{
-			if (purchasedUnit != nullptr) {
-				// spawn unit
-				Gamefield::instance().spawnUnitInSpawn(purchasedUnit, this->activePlayer->getColor());
-				// add unit to vector of the player
-				this->activePlayer->addUnit(purchasedUnit);
-				this->activePlayer->updateMoney(-(purchasedUnit->getCost()));
-				MenuBar::instance().updateMenuBar(GAMEPHASES::BUY, activePlayer);
 
+			int cost = 0;
+			//iterate over all unit buttons, summarize all pressed buttons cost
+			for (int i = 7; i <= 11; i = i++) {
+				//if it isnt empty
+				if (MenuBar::instance().getMenuBar().get()->at(i).at(1).get()->getButton() != nullptr) {
+					//if it is pressed
+					if (MenuBar::instance().getMenuBar().get()->at(i).at(1).get()->getButton()->getState() == true)
+					{
+						cost = cost + (ConfigReader::instance().getUnitConf(MenuBar::instance().getMenuBar().get()->at(i).at(1).get()->getButton()->getType())->getCost());
+					}
+				}
 			}
+
+			//check if player can afford all his purchases
+			if (cost <= activePlayer->getMoney()) {
+				//iterate over all unitbuttons
+				for (int i = 7; i <= 11; i = i++) {
+					//if it isnt empty
+					if (MenuBar::instance().getMenuBar().get()->at(i).at(1).get()->getButton() != nullptr) {
+						//if it is pressed
+						if (MenuBar::instance().getMenuBar().get()->at(i).at(1).get()->getButton()->getState() == true)
+						{
+							// create new unit that will be purchased
+							purchasedUnit = std::make_shared<Unit>(static_cast<TYPES::UnitType>(MenuBar::instance().getMenuBar().get()->at(i).at(1).get()->getButton()->getType()), this->activePlayer->getColor());
+							// spawn unit
+							Gamefield::instance().spawnUnitInSpawn(purchasedUnit, this->activePlayer->getColor());
+							// add unit to vector of the player
+							this->activePlayer->addUnit(purchasedUnit);
+							//update players money
+							this->activePlayer->updateMoney(-(purchasedUnit->getCost()));
+						}
+					}
+				}
+				//MenuBar::instance().updateMenuBar(GAMEPHASES::BUY, activePlayer); überflüssig?
+				this->activePlayer->setBuying(false);
+			}
+
+			//if player cant afford, deactivate all Buttons
+			else
+			{
+				MenuBar::instance().resetAllButtonDisplays();
+			}
+
 		}
-		//cancel purchase of unit
-		else if (type == 13)
-		{
-			if (purchasedUnit != nullptr) {
 
-				MenuBar::instance().refreshAllButtonDisplays();
-				purchasedUnit = nullptr;
-			}
+		//Reroll Units
+		else if (type == 22)
+		{
+			this->activePlayer->updateMoney(-10);
+			MenuBar::instance().updateMenuBar(GAMEPHASES::BUY, this->activePlayer);
+		}
+
+		//cancel purchase of unit
+		else if (type == 21)
+		{
+			
+				MenuBar::instance().resetAllButtonDisplays();
+			
 		}
 		// react to next phase
-		else if (type == 50) {
+		else if (type == 31) {
 			this->activePlayer->setBuying(false);
 		}
 		// end turn
-		else if (type == 31) {
+		else if (type == 30) {
 			handleEndTurn();
 		}
 	}

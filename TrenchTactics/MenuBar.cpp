@@ -116,98 +116,49 @@ std::shared_ptr<MenuTile> MenuBar::getMenuTileFromXY(int posX, int posY) {
 
 }
 
-/**
- * get a random unit button sprite based on a provided rndNumber
- *
- * \param rndNumber
- * \return random button sprite
- */
-SpriteButton* MenuBar::getRandomUnitButtonSprite(int rndNumber) {
-	SpriteButton* buttonSprite = new SpriteButton();
-
-	if (rndNumber == 0) {
-		buttonSprite->load("../Data/Sprites/Token/GRENADE_TOKEN.bmp");
-	}
-	else if (rndNumber == 1) {
-		buttonSprite->load("../Data/Sprites/Token/GUNNER_TOKEN.bmp");
-	}
-	else if (rndNumber == 2) {
-		buttonSprite->load("../Data/Sprites/Token/CC_TOKEN.bmp");
-	}
-	return buttonSprite;
-}
 
 /**
  * display necessary buttons based on phase.
  *
  * \param current gamephase
  */
-void MenuBar::displayButtons(GAMEPHASES::GAMEPHASE phase) {
+void MenuBar::initButtons(GAMEPHASES::GAMEPHASE phase) {
 	if (phase == GAMEPHASES::BUY) {
 
-		//create the three buttons
-		std::shared_ptr<Button> button = std::make_shared<Button>();
-		std::shared_ptr<Button> button1 = std::make_shared<Button>();
-		std::shared_ptr<Button> button2 = std::make_shared<Button>();
 
 		for (int i = 0; i < 3; i++) {
 			int rnd = std::rand() % 3;
 
-			//get sprite based on rnd number
-			SpriteButton* buttonSprite = getRandomUnitButtonSprite(rnd);
-
 			if (i == 0) {
-				//set type, positon and reference
-				button->setType(rnd);
-				button->setSprite(buttonSprite);
-				this->getMenuBar().get()->at(7).at(1).get()->setButton(button);
+				std::shared_ptr<Button> button1 = std::make_shared<Button>((Button::BUTTONTYPE)rnd);
+				this->getMenuBar().get()->at(7).at(1).get()->setButton(button1);
 			}
 			else if (i == 1) {
-				button1->setType(rnd);
-				button1->setSprite(buttonSprite);
-				this->getMenuBar().get()->at(8).at(1).get()->setButton(button1);
+				std::shared_ptr<Button> button2 = std::make_shared<Button>((Button::BUTTONTYPE)rnd);
+				this->getMenuBar().get()->at(8).at(1).get()->setButton(button2);
 			}
 			else if (i == 2) {
-				button2.get()->setType(rnd);
-				button2.get()->setSprite(buttonSprite);
-				this->getMenuBar().get()->at(9).at(1).get()->setButton(button2);
+				std::shared_ptr<Button> button3 = std::make_shared<Button>((Button::BUTTONTYPE)rnd);
+				this->getMenuBar().get()->at(9).at(1).get()->setButton(button3);
 			}
 
 		}
 
-		std::shared_ptr<Button> button4 = std::make_shared<Button>();
-		button4->setType(11);
-		SpriteButton* button4Sprite = new SpriteButton();
-		button4Sprite->load("../Data/Sprites/Token/ADD_TOKEN.bmp");
-		button4->setSprite(button4Sprite);
+		std::shared_ptr<Button> button4 = std::make_shared<Button>(Button::ADDUNIT);
 		this->getMenuBar().get()->at(10).at(1).get()->setButton(button4);
 
-		std::shared_ptr<Button> button5 = std::make_shared<Button>();
-		button5->setType(11);
-		SpriteButton* button5Sprite = new SpriteButton();
-		button5Sprite->load("../Data/Sprites/Token/ADD_TOKEN.bmp");
-		button5->setSprite(button5Sprite);
+		std::shared_ptr<Button> button5 = std::make_shared<Button>(Button::ADDUNIT);
 		this->getMenuBar().get()->at(11).at(1).get()->setButton(button5);
 
-		std::shared_ptr<Button> confirmButton = std::make_shared<Button>();
-		confirmButton->setType(12);
-		SpriteButton* confirmButtonSprite = new SpriteButton();
-		confirmButtonSprite->load("../Data/Sprites/Token/CONFIRM_TOKEN.bmp");
-		confirmButton->setSprite(confirmButtonSprite);
+		std::shared_ptr<Button> confirmButton = std::make_shared<Button>(Button::CONFIRM);
 		this->getMenuBar().get()->at(13).at(1).get()->setButton(confirmButton);
 
-		std::shared_ptr<Button> cancelButton = std::make_shared<Button>();
-		cancelButton->setType(13);
-		SpriteButton* cancelButtonSprite = new SpriteButton();
-		cancelButtonSprite->load("../Data/Sprites/Token/CANCEL_TOKEN.bmp");
-		cancelButton->setSprite(cancelButtonSprite);
+		
+		std::shared_ptr<Button> cancelButton = std::make_shared<Button>(Button::CANCEL);
 		this->getMenuBar().get()->at(14).at(1).get()->setButton(cancelButton);
+		
 
-		std::shared_ptr<Button> rerollButton = std::make_shared<Button>();
-		rerollButton->setType(14);
-		SpriteButton* rerollButtonSprite = new SpriteButton();
-		rerollButtonSprite->load("../Data/Sprites/Token/REROLL_TOKEN.bmp");
-		rerollButton->setSprite(rerollButtonSprite);
+		std::shared_ptr<Button> rerollButton = std::make_shared<Button>(Button::REROLL);
 		this->getMenuBar().get()->at(12).at(1).get()->setButton(rerollButton);
 
 
@@ -215,37 +166,16 @@ void MenuBar::displayButtons(GAMEPHASES::GAMEPHASE phase) {
 	else if (phase == GAMEPHASES::MOVE || phase == GAMEPHASES::ATTACK)
 	{
 		//display buttons for next and previous unit
-		std::shared_ptr<Button> previousUnitButton = std::make_shared<Button>();
-		std::shared_ptr<Button> nextUnitButton = std::make_shared<Button>();
-		SpriteButton* nextUnit = new SpriteButton();
-		nextUnit->load("../Data/Sprites/Token/NEXTUNIT_TOKEN.bmp");
-		SpriteButton* previousUnit = new SpriteButton();
-		previousUnit->load("../Data/Sprites/Token/PREVIOUSUNIT_TOKEN.bmp");
-
-		previousUnitButton->setSprite(previousUnit);
-		//dummy values until now -> move to a config style file required
-		previousUnitButton->setType(20);
-		nextUnitButton->setSprite(nextUnit);
-		nextUnitButton->setType(10);
-
+		std::shared_ptr<Button> previousUnitButton = std::make_shared<Button>(Button::PREVIOUSUNIT);
+		std::shared_ptr<Button> nextUnitButton = std::make_shared<Button>(Button::NEXTUNIT);
+	
 		this->getMenuBar().get()->at(4).at(1).get()->setButton(previousUnitButton);
 		this->getMenuBar().get()->at(5).at(1).get()->setButton(nextUnitButton);
 	}
 
 	//always display end phase and end turn buttons
-	std::shared_ptr<Button> nextPhaseButton = std::make_shared<Button>();
-	std::shared_ptr<Button> buttonEndTurn = std::make_shared<Button>();
-
-	SpriteButton* nextPhase = new SpriteButton();
-	nextPhase->load("../Data/Sprites/Token/NEXTPHASE_TOKEN.bmp");
-	SpriteButton* nextTurn = new SpriteButton();
-	nextTurn->load("../Data/Sprites/Token/ENDTURN_TOKEN.bmp");
-
-	nextPhaseButton->setSprite(nextPhase);
-	nextPhaseButton->setType(50);
-
-	buttonEndTurn->setSprite(nextTurn);
-	buttonEndTurn->setType(31);
+	std::shared_ptr<Button> nextPhaseButton = std::make_shared<Button>(Button::NEXTPHASE);
+	std::shared_ptr<Button> buttonEndTurn = std::make_shared<Button>(Button::ENDTURN);
 
 	this->getMenuBar().get()->at(16).at(1).get()->setButton(nextPhaseButton);
 	this->getMenuBar().get()->at(17).at(1).get()->setButton(buttonEndTurn);
@@ -266,13 +196,26 @@ void MenuBar::deleteAllButtonDisplays() {
 	}
 }
 
+
 void MenuBar::refreshAllButtonDisplays()
 {
 	deleteAllButtonDisplays();
 
 	for (int i = 4; i < 15; i = i++) {
 		if (getMenuBar().get()->at(i).at(1).get()->getButton() != nullptr) {
-			getMenuBar().get()->at(i).at(1).get()->getButton()->getSprite()->render(STATES::BUTTONSTATE::NEUTRAL);
+			getMenuBar().get()->at(i).at(1).get()->getButton()->update();
+		}
+	}
+}
+
+void MenuBar::resetAllButtonDisplays()
+{
+	deleteAllButtonDisplays();
+
+	for (int i = 4; i < 15; i = i++) {
+		if (getMenuBar().get()->at(i).at(1).get()->getButton() != nullptr) {
+			getMenuBar().get()->at(i).at(1).get()->getButton()->setPressed(false);
+			getMenuBar().get()->at(i).at(1).get()->getButton()->update();
 		}
 	}
 }

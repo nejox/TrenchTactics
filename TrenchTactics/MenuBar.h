@@ -71,7 +71,15 @@ public:
 	void updateMenuBar(GAMEPHASES::GAMEPHASE phase, shared_ptr<Player> activePlayer)
 	{
 		this->resetMenuBar();
-		this->updateButtons(phase);
+		this->reInitButtons(phase); // hier muss nochmal dran gearbeitet werden
+		this->updateTokens(activePlayer);
+		this->updatePlayerStats(activePlayer);
+	}
+
+	void refreshMenuBar(shared_ptr<Player> activePlayer)
+	{
+		this->resetMenuBar();
+		this->refreshAllButtonDisplays(); 
 		this->updateTokens(activePlayer);
 		this->updatePlayerStats(activePlayer);
 	}
@@ -112,16 +120,16 @@ public:
 		this->displayTokens(activePlayer);
 	}
 
-	SpriteButton* getRandomUnitButtonSprite(int rndNumber);
-	void displayButtons(GAMEPHASES::GAMEPHASE phase);
+	void initButtons(GAMEPHASES::GAMEPHASE phase);
 	void deleteButtons();
 	void MenuBar::deleteAllButtonDisplays();
+	void resetAllButtonDisplays();
 	void refreshAllButtonDisplays();
 
-	void updateButtons(GAMEPHASES::GAMEPHASE phase)
+	void reInitButtons(GAMEPHASES::GAMEPHASE phase)
 	{
 		this->deleteButtons();
-		this->displayButtons(phase);
+		this->initButtons(phase);
 	}
 
 	std::shared_ptr<vector<vector<std::shared_ptr<MenuTile>>>> getMenuBar()
@@ -142,6 +150,7 @@ private:
 	std::shared_ptr<SpriteText> unitHP;
 	std::shared_ptr<SpriteText> unitAP;
 	std::shared_ptr<SpriteText> unitDMG;
+	
 
 	MenuBar() {};
 };

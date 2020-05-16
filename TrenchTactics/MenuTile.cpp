@@ -2,9 +2,9 @@
 
 void MenuTile::setButton(std::shared_ptr<Button> button) {
 	if (button) {
-		button.get()->getSprite()->setPos(this->getPosX(), this->getPosY());
+		button.get()->setPos(this->getPosX(), this->getPosY());
 		this->button = button;
-		this->button.get()->getSprite()->render(STATES::BUTTONSTATE::NEUTRAL);//64, 0);
+		this->button.get()->update();
 	}
 }
 
