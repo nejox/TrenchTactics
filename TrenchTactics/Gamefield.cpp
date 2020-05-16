@@ -299,7 +299,7 @@ std::shared_ptr<Tile> Gamefield::getTilePointerAt(int xPos, int yPos)
 
 	//if position is in menu
 	if ((0 <= xPos <= 21) && (12 <= yPos <= 14))
-		pSearchedTile = MenuBar::instance().getMenuBarBackGround().get()->at(xPos).at(yPos - 12);
+		pSearchedTile = MenuBar::instance().getMenuBar().get()->at(xPos).at(yPos - 12);
 	//if position is in playingfield
 	if ((2 <= xPos <= 19) && (0 <= yPos <= 11))
 		pSearchedTile = Gamefield::playingfield.get()->at(xPos - 2).at(yPos);
@@ -440,15 +440,16 @@ void Gamefield::deselectAndUnmarkAllTiles()
 	//unmarks blue headquarters
 	std::shared_ptr<Headquarter> tmpBlue = getPlayerTileFromXY(0, 5 * 64).get()->getHeadquarter();
 	tmpBlue->getSprite().get()->setPos(0, 5 * 64);
-	tmpBlue->getSprite().get()->render(tmpBlue->getDamaged());
-	this->headquarterTilePlayerBlue->setMarked(false);
 
+	tmpBlue->getSpriteHealthBar()->setPos(0, 5 * 64);
+	tmpBlue->render();
+	
 	//unmark red headquarters
 	std::shared_ptr<Headquarter> tmpRed = getPlayerTileFromXY(20 * 64, 5 * 64).get()->getHeadquarter();
 	tmpRed->getSprite().get()->setPos(20 * 64, 5 * 64);
-	tmpRed->getSprite().get()->render(tmpRed->getDamaged());
-	this->headquarterTilePlayerRed->setMarked(false);
-	
+	tmpRed->getSpriteHealthBar()->setPos(20 * 64, 5 * 64);
+	tmpRed->render();
+
 }
 
 // ------------ Setupfunctions for gamestart -------------------------
@@ -633,13 +634,19 @@ void Gamefield::initiatePlayerTilesBlue()
 
 	// create Sprite and load menuBar file with all individual sprites
 	std::shared_ptr<SpriteHQ> hqSprite = make_shared<SpriteHQ>(false);
+	std::shared_ptr<SpriteHealthBar> hqHealthBar = make_shared<SpriteHealthBar>(SpriteHealthBar::TYPE::HQ);
 
 	// set pos where sprite shall be renderd
 
 	hqSprite->setPos(0 * 64, 5 * 64);
+	hqHealthBar->setPos(0 * 64, 5 * 64);
 	tmpPlayerTilePointer->setSpriteHq(hqSprite);
+	tmpPlayerTilePointer->setSpriteHealthBar(hqHealthBar);
 
-	tmpPlayerTilePointer->getSpriteHq()->render();
+
+	tmpPlayerTilePointer->getSpriteHq()->render(false);
+	tmpPlayerTilePointer->getSpriteHealthBar()->render(hq->getHP(),hq->getCurrentHP());
+
 
 	this->setHqTilePlayerBlue(tmpPlayerTilePointer);
 
@@ -659,6 +666,7 @@ void Gamefield::initiatePlayerTilesRed()
 {
 
 	std::shared_ptr<Headquarter> hq = make_shared<Headquarter>(true);
+	std::shared_ptr<SpriteHealthBar> hqHealthBar = make_shared<SpriteHealthBar>(SpriteHealthBar::TYPE::HQ);
 
 	// create PlayerTile as shared pointer 
 	std::shared_ptr<PlayerTile> tmpPlayerTilePointer = std::make_shared<PlayerTile>();
@@ -670,9 +678,12 @@ void Gamefield::initiatePlayerTilesRed()
 	// set pos where sprite shall be renderd
 
 	hqSprite->setPos(20 * 64, 5 * 64);
+	hqHealthBar->setPos(20 * 64, 5 * 64);
 	tmpPlayerTilePointer->setSpriteHq(hqSprite);
+	tmpPlayerTilePointer->setSpriteHealthBar(hqHealthBar);
 
-	tmpPlayerTilePointer->getSpriteHq()->render();
+	tmpPlayerTilePointer->getSpriteHq()->render(false);
+	tmpPlayerTilePointer->getSpriteHealthBar()->render(hq->getHP(), hq->getCurrentHP());
 
 	this->setHqTilePlayerRed(tmpPlayerTilePointer);
 }

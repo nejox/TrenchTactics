@@ -6,6 +6,7 @@
 #include "EventBus.h"
 #include "Event.h"
 #include "SpriteUnit.h"
+#include "SpriteHealthBar.h"
 #include "UnitTypes.h"
 
 
@@ -39,6 +40,7 @@ public:
 		m_spawnProbability = ConfigReader::instance().getUnitConf(unittype)->getSpawnProbability();
 		m_name = ConfigReader::instance().getUnitConf(unittype)->getName();
 		m_sprite = make_shared<SpriteUnit>(colorRed, unittype);
+		m_spriteHealthBar = make_shared<SpriteHealthBar>(SpriteHealthBar::TYPE::UNIT);
 		m_state = STATES::UNITSTATE::STANDING_NEUTRAL;
 
 	}
@@ -60,6 +62,7 @@ private:
 	int m_spawnProbability;
 	std::string m_name;
 	std::shared_ptr<SpriteUnit>m_sprite;
+	std::shared_ptr<SpriteHealthBar>m_spriteHealthBar;
 	STATES::UNITSTATE m_state;
 
 public:
@@ -135,6 +138,10 @@ public:
 
 	std::shared_ptr<SpriteUnit> getSprite() {
 		return m_sprite;
+	}
+
+	std::shared_ptr<SpriteHealthBar> getSpriteHealthBar() {
+		return m_spriteHealthBar;
 	}
 
 	void setSprite(std::shared_ptr<SpriteUnit> sprite) {

@@ -213,17 +213,28 @@ void EventGateway::handleMoveEvent(MouseClickEvent* event) {
  */
 void EventGateway::handleBuyEvent(MouseClickEvent* event) {
 	// check wether a player is even allowed to buy a unit based on their supply and money  TO DO: vielleicht woanders hin die condition, wenn sie hier steht muss man erst klicken dass die buyphase geskippt wird
-	if ((this->activePlayer->getUnitArray().size() + 1) <= ConfigReader::instance().getBalanceConf()->getMaxAmountUnits() && (
-		this->activePlayer->getMoney() >= ConfigReader::instance().getUnitConf(0)->getCost() ||
-		this->activePlayer->getMoney() >= ConfigReader::instance().getUnitConf(1)->getCost() ||
-		this->activePlayer->getMoney() >= ConfigReader::instance().getUnitConf(2)->getCost()))
+	if ((this->activePlayer->getUnitArray().size() + 1) > ConfigReader::instance().getBalanceConf()->getMaxAmountUnits() || 
+		(
+		this->activePlayer->getMoney() < ConfigReader::instance().getUnitConf(0)->getCost() &&
+		this->activePlayer->getMoney() < ConfigReader::instance().getUnitConf(1)->getCost() &&
+		this->activePlayer->getMoney() < ConfigReader::instance().getUnitConf(2)->getCost()
+			))
 	{
+		this->activePlayer->setBuying(false);
+		Logger::instance().log(LOGLEVEL::INFO, "not enough supply or money to purchase unit");
+
+	}
+	else
+	{
+		
 		// make sure a button was clicked
 		if (!checkButtonClicked(event)) {
 			Logger::instance().log(LOGLEVEL::INFO, "didnt click a button");
 			return;
 		}
-		MenuBar::instance().getMenuTileFromXY(event->getX(), event->getY())->getButton()->update(STATES::BUTTONSTATE::PRESSED);
+
+
+
 		// get the button type to decide what to do
 		int type = MenuBar::instance().getMenuTileFromXY(event->getX(), event->getY())->getButton()->getType();
 
@@ -233,16 +244,36 @@ void EventGateway::handleBuyEvent(MouseClickEvent* event) {
 			//check if player can afford the unit
 			if (activePlayer->getMoney() >= ConfigReader::instance().getUnitConf(type)->getCost()) {
 
-				// create new unit that will be spawned
-				std::shared_ptr<Unit> purchasedUnit = std::make_shared<Unit>(static_cast<TYPES::UnitType>(type), this->activePlayer->getColor());
+				//render over button
+				MenuBar::instance().getMenuTileFromXY(event->getX(), event->getY())->removeButtonDisplay();
+				//render pressed button
+				MenuBar::instance().getMenuTileFromXY(event->getX(), event->getY())->getButton()->getSprite()->render(STATES::BUTTONSTATE::PRESSED);
+
+				// create new unit that will be purchased
+				purchasedUnit = std::make_shared<Unit>(static_cast<TYPES::UnitType>(type), this->activePlayer->getColor());
+
+			}
+		}
+		//confirm purchase of unit
+		else if (type == 12)
+		{
+			if (purchasedUnit != nullptr) {
 				// spawn unit
 				Gamefield::instance().spawnUnitInSpawn(purchasedUnit, this->activePlayer->getColor());
 				// add unit to vector of the player
 				this->activePlayer->addUnit(purchasedUnit);
 				this->activePlayer->updateMoney(-(purchasedUnit->getCost()));
 				MenuBar::instance().updateMenuBar(GAMEPHASES::BUY, activePlayer);
-				// remove player from buying phase
-				//this->activePlayer->setBuying(false);
+
+			}
+		}
+		//cancel purchase of unit
+		else if (type == 13)
+		{
+			if (purchasedUnit != nullptr) {
+
+				MenuBar::instance().refreshAllButtonDisplays();
+				purchasedUnit = nullptr;
 			}
 		}
 		// react to next phase
@@ -254,12 +285,7 @@ void EventGateway::handleBuyEvent(MouseClickEvent* event) {
 			handleEndTurn();
 		}
 	}
-	else
-	{
-		this->activePlayer->setBuying(false);
-		Logger::instance().log(LOGLEVEL::INFO, "not enough supply or money to purchase unit");
 
-	}
 
 }
 

@@ -32,43 +32,31 @@ public:
 	void init()
 	{
 
-		menuBarBackGround = make_shared<vector<vector<std::shared_ptr<MenuTile>>>>();
+		menuBar = make_shared<vector<vector<std::shared_ptr<MenuTile>>>>();
 		setSizeMenuBar();
 		initiateMenuTiles();
 
-		moneyToken = make_shared<Sprite>();
-		moneyToken->load("../Data/Sprites/Token/MONEY_TOKEN.bmp");
-		moneyToken->setPos(27, 12 * 64 + 32);
-
-		incomeToken = make_shared<Sprite>();
-		incomeToken->load("../Data/Sprites/Token/INCOME_TOKEN.bmp");
-		incomeToken->setPos(27, 13 * 64 + 32);
-
-		unitCountToken = make_shared<Sprite>();
-		unitCountToken->load("../Data/Sprites/Token/UNIT_COUNTER.bmp");
-		unitCountToken->setPos((64 * 19 + 20), (12 * 64 + 32));
-
 		activePlayerFlag = make_shared<Sprite>();
-		activePlayerFlag->setPos(9 * 64 + 37, 12 * 64 + 11);
+		activePlayerFlag->setPos(19 * 64 + 4, 12 * 64 + 37);
 
 		activePhaseToken = make_shared<Sprite>();
-		activePhaseToken->setPos((64 * 19 + 20), (13 * 64 + 32));
+		activePhaseToken->setPos((64 * 19 + 3), (13 * 64 + 44));
 
 		activePhaseText = make_shared<SpriteText>(22);
-		activePhaseText->setPos((64 * 20 + 20), (13 * 64 + 32));
+		activePhaseText->setPos((64 * 20 +4 ), (13 * 64 + 52));
 
 		phaseText = make_shared<SpriteText>(22);
-		phaseText->setPos((64 * 20 + 20), (13 * 64 + 50));
+		phaseText->setPos((64 * 20 + 4), (14 * 64 + 6));
 		phaseText->load("PHASE");
 
-		money = make_shared<SpriteText>(40);
+		money = make_shared<SpriteText>(22);
 		money->setPos((64 + 27), (12 * 64 + 9 + 32));
 
-		income = make_shared<SpriteText>(40);
-		income->setPos((64 + 27), (13 * 64 + 9 + 32));
+		income = make_shared<SpriteText>(22);
+		income->setPos((64 + 27), (13 * 64 + 5 ));
 
-		unitCount = make_shared<SpriteText>(40);
-		unitCount->setPos((64 * 20 + 20), (12 * 64 + 9 + 32));
+		unitCount = make_shared<SpriteText>(22);
+		unitCount->setPos((64 + 27), (13 * 64 + 48));
 
 		unitHP = make_shared<SpriteText>(25);
 		unitHP->setPos((64 * 9 + 40), (64 * 13));
@@ -127,6 +115,8 @@ public:
 	SpriteButton* getRandomUnitButtonSprite(int rndNumber);
 	void displayButtons(GAMEPHASES::GAMEPHASE phase);
 	void deleteButtons();
+	void MenuBar::deleteAllButtonDisplays();
+	void refreshAllButtonDisplays();
 
 	void updateButtons(GAMEPHASES::GAMEPHASE phase)
 	{
@@ -134,23 +124,20 @@ public:
 		this->displayButtons(phase);
 	}
 
-	std::shared_ptr<vector<vector<std::shared_ptr<MenuTile>>>> getMenuBarBackGround()
+	std::shared_ptr<vector<vector<std::shared_ptr<MenuTile>>>> getMenuBar()
 	{
-		return this->menuBarBackGround;
+		return this->menuBar;
 	}
 
 
 private:
-	std::shared_ptr<vector<vector<std::shared_ptr<MenuTile>>>> menuBarBackGround;
+	std::shared_ptr<vector<vector<std::shared_ptr<MenuTile>>>> menuBar;
 	std::shared_ptr<Sprite> activePlayerFlag;
 	std::shared_ptr<Sprite> activePhaseToken;
 	std::shared_ptr<SpriteText> activePhaseText;
 	std::shared_ptr<SpriteText> phaseText;
-	std::shared_ptr<Sprite> moneyToken;
-	std::shared_ptr<Sprite> incomeToken;
 	std::shared_ptr<SpriteText> money;
 	std::shared_ptr<SpriteText> income;
-	std::shared_ptr<Sprite> unitCountToken;
 	std::shared_ptr<SpriteText> unitCount;
 	std::shared_ptr<SpriteText> unitHP;
 	std::shared_ptr<SpriteText> unitAP;
