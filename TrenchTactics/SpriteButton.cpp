@@ -1,16 +1,21 @@
 #include "SpriteButton.h"
 
+
+
 /**
  * Render a button based on the provided state.
  *
- * \param state the buttonstate that shall be rendered
+ * \param pressed the buttonstate that shall be rendered
  */
-void SpriteButton::render(STATES::BUTTONSTATE state)
+
+void SpriteButton::render(bool pressed)
 {
 
 	//Set rendering space and render to screen
 	SDL_Rect renderQuad = { 0, 0, 64, 64 };
-	renderQuad.x = state * 64;
+
+	renderQuad.x = pressed  * 64;
+
 	//Set clip rendering dimensions
 	m_Rect.w = renderQuad.w;
 	m_Rect.h = renderQuad.h;

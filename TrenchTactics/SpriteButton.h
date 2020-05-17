@@ -10,7 +10,7 @@ class SpriteButton :
 {
 public:
 	int x;
-	void render(STATES::BUTTONSTATE state);
+	void render(bool pressed);
 	void render();
 
 };

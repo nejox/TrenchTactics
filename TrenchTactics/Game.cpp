@@ -193,6 +193,8 @@ void Game::switchActivePlayer() {
 		this->activePlayer = playerRed;
 		this->gateway.setActivePlayer(playerRed);
 	}
+
+	this->activePlayer->resetApForAllUnits();
 }
 
 /**
@@ -250,7 +252,7 @@ void Game::startMovePhase() {
 	//if (!this->activePlayer->getUnitQueue().empty())
 		//Gamefield::instance().selectAndMarkeTilesByUnit(this->activePlayer->getUnitQueue().front(), GAMEPHASES::MOVE, this->activePlayer->getColor());
 
-	menuBar.updateButtons(GAMEPHASES::MOVE);
+	menuBar.reInitButtons(GAMEPHASES::MOVE);
 	this->activePlayer->markActiveUnit();
 
 

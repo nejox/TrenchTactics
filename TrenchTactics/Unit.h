@@ -167,6 +167,10 @@ public:
 		return this->m_ap;
 	}
 
+	void reduceAp(int cost) {
+		this->m_currentAP -= cost;
+	}
+
 	int getDmg()
 	{
 		return this->m_dmg;
@@ -176,4 +180,6 @@ public:
 	{
 		return this->m_cost;
 	}
+
+
 };
