@@ -2,9 +2,11 @@
 #include <string>
 
 
-/// <summary>
-/// Unit configeration data container with all getters and setters
-/// </summary>
+/**
+ * Unit Configuration data container with all values concerning the available units
+ * Provides all getters and setters as well
+ * Provided by the ConfigReader
+ */
 class UnitConf {
 private:
 

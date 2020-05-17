@@ -5,13 +5,14 @@
 #include "MenuTile.h"
 
 /**
-* 
+* Menubar wrapper class 
+* controls all things concerning the menubar including buttons sprites setup and teardown
 */
 class MenuBar
 {
 public:
 
-	MenuBar(const MenuBar&) = delete; 
+	MenuBar(const MenuBar&) = delete;
 	MenuBar& operator=(const MenuBar&) = delete;
 	MenuBar(MenuBar&&) = delete;
 	MenuBar& operator=(MenuBar&&) = delete;
@@ -24,11 +25,11 @@ public:
 
 
 	/**
-*set up Menubarbackground
-*Initializes a MenuBar instance with fully configurated moneyToken unitCountTOken incomeToken phaseText
-*initializes money, income, unitCount, activePhaseToken activePhaseText, activePlayer and sets positions
-*initializes unit stats HP, AP, DMG
-*/
+	* set up Menubarbackground
+	* Initializes a MenuBar instance with fully configurated moneyToken unitCountTOken incomeToken phaseText
+	* initializes money, income, unitCount, activePhaseToken activePhaseText, activePlayer and sets positions
+	* initializes unit stats HP, AP, DMG
+	*/
 	void init()
 	{
 
@@ -43,7 +44,7 @@ public:
 		activePhaseToken->setPos((64 * 19 + 3), (13 * 64 + 44));
 
 		activePhaseText = make_shared<SpriteText>(22);
-		activePhaseText->setPos((64 * 20 +4 ), (13 * 64 + 52));
+		activePhaseText->setPos((64 * 20 + 4), (13 * 64 + 52));
 
 		phaseText = make_shared<SpriteText>(22);
 		phaseText->setPos((64 * 20 + 4), (14 * 64 + 6));
@@ -53,7 +54,7 @@ public:
 		money->setPos((64 + 27), (12 * 64 + 9 + 32));
 
 		income = make_shared<SpriteText>(22);
-		income->setPos((64 + 27), (13 * 64 + 5 ));
+		income->setPos((64 + 27), (13 * 64 + 5));
 
 		unitCount = make_shared<SpriteText>(22);
 		unitCount->setPos((64 + 27), (13 * 64 + 48));
@@ -85,14 +86,14 @@ public:
 	void updatePlayerStats(shared_ptr<Player> activePlayer)
 	{
 		showPlayerStats(activePlayer);
-	}	
+	}
 	void showPlayerStats(shared_ptr<Player> activePlayer);
-	
+
 	/**
 	*renders the active players stats and the currently active Units HP
 	*Overloaded funtion
 	*/
-	void updateUnitStats( shared_ptr<Unit> unit)
+	void updateUnitStats(shared_ptr<Unit> unit)
 	{
 		resetUnitStats();
 		showUnitStats(unit);
@@ -115,7 +116,7 @@ public:
 	SpriteButton* getRandomUnitButtonSprite(int rndNumber);
 	void displayButtons(GAMEPHASES::GAMEPHASE phase);
 	void deleteButtons();
-	void MenuBar::deleteAllButtonDisplays();
+	void deleteAllButtonDisplays();
 	void refreshAllButtonDisplays();
 
 	void updateButtons(GAMEPHASES::GAMEPHASE phase)

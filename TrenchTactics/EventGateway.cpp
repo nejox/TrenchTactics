@@ -34,6 +34,10 @@ void EventGateway::handleEvent(MouseClickEvent* event) {
 	}
 }
 
+/**
+ * Function that provides the possibilty to switch to the next unit in the queue of the active player
+ *
+ */
 void EventGateway::handleNextUnit()
 {
 	const std::shared_ptr<Unit> unit = this->activePlayer->getUnitQueue().front();
@@ -47,6 +51,10 @@ void EventGateway::handleNextUnit()
 
 }
 
+/**
+ * Function that provides the possibilty to switch to the previous unit in the queue of the active player
+ *
+ */
 void EventGateway::handlePrevUnit()
 {
 	const std::shared_ptr<Unit> unit = this->activePlayer->getUnitQueue().back();
@@ -66,6 +74,11 @@ void EventGateway::handlePrevUnit()
 	Gamefield::instance().selectAndMarkeTilesByUnit(this->activePlayer->getUnitQueue().front(), this->currentPhase, this->activePlayer->getColor());*/
 }
 
+/**
+ * Handle click of endturn button
+ * Publishes a new EndTurnEvent and empties the queue of the active player
+ *
+ */
 void EventGateway::handleEndTurn() {
 	this->activePlayer->demarkActiveUnit();
 	this->activePlayer->emptyQueue();
@@ -73,10 +86,20 @@ void EventGateway::handleEndTurn() {
 	EventBus::instance().publish(new EndTurnEvent());
 }
 
+/**
+ * Handle click of next phase button
+ * demarks active unit and empties the queue to skip to the next turn
+ *
+ */
 void EventGateway::handleNextPhase() {
-	this->activePlayer->demarkActiveUnit();
-	// empty the queue of the active player to get to the next phase
-	this->activePlayer->emptyQueue();
+	if (this->currentPhase == GAMEPHASES::BUY) {
+		this->activePlayer->setBuying(false);
+	}
+	else {
+		this->activePlayer->demarkActiveUnit();
+		// empty the queue of the active player to get to the next phase
+		this->activePlayer->emptyQueue();
+	}
 }
 
 /**
@@ -213,11 +236,11 @@ void EventGateway::handleMoveEvent(MouseClickEvent* event) {
  */
 void EventGateway::handleBuyEvent(MouseClickEvent* event) {
 	// check wether a player is even allowed to buy a unit based on their supply and money  TO DO: vielleicht woanders hin die condition, wenn sie hier steht muss man erst klicken dass die buyphase geskippt wird
-	if ((this->activePlayer->getUnitArray().size() + 1) > ConfigReader::instance().getBalanceConf()->getMaxAmountUnits() || 
+	if ((this->activePlayer->getUnitArray().size() + 1) > ConfigReader::instance().getBalanceConf()->getMaxAmountUnits() ||
 		(
-		this->activePlayer->getMoney() < ConfigReader::instance().getUnitConf(0)->getCost() &&
-		this->activePlayer->getMoney() < ConfigReader::instance().getUnitConf(1)->getCost() &&
-		this->activePlayer->getMoney() < ConfigReader::instance().getUnitConf(2)->getCost()
+			this->activePlayer->getMoney() < ConfigReader::instance().getUnitConf(0)->getCost() &&
+			this->activePlayer->getMoney() < ConfigReader::instance().getUnitConf(1)->getCost() &&
+			this->activePlayer->getMoney() < ConfigReader::instance().getUnitConf(2)->getCost()
 			))
 	{
 		this->activePlayer->setBuying(false);
@@ -226,7 +249,7 @@ void EventGateway::handleBuyEvent(MouseClickEvent* event) {
 	}
 	else
 	{
-		
+
 		// make sure a button was clicked
 		if (!checkButtonClicked(event)) {
 			Logger::instance().log(LOGLEVEL::INFO, "didnt click a button");
@@ -278,7 +301,7 @@ void EventGateway::handleBuyEvent(MouseClickEvent* event) {
 		}
 		// react to next phase
 		else if (type == 50) {
-			this->activePlayer->setBuying(false);
+			handleNextPhase();
 		}
 		// end turn
 		else if (type == 31) {

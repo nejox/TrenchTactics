@@ -2,6 +2,11 @@
 #include <string>
 #include <vector>
 
+/**
+ * Tile Configuration data container containing all tiles with their respective sprite file paths
+ * Provides all getters and setters as well
+ * Provided by the ConfigReader
+ */
 class TileConf {
 private:
 	std::string headquarterSpriteBlue;

@@ -9,10 +9,11 @@
 //a list of handler objects
 typedef std::list<HandlerFunctionBase*> HandlerList;
 
-/// <summary>
-/// EventBus class based on singelton pattern
-/// for Event handling across modules
-/// </summary>
+
+/**
+ * EventBus class based on singelton pattern
+ * for Event handling across modules
+ */
 class EventBus
 {
 public:
@@ -27,9 +28,10 @@ public:
 		return eventBus;
 	}
 
-	/// <summary>
-	/// Deconstructor to delete created lists 
-	/// </summary>
+	/**
+	 * Deconstructor to delete created map containing all subscriber functions
+	 *
+	 */
 	~EventBus()
 	{
 		std::map<std::type_index, HandlerList*>::iterator it = subscribers.begin();
@@ -45,10 +47,11 @@ public:
 	}
 
 	template<typename EventType>
-	/// <summary>
-	/// publish method which publishes the event on the eventbus and calls every subscribed handler
-	/// </summary>
-	/// <param name="event">the raised event</param>
+	/**
+	 * Publish method that takes an event and publishes it to all subscribers with their respective handler function
+	 *
+	 * \param event
+	 */
 	void publish(EventType* event)
 	{
 		HandlerList* handlers = subscribers[typeid(EventType)];
@@ -65,11 +68,12 @@ public:
 	}
 
 	template<class T, class EventType>
-	/// <summary>
-	/// subscribe  method which lets subscribe for an specific event
-	/// </summary>
-	/// <param name="instance">the class instance</param>
-	/// <param name="memberFunction">the respective memberFunction which handles the event</param>
+	/**
+	 * Subscriber function that allows to subscribe to a specific type of event
+	 *
+	 * \param instance the class instance that contains the handler function
+	 * \param memberFunction the respective memberFunction which handles the event
+	 */
 	void subscribe(T* instance, void (T::* memberFunction)(EventType*))
 	{
 		HandlerList* handlers = subscribers[typeid(EventType)];

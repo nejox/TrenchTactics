@@ -44,7 +44,9 @@ void ConfigReader::initConfigurations()
  * \return
  */
 Json::Value ConfigReader::getJsonRootFromFile(std::string filePath) {
+	//root value of config json 
 	Json::Value root;
+	//input stream
 	std::ifstream ifs;
 	ifs.open(filePath);
 	Json::CharReaderBuilder builder;
@@ -154,7 +156,7 @@ std::map<int, std::shared_ptr<UnitConf>> ConfigReader::createUnitConfMap()
 	std::map<int, std::shared_ptr<UnitConf>> unitConfMap;
 	Json::Value root = getJsonRootFromFile("../conf/unitConf.json");
 
-	for (int i = 0; i < 3; i++)
+	for (Json::Value::ArrayIndex i = 0; i != root.size(); i++)
 	{
 		Json::Value rootElem = root[i];
 		std::shared_ptr<UnitConf> unitConf = std::make_shared<UnitConf>();

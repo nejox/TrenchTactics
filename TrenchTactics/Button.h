@@ -28,11 +28,20 @@ public:
 	}
 	~Button() {};
 
+	/**
+	 * update the buttonsprite in its current state
+	 * 
+	 */
 	void update() {
 		if (sprite != nullptr) {
 			sprite->render();
 		}
 	}
+	/**
+	 * update a button with the given state
+	 * 
+	 * \param state 
+	 */
 	void update(STATES::BUTTONSTATE state) {
 		if (sprite != nullptr) {
 			sprite->render(state);

@@ -1,7 +1,7 @@
 #pragma once
 
 /**
- * Map configeration data container with all getters and setters
+ * Map configuration data container with all getters and setters
  */
 class MapConf {
 private:
