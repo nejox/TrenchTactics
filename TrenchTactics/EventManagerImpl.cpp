@@ -30,10 +30,11 @@ void EventManagerImpl::processEvents()
 			SDL_GetMouseState(&x, &y);
 			// call mouse click handlers
 			bus.publish(new MouseClickEvent(x, y));
+			break;
 		}
 		case(SDL_QUIT): {
-			std::cout << Event.type << std::endl;
-			//bus.publish(new EndGameEvent());
+			bus.publish(new EndGameEvent());
+			break;
 		}
 
 		default:
