@@ -84,4 +84,12 @@ public:
 		return this->buying;
 	}
 	void deleteUnit(DeathEvent* deathEvent);
+
+	void resetApForAllUnits()
+	{
+		for (std::shared_ptr<Unit>& unit : unitArray)
+		{
+			unit->resetAP();
+		}
+	}
 };

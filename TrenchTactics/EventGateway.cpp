@@ -118,7 +118,7 @@ void EventGateway::handleAttackEvent(MouseClickEvent* event) {
 			std::shared_ptr<Unit>  unitToBeAttacked = Gamefield::instance().getFieldTileFromXY(event->getX(), event->getY())->getUnit();
 			std::shared_ptr<Unit> unitAttacking = this->activePlayer->getUnitQueue().front();
 
-			if (checkRange(Gamefield::instance().findTileByUnit(unitToBeAttacked))) {
+			if (checkRange(Gamefield::instance().findTileByUnit(unitToBeAttacked)) && unitAttacking->getCurrentAP() >= unitAttacking->getApCostAttack()) {
 				unitAttacking->attack(unitToBeAttacked);
 				this->activePlayer->popUnit();
 
@@ -138,7 +138,7 @@ void EventGateway::handleAttackEvent(MouseClickEvent* event) {
 		else {
 			tile = Gamefield::instance().getHqTilePlayerRed();
 		}
-		if (checkRange(tile)) {
+		if (checkRange(tile) && unitAttacking->getCurrentAP() >= unitAttacking->getApCostAttack()) {
 			std::shared_ptr < Headquarter> hq = tile->getHeadquarter();
 			unitAttacking->attack(hq);
 
@@ -188,6 +188,11 @@ void EventGateway::handleMoveEvent(MouseClickEvent* event) {
 		std::shared_ptr<FieldTile> tileToMoveTo = Gamefield::instance().getFieldTileFromXY(event->getX(), event->getY());
 
 		if (!tileToMoveTo->getUnit() && checkRange(tileToMoveTo)) {
+			//compute the cost of the movement
+			int cost = computeApCost(Gamefield::instance().findTileByUnit(unitToBeMoved), tileToMoveTo);
+			//subtract the cost from the unit ap
+			unitToBeMoved->reduceAp(cost);
+
 			// find current tile of the unit to overwrite the sprite and remove the unit
 			Gamefield::instance().findTileByUnit(unitToBeMoved).get()->removeUnit();
 
@@ -405,4 +410,22 @@ bool EventGateway::checkEventOnHQ(MouseClickEvent* event) {
 
 bool EventGateway::checkRange(shared_ptr<Tile> targetTile) {
 	return targetTile->getMarked();
+}
+
+int EventGateway::computeApCost(shared_ptr<Tile> start, shared_ptr<Tile> end)
+{
+	int costX;
+	int costY;
+
+	if (!this->activePlayer->getColor()) {
+	 costX = (end->getPosX() - start->getPosX()) / 64;
+	 costY = (end->getPosY() - start->getPosY()) / 64;
+	}
+	
+	else{
+	 costX = (start->getPosX() - end->getPosX()) / 64;
+	 costY = (start->getPosY() - end->getPosY()) / 64;
+	}
+
+	return costX + costY;
 }

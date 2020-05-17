@@ -188,6 +188,7 @@ void Game::switchActivePlayer() {
 		this->activePlayer = playerRed;
 		this->gateway.setActivePlayer(playerRed);
 	}
+	this->activePlayer->resetApForAllUnits();
 }
 
 /**
