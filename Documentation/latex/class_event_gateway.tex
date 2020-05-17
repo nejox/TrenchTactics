@@ -1,0 +1,68 @@
+\hypertarget{class_event_gateway}{}\doxysection{Event\+Gateway Class Reference}
+\label{class_event_gateway}\index{EventGateway@{EventGateway}}
+
+
+{\ttfamily \#include $<$Event\+Gateway.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_event_gateway_ac2327e0eb94e51854cffb0382f24aa69}\label{class_event_gateway_ac2327e0eb94e51854cffb0382f24aa69}} 
+{\bfseries Event\+Gateway} (const \mbox{\hyperlink{class_event_gateway}{Event\+Gateway}} \&)=delete
+\item 
+\mbox{\Hypertarget{class_event_gateway_abeb87cb74870adce9798bd942629af8c}\label{class_event_gateway_abeb87cb74870adce9798bd942629af8c}} 
+\mbox{\hyperlink{class_event_gateway}{Event\+Gateway}} \& {\bfseries operator=} (const \mbox{\hyperlink{class_event_gateway}{Event\+Gateway}} \&)=delete
+\item 
+\mbox{\Hypertarget{class_event_gateway_a9d15cc6b48c192766d318a30f4fea7a8}\label{class_event_gateway_a9d15cc6b48c192766d318a30f4fea7a8}} 
+{\bfseries Event\+Gateway} (\mbox{\hyperlink{class_event_gateway}{Event\+Gateway}} \&\&)=delete
+\item 
+\mbox{\Hypertarget{class_event_gateway_ae52d21cece3194bfcc99e562e7da6b29}\label{class_event_gateway_ae52d21cece3194bfcc99e562e7da6b29}} 
+\mbox{\hyperlink{class_event_gateway}{Event\+Gateway}} \& {\bfseries operator=} (\mbox{\hyperlink{class_event_gateway}{Event\+Gateway}} \&\&)=delete
+\item 
+void \mbox{\hyperlink{class_event_gateway_af7344a618a504a8cad10b0a50c6658ce}{init}} ()
+\item 
+void \mbox{\hyperlink{class_event_gateway_a8192bb19459888c02f791e1e7271e881}{handle\+Event}} (\mbox{\hyperlink{class_mouse_click_event}{Mouse\+Click\+Event}} $\ast$event)
+\item 
+\mbox{\Hypertarget{class_event_gateway_adb2dfb096c03efd30154af1c17e00ed1}\label{class_event_gateway_adb2dfb096c03efd30154af1c17e00ed1}} 
+void {\bfseries set\+Current\+Phase} (G\+A\+M\+E\+P\+H\+A\+S\+E\+S\+::\+G\+A\+M\+E\+P\+H\+A\+SE phase)
+\item 
+\mbox{\Hypertarget{class_event_gateway_ae9916ab703ee54ede2612f85a1df7f59}\label{class_event_gateway_ae9916ab703ee54ede2612f85a1df7f59}} 
+void {\bfseries set\+Active\+Player} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_player}{Player}} $>$ player)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_event_gateway_a8a792b020208e0a6b78baf8090e7e9df}\label{class_event_gateway_a8a792b020208e0a6b78baf8090e7e9df}} 
+static auto \& {\bfseries instance} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{class_event_gateway}{Event\+Gateway}} class which does most of the heavy lifting with event forwarding and controlling Takes all events, makes logic checks and forwards the action to the specific handler controls the flow within each turn 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_event_gateway_a8192bb19459888c02f791e1e7271e881}\label{class_event_gateway_a8192bb19459888c02f791e1e7271e881}} 
+\index{EventGateway@{EventGateway}!handleEvent@{handleEvent}}
+\index{handleEvent@{handleEvent}!EventGateway@{EventGateway}}
+\doxysubsubsection{\texorpdfstring{handleEvent()}{handleEvent()}}
+{\footnotesize\ttfamily void Event\+Gateway\+::handle\+Event (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_mouse_click_event}{Mouse\+Click\+Event}} $\ast$}]{event }\end{DoxyParamCaption})}
+
+takes the mouseclick event and forwards it to the specific handler function based on the current gamephase
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & mouseclickevent with position of the event \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_event_gateway_af7344a618a504a8cad10b0a50c6658ce}\label{class_event_gateway_af7344a618a504a8cad10b0a50c6658ce}} 
+\index{EventGateway@{EventGateway}!init@{init}}
+\index{init@{init}!EventGateway@{EventGateway}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily void Event\+Gateway\+::init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+init function that subscribs to mouse events 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Trench\+Tactics/Event\+Gateway.\+h\item 
+Trench\+Tactics/Event\+Gateway.\+cpp\end{DoxyCompactItemize}

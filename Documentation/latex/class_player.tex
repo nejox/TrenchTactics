@@ -1,0 +1,177 @@
+\hypertarget{class_player}{}\doxysection{Player Class Reference}
+\label{class_player}\index{Player@{Player}}
+
+
+{\ttfamily \#include $<$Player.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_player_a31309f3bcbb1a4f267b0f5d9eff3de4b}{init}} (bool color\+Red)
+\item 
+int \mbox{\hyperlink{class_player_a697681c9a18496e254d5a5401c839e51}{compute\+Interest}} ()
+\item 
+void \mbox{\hyperlink{class_player_aad5cb828642c5f29f2327beaec497769}{update\+Player}} ()
+\item 
+void \mbox{\hyperlink{class_player_abbcfb774356a502dc96ac3376100de14}{copy\+Units\+To\+Queue}} ()
+\item 
+void \mbox{\hyperlink{class_player_a430250ba7d721073357b24dbca4dbb49}{demark\+Active\+Unit}} ()
+\item 
+void \mbox{\hyperlink{class_player_adca01a5eb4e3ae3ee564995a36034eef}{mark\+Active\+Unit}} ()
+\item 
+void \mbox{\hyperlink{class_player_aa678444530291d7c17ee9d1cf7d47a50}{empty\+Queue}} ()
+\item 
+void \mbox{\hyperlink{class_player_a59e30df822d88bb95d810f760a4906dc}{pop\+Unit}} ()
+\item 
+void \mbox{\hyperlink{class_player_a8b3c019b8ebf269d709d2e12abeeb222}{queue\+Unit}} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_unit}{Unit}} $>$ unit)
+\item 
+void \mbox{\hyperlink{class_player_ae12f9b8ac07d74f86fe49afa9da97a5f}{add\+Unit}} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_unit}{Unit}} $>$ unit)
+\item 
+\mbox{\Hypertarget{class_player_a8e315b787a4a1bb1a7b537750387141a}\label{class_player_a8e315b787a4a1bb1a7b537750387141a}} 
+std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_unit}{Unit}} $>$ $>$ {\bfseries get\+Unit\+Array} ()
+\item 
+\mbox{\Hypertarget{class_player_addade994d4e1d34dac4ff21b29067c10}\label{class_player_addade994d4e1d34dac4ff21b29067c10}} 
+std\+::queue$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_unit}{Unit}} $>$ $>$ {\bfseries get\+Unit\+Queue} ()
+\item 
+\mbox{\Hypertarget{class_player_a6ee4505d9a014658fe2a85ba7407d07d}\label{class_player_a6ee4505d9a014658fe2a85ba7407d07d}} 
+int {\bfseries get\+Supply} ()
+\item 
+\mbox{\Hypertarget{class_player_ac45154df7c4eb2d1d58255c3ff1c55dd}\label{class_player_ac45154df7c4eb2d1d58255c3ff1c55dd}} 
+int {\bfseries get\+Money} ()
+\item 
+void \mbox{\hyperlink{class_player_a3b58787bad8585801beffcc5dfb60c12}{update\+Money}} (int amount)
+\item 
+\mbox{\Hypertarget{class_player_a1f113c7c7908add36978db1eacb96e77}\label{class_player_a1f113c7c7908add36978db1eacb96e77}} 
+bool {\bfseries get\+Color} ()
+\item 
+\mbox{\Hypertarget{class_player_aa9701a5086bb290b5fa9ada2df724416}\label{class_player_aa9701a5086bb290b5fa9ada2df724416}} 
+void {\bfseries set\+Current\+Phase} (G\+A\+M\+E\+P\+H\+A\+S\+E\+S\+::\+G\+A\+M\+E\+P\+H\+A\+SE phase)
+\item 
+\mbox{\Hypertarget{class_player_a93bb1d946077d7b082107ca2d4bab99a}\label{class_player_a93bb1d946077d7b082107ca2d4bab99a}} 
+G\+A\+M\+E\+P\+H\+A\+S\+E\+S\+::\+G\+A\+M\+E\+P\+H\+A\+SE {\bfseries get\+Current\+Phase} ()
+\item 
+\mbox{\Hypertarget{class_player_a6d8985590f17e05b17ddcc085137bd0b}\label{class_player_a6d8985590f17e05b17ddcc085137bd0b}} 
+void {\bfseries set\+Buying} (bool buy\+Status)
+\item 
+\mbox{\Hypertarget{class_player_a1a8b1214901ef198c557143401e930d4}\label{class_player_a1a8b1214901ef198c557143401e930d4}} 
+bool {\bfseries get\+Buying} ()
+\item 
+void \mbox{\hyperlink{class_player_ac7e492876c39f1e468a168c358a25ef5}{delete\+Unit}} (\mbox{\hyperlink{class_death_event}{Death\+Event}} $\ast$death\+Event)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{class_player}{Player}} main class -\/ holds most of the informations controlls units of player as well as money and supply of a player 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_player_ae12f9b8ac07d74f86fe49afa9da97a5f}\label{class_player_ae12f9b8ac07d74f86fe49afa9da97a5f}} 
+\index{Player@{Player}!addUnit@{addUnit}}
+\index{addUnit@{addUnit}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{addUnit()}{addUnit()}}
+{\footnotesize\ttfamily void Player\+::add\+Unit (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_unit}{Unit}} $>$}]{unit }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+add unit to the list of units of a player.
+
+
+\begin{DoxyParams}{Parameters}
+{\em unit} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_player_a697681c9a18496e254d5a5401c839e51}\label{class_player_a697681c9a18496e254d5a5401c839e51}} 
+\index{Player@{Player}!computeInterest@{computeInterest}}
+\index{computeInterest@{computeInterest}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{computeInterest()}{computeInterest()}}
+{\footnotesize\ttfamily int Player\+::compute\+Interest (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+add the interest to a players money based on a simple formular base income plus 15\% of the current money of the player \mbox{\Hypertarget{class_player_abbcfb774356a502dc96ac3376100de14}\label{class_player_abbcfb774356a502dc96ac3376100de14}} 
+\index{Player@{Player}!copyUnitsToQueue@{copyUnitsToQueue}}
+\index{copyUnitsToQueue@{copyUnitsToQueue}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{copyUnitsToQueue()}{copyUnitsToQueue()}}
+{\footnotesize\ttfamily void Player\+::copy\+Units\+To\+Queue (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Initialize player unit queue to cycle through each of them \mbox{\Hypertarget{class_player_ac7e492876c39f1e468a168c358a25ef5}\label{class_player_ac7e492876c39f1e468a168c358a25ef5}} 
+\index{Player@{Player}!deleteUnit@{deleteUnit}}
+\index{deleteUnit@{deleteUnit}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{deleteUnit()}{deleteUnit()}}
+{\footnotesize\ttfamily void Player\+::delete\+Unit (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_death_event}{Death\+Event}} $\ast$}]{death\+Event }\end{DoxyParamCaption})}
+
+Delete unit from player after its death Searching the player list to find the corresponding unit 
+\begin{DoxyParams}{Parameters}
+{\em death\+Event} & event holding unit to be deleted \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_player_a430250ba7d721073357b24dbca4dbb49}\label{class_player_a430250ba7d721073357b24dbca4dbb49}} 
+\index{Player@{Player}!demarkActiveUnit@{demarkActiveUnit}}
+\index{demarkActiveUnit@{demarkActiveUnit}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{demarkActiveUnit()}{demarkActiveUnit()}}
+{\footnotesize\ttfamily void Player\+::demark\+Active\+Unit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+demarks the active \mbox{\hyperlink{class_unit}{Unit}} = the first one in the queue \mbox{\Hypertarget{class_player_aa678444530291d7c17ee9d1cf7d47a50}\label{class_player_aa678444530291d7c17ee9d1cf7d47a50}} 
+\index{Player@{Player}!emptyQueue@{emptyQueue}}
+\index{emptyQueue@{emptyQueue}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{emptyQueue()}{emptyQueue()}}
+{\footnotesize\ttfamily void Player\+::empty\+Queue (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+empties the unit\+Queue of the player. \mbox{\Hypertarget{class_player_a31309f3bcbb1a4f267b0f5d9eff3de4b}\label{class_player_a31309f3bcbb1a4f267b0f5d9eff3de4b}} 
+\index{Player@{Player}!init@{init}}
+\index{init@{init}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily void Player\+::init (\begin{DoxyParamCaption}\item[{bool}]{color\+Red }\end{DoxyParamCaption})}
+
+Init player with starting money as well as subscription to delete unit events
+
+
+\begin{DoxyParams}{Parameters}
+{\em color\+Red} & set the color of the player(red if true) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_player_adca01a5eb4e3ae3ee564995a36034eef}\label{class_player_adca01a5eb4e3ae3ee564995a36034eef}} 
+\index{Player@{Player}!markActiveUnit@{markActiveUnit}}
+\index{markActiveUnit@{markActiveUnit}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{markActiveUnit()}{markActiveUnit()}}
+{\footnotesize\ttfamily void Player\+::mark\+Active\+Unit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+marks the active \mbox{\hyperlink{class_unit}{Unit}} = the first one in the queue \mbox{\Hypertarget{class_player_a59e30df822d88bb95d810f760a4906dc}\label{class_player_a59e30df822d88bb95d810f760a4906dc}} 
+\index{Player@{Player}!popUnit@{popUnit}}
+\index{popUnit@{popUnit}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{popUnit()}{popUnit()}}
+{\footnotesize\ttfamily void Player\+::pop\+Unit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+wrapper function to pop a unit in the queue. don\textquotesingle{}t ask me why we need this but we do \mbox{\Hypertarget{class_player_a8b3c019b8ebf269d709d2e12abeeb222}\label{class_player_a8b3c019b8ebf269d709d2e12abeeb222}} 
+\index{Player@{Player}!queueUnit@{queueUnit}}
+\index{queueUnit@{queueUnit}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{queueUnit()}{queueUnit()}}
+{\footnotesize\ttfamily void Player\+::queue\+Unit (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_unit}{Unit}} $>$}]{unit }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Add unit to the queue.
+
+
+\begin{DoxyParams}{Parameters}
+{\em unit} & that will be added \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_player_a3b58787bad8585801beffcc5dfb60c12}\label{class_player_a3b58787bad8585801beffcc5dfb60c12}} 
+\index{Player@{Player}!updateMoney@{updateMoney}}
+\index{updateMoney@{updateMoney}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{updateMoney()}{updateMoney()}}
+{\footnotesize\ttfamily void Player\+::update\+Money (\begin{DoxyParamCaption}\item[{int}]{amount }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+update the money with the given amount. cuts values greater than 9999
+
+
+\begin{DoxyParams}{Parameters}
+{\em amount} & the amount of money you want to add to the players bank \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_player_aad5cb828642c5f29f2327beaec497769}\label{class_player_aad5cb828642c5f29f2327beaec497769}} 
+\index{Player@{Player}!updatePlayer@{updatePlayer}}
+\index{updatePlayer@{updatePlayer}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{updatePlayer()}{updatePlayer()}}
+{\footnotesize\ttfamily void Player\+::update\+Player (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+update player by computing the interest as well as updating current supply 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Trench\+Tactics/Player.\+h\item 
+Trench\+Tactics/Player.\+cpp\end{DoxyCompactItemize}

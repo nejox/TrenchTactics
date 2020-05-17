@@ -1,0 +1,178 @@
+\hypertarget{class_menu_bar}{}\doxysection{Menu\+Bar Class Reference}
+\label{class_menu_bar}\index{MenuBar@{MenuBar}}
+
+
+{\ttfamily \#include $<$Menu\+Bar.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_menu_bar_ac06906d91d0d28540d92fa2bf95c1733}\label{class_menu_bar_ac06906d91d0d28540d92fa2bf95c1733}} 
+{\bfseries Menu\+Bar} (const \mbox{\hyperlink{class_menu_bar}{Menu\+Bar}} \&)=delete
+\item 
+\mbox{\Hypertarget{class_menu_bar_a4424544dcaa11a42df1a68258df563b8}\label{class_menu_bar_a4424544dcaa11a42df1a68258df563b8}} 
+\mbox{\hyperlink{class_menu_bar}{Menu\+Bar}} \& {\bfseries operator=} (const \mbox{\hyperlink{class_menu_bar}{Menu\+Bar}} \&)=delete
+\item 
+\mbox{\Hypertarget{class_menu_bar_aa31cd2297b4820958523a1c3842675c0}\label{class_menu_bar_aa31cd2297b4820958523a1c3842675c0}} 
+{\bfseries Menu\+Bar} (\mbox{\hyperlink{class_menu_bar}{Menu\+Bar}} \&\&)=delete
+\item 
+\mbox{\Hypertarget{class_menu_bar_a689eb59f06b6afaafb634d42a0da2691}\label{class_menu_bar_a689eb59f06b6afaafb634d42a0da2691}} 
+\mbox{\hyperlink{class_menu_bar}{Menu\+Bar}} \& {\bfseries operator=} (\mbox{\hyperlink{class_menu_bar}{Menu\+Bar}} \&\&)=delete
+\item 
+void \mbox{\hyperlink{class_menu_bar_a41e133caf8e490518faa15ab3cfa22a1}{init}} ()
+\item 
+\mbox{\Hypertarget{class_menu_bar_a0fe6d0af884db6d43dd9ddb60e7b2748}\label{class_menu_bar_a0fe6d0af884db6d43dd9ddb60e7b2748}} 
+void {\bfseries update\+Menu\+Bar} (G\+A\+M\+E\+P\+H\+A\+S\+E\+S\+::\+G\+A\+M\+E\+P\+H\+A\+SE phase, shared\+\_\+ptr$<$ \mbox{\hyperlink{class_player}{Player}} $>$ active\+Player)
+\item 
+\mbox{\Hypertarget{class_menu_bar_a55da77a3deeb17532ef9d664be3f40ef}\label{class_menu_bar_a55da77a3deeb17532ef9d664be3f40ef}} 
+void {\bfseries reset\+Menu\+Bar} ()
+\item 
+void \mbox{\hyperlink{class_menu_bar_a60ee252bbf35175b6ee26a26d50d4550}{update\+Player\+Stats}} (shared\+\_\+ptr$<$ \mbox{\hyperlink{class_player}{Player}} $>$ active\+Player)
+\item 
+void \mbox{\hyperlink{class_menu_bar_acc9099853400d759a6833766386d18a1}{show\+Player\+Stats}} (shared\+\_\+ptr$<$ \mbox{\hyperlink{class_player}{Player}} $>$ active\+Player)
+\item 
+void \mbox{\hyperlink{class_menu_bar_a74e0a3830e2b8b8f3b7e2d6c78008824}{update\+Unit\+Stats}} (shared\+\_\+ptr$<$ \mbox{\hyperlink{class_unit}{Unit}} $>$ unit)
+\item 
+\mbox{\Hypertarget{class_menu_bar_a6cc06c36495d4f77dfc080a4bb682403}\label{class_menu_bar_a6cc06c36495d4f77dfc080a4bb682403}} 
+void {\bfseries reset\+Unit\+Stats} ()
+\item 
+void \mbox{\hyperlink{class_menu_bar_af8eeeaa3a9295e53b4bd96683f215bc8}{show\+Unit\+Stats}} (shared\+\_\+ptr$<$ \mbox{\hyperlink{class_unit}{Unit}} $>$unit)
+\item 
+void \mbox{\hyperlink{class_menu_bar_a96bf2338750a18912f32d9ad54781574}{set\+Size\+Menu\+Bar}} ()
+\item 
+void \mbox{\hyperlink{class_menu_bar_a1b8f8b58b1598aebe0640d3fdc525eee}{initiate\+Menu\+Tiles}} ()
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_menu_tile}{Menu\+Tile}} $>$ \mbox{\hyperlink{class_menu_bar_a69f80989cd7d68f45cd2e21efc9a95a4}{get\+Menu\+Tile\+From\+XY}} (int posX, int posY)
+\item 
+\mbox{\Hypertarget{class_menu_bar_a2a784aefd668c77fe5294b21b0743bc9}\label{class_menu_bar_a2a784aefd668c77fe5294b21b0743bc9}} 
+void {\bfseries display\+Tokens} (shared\+\_\+ptr$<$ \mbox{\hyperlink{class_player}{Player}} $>$ active\+Player)
+\item 
+\mbox{\Hypertarget{class_menu_bar_a1e5ad10b3c8071035bd2108556dc1210}\label{class_menu_bar_a1e5ad10b3c8071035bd2108556dc1210}} 
+void {\bfseries update\+Tokens} (shared\+\_\+ptr$<$ \mbox{\hyperlink{class_player}{Player}} $>$ active\+Player)
+\item 
+\mbox{\hyperlink{class_sprite_button}{Sprite\+Button}} $\ast$ \mbox{\hyperlink{class_menu_bar_a86d9f650aa2e7337828376f471e856ad}{get\+Random\+Unit\+Button\+Sprite}} (int rnd\+Number)
+\item 
+void \mbox{\hyperlink{class_menu_bar_a92d29361279a992818a04d700a5d99f7}{display\+Buttons}} (G\+A\+M\+E\+P\+H\+A\+S\+E\+S\+::\+G\+A\+M\+E\+P\+H\+A\+SE phase)
+\item 
+\mbox{\Hypertarget{class_menu_bar_a5d4fd0d9fe1a4c9bb9d80205291cfc36}\label{class_menu_bar_a5d4fd0d9fe1a4c9bb9d80205291cfc36}} 
+void {\bfseries delete\+Buttons} ()
+\item 
+\mbox{\Hypertarget{class_menu_bar_aaf054be2c5e06531744f0ffcc3d4ff22}\label{class_menu_bar_aaf054be2c5e06531744f0ffcc3d4ff22}} 
+void {\bfseries delete\+All\+Button\+Displays} ()
+\item 
+\mbox{\Hypertarget{class_menu_bar_ab47731cbfd7f7275214b176c10f337b6}\label{class_menu_bar_ab47731cbfd7f7275214b176c10f337b6}} 
+void {\bfseries refresh\+All\+Button\+Displays} ()
+\item 
+\mbox{\Hypertarget{class_menu_bar_abbe816e28f31b6fae6074aa9f9777abc}\label{class_menu_bar_abbe816e28f31b6fae6074aa9f9777abc}} 
+void {\bfseries update\+Buttons} (G\+A\+M\+E\+P\+H\+A\+S\+E\+S\+::\+G\+A\+M\+E\+P\+H\+A\+SE phase)
+\item 
+\mbox{\Hypertarget{class_menu_bar_ad3abfa5ec244ff6461be4fac668c8e74}\label{class_menu_bar_ad3abfa5ec244ff6461be4fac668c8e74}} 
+std\+::shared\+\_\+ptr$<$ vector$<$ vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_menu_tile}{Menu\+Tile}} $>$ $>$ $>$ $>$ {\bfseries get\+Menu\+Bar} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_menu_bar_a54d2f8d9497b8bcd964448fcbc6c90ea}\label{class_menu_bar_a54d2f8d9497b8bcd964448fcbc6c90ea}} 
+static auto \& {\bfseries instance} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Menubar wrapper class controls all things concerning the menubar including buttons sprites setup and teardown 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_menu_bar_a92d29361279a992818a04d700a5d99f7}\label{class_menu_bar_a92d29361279a992818a04d700a5d99f7}} 
+\index{MenuBar@{MenuBar}!displayButtons@{displayButtons}}
+\index{displayButtons@{displayButtons}!MenuBar@{MenuBar}}
+\doxysubsubsection{\texorpdfstring{displayButtons()}{displayButtons()}}
+{\footnotesize\ttfamily void Menu\+Bar\+::display\+Buttons (\begin{DoxyParamCaption}\item[{G\+A\+M\+E\+P\+H\+A\+S\+E\+S\+::\+G\+A\+M\+E\+P\+H\+A\+SE}]{phase }\end{DoxyParamCaption})}
+
+display necessary buttons based on phase.
+
+
+\begin{DoxyParams}{Parameters}
+{\em current} & gamephase \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_menu_bar_a69f80989cd7d68f45cd2e21efc9a95a4}\label{class_menu_bar_a69f80989cd7d68f45cd2e21efc9a95a4}} 
+\index{MenuBar@{MenuBar}!getMenuTileFromXY@{getMenuTileFromXY}}
+\index{getMenuTileFromXY@{getMenuTileFromXY}!MenuBar@{MenuBar}}
+\doxysubsubsection{\texorpdfstring{getMenuTileFromXY()}{getMenuTileFromXY()}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_menu_tile}{Menu\+Tile}} $>$ Menu\+Bar\+::get\+Menu\+Tile\+From\+XY (\begin{DoxyParamCaption}\item[{int}]{posX,  }\item[{int}]{posY }\end{DoxyParamCaption})}
+
+get a menu tile based on a pixel position x and y returns nullptr when not valid
+
+
+\begin{DoxyParams}{Parameters}
+{\em posX} & \\
+\hline
+{\em posY} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_menu_bar_a86d9f650aa2e7337828376f471e856ad}\label{class_menu_bar_a86d9f650aa2e7337828376f471e856ad}} 
+\index{MenuBar@{MenuBar}!getRandomUnitButtonSprite@{getRandomUnitButtonSprite}}
+\index{getRandomUnitButtonSprite@{getRandomUnitButtonSprite}!MenuBar@{MenuBar}}
+\doxysubsubsection{\texorpdfstring{getRandomUnitButtonSprite()}{getRandomUnitButtonSprite()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_sprite_button}{Sprite\+Button}} $\ast$ Menu\+Bar\+::get\+Random\+Unit\+Button\+Sprite (\begin{DoxyParamCaption}\item[{int}]{rnd\+Number }\end{DoxyParamCaption})}
+
+get a random unit button sprite based on a provided rnd\+Number
+
+
+\begin{DoxyParams}{Parameters}
+{\em rnd\+Number} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+random button sprite 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_menu_bar_a41e133caf8e490518faa15ab3cfa22a1}\label{class_menu_bar_a41e133caf8e490518faa15ab3cfa22a1}} 
+\index{MenuBar@{MenuBar}!init@{init}}
+\index{init@{init}!MenuBar@{MenuBar}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily void Menu\+Bar\+::init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+set up Menubarbackground Initializes a \mbox{\hyperlink{class_menu_bar}{Menu\+Bar}} instance with fully configurated money\+Token unit\+Count\+T\+Oken income\+Token phase\+Text initializes money, income, unit\+Count, active\+Phase\+Token active\+Phase\+Text, active\+Player and sets positions initializes unit stats HP, AP, D\+MG \mbox{\Hypertarget{class_menu_bar_a1b8f8b58b1598aebe0640d3fdc525eee}\label{class_menu_bar_a1b8f8b58b1598aebe0640d3fdc525eee}} 
+\index{MenuBar@{MenuBar}!initiateMenuTiles@{initiateMenuTiles}}
+\index{initiateMenuTiles@{initiateMenuTiles}!MenuBar@{MenuBar}}
+\doxysubsubsection{\texorpdfstring{initiateMenuTiles()}{initiateMenuTiles()}}
+{\footnotesize\ttfamily void Menu\+Bar\+::initiate\+Menu\+Tiles (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Function to set up the Menu\+Tiles at gamestart. \mbox{\Hypertarget{class_menu_bar_a96bf2338750a18912f32d9ad54781574}\label{class_menu_bar_a96bf2338750a18912f32d9ad54781574}} 
+\index{MenuBar@{MenuBar}!setSizeMenuBar@{setSizeMenuBar}}
+\index{setSizeMenuBar@{setSizeMenuBar}!MenuBar@{MenuBar}}
+\doxysubsubsection{\texorpdfstring{setSizeMenuBar()}{setSizeMenuBar()}}
+{\footnotesize\ttfamily void Menu\+Bar\+::set\+Size\+Menu\+Bar (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Sets the size of the menubar at the gamestart. \mbox{\Hypertarget{class_menu_bar_acc9099853400d759a6833766386d18a1}\label{class_menu_bar_acc9099853400d759a6833766386d18a1}} 
+\index{MenuBar@{MenuBar}!showPlayerStats@{showPlayerStats}}
+\index{showPlayerStats@{showPlayerStats}!MenuBar@{MenuBar}}
+\doxysubsubsection{\texorpdfstring{showPlayerStats()}{showPlayerStats()}}
+{\footnotesize\ttfamily void Menu\+Bar\+::show\+Player\+Stats (\begin{DoxyParamCaption}\item[{shared\+\_\+ptr$<$ \mbox{\hyperlink{class_player}{Player}} $>$}]{active\+Player }\end{DoxyParamCaption})}
+
+Displays Players current money, income and number of units \mbox{\Hypertarget{class_menu_bar_af8eeeaa3a9295e53b4bd96683f215bc8}\label{class_menu_bar_af8eeeaa3a9295e53b4bd96683f215bc8}} 
+\index{MenuBar@{MenuBar}!showUnitStats@{showUnitStats}}
+\index{showUnitStats@{showUnitStats}!MenuBar@{MenuBar}}
+\doxysubsubsection{\texorpdfstring{showUnitStats()}{showUnitStats()}}
+{\footnotesize\ttfamily void Menu\+Bar\+::show\+Unit\+Stats (\begin{DoxyParamCaption}\item[{shared\+\_\+ptr$<$ \mbox{\hyperlink{class_unit}{Unit}} $>$}]{unit }\end{DoxyParamCaption})}
+
+Displays units current\+Hp/\+Max\+Hp \mbox{\Hypertarget{class_menu_bar_a60ee252bbf35175b6ee26a26d50d4550}\label{class_menu_bar_a60ee252bbf35175b6ee26a26d50d4550}} 
+\index{MenuBar@{MenuBar}!updatePlayerStats@{updatePlayerStats}}
+\index{updatePlayerStats@{updatePlayerStats}!MenuBar@{MenuBar}}
+\doxysubsubsection{\texorpdfstring{updatePlayerStats()}{updatePlayerStats()}}
+{\footnotesize\ttfamily void Menu\+Bar\+::update\+Player\+Stats (\begin{DoxyParamCaption}\item[{shared\+\_\+ptr$<$ \mbox{\hyperlink{class_player}{Player}} $>$}]{active\+Player }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+renders the active players stats Overloaded funtion \mbox{\Hypertarget{class_menu_bar_a74e0a3830e2b8b8f3b7e2d6c78008824}\label{class_menu_bar_a74e0a3830e2b8b8f3b7e2d6c78008824}} 
+\index{MenuBar@{MenuBar}!updateUnitStats@{updateUnitStats}}
+\index{updateUnitStats@{updateUnitStats}!MenuBar@{MenuBar}}
+\doxysubsubsection{\texorpdfstring{updateUnitStats()}{updateUnitStats()}}
+{\footnotesize\ttfamily void Menu\+Bar\+::update\+Unit\+Stats (\begin{DoxyParamCaption}\item[{shared\+\_\+ptr$<$ \mbox{\hyperlink{class_unit}{Unit}} $>$}]{unit }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+renders the active players stats and the currently active Units HP Overloaded funtion 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Trench\+Tactics/Menu\+Bar.\+h\item 
+Trench\+Tactics/Menu\+Bar.\+cpp\end{DoxyCompactItemize}

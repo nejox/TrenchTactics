@@ -1,0 +1,207 @@
+\hypertarget{class_unit}{}\doxysection{Unit Class Reference}
+\label{class_unit}\index{Unit@{Unit}}
+
+
+{\ttfamily \#include $<$Unit.\+h$>$}
+
+Inheritance diagram for Unit\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_unit}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_unit_a67ff39d66eb92e10b16dc6a09d0115a9}{Unit}} (T\+Y\+P\+E\+S\+::\+Unit\+Type unittype, bool color\+Red)
+\item 
+void \mbox{\hyperlink{class_unit_a89c044c32d15fa9b3421774487c99701}{change\+HP}} (int damage)
+\item 
+void \mbox{\hyperlink{class_unit_a7bd866c479f79fda9abcc402ed55fbe6}{attack}} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_unit}{Unit}} $>$ target)
+\item 
+void \mbox{\hyperlink{class_unit_a3107a40f73ba704a3035af3995b438fb}{attack}} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_headquarter}{Headquarter}} $>$ target)
+\item 
+void \mbox{\hyperlink{class_unit_a4a295cc929f3a8ccf67287d4f6f5515b}{move}} ()
+\item 
+void \mbox{\hyperlink{class_unit_a083674497bfdd41e725fe364ca579cad}{update\+AP}} (int cost)
+\item 
+void \mbox{\hyperlink{class_unit_a94bf3c8dc493834ff1d8589167e3d5a2}{reset\+AP}} ()
+\item 
+void \mbox{\hyperlink{class_unit_a94a46add7bef15f3cfe5f2ca4963ad3c}{update}} (S\+T\+A\+T\+E\+S\+::\+U\+N\+I\+T\+S\+T\+A\+TE state)
+\item 
+void \mbox{\hyperlink{class_unit_a606bd28420c8fddfb48ccc58436eb35a}{update}} ()
+\item 
+\mbox{\Hypertarget{class_unit_a1bb3639ccf8a939d84b33d3e3bf65ba2}\label{class_unit_a1bb3639ccf8a939d84b33d3e3bf65ba2}} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_unit}{Unit}} $>$ {\bfseries getptr} ()
+\item 
+\mbox{\Hypertarget{class_unit_a07fc9c8ee405299afabbe24c2d47e031}\label{class_unit_a07fc9c8ee405299afabbe24c2d47e031}} 
+void {\bfseries set\+State} (S\+T\+A\+T\+E\+S\+::\+U\+N\+I\+T\+S\+T\+A\+TE state)
+\item 
+\mbox{\Hypertarget{class_unit_a8830a9ff581bc764045891a546918967}\label{class_unit_a8830a9ff581bc764045891a546918967}} 
+S\+T\+A\+T\+E\+S\+::\+U\+N\+I\+T\+S\+T\+A\+TE {\bfseries get\+State} ()
+\item 
+\mbox{\Hypertarget{class_unit_a825458213c8081d4d446e664830d9287}\label{class_unit_a825458213c8081d4d446e664830d9287}} 
+int {\bfseries get\+Current\+HP} ()
+\item 
+\mbox{\Hypertarget{class_unit_abcf48f1a1dfc90eda8476842162590d3}\label{class_unit_abcf48f1a1dfc90eda8476842162590d3}} 
+void {\bfseries set\+Current\+HP} (int current\+HP)
+\item 
+\mbox{\Hypertarget{class_unit_af820c23583ec86879199d3de18f69314}\label{class_unit_af820c23583ec86879199d3de18f69314}} 
+int {\bfseries get\+Current\+AP} ()
+\item 
+\mbox{\Hypertarget{class_unit_ab17b37a7b3422ebd19d3f67c5a6166f8}\label{class_unit_ab17b37a7b3422ebd19d3f67c5a6166f8}} 
+void {\bfseries set\+Current\+AP} (int current\+AP)
+\item 
+\mbox{\Hypertarget{class_unit_a887529f280b81737a2ee837d0e28a54b}\label{class_unit_a887529f280b81737a2ee837d0e28a54b}} 
+bool {\bfseries get\+Color\+Red} ()
+\item 
+\mbox{\Hypertarget{class_unit_aab72dbcb63dbfb24a910ad16c63befb2}\label{class_unit_aab72dbcb63dbfb24a910ad16c63befb2}} 
+void {\bfseries set\+Color\+Red} (bool color\+Red)
+\item 
+\mbox{\Hypertarget{class_unit_a419a5a8677efef32ea040f4512696cc1}\label{class_unit_a419a5a8677efef32ea040f4512696cc1}} 
+int {\bfseries get\+Range} ()
+\item 
+\mbox{\Hypertarget{class_unit_ae27e7b1c23d323b40d0c1660d518fb20}\label{class_unit_ae27e7b1c23d323b40d0c1660d518fb20}} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_sprite_unit}{Sprite\+Unit}} $>$ {\bfseries get\+Sprite} ()
+\item 
+\mbox{\Hypertarget{class_unit_a5d88d36b62c480b63a267b5ab4a9900b}\label{class_unit_a5d88d36b62c480b63a267b5ab4a9900b}} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_sprite_health_bar}{Sprite\+Health\+Bar}} $>$ {\bfseries get\+Sprite\+Health\+Bar} ()
+\item 
+\mbox{\Hypertarget{class_unit_ac269813898e081b3249d198faf065349}\label{class_unit_ac269813898e081b3249d198faf065349}} 
+void {\bfseries set\+Sprite} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_sprite_unit}{Sprite\+Unit}} $>$ sprite)
+\item 
+\mbox{\Hypertarget{class_unit_a00afea4259aaa2714d9d4a8774e85066}\label{class_unit_a00afea4259aaa2714d9d4a8774e85066}} 
+std\+::string {\bfseries get\+Name} ()
+\item 
+\mbox{\Hypertarget{class_unit_ae7694825d780cb253de481800d4470cd}\label{class_unit_ae7694825d780cb253de481800d4470cd}} 
+int {\bfseries get\+Hp} ()
+\item 
+\mbox{\Hypertarget{class_unit_a7ee60aa20314d7ff9165fe868eff58f3}\label{class_unit_a7ee60aa20314d7ff9165fe868eff58f3}} 
+int {\bfseries get\+Ap\+Cost\+Attack} ()
+\item 
+\mbox{\Hypertarget{class_unit_a6df1cb0b2d9cda5c85a7ebae29301be3}\label{class_unit_a6df1cb0b2d9cda5c85a7ebae29301be3}} 
+int {\bfseries get\+Ap} ()
+\item 
+\mbox{\Hypertarget{class_unit_a49a9e4cbdbcc5b0f3bec52a5f8695687}\label{class_unit_a49a9e4cbdbcc5b0f3bec52a5f8695687}} 
+int {\bfseries get\+Dmg} ()
+\item 
+\mbox{\Hypertarget{class_unit_a5ae6b312b91982ab9e968478e0601298}\label{class_unit_a5ae6b312b91982ab9e968478e0601298}} 
+int {\bfseries get\+Cost} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Base unit class that holds all information concerning a unit like health, cost or all spritefilepaths. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_unit_a67ff39d66eb92e10b16dc6a09d0115a9}\label{class_unit_a67ff39d66eb92e10b16dc6a09d0115a9}} 
+\index{Unit@{Unit}!Unit@{Unit}}
+\index{Unit@{Unit}!Unit@{Unit}}
+\doxysubsubsection{\texorpdfstring{Unit()}{Unit()}}
+{\footnotesize\ttfamily Unit\+::\+Unit (\begin{DoxyParamCaption}\item[{T\+Y\+P\+E\+S\+::\+Unit\+Type}]{unittype,  }\item[{bool}]{color\+Red }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Initializes \mbox{\hyperlink{class_unit}{Unit}} type with all values from config.
+
+
+\begin{DoxyParams}{Parameters}
+{\em unittype} & the type of unit that will be created \\
+\hline
+{\em color\+Red} & specifies which player is the owner of the new unit and selects the right sprites based on this bool \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_unit_a3107a40f73ba704a3035af3995b438fb}\label{class_unit_a3107a40f73ba704a3035af3995b438fb}} 
+\index{Unit@{Unit}!attack@{attack}}
+\index{attack@{attack}!Unit@{Unit}}
+\doxysubsubsection{\texorpdfstring{attack()}{attack()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Unit\+::attack (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_headquarter}{Headquarter}} $>$}]{target }\end{DoxyParamCaption})}
+
+Attack the provided target(headquarter) changes health of headquarter and ap of attacking unit
+
+
+\begin{DoxyParams}{Parameters}
+{\em target} & headquarter that will be attacked \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_unit_a7bd866c479f79fda9abcc402ed55fbe6}\label{class_unit_a7bd866c479f79fda9abcc402ed55fbe6}} 
+\index{Unit@{Unit}!attack@{attack}}
+\index{attack@{attack}!Unit@{Unit}}
+\doxysubsubsection{\texorpdfstring{attack()}{attack()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Unit\+::attack (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_unit}{Unit}} $>$}]{target }\end{DoxyParamCaption})}
+
+Attack the provided target (unit) updates health of target and ap of attacking unit
+
+
+\begin{DoxyParams}{Parameters}
+{\em target} & unit that will be attacked \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_unit_a89c044c32d15fa9b3421774487c99701}\label{class_unit_a89c044c32d15fa9b3421774487c99701}} 
+\index{Unit@{Unit}!changeHP@{changeHP}}
+\index{changeHP@{changeHP}!Unit@{Unit}}
+\doxysubsubsection{\texorpdfstring{changeHP()}{changeHP()}}
+{\footnotesize\ttfamily void Unit\+::change\+HP (\begin{DoxyParamCaption}\item[{int}]{damage }\end{DoxyParamCaption})}
+
+change the hp of the current unit raises deathevent if unit is at or below zero health after health change
+
+
+\begin{DoxyParams}{Parameters}
+{\em damage} & the amount of dmg dealt \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_unit_a4a295cc929f3a8ccf67287d4f6f5515b}\label{class_unit_a4a295cc929f3a8ccf67287d4f6f5515b}} 
+\index{Unit@{Unit}!move@{move}}
+\index{move@{move}!Unit@{Unit}}
+\doxysubsubsection{\texorpdfstring{move()}{move()}}
+{\footnotesize\ttfamily void Unit\+::move (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+???? \mbox{\Hypertarget{class_unit_a94bf3c8dc493834ff1d8589167e3d5a2}\label{class_unit_a94bf3c8dc493834ff1d8589167e3d5a2}} 
+\index{Unit@{Unit}!resetAP@{resetAP}}
+\index{resetAP@{resetAP}!Unit@{Unit}}
+\doxysubsubsection{\texorpdfstring{resetAP()}{resetAP()}}
+{\footnotesize\ttfamily void Unit\+::reset\+AP (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Reset ap of the unit to its base value \mbox{\Hypertarget{class_unit_a606bd28420c8fddfb48ccc58436eb35a}\label{class_unit_a606bd28420c8fddfb48ccc58436eb35a}} 
+\index{Unit@{Unit}!update@{update}}
+\index{update@{update}!Unit@{Unit}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Unit\+::update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+renders unit dependent on current state.
+
+update the unit in the sense of updating its sprite. \mbox{\Hypertarget{class_unit_a94a46add7bef15f3cfe5f2ca4963ad3c}\label{class_unit_a94a46add7bef15f3cfe5f2ca4963ad3c}} 
+\index{Unit@{Unit}!update@{update}}
+\index{update@{update}!Unit@{Unit}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Unit\+::update (\begin{DoxyParamCaption}\item[{S\+T\+A\+T\+E\+S\+::\+U\+N\+I\+T\+S\+T\+A\+TE}]{state }\end{DoxyParamCaption})}
+
+renders unit dependent on given state.
+
+
+\begin{DoxyParams}{Parameters}
+{\em state} & update the state of the unit, takes current hp into account\\
+\hline
+{\em state} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_unit_a083674497bfdd41e725fe364ca579cad}\label{class_unit_a083674497bfdd41e725fe364ca579cad}} 
+\index{Unit@{Unit}!updateAP@{updateAP}}
+\index{updateAP@{updateAP}!Unit@{Unit}}
+\doxysubsubsection{\texorpdfstring{updateAP()}{updateAP()}}
+{\footnotesize\ttfamily void Unit\+::update\+AP (\begin{DoxyParamCaption}\item[{int}]{cost }\end{DoxyParamCaption})}
+
+removes the provided amount of ap from a unit
+
+
+\begin{DoxyParams}{Parameters}
+{\em cost} & amount of ap to be removed \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Trench\+Tactics/Unit.\+h\item 
+Trench\+Tactics/Unit.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,67 @@
+\hypertarget{class_logger}{}\doxysection{Logger Class Reference}
+\label{class_logger}\index{Logger@{Logger}}
+
+
+{\ttfamily \#include $<$Logger.\+hpp$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_logger_acb668a9e186a25fbaad2e4af6d1ed00a}{$\sim$\+Logger}} ()
+\item 
+\mbox{\Hypertarget{class_logger_add0f34d4c753c86af8074840a72366b3}\label{class_logger_add0f34d4c753c86af8074840a72366b3}} 
+{\bfseries Logger} (const \mbox{\hyperlink{class_logger}{Logger}} \&)=delete
+\item 
+\mbox{\Hypertarget{class_logger_a21dc953ea7e5c00656e75a2b4b7ec5cc}\label{class_logger_a21dc953ea7e5c00656e75a2b4b7ec5cc}} 
+\mbox{\hyperlink{class_logger}{Logger}} \& {\bfseries operator=} (const \mbox{\hyperlink{class_logger}{Logger}} \&)=delete
+\item 
+\mbox{\Hypertarget{class_logger_a92cabd934eeaf6a83a0ebf40236eb529}\label{class_logger_a92cabd934eeaf6a83a0ebf40236eb529}} 
+{\bfseries Logger} (\mbox{\hyperlink{class_logger}{Logger}} \&\&)=delete
+\item 
+\mbox{\Hypertarget{class_logger_ac1cd04971c2d9072a527cb905496725f}\label{class_logger_ac1cd04971c2d9072a527cb905496725f}} 
+\mbox{\hyperlink{class_logger}{Logger}} \& {\bfseries operator=} (\mbox{\hyperlink{class_logger}{Logger}} \&\&)=delete
+\item 
+void \mbox{\hyperlink{class_logger_a2526a7635befb3dfbe61cd72ffb43df2}{log}} (L\+O\+G\+L\+E\+V\+EL level, std\+::string message)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_logger_ad1c475934549f62f5189f1323f34a73e}\label{class_logger_ad1c475934549f62f5189f1323f34a73e}} 
+static auto \& {\bfseries instance} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{class_logger}{Logger}} class based on singelton pattern 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_logger_acb668a9e186a25fbaad2e4af6d1ed00a}\label{class_logger_acb668a9e186a25fbaad2e4af6d1ed00a}} 
+\index{Logger@{Logger}!````~Logger@{$\sim$Logger}}
+\index{````~Logger@{$\sim$Logger}!Logger@{Logger}}
+\doxysubsubsection{\texorpdfstring{$\sim$Logger()}{~Logger()}}
+{\footnotesize\ttfamily Logger\+::$\sim$\+Logger (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Standard deconstructor also private maybe used from singelton pattern to teardown logger 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_logger_a2526a7635befb3dfbe61cd72ffb43df2}\label{class_logger_a2526a7635befb3dfbe61cd72ffb43df2}} 
+\index{Logger@{Logger}!log@{log}}
+\index{log@{log}!Logger@{Logger}}
+\doxysubsubsection{\texorpdfstring{log()}{log()}}
+{\footnotesize\ttfamily void Logger\+::log (\begin{DoxyParamCaption}\item[{L\+O\+G\+L\+E\+V\+EL}]{level,  }\item[{std\+::string}]{message }\end{DoxyParamCaption})}
+
+Main logging method which appends logs to the daily log file Follows the pattern \mbox{[}timestamp\mbox{]} -\/ loglevel -\/ message
+
+
+\begin{DoxyParams}{Parameters}
+{\em level} & Loglevel from enum \\
+\hline
+{\em message} & String representation of the log message \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Trench\+Tactics/Logger.\+hpp\item 
+Trench\+Tactics/Logger.\+cpp\end{DoxyCompactItemize}

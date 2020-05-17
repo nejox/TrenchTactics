@@ -1,0 +1,120 @@
+\hypertarget{class_c_framework}{}\doxysection{C\+Framework Class Reference}
+\label{class_c_framework}\index{CFramework@{CFramework}}
+
+
+{\ttfamily \#include $<$Framework.\+hpp$>$}
+
+Inheritance diagram for C\+Framework\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_c_framework}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_c_framework_a385b883ca6a8fc90b92a5aa01279e5d0}{C\+Framework}} ()
+\begin{DoxyCompactList}\small\item\em Framework constructor which sets both pointers to null pointers \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_c_framework_aff745605472a84f603c408ece2d57f89}{Init}} (int Screen\+Width, int Screen\+Height, int Color\+Depth, bool b\+Fullscreen)
+\begin{DoxyCompactList}\small\item\em Init function which wraps the init of S\+DL Also creates a sdl window as well as the renderer On the way checks wether creation of all those things was succesfull \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_c_framework_ac729015dd13f6e1520165da34b8b9580}{Quit}} ()
+\begin{DoxyCompactList}\small\item\em Function to quit the framework class in a controlled way Destroys the window as well as the renderer initialized by the framework beforehand \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_c_framework_abcf3fa7e255a8c75dc0bea2e47328527}{Update}} ()
+\begin{DoxyCompactList}\small\item\em Update function only used to update the timer though \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_c_framework_a8033c88c99e57822c526b21d6c309d89}{Clear}} ()
+\begin{DoxyCompactList}\small\item\em Function to clear the screen from previously rendered objects \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_c_framework_a7ac344472ee605b7b0766396ca58f4e6}{Render}} ()
+\item 
+\mbox{\Hypertarget{class_c_framework_a238b0b45c31e8dcf5e2aafad7516097d}\label{class_c_framework_a238b0b45c31e8dcf5e2aafad7516097d}} 
+S\+D\+L\+\_\+\+Renderer $\ast$ {\bfseries Get\+Renderer} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+Do we need this ???? 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_c_framework_a385b883ca6a8fc90b92a5aa01279e5d0}\label{class_c_framework_a385b883ca6a8fc90b92a5aa01279e5d0}} 
+\index{CFramework@{CFramework}!CFramework@{CFramework}}
+\index{CFramework@{CFramework}!CFramework@{CFramework}}
+\doxysubsubsection{\texorpdfstring{CFramework()}{CFramework()}}
+{\footnotesize\ttfamily C\+Framework\+::\+C\+Framework (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Framework constructor which sets both pointers to null pointers 
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_c_framework_a8033c88c99e57822c526b21d6c309d89}\label{class_c_framework_a8033c88c99e57822c526b21d6c309d89}} 
+\index{CFramework@{CFramework}!Clear@{Clear}}
+\index{Clear@{Clear}!CFramework@{CFramework}}
+\doxysubsubsection{\texorpdfstring{Clear()}{Clear()}}
+{\footnotesize\ttfamily void C\+Framework\+::\+Clear (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Function to clear the screen from previously rendered objects 
+
+\mbox{\Hypertarget{class_c_framework_aff745605472a84f603c408ece2d57f89}\label{class_c_framework_aff745605472a84f603c408ece2d57f89}} 
+\index{CFramework@{CFramework}!Init@{Init}}
+\index{Init@{Init}!CFramework@{CFramework}}
+\doxysubsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily bool C\+Framework\+::\+Init (\begin{DoxyParamCaption}\item[{int}]{Screen\+Width,  }\item[{int}]{Screen\+Height,  }\item[{int}]{Color\+Depth,  }\item[{bool}]{b\+Fullscreen }\end{DoxyParamCaption})}
+
+
+
+Init function which wraps the init of S\+DL Also creates a sdl window as well as the renderer On the way checks wether creation of all those things was succesfull 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Screen\+Width} & int value to specifiy screen width\\
+\hline
+{\em Screen\+Height} & int value to specifiy screen height\\
+\hline
+{\em Color\+Depth} & int specify colordepth standard value should be 16\\
+\hline
+{\em b\+Fullscreen} & fullscreen or not\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_c_framework_ac729015dd13f6e1520165da34b8b9580}\label{class_c_framework_ac729015dd13f6e1520165da34b8b9580}} 
+\index{CFramework@{CFramework}!Quit@{Quit}}
+\index{Quit@{Quit}!CFramework@{CFramework}}
+\doxysubsubsection{\texorpdfstring{Quit()}{Quit()}}
+{\footnotesize\ttfamily void C\+Framework\+::\+Quit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Function to quit the framework class in a controlled way Destroys the window as well as the renderer initialized by the framework beforehand 
+
+\mbox{\Hypertarget{class_c_framework_a7ac344472ee605b7b0766396ca58f4e6}\label{class_c_framework_a7ac344472ee605b7b0766396ca58f4e6}} 
+\index{CFramework@{CFramework}!Render@{Render}}
+\index{Render@{Render}!CFramework@{CFramework}}
+\doxysubsubsection{\texorpdfstring{Render()}{Render()}}
+{\footnotesize\ttfamily void C\+Framework\+::\+Render (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+
+
+\mbox{\Hypertarget{class_c_framework_abcf3fa7e255a8c75dc0bea2e47328527}\label{class_c_framework_abcf3fa7e255a8c75dc0bea2e47328527}} 
+\index{CFramework@{CFramework}!Update@{Update}}
+\index{Update@{Update}!CFramework@{CFramework}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily void C\+Framework\+::\+Update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Update function only used to update the timer though 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Trench\+Tactics/Framework.\+hpp\item 
+Trench\+Tactics/Framework.\+cpp\end{DoxyCompactItemize}

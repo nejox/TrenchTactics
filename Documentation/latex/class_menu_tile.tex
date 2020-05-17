@@ -1,0 +1,64 @@
+\hypertarget{class_menu_tile}{}\doxysection{Menu\+Tile Class Reference}
+\label{class_menu_tile}\index{MenuTile@{MenuTile}}
+
+
+{\ttfamily \#include $<$Menu\+Tile.\+h$>$}
+
+Inheritance diagram for Menu\+Tile\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_menu_tile}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_menu_tile_ab7d91aed3eadf89ec6c909f0138c3d52}{set\+Button}} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_button}{Button}} $>$ button)
+\item 
+void \mbox{\hyperlink{class_menu_tile_a32c913253810d79f2dba8b2e11aa5ee4}{remove\+Button}} ()
+\item 
+\mbox{\Hypertarget{class_menu_tile_ae2485bdc2515b46361b4c4314363c7a0}\label{class_menu_tile_ae2485bdc2515b46361b4c4314363c7a0}} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_button}{Button}} $>$ {\bfseries get\+Button} ()
+\item 
+void \mbox{\hyperlink{class_menu_tile_a482daf0c2d5788786e1f91ae6f95538b}{remove\+Button\+Display}} ()
+\item 
+\mbox{\Hypertarget{class_menu_tile_aa33b595e860463c61797f3e73d594de9}\label{class_menu_tile_aa33b595e860463c61797f3e73d594de9}} 
+int {\bfseries handle\+Event} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{class_menu_tile}{Menu\+Tile}} class for holding and locating Buttons 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_menu_tile_a32c913253810d79f2dba8b2e11aa5ee4}\label{class_menu_tile_a32c913253810d79f2dba8b2e11aa5ee4}} 
+\index{MenuTile@{MenuTile}!removeButton@{removeButton}}
+\index{removeButton@{removeButton}!MenuTile@{MenuTile}}
+\doxysubsubsection{\texorpdfstring{removeButton()}{removeButton()}}
+{\footnotesize\ttfamily void Menu\+Tile\+::remove\+Button (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+remove a button from a menutile and render the blank menu surface over it. \mbox{\Hypertarget{class_menu_tile_a482daf0c2d5788786e1f91ae6f95538b}\label{class_menu_tile_a482daf0c2d5788786e1f91ae6f95538b}} 
+\index{MenuTile@{MenuTile}!removeButtonDisplay@{removeButtonDisplay}}
+\index{removeButtonDisplay@{removeButtonDisplay}!MenuTile@{MenuTile}}
+\doxysubsubsection{\texorpdfstring{removeButtonDisplay()}{removeButtonDisplay()}}
+{\footnotesize\ttfamily void Menu\+Tile\+::remove\+Button\+Display (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+overrender a button to \char`\"{}move it to the background\char`\"{}. \mbox{\Hypertarget{class_menu_tile_ab7d91aed3eadf89ec6c909f0138c3d52}\label{class_menu_tile_ab7d91aed3eadf89ec6c909f0138c3d52}} 
+\index{MenuTile@{MenuTile}!setButton@{setButton}}
+\index{setButton@{setButton}!MenuTile@{MenuTile}}
+\doxysubsubsection{\texorpdfstring{setButton()}{setButton()}}
+{\footnotesize\ttfamily void Menu\+Tile\+::set\+Button (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_button}{Button}} $>$}]{button }\end{DoxyParamCaption})}
+
+set the button of a menutile and update the state of the button and render it.
+
+
+\begin{DoxyParams}{Parameters}
+{\em button} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Trench\+Tactics/Menu\+Tile.\+h\item 
+Trench\+Tactics/Menu\+Tile.\+cpp\end{DoxyCompactItemize}

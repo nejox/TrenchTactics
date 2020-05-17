@@ -1,0 +1,57 @@
+\hypertarget{class_event_manager_impl}{}\doxysection{Event\+Manager\+Impl Class Reference}
+\label{class_event_manager_impl}\index{EventManagerImpl@{EventManagerImpl}}
+
+
+{\ttfamily \#include $<$Event\+Manager\+Impl.\+h$>$}
+
+Inheritance diagram for Event\+Manager\+Impl\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_event_manager_impl}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_event_manager_impl_a29f56c9c599bfc3db9ffb50d27fb94aa}\label{class_event_manager_impl_a29f56c9c599bfc3db9ffb50d27fb94aa}} 
+{\bfseries Event\+Manager\+Impl} (const \mbox{\hyperlink{class_event_manager_impl}{Event\+Manager\+Impl}} \&)=delete
+\item 
+\mbox{\Hypertarget{class_event_manager_impl_a4f497a008e57adcfeb8945d603c4af63}\label{class_event_manager_impl_a4f497a008e57adcfeb8945d603c4af63}} 
+\mbox{\hyperlink{class_event_manager_impl}{Event\+Manager\+Impl}} \& {\bfseries operator=} (const \mbox{\hyperlink{class_event_manager_impl}{Event\+Manager\+Impl}} \&)=delete
+\item 
+\mbox{\Hypertarget{class_event_manager_impl_aa34c5182a5facb96f25e22443fba258f}\label{class_event_manager_impl_aa34c5182a5facb96f25e22443fba258f}} 
+{\bfseries Event\+Manager\+Impl} (\mbox{\hyperlink{class_event_manager_impl}{Event\+Manager\+Impl}} \&\&)=delete
+\item 
+\mbox{\Hypertarget{class_event_manager_impl_aaef0c8a8fa58de4ec5675f00642356df}\label{class_event_manager_impl_aaef0c8a8fa58de4ec5675f00642356df}} 
+\mbox{\hyperlink{class_event_manager_impl}{Event\+Manager\+Impl}} \& {\bfseries operator=} (\mbox{\hyperlink{class_event_manager_impl}{Event\+Manager\+Impl}} \&\&)=delete
+\item 
+void \mbox{\hyperlink{class_event_manager_impl_aa53020ce2adef7816dfbb0c4ffff7b69}{process\+Events}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_event_manager_impl_adaf459bf8fbbd1b97e3143312cb439dc}\label{class_event_manager_impl_adaf459bf8fbbd1b97e3143312cb439dc}} 
+static auto \& {\bfseries instance} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{class_event_manager_impl}{Event\+Manager\+Impl}} class based on singelton pattern for implementing the Event\+Manager and handling events 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_event_manager_impl_aa53020ce2adef7816dfbb0c4ffff7b69}\label{class_event_manager_impl_aa53020ce2adef7816dfbb0c4ffff7b69}} 
+\index{EventManagerImpl@{EventManagerImpl}!processEvents@{processEvents}}
+\index{processEvents@{processEvents}!EventManagerImpl@{EventManagerImpl}}
+\doxysubsubsection{\texorpdfstring{processEvents()}{processEvents()}}
+{\footnotesize\ttfamily void Event\+Manager\+Impl\+::process\+Events (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Eventmanager\+Impl based on sdl functionality Processes the mouse click events and publishes the corresponding mouse click event on to the \mbox{\hyperlink{class_event_bus}{Event\+Bus}} 
+
+Implements \mbox{\hyperlink{class_i_event_manager}{I\+Event\+Manager}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Trench\+Tactics/Event\+Manager\+Impl.\+h\item 
+Trench\+Tactics/Event\+Manager\+Impl.\+cpp\end{DoxyCompactItemize}

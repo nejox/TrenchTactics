@@ -1,0 +1,88 @@
+\hypertarget{class_field_tile}{}\doxysection{Field\+Tile Class Reference}
+\label{class_field_tile}\index{FieldTile@{FieldTile}}
+
+
+{\ttfamily \#include $<$Field\+Tile.\+h$>$}
+
+Inheritance diagram for Field\+Tile\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_field_tile}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{class_field_tile_a0b04cff5188ed689f199326f27b7a313}{T\+E\+R\+R\+A\+I\+N\+T\+Y\+PE}} \{ {\bfseries M\+UD}, 
+{\bfseries C\+L\+AY}, 
+{\bfseries S\+T\+O\+NE}, 
+{\bfseries S\+P\+A\+W\+N\+T\+E\+R\+R\+A\+IN}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_field_tile_a1b5f030062f6913fabec7903fab55cdb}\label{class_field_tile_a1b5f030062f6913fabec7903fab55cdb}} 
+{\bfseries Field\+Tile} (\mbox{\hyperlink{class_field_tile_a0b04cff5188ed689f199326f27b7a313}{T\+E\+R\+R\+A\+I\+N\+T\+Y\+PE}} terrain)
+\item 
+void \mbox{\hyperlink{class_field_tile_ab7ef9740ec17ce7a664042d13a449e73}{remove\+Unit}} ()
+\item 
+void \mbox{\hyperlink{class_field_tile_a3e1354cc45370a6f5885ee4f17a39a0c}{refresh\+Tile}} ()
+\item 
+void \mbox{\hyperlink{class_field_tile_a222edc3149d5af3a924a4cea27348e4e}{set\+Unit}} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_unit}{Unit}} $>$ unit)
+\item 
+\mbox{\Hypertarget{class_field_tile_a097e38b742272b642d32f221ab46ec96}\label{class_field_tile_a097e38b742272b642d32f221ab46ec96}} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_unit}{Unit}} $>$ {\bfseries get\+Unit} ()
+\item 
+\mbox{\Hypertarget{class_field_tile_a3616d052c9c25a03b42c310ecf32db6f}\label{class_field_tile_a3616d052c9c25a03b42c310ecf32db6f}} 
+void {\bfseries set\+Terrain} (\mbox{\hyperlink{class_field_tile_a0b04cff5188ed689f199326f27b7a313}{T\+E\+R\+R\+A\+I\+N\+T\+Y\+PE}} terrain)
+\item 
+\mbox{\Hypertarget{class_field_tile_adab5952f791ec47a145da4fe7cb85828}\label{class_field_tile_adab5952f791ec47a145da4fe7cb85828}} 
+\mbox{\hyperlink{class_field_tile_a0b04cff5188ed689f199326f27b7a313}{T\+E\+R\+R\+A\+I\+N\+T\+Y\+PE}} {\bfseries get\+Terrain} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{class_field_tile}{Field\+Tile}} class for holding Units and Terraintype . 
+
+\doxysubsection{Member Enumeration Documentation}
+\mbox{\Hypertarget{class_field_tile_a0b04cff5188ed689f199326f27b7a313}\label{class_field_tile_a0b04cff5188ed689f199326f27b7a313}} 
+\index{FieldTile@{FieldTile}!TERRAINTYPE@{TERRAINTYPE}}
+\index{TERRAINTYPE@{TERRAINTYPE}!FieldTile@{FieldTile}}
+\doxysubsubsection{\texorpdfstring{TERRAINTYPE}{TERRAINTYPE}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{class_field_tile_a0b04cff5188ed689f199326f27b7a313}{Field\+Tile\+::\+T\+E\+R\+R\+A\+I\+N\+T\+Y\+PE}}}
+
+Different possible terraintypes. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_field_tile_a3e1354cc45370a6f5885ee4f17a39a0c}\label{class_field_tile_a3e1354cc45370a6f5885ee4f17a39a0c}} 
+\index{FieldTile@{FieldTile}!refreshTile@{refreshTile}}
+\index{refreshTile@{refreshTile}!FieldTile@{FieldTile}}
+\doxysubsubsection{\texorpdfstring{refreshTile()}{refreshTile()}}
+{\footnotesize\ttfamily void Field\+Tile\+::refresh\+Tile (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+refresh \mbox{\hyperlink{class_tile}{Tile}} \mbox{\Hypertarget{class_field_tile_ab7ef9740ec17ce7a664042d13a449e73}\label{class_field_tile_ab7ef9740ec17ce7a664042d13a449e73}} 
+\index{FieldTile@{FieldTile}!removeUnit@{removeUnit}}
+\index{removeUnit@{removeUnit}!FieldTile@{FieldTile}}
+\doxysubsubsection{\texorpdfstring{removeUnit()}{removeUnit()}}
+{\footnotesize\ttfamily void Field\+Tile\+::remove\+Unit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+remove the unit on a field tile also rerenders the empty tile afterwards \mbox{\Hypertarget{class_field_tile_a222edc3149d5af3a924a4cea27348e4e}\label{class_field_tile_a222edc3149d5af3a924a4cea27348e4e}} 
+\index{FieldTile@{FieldTile}!setUnit@{setUnit}}
+\index{setUnit@{setUnit}!FieldTile@{FieldTile}}
+\doxysubsubsection{\texorpdfstring{setUnit()}{setUnit()}}
+{\footnotesize\ttfamily void Field\+Tile\+::set\+Unit (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_unit}{Unit}} $>$}]{unit }\end{DoxyParamCaption})}
+
+function to attach a unit to fieldtile updates the sprite position with the position of the field tile and renders it
+
+
+\begin{DoxyParams}{Parameters}
+{\em unit} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Trench\+Tactics/Field\+Tile.\+h\item 
+Trench\+Tactics/Field\+Tile.\+cpp\end{DoxyCompactItemize}

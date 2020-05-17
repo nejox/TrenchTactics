@@ -1,0 +1,76 @@
+\hypertarget{class_member_function_handler}{}\doxysection{Member\+Function\+Handler$<$ T, Event\+Type $>$ Class Template Reference}
+\label{class_member_function_handler}\index{MemberFunctionHandler$<$ T, EventType $>$@{MemberFunctionHandler$<$ T, EventType $>$}}
+
+
+{\ttfamily \#include $<$Member\+Function\+Handler.\+h$>$}
+
+Inheritance diagram for Member\+Function\+Handler$<$ T, Event\+Type $>$\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_member_function_handler}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_member_function_handler_aa9f2acd0946a0bc7b204f3f8ef952e54}\label{class_member_function_handler_aa9f2acd0946a0bc7b204f3f8ef952e54}} 
+typedef void(T\+::$\ast$ {\bfseries Member\+Function}) (Event\+Type $\ast$)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_member_function_handler_aec54b2937959faf0f80d5e8f5cfc4640}{Member\+Function\+Handler}} (T $\ast$instance, Member\+Function member\+Function)
+\item 
+void \mbox{\hyperlink{class_member_function_handler_a123eebfaf37c17ba05f545d414b9fce7}{call}} (\mbox{\hyperlink{class_event}{Event}} $\ast$event)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$class T, class Event\+Type$>$\newline
+class Member\+Function\+Handler$<$ T, Event\+Type $>$}
+
+\mbox{\hyperlink{class_member_function_handler}{Member\+Function\+Handler}} class for implementing \mbox{\hyperlink{class_handler_function_base}{Handler\+Function\+Base}}. calls the member function of the respective class instance 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_member_function_handler_aec54b2937959faf0f80d5e8f5cfc4640}\label{class_member_function_handler_aec54b2937959faf0f80d5e8f5cfc4640}} 
+\index{MemberFunctionHandler$<$ T, EventType $>$@{MemberFunctionHandler$<$ T, EventType $>$}!MemberFunctionHandler@{MemberFunctionHandler}}
+\index{MemberFunctionHandler@{MemberFunctionHandler}!MemberFunctionHandler$<$ T, EventType $>$@{MemberFunctionHandler$<$ T, EventType $>$}}
+\doxysubsubsection{\texorpdfstring{MemberFunctionHandler()}{MemberFunctionHandler()}}
+{\footnotesize\ttfamily template$<$class T , class Event\+Type $>$ \\
+\mbox{\hyperlink{class_member_function_handler}{Member\+Function\+Handler}}$<$ T, Event\+Type $>$\+::\mbox{\hyperlink{class_member_function_handler}{Member\+Function\+Handler}} (\begin{DoxyParamCaption}\item[{T $\ast$}]{instance,  }\item[{Member\+Function}]{member\+Function }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+specialised constructor to create the handler objects.
+
+
+\begin{DoxyParams}{Parameters}
+{\em instance} & the class instance \\
+\hline
+{\em member\+Function} & the respective member function for handling the event \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_member_function_handler_a123eebfaf37c17ba05f545d414b9fce7}\label{class_member_function_handler_a123eebfaf37c17ba05f545d414b9fce7}} 
+\index{MemberFunctionHandler$<$ T, EventType $>$@{MemberFunctionHandler$<$ T, EventType $>$}!call@{call}}
+\index{call@{call}!MemberFunctionHandler$<$ T, EventType $>$@{MemberFunctionHandler$<$ T, EventType $>$}}
+\doxysubsubsection{\texorpdfstring{call()}{call()}}
+{\footnotesize\ttfamily template$<$class T , class Event\+Type $>$ \\
+void \mbox{\hyperlink{class_member_function_handler}{Member\+Function\+Handler}}$<$ T, Event\+Type $>$\+::call (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event}{Event}} $\ast$}]{event }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+calls the member function if event is raised.
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & the raised event \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_handler_function_base}{Handler\+Function\+Base}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Trench\+Tactics/Member\+Function\+Handler.\+h\end{DoxyCompactItemize}

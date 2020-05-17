@@ -1,0 +1,114 @@
+\hypertarget{class_sprite}{}\doxysection{Sprite Class Reference}
+\label{class_sprite}\index{Sprite@{Sprite}}
+
+
+{\ttfamily \#include $<$Sprite.\+hpp$>$}
+
+Inheritance diagram for Sprite\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_sprite}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_sprite_a12cba3ac1868418add3c4d95ce87e615}{Sprite}} ()
+\item 
+\mbox{\hyperlink{class_sprite_a8accab430f9d90ae5117b57d67e32b84}{$\sim$\+Sprite}} ()
+\item 
+\mbox{\Hypertarget{class_sprite_a182e20e27fa14d3f50df96bd9d9f35e3}\label{class_sprite_a182e20e27fa14d3f50df96bd9d9f35e3}} 
+void {\bfseries set\+Pos} (int x, int y)
+\item 
+\mbox{\Hypertarget{class_sprite_a03d6c82bddfd3d164ce8997482c57c85}\label{class_sprite_a03d6c82bddfd3d164ce8997482c57c85}} 
+int {\bfseries getX} ()
+\item 
+\mbox{\Hypertarget{class_sprite_a53ea8b27bcd0dab0627a2dceab2b9d98}\label{class_sprite_a53ea8b27bcd0dab0627a2dceab2b9d98}} 
+int {\bfseries getY} ()
+\item 
+void \mbox{\hyperlink{class_sprite_ac2f78b0c0b855629e9c4e2c00de5ee4f}{load}} (const string s\+Filename)
+\item 
+void \mbox{\hyperlink{class_sprite_affcf78cd3de70d43b7e24421f2c442c8}{render}} (int locX, int locY)
+\item 
+void \mbox{\hyperlink{class_sprite_a5b99de686a49a5ca107b39a63b412794}{render}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_sprite_a822c4762747ee8e2eba8fce0b8d6881c}\label{class_sprite_a822c4762747ee8e2eba8fce0b8d6881c}} 
+S\+D\+L\+\_\+\+Renderer $\ast$ {\bfseries m\+\_\+p\+Renderer}
+\item 
+\mbox{\Hypertarget{class_sprite_aa9718bdd18758e30aa4a6fc01e22bd59}\label{class_sprite_aa9718bdd18758e30aa4a6fc01e22bd59}} 
+S\+D\+L\+\_\+\+Texture $\ast$ {\bfseries m\+\_\+p\+Image}
+\item 
+\mbox{\Hypertarget{class_sprite_a24a88924ee29bfa0f984c85335bdb790}\label{class_sprite_a24a88924ee29bfa0f984c85335bdb790}} 
+S\+D\+L\+\_\+\+Rect {\bfseries m\+\_\+\+Rect}
+\item 
+\mbox{\Hypertarget{class_sprite_a32e79f8bfb6f66c8e470b87d97d195a1}\label{class_sprite_a32e79f8bfb6f66c8e470b87d97d195a1}} 
+S\+D\+L\+\_\+\+Rect {\bfseries m\+\_\+\+Frame\+Rect}
+\item 
+\mbox{\Hypertarget{class_sprite_abf60b8ae0d2f0d992abeabf7463f59e0}\label{class_sprite_abf60b8ae0d2f0d992abeabf7463f59e0}} 
+int {\bfseries m\+\_\+posX}
+\item 
+\mbox{\Hypertarget{class_sprite_aaf81ffff4229c21d9936a01661cbbbd1}\label{class_sprite_aaf81ffff4229c21d9936a01661cbbbd1}} 
+int {\bfseries m\+\_\+posY}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Base sprite class with sdl backend. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_sprite_a12cba3ac1868418add3c4d95ce87e615}\label{class_sprite_a12cba3ac1868418add3c4d95ce87e615}} 
+\index{Sprite@{Sprite}!Sprite@{Sprite}}
+\index{Sprite@{Sprite}!Sprite@{Sprite}}
+\doxysubsubsection{\texorpdfstring{Sprite()}{Sprite()}}
+{\footnotesize\ttfamily Sprite\+::\+Sprite (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\hyperlink{class_sprite}{Sprite}} class constructor which gets the pointer to the renderer \mbox{\Hypertarget{class_sprite_a8accab430f9d90ae5117b57d67e32b84}\label{class_sprite_a8accab430f9d90ae5117b57d67e32b84}} 
+\index{Sprite@{Sprite}!````~Sprite@{$\sim$Sprite}}
+\index{````~Sprite@{$\sim$Sprite}!Sprite@{Sprite}}
+\doxysubsubsection{\texorpdfstring{$\sim$Sprite()}{~Sprite()}}
+{\footnotesize\ttfamily Sprite\+::$\sim$\+Sprite (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\hyperlink{class_sprite}{Sprite}} class destructor which destroys the texture saved in the sprite class 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_sprite_ac2f78b0c0b855629e9c4e2c00de5ee4f}\label{class_sprite_ac2f78b0c0b855629e9c4e2c00de5ee4f}} 
+\index{Sprite@{Sprite}!load@{load}}
+\index{load@{load}!Sprite@{Sprite}}
+\doxysubsubsection{\texorpdfstring{load()}{load()}}
+{\footnotesize\ttfamily void Sprite\+::load (\begin{DoxyParamCaption}\item[{const string}]{s\+Filename }\end{DoxyParamCaption})}
+
+function which loads a sprite from the specified file name provides an error messages if it doesnt work This also sets colorkey and creates a texture
+
+
+\begin{DoxyParams}{Parameters}
+{\em s\+Filename} & path to the img which will be loaded \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_sprite_a5b99de686a49a5ca107b39a63b412794}\label{class_sprite_a5b99de686a49a5ca107b39a63b412794}} 
+\index{Sprite@{Sprite}!render@{render}}
+\index{render@{render}!Sprite@{Sprite}}
+\doxysubsubsection{\texorpdfstring{render()}{render()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Sprite\+::render (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+wraps rendercopy of S\+DL Framework takes renderer from the sprite class and the image to display it on screen at given rect from sprite \mbox{\Hypertarget{class_sprite_affcf78cd3de70d43b7e24421f2c442c8}\label{class_sprite_affcf78cd3de70d43b7e24421f2c442c8}} 
+\index{Sprite@{Sprite}!render@{render}}
+\index{render@{render}!Sprite@{Sprite}}
+\doxysubsubsection{\texorpdfstring{render()}{render()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Sprite\+::render (\begin{DoxyParamCaption}\item[{int}]{locX,  }\item[{int}]{locY }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em locX} & \\
+\hline
+{\em locY} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Trench\+Tactics/Sprite.\+hpp\item 
+Trench\+Tactics/Sprite.\+cpp\end{DoxyCompactItemize}

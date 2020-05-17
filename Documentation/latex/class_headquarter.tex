@@ -1,0 +1,74 @@
+\hypertarget{class_headquarter}{}\doxysection{Headquarter Class Reference}
+\label{class_headquarter}\index{Headquarter@{Headquarter}}
+
+
+{\ttfamily \#include $<$Headquarter.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_headquarter_ae2636fcd361a889e39a463532edc0939}\label{class_headquarter_ae2636fcd361a889e39a463532edc0939}} 
+{\bfseries Headquarter} (bool colour\+Red)
+\item 
+void \mbox{\hyperlink{class_headquarter_a75f755cddff6ccf0693522c04f57f1aa}{render}} ()
+\item 
+void \mbox{\hyperlink{class_headquarter_a99e9b014e07e73f630f99b235c597a9f}{change\+HP}} (int damage)
+\item 
+\mbox{\Hypertarget{class_headquarter_a2aa2b202b489b43b8c47e9703b285bbc}\label{class_headquarter_a2aa2b202b489b43b8c47e9703b285bbc}} 
+int {\bfseries get\+Current\+HP} ()
+\item 
+\mbox{\Hypertarget{class_headquarter_aaddf34254e9506577d157db45d2d9568}\label{class_headquarter_aaddf34254e9506577d157db45d2d9568}} 
+int {\bfseries get\+HP} ()
+\item 
+\mbox{\Hypertarget{class_headquarter_a595f8fa8d5b431268372b5f629939e1e}\label{class_headquarter_a595f8fa8d5b431268372b5f629939e1e}} 
+std\+::string {\bfseries get\+Sprite\+File\+Path} ()
+\item 
+\mbox{\Hypertarget{class_headquarter_a5d7b2bd098c6255b6293396050bef11e}\label{class_headquarter_a5d7b2bd098c6255b6293396050bef11e}} 
+bool {\bfseries get\+Color\+Red} ()
+\item 
+\mbox{\Hypertarget{class_headquarter_a9b4e9b460ccb56b7cd7f8accb03fe799}\label{class_headquarter_a9b4e9b460ccb56b7cd7f8accb03fe799}} 
+void {\bfseries set\+Damaged} (bool damaged)
+\item 
+\mbox{\Hypertarget{class_headquarter_acba4909fed541f86addda682d3cdb10c}\label{class_headquarter_acba4909fed541f86addda682d3cdb10c}} 
+bool {\bfseries get\+Damaged} ()
+\item 
+\mbox{\Hypertarget{class_headquarter_a1b822f65c2d5e4f048763f9545a24ad5}\label{class_headquarter_a1b822f65c2d5e4f048763f9545a24ad5}} 
+void {\bfseries set\+Sprite} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_sprite_h_q}{Sprite\+HQ}} $>$ sprite)
+\item 
+\mbox{\Hypertarget{class_headquarter_a5c79f3185ac09057c41a694d39413bec}\label{class_headquarter_a5c79f3185ac09057c41a694d39413bec}} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_sprite_h_q}{Sprite\+HQ}} $>$ {\bfseries get\+Sprite} ()
+\item 
+\mbox{\Hypertarget{class_headquarter_aadac40c07bd2e48cc2f2356407ad6cd0}\label{class_headquarter_aadac40c07bd2e48cc2f2356407ad6cd0}} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_sprite_health_bar}{Sprite\+Health\+Bar}} $>$ {\bfseries get\+Sprite\+Health\+Bar} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Base headquarter class that holds all information concerning the headquarter of a player like health, color or spritefilepath. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_headquarter_a99e9b014e07e73f630f99b235c597a9f}\label{class_headquarter_a99e9b014e07e73f630f99b235c597a9f}} 
+\index{Headquarter@{Headquarter}!changeHP@{changeHP}}
+\index{changeHP@{changeHP}!Headquarter@{Headquarter}}
+\doxysubsubsection{\texorpdfstring{changeHP()}{changeHP()}}
+{\footnotesize\ttfamily void Headquarter\+::change\+HP (\begin{DoxyParamCaption}\item[{int}]{damage }\end{DoxyParamCaption})}
+
+change hp of the headquarter and update its current state based on the curren health. If health at or below zero raises \mbox{\hyperlink{class_game_end_event}{Game\+End\+Event}}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em damage} & the amount of damage dealt to the headquarter \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_headquarter_a75f755cddff6ccf0693522c04f57f1aa}\label{class_headquarter_a75f755cddff6ccf0693522c04f57f1aa}} 
+\index{Headquarter@{Headquarter}!render@{render}}
+\index{render@{render}!Headquarter@{Headquarter}}
+\doxysubsubsection{\texorpdfstring{render()}{render()}}
+{\footnotesize\ttfamily void Headquarter\+::render (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Renders the HQ dependent on its current health state. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Trench\+Tactics/Headquarter.\+h\item 
+Trench\+Tactics/Headquarter.\+cpp\end{DoxyCompactItemize}

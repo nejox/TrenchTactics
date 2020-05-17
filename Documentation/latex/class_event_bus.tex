@@ -1,0 +1,83 @@
+\hypertarget{class_event_bus}{}\doxysection{Event\+Bus Class Reference}
+\label{class_event_bus}\index{EventBus@{EventBus}}
+
+
+{\ttfamily \#include $<$Event\+Bus.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_event_bus_a270ac5b93ed8fa8c64a32f89c281e7fa}\label{class_event_bus_a270ac5b93ed8fa8c64a32f89c281e7fa}} 
+{\bfseries Event\+Bus} (const \mbox{\hyperlink{class_event_bus}{Event\+Bus}} \&)=delete
+\item 
+\mbox{\Hypertarget{class_event_bus_a7dc6968088210db5d4f2f98bd05f0840}\label{class_event_bus_a7dc6968088210db5d4f2f98bd05f0840}} 
+\mbox{\hyperlink{class_event_bus}{Event\+Bus}} \& {\bfseries operator=} (const \mbox{\hyperlink{class_event_bus}{Event\+Bus}} \&)=delete
+\item 
+\mbox{\Hypertarget{class_event_bus_a9fd2698a063518d6bc9ec330ca58d99b}\label{class_event_bus_a9fd2698a063518d6bc9ec330ca58d99b}} 
+{\bfseries Event\+Bus} (\mbox{\hyperlink{class_event_bus}{Event\+Bus}} \&\&)=delete
+\item 
+\mbox{\Hypertarget{class_event_bus_a67c759270985ad50c3f862ab963aa62c}\label{class_event_bus_a67c759270985ad50c3f862ab963aa62c}} 
+\mbox{\hyperlink{class_event_bus}{Event\+Bus}} \& {\bfseries operator=} (\mbox{\hyperlink{class_event_bus}{Event\+Bus}} \&\&)=delete
+\item 
+\mbox{\hyperlink{class_event_bus_a765e3597fd72a1c4ad9296ead93f9228}{$\sim$\+Event\+Bus}} ()
+\item 
+{\footnotesize template$<$typename Event\+Type $>$ }\\void \mbox{\hyperlink{class_event_bus_afe44e27c7bad078ef403ddc23a234bc5}{publish}} (Event\+Type $\ast$event)
+\item 
+{\footnotesize template$<$class T , class Event\+Type $>$ }\\void \mbox{\hyperlink{class_event_bus_afdd521d0f34b0ce335726c7b0123dfb3}{subscribe}} (T $\ast$instance, void(T\+::$\ast$member\+Function)(Event\+Type $\ast$))
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_event_bus_ad9c1d9a79b3adca0e7ce2521737a75e7}\label{class_event_bus_ad9c1d9a79b3adca0e7ce2521737a75e7}} 
+static auto \& {\bfseries instance} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{class_event_bus}{Event\+Bus}} class based on singelton pattern for \mbox{\hyperlink{class_event}{Event}} handling across modules 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_event_bus_a765e3597fd72a1c4ad9296ead93f9228}\label{class_event_bus_a765e3597fd72a1c4ad9296ead93f9228}} 
+\index{EventBus@{EventBus}!````~EventBus@{$\sim$EventBus}}
+\index{````~EventBus@{$\sim$EventBus}!EventBus@{EventBus}}
+\doxysubsubsection{\texorpdfstring{$\sim$EventBus()}{~EventBus()}}
+{\footnotesize\ttfamily Event\+Bus\+::$\sim$\+Event\+Bus (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Deconstructor to delete created map containing all subscriber functions 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_event_bus_afe44e27c7bad078ef403ddc23a234bc5}\label{class_event_bus_afe44e27c7bad078ef403ddc23a234bc5}} 
+\index{EventBus@{EventBus}!publish@{publish}}
+\index{publish@{publish}!EventBus@{EventBus}}
+\doxysubsubsection{\texorpdfstring{publish()}{publish()}}
+{\footnotesize\ttfamily template$<$typename Event\+Type $>$ \\
+void Event\+Bus\+::publish (\begin{DoxyParamCaption}\item[{Event\+Type $\ast$}]{event }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Publish method that takes an event and publishes it to all subscribers with their respective handler function
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_event_bus_afdd521d0f34b0ce335726c7b0123dfb3}\label{class_event_bus_afdd521d0f34b0ce335726c7b0123dfb3}} 
+\index{EventBus@{EventBus}!subscribe@{subscribe}}
+\index{subscribe@{subscribe}!EventBus@{EventBus}}
+\doxysubsubsection{\texorpdfstring{subscribe()}{subscribe()}}
+{\footnotesize\ttfamily template$<$class T , class Event\+Type $>$ \\
+void Event\+Bus\+::subscribe (\begin{DoxyParamCaption}\item[{T $\ast$}]{instance,  }\item[{void(T\+::$\ast$)(Event\+Type $\ast$)}]{member\+Function }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Subscriber function that allows to subscribe to a specific type of event
+
+
+\begin{DoxyParams}{Parameters}
+{\em instance} & the class instance that contains the handler function \\
+\hline
+{\em member\+Function} & the respective member\+Function which handles the event \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Trench\+Tactics/Event\+Bus.\+h\end{DoxyCompactItemize}

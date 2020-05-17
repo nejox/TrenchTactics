@@ -1,0 +1,124 @@
+\hypertarget{class_renderer_impl}{}\doxysection{Renderer\+Impl Class Reference}
+\label{class_renderer_impl}\index{RendererImpl@{RendererImpl}}
+
+
+{\ttfamily \#include $<$Renderer\+Impl.\+h$>$}
+
+Inheritance diagram for Renderer\+Impl\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_renderer_impl}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_renderer_impl_af44bc52afc9aa4b61c6a042dd0f8a06d}\label{class_renderer_impl_af44bc52afc9aa4b61c6a042dd0f8a06d}} 
+{\bfseries Renderer\+Impl} (const \mbox{\hyperlink{class_renderer_impl}{Renderer\+Impl}} \&)=delete
+\item 
+\mbox{\Hypertarget{class_renderer_impl_a11f40f45e06802353733f1a2043e7829}\label{class_renderer_impl_a11f40f45e06802353733f1a2043e7829}} 
+\mbox{\hyperlink{class_renderer_impl}{Renderer\+Impl}} \& {\bfseries operator=} (const \mbox{\hyperlink{class_renderer_impl}{Renderer\+Impl}} \&)=delete
+\item 
+\mbox{\Hypertarget{class_renderer_impl_ae353d21f778a0760dbc0e075a95b806f}\label{class_renderer_impl_ae353d21f778a0760dbc0e075a95b806f}} 
+{\bfseries Renderer\+Impl} (\mbox{\hyperlink{class_renderer_impl}{Renderer\+Impl}} \&\&)=delete
+\item 
+\mbox{\Hypertarget{class_renderer_impl_a9af9acb1bd7588331d445448162c32bb}\label{class_renderer_impl_a9af9acb1bd7588331d445448162c32bb}} 
+\mbox{\hyperlink{class_renderer_impl}{Renderer\+Impl}} \& {\bfseries operator=} (\mbox{\hyperlink{class_renderer_impl}{Renderer\+Impl}} \&\&)=delete
+\item 
+bool \mbox{\hyperlink{class_renderer_impl_a18f33fab2c6dbc1559adb6a07a756be5}{init}} (int Screen\+Width, int Screen\+Height, int Color\+Depth=16, bool b\+Fullscreen=false)
+\item 
+void \mbox{\hyperlink{class_renderer_impl_a2ae1e040c6e1f298d2b04a559ae977c9}{clear\+Screen}} ()
+\item 
+void \mbox{\hyperlink{class_renderer_impl_a88160c09fdf0c1c18c82b765994fed18}{destroy}} ()
+\item 
+void \mbox{\hyperlink{class_renderer_impl_adf3fdbf88b74edcaee68c9ea116ea41e}{update\+Timer}} ()
+\item 
+\mbox{\Hypertarget{class_renderer_impl_aa0e5e44beb0c42076ce2ef4bf252defd}\label{class_renderer_impl_aa0e5e44beb0c42076ce2ef4bf252defd}} 
+void {\bfseries render\+Tile} ()
+\item 
+\mbox{\Hypertarget{class_renderer_impl_ade5a57943bd7f68fa506c54eb751ebe8}\label{class_renderer_impl_ade5a57943bd7f68fa506c54eb751ebe8}} 
+void {\bfseries render\+HQ} ()
+\item 
+\mbox{\Hypertarget{class_renderer_impl_a0ef5be42bca4064a9a54b4d0008fd6a0}\label{class_renderer_impl_a0ef5be42bca4064a9a54b4d0008fd6a0}} 
+void {\bfseries start\+Animation} ()
+\item 
+\mbox{\Hypertarget{class_renderer_impl_a66746761fa9b6a1a6bd59335459fd85c}\label{class_renderer_impl_a66746761fa9b6a1a6bd59335459fd85c}} 
+void {\bfseries render} ()
+\item 
+\mbox{\Hypertarget{class_renderer_impl_a6f2af693e4a6292d183d5e0b61efaae3}\label{class_renderer_impl_a6f2af693e4a6292d183d5e0b61efaae3}} 
+S\+D\+L\+\_\+\+Renderer $\ast$ {\bfseries Get\+Renderer} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_renderer_impl_a53b71dad1a1a44e6ef913ee21840161d}\label{class_renderer_impl_a53b71dad1a1a44e6ef913ee21840161d}} 
+static auto \& {\bfseries instance} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Renderer Implemantation based on the S\+DL Render functions. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_renderer_impl_a2ae1e040c6e1f298d2b04a559ae977c9}\label{class_renderer_impl_a2ae1e040c6e1f298d2b04a559ae977c9}} 
+\index{RendererImpl@{RendererImpl}!clearScreen@{clearScreen}}
+\index{clearScreen@{clearScreen}!RendererImpl@{RendererImpl}}
+\doxysubsubsection{\texorpdfstring{clearScreen()}{clearScreen()}}
+{\footnotesize\ttfamily void Renderer\+Impl\+::clear\+Screen (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Function to clear the screen from previously rendered objects 
+
+Implements \mbox{\hyperlink{class_i_renderer}{I\+Renderer}}.
+
+\mbox{\Hypertarget{class_renderer_impl_a88160c09fdf0c1c18c82b765994fed18}\label{class_renderer_impl_a88160c09fdf0c1c18c82b765994fed18}} 
+\index{RendererImpl@{RendererImpl}!destroy@{destroy}}
+\index{destroy@{destroy}!RendererImpl@{RendererImpl}}
+\doxysubsubsection{\texorpdfstring{destroy()}{destroy()}}
+{\footnotesize\ttfamily void Renderer\+Impl\+::destroy (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Function to quit the renderer class in a controlled way Destroys the window as well as the renderer initialized by the framework beforehand 
+
+Implements \mbox{\hyperlink{class_i_renderer}{I\+Renderer}}.
+
+\mbox{\Hypertarget{class_renderer_impl_a18f33fab2c6dbc1559adb6a07a756be5}\label{class_renderer_impl_a18f33fab2c6dbc1559adb6a07a756be5}} 
+\index{RendererImpl@{RendererImpl}!init@{init}}
+\index{init@{init}!RendererImpl@{RendererImpl}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily bool Renderer\+Impl\+::init (\begin{DoxyParamCaption}\item[{int}]{Screen\+Width,  }\item[{int}]{Screen\+Height,  }\item[{int}]{Color\+Depth = {\ttfamily 16},  }\item[{bool}]{b\+Fullscreen = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Init function which wraps the init of S\+DL Also creates a sdl window as well as the renderer On the way checks wether creation of all those things was succesfull
+
+
+\begin{DoxyParams}{Parameters}
+{\em Screen\+Width} & int value to specifiy screen width \\
+\hline
+{\em Screen\+Height} & int value to specifiy screen height \\
+\hline
+{\em Color\+Depth} & int specify colordepth standard value should be 16 \\
+\hline
+{\em b\+Fullscreen} & fullscreen or not \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_i_renderer}{I\+Renderer}}.
+
+\mbox{\Hypertarget{class_renderer_impl_adf3fdbf88b74edcaee68c9ea116ea41e}\label{class_renderer_impl_adf3fdbf88b74edcaee68c9ea116ea41e}} 
+\index{RendererImpl@{RendererImpl}!updateTimer@{updateTimer}}
+\index{updateTimer@{updateTimer}!RendererImpl@{RendererImpl}}
+\doxysubsubsection{\texorpdfstring{updateTimer()}{updateTimer()}}
+{\footnotesize\ttfamily void Renderer\+Impl\+::update\+Timer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Update function only used to update the timer though 
+
+Implements \mbox{\hyperlink{class_i_renderer}{I\+Renderer}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Trench\+Tactics/Renderer\+Impl.\+h\item 
+Trench\+Tactics/Renderer\+Impl.\+cpp\end{DoxyCompactItemize}

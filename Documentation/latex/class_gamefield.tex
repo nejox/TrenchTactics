@@ -1,0 +1,252 @@
+\hypertarget{class_gamefield}{}\doxysection{Gamefield Class Reference}
+\label{class_gamefield}\index{Gamefield@{Gamefield}}
+
+
+{\ttfamily \#include $<$Gamefield.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_tile}{Tile}} $>$ \mbox{\hyperlink{class_gamefield_aaab746bf86c75e1bc0b90152613972dc}{get\+Tile\+Pointer\+At}} (int x\+Pos, int y\+Pos)
+\item 
+\mbox{\Hypertarget{class_gamefield_aacca8d53ecab377b080f10d82ad5e394}\label{class_gamefield_aacca8d53ecab377b080f10d82ad5e394}} 
+{\bfseries Gamefield} (const \mbox{\hyperlink{class_gamefield}{Gamefield}} \&)=delete
+\item 
+\mbox{\Hypertarget{class_gamefield_a043dbcb007c14bc96f501bffdfbc927d}\label{class_gamefield_a043dbcb007c14bc96f501bffdfbc927d}} 
+\mbox{\hyperlink{class_gamefield}{Gamefield}} \& {\bfseries operator=} (const \mbox{\hyperlink{class_gamefield}{Gamefield}} \&)=delete
+\item 
+\mbox{\Hypertarget{class_gamefield_a19e0538349013024e1ab8acfef364b81}\label{class_gamefield_a19e0538349013024e1ab8acfef364b81}} 
+{\bfseries Gamefield} (\mbox{\hyperlink{class_gamefield}{Gamefield}} \&\&)=delete
+\item 
+\mbox{\Hypertarget{class_gamefield_a191b9d5852288bfae1ad20e064cfde92}\label{class_gamefield_a191b9d5852288bfae1ad20e064cfde92}} 
+\mbox{\hyperlink{class_gamefield}{Gamefield}} \& {\bfseries operator=} (\mbox{\hyperlink{class_gamefield}{Gamefield}} \&\&)=delete
+\item 
+int \mbox{\hyperlink{class_gamefield_a391902c66fa40c28accb17853e69fe94}{spawn\+Unit\+In\+Spawn}} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_unit}{Unit}} $>$ unit, bool red\+Player\+Active)
+\item 
+bool \mbox{\hyperlink{class_gamefield_a09218a3da971d45297fa94e1275c120a}{field\+Tile\+Is\+Free}} (int x, int y, std\+::shared\+\_\+ptr$<$ vector$<$ vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_field_tile}{Field\+Tile}} $>$$>$$>$$>$ active\+Spawn)
+\item 
+void \mbox{\hyperlink{class_gamefield_a361d282d1279d6883636f9c52b64bf8a}{init}} (int Field\+Width, int Field\+Height, int Seed)
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_field_tile}{Field\+Tile}} $>$ \mbox{\hyperlink{class_gamefield_ac0691f9cc7a3b121b9cd99954d62c8f9}{find\+Tile\+By\+Unit}} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_unit}{Unit}} $>$ p\+Unit)
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_field_tile}{Field\+Tile}} $>$ \mbox{\hyperlink{class_gamefield_a5431b4cf92576fa2b28b0668fd88a04b}{get\+Field\+Tile\+From\+XY}} (int posX, int posY)
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_field_tile}{Field\+Tile}} $>$ \mbox{\hyperlink{class_gamefield_a2d05681bc458971cbc16b6824d484aba}{get\+Spawn\+Tile\+From\+XY}} (bool color\+Red, int posX, int posY)
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_player_tile}{Player\+Tile}} $>$ \mbox{\hyperlink{class_gamefield_a5a01448d1d4131a2a5d8862da587ea05}{get\+Player\+Tile\+From\+XY}} (int posX, int posY)
+\item 
+\mbox{\Hypertarget{class_gamefield_a7072df30b15a69169860ff8145b8e7c5}\label{class_gamefield_a7072df30b15a69169860ff8145b8e7c5}} 
+void {\bfseries set\+Hq\+Tile\+Player\+Blue} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_player_tile}{Player\+Tile}} $>$ hq\+Tile\+Player)
+\item 
+\mbox{\Hypertarget{class_gamefield_a644d249b5013a23066c8933f77da78a2}\label{class_gamefield_a644d249b5013a23066c8933f77da78a2}} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_player_tile}{Player\+Tile}} $>$ {\bfseries get\+Hq\+Tile\+Player\+Blue} ()
+\item 
+\mbox{\Hypertarget{class_gamefield_aa4d2061d31bbe70fe9ddcfcb90b30ec6}\label{class_gamefield_aa4d2061d31bbe70fe9ddcfcb90b30ec6}} 
+void {\bfseries set\+Hq\+Tile\+Player\+Red} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_player_tile}{Player\+Tile}} $>$ hq\+Tile\+Player)
+\item 
+\mbox{\Hypertarget{class_gamefield_a1b5f226fa29339864349225cddb27863}\label{class_gamefield_a1b5f226fa29339864349225cddb27863}} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_player_tile}{Player\+Tile}} $>$ {\bfseries get\+Hq\+Tile\+Player\+Red} ()
+\item 
+\mbox{\Hypertarget{class_gamefield_ad8bc7a6867882ee9ab98917d504aa8d1}\label{class_gamefield_ad8bc7a6867882ee9ab98917d504aa8d1}} 
+void {\bfseries set\+Playingfield} (std\+::shared\+\_\+ptr$<$ vector$<$ vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_field_tile}{Field\+Tile}} $>$$>$$>$$>$ field)
+\item 
+\mbox{\Hypertarget{class_gamefield_a089bb554ed48db09fcffa70ea2980adf}\label{class_gamefield_a089bb554ed48db09fcffa70ea2980adf}} 
+std\+::shared\+\_\+ptr$<$ vector$<$ vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_field_tile}{Field\+Tile}} $>$ $>$ $>$ $>$ {\bfseries get\+Playingfield} ()
+\item 
+\mbox{\Hypertarget{class_gamefield_a19be13e0c8f2e57b641be0402194274b}\label{class_gamefield_a19be13e0c8f2e57b641be0402194274b}} 
+void {\bfseries set\+Spawn\+Blue} (std\+::shared\+\_\+ptr$<$ vector$<$ vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_field_tile}{Field\+Tile}} $>$$>$$>$$>$ spawn\+Blue)
+\item 
+\mbox{\Hypertarget{class_gamefield_a25883b50317a616919878a86e06381ad}\label{class_gamefield_a25883b50317a616919878a86e06381ad}} 
+std\+::shared\+\_\+ptr$<$ vector$<$ vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_field_tile}{Field\+Tile}} $>$ $>$ $>$ $>$ {\bfseries get\+Spawn\+Blue} ()
+\item 
+\mbox{\Hypertarget{class_gamefield_a3c45e5b83189938970ae01e121c469fc}\label{class_gamefield_a3c45e5b83189938970ae01e121c469fc}} 
+void {\bfseries set\+Spawn\+Red} (std\+::shared\+\_\+ptr$<$ vector$<$ vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_field_tile}{Field\+Tile}} $>$$>$$>$$>$ spawn\+Red)
+\item 
+\mbox{\Hypertarget{class_gamefield_a53750181382bab4eefdd41b32257fb53}\label{class_gamefield_a53750181382bab4eefdd41b32257fb53}} 
+std\+::shared\+\_\+ptr$<$ vector$<$ vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_field_tile}{Field\+Tile}} $>$ $>$ $>$ $>$ {\bfseries get\+Spawn\+Red} ()
+\item 
+void \mbox{\hyperlink{class_gamefield_a910a8bd5792e5eb1092756d78026a3d5}{select\+And\+Marke\+Tiles\+By\+Unit}} (shared\+\_\+ptr$<$ \mbox{\hyperlink{class_unit}{Unit}} $>$ p\+Unit, G\+A\+M\+E\+P\+H\+A\+S\+E\+S\+::\+G\+A\+M\+E\+P\+H\+A\+SE gamephase, bool red\+Player\+Activ)
+\item 
+void \mbox{\hyperlink{class_gamefield_a75d800eb70e568b6c2e7223a0650a5e2}{deselect\+And\+Unmark\+All\+Tiles}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_gamefield_a89e194ada9a3adf7a82fb0c3f26f7689}\label{class_gamefield_a89e194ada9a3adf7a82fb0c3f26f7689}} 
+static auto \& {\bfseries instance} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{class_gamefield}{Gamefield}} class for generating and holding the playingfield 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_gamefield_a75d800eb70e568b6c2e7223a0650a5e2}\label{class_gamefield_a75d800eb70e568b6c2e7223a0650a5e2}} 
+\index{Gamefield@{Gamefield}!deselectAndUnmarkAllTiles@{deselectAndUnmarkAllTiles}}
+\index{deselectAndUnmarkAllTiles@{deselectAndUnmarkAllTiles}!Gamefield@{Gamefield}}
+\doxysubsubsection{\texorpdfstring{deselectAndUnmarkAllTiles()}{deselectAndUnmarkAllTiles()}}
+{\footnotesize\ttfamily void Gamefield\+::deselect\+And\+Unmark\+All\+Tiles (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Function to reset the selected-\/ and marked-\/status for each spawn-\/ and playingfieldtile. \mbox{\Hypertarget{class_gamefield_a09218a3da971d45297fa94e1275c120a}\label{class_gamefield_a09218a3da971d45297fa94e1275c120a}} 
+\index{Gamefield@{Gamefield}!fieldTileIsFree@{fieldTileIsFree}}
+\index{fieldTileIsFree@{fieldTileIsFree}!Gamefield@{Gamefield}}
+\doxysubsubsection{\texorpdfstring{fieldTileIsFree()}{fieldTileIsFree()}}
+{\footnotesize\ttfamily bool Gamefield\+::field\+Tile\+Is\+Free (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y,  }\item[{std\+::shared\+\_\+ptr$<$ vector$<$ vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_field_tile}{Field\+Tile}} $>$$>$$>$$>$}]{field }\end{DoxyParamCaption})}
+
+Checks if there is no unit on a fieldtile. Position of the \mbox{\hyperlink{class_tile}{Tile}} is counted from top left corner of the field. Field can be a spawn or the playingfield. No pixel position!
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & horizontal position in the field (can be a spawn or playingfield) \\
+\hline
+{\em y} & vertical position in the field (can be a spawn or playingfield) \\
+\hline
+{\em field} & Part of the field that contains the tile \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gamefield_ac0691f9cc7a3b121b9cd99954d62c8f9}\label{class_gamefield_ac0691f9cc7a3b121b9cd99954d62c8f9}} 
+\index{Gamefield@{Gamefield}!findTileByUnit@{findTileByUnit}}
+\index{findTileByUnit@{findTileByUnit}!Gamefield@{Gamefield}}
+\doxysubsubsection{\texorpdfstring{findTileByUnit()}{findTileByUnit()}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_field_tile}{Field\+Tile}} $>$ Gamefield\+::find\+Tile\+By\+Unit (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_unit}{Unit}} $>$}]{p\+Unit }\end{DoxyParamCaption})}
+
+Function to search playingfield and both spawns for a tile on which a unit stands. Returns a nullpointer if unit was not found.
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\+Unit} & unit to search for \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+tile holding the unit 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gamefield_a5431b4cf92576fa2b28b0668fd88a04b}\label{class_gamefield_a5431b4cf92576fa2b28b0668fd88a04b}} 
+\index{Gamefield@{Gamefield}!getFieldTileFromXY@{getFieldTileFromXY}}
+\index{getFieldTileFromXY@{getFieldTileFromXY}!Gamefield@{Gamefield}}
+\doxysubsubsection{\texorpdfstring{getFieldTileFromXY()}{getFieldTileFromXY()}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_field_tile}{Field\+Tile}} $>$ Gamefield\+::get\+Field\+Tile\+From\+XY (\begin{DoxyParamCaption}\item[{int}]{posX,  }\item[{int}]{posY }\end{DoxyParamCaption})}
+
+get a field tile based on a pixel position x and y returns nullptr when not valid
+
+
+\begin{DoxyParams}{Parameters}
+{\em posX} & \\
+\hline
+{\em posY} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gamefield_a5a01448d1d4131a2a5d8862da587ea05}\label{class_gamefield_a5a01448d1d4131a2a5d8862da587ea05}} 
+\index{Gamefield@{Gamefield}!getPlayerTileFromXY@{getPlayerTileFromXY}}
+\index{getPlayerTileFromXY@{getPlayerTileFromXY}!Gamefield@{Gamefield}}
+\doxysubsubsection{\texorpdfstring{getPlayerTileFromXY()}{getPlayerTileFromXY()}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_player_tile}{Player\+Tile}} $>$ Gamefield\+::get\+Player\+Tile\+From\+XY (\begin{DoxyParamCaption}\item[{int}]{posX,  }\item[{int}]{posY }\end{DoxyParamCaption})}
+
+get a player tile based on a pixel position posX and posY returns a nullptr if the tile does not exist or is not a playertile
+
+
+\begin{DoxyParams}{Parameters}
+{\em posX} & horizontal pixelposition \\
+\hline
+{\em posY} & vertical pixelposition \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_gamefield_a2d05681bc458971cbc16b6824d484aba}\label{class_gamefield_a2d05681bc458971cbc16b6824d484aba}} 
+\index{Gamefield@{Gamefield}!getSpawnTileFromXY@{getSpawnTileFromXY}}
+\index{getSpawnTileFromXY@{getSpawnTileFromXY}!Gamefield@{Gamefield}}
+\doxysubsubsection{\texorpdfstring{getSpawnTileFromXY()}{getSpawnTileFromXY()}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_field_tile}{Field\+Tile}} $>$ Gamefield\+::get\+Spawn\+Tile\+From\+XY (\begin{DoxyParamCaption}\item[{bool}]{color\+Red,  }\item[{int}]{posX,  }\item[{int}]{posY }\end{DoxyParamCaption})}
+
+get a spawn tile based on a pixel position x and y and the color of a player returns nullptr when not valid
+
+
+\begin{DoxyParams}{Parameters}
+{\em color\+Red} & \\
+\hline
+{\em posX} & \\
+\hline
+{\em posY} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gamefield_aaab746bf86c75e1bc0b90152613972dc}\label{class_gamefield_aaab746bf86c75e1bc0b90152613972dc}} 
+\index{Gamefield@{Gamefield}!getTilePointerAt@{getTilePointerAt}}
+\index{getTilePointerAt@{getTilePointerAt}!Gamefield@{Gamefield}}
+\doxysubsubsection{\texorpdfstring{getTilePointerAt()}{getTilePointerAt()}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_tile}{Tile}} $>$ Gamefield\+::get\+Tile\+Pointer\+At (\begin{DoxyParamCaption}\item[{int}]{x\+Pos,  }\item[{int}]{y\+Pos }\end{DoxyParamCaption})}
+
+Function to get a shared pointer to the tile containing pixel at x and y. Returns a nullpointer if no tile is found.
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & Horizontal position of pixel \\
+\hline
+{\em y} & Vertical position of pixel \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Shared pointer to searched \mbox{\hyperlink{class_tile}{Tile}}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gamefield_a361d282d1279d6883636f9c52b64bf8a}\label{class_gamefield_a361d282d1279d6883636f9c52b64bf8a}} 
+\index{Gamefield@{Gamefield}!init@{init}}
+\index{init@{init}!Gamefield@{Gamefield}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily void Gamefield\+::init (\begin{DoxyParamCaption}\item[{int}]{Field\+Width,  }\item[{int}]{Field\+Height,  }\item[{int}]{Seed }\end{DoxyParamCaption})}
+
+Function for setting up the gamefield at the start of a new game.
+
+
+\begin{DoxyParams}{Parameters}
+{\em Field\+Width} & int for delacring width of playingfield. Not used yet. \\
+\hline
+{\em Field\+Height} & int for delacring height of playingfield. Not used yet. \\
+\hline
+{\em Seed} & int for regenerating certain playingfieldlayout. Not used yet. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_gamefield_a910a8bd5792e5eb1092756d78026a3d5}\label{class_gamefield_a910a8bd5792e5eb1092756d78026a3d5}} 
+\index{Gamefield@{Gamefield}!selectAndMarkeTilesByUnit@{selectAndMarkeTilesByUnit}}
+\index{selectAndMarkeTilesByUnit@{selectAndMarkeTilesByUnit}!Gamefield@{Gamefield}}
+\doxysubsubsection{\texorpdfstring{selectAndMarkeTilesByUnit()}{selectAndMarkeTilesByUnit()}}
+{\footnotesize\ttfamily void Gamefield\+::select\+And\+Marke\+Tiles\+By\+Unit (\begin{DoxyParamCaption}\item[{shared\+\_\+ptr$<$ \mbox{\hyperlink{class_unit}{Unit}} $>$}]{p\+Unit,  }\item[{G\+A\+M\+E\+P\+H\+A\+S\+E\+S\+::\+G\+A\+M\+E\+P\+H\+A\+SE}]{gamephase,  }\item[{bool}]{red\+Player\+Activ }\end{DoxyParamCaption})}
+
+Function to mark a tile containing a given pixel as selected and call the function to mark surrounding tiles if needed. Positions in pixels. Just working for attackrange, movementrange coming soon
+
+
+\begin{DoxyParams}{Parameters}
+{\em x\+Pos} & Horizontal position of the pixel \\
+\hline
+{\em y\+Pos} & Vertical position of the pixel \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_gamefield_a391902c66fa40c28accb17853e69fe94}\label{class_gamefield_a391902c66fa40c28accb17853e69fe94}} 
+\index{Gamefield@{Gamefield}!spawnUnitInSpawn@{spawnUnitInSpawn}}
+\index{spawnUnitInSpawn@{spawnUnitInSpawn}!Gamefield@{Gamefield}}
+\doxysubsubsection{\texorpdfstring{spawnUnitInSpawn()}{spawnUnitInSpawn()}}
+{\footnotesize\ttfamily int Gamefield\+::spawn\+Unit\+In\+Spawn (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_unit}{Unit}} $>$}]{p\+Unit,  }\item[{bool}]{red\+Player\+Active }\end{DoxyParamCaption})}
+
+Function that places a new unit in the active players spawn. Returns 0 if spawn is full. Returns 1 if successful. Traverses the spawn from mid of frontline to the corners.
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\+Unit} & pointer to unit that has to be spawned \\
+\hline
+{\em red\+Player\+Active} & show if red player is the active \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Trench\+Tactics/Gamefield.\+h\item 
+Trench\+Tactics/Gamefield.\+cpp\end{DoxyCompactItemize}

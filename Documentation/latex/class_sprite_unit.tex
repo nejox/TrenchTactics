@@ -1,0 +1,74 @@
+\hypertarget{class_sprite_unit}{}\doxysection{Sprite\+Unit Class Reference}
+\label{class_sprite_unit}\index{SpriteUnit@{SpriteUnit}}
+
+
+{\ttfamily \#include $<$Sprite\+Unit.\+h$>$}
+
+Inheritance diagram for Sprite\+Unit\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_sprite_unit}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_sprite_unit_a360fd4a185c321515b0d9d8b67ee2b29}{Sprite\+Unit}} (bool colour\+Red, T\+Y\+P\+E\+S\+::\+Unit\+Type type)
+\item 
+void \mbox{\hyperlink{class_sprite_unit_a6d1195b283771a33af30c3bcc67dd9ff}{render}} ()
+\item 
+S\+T\+A\+T\+E\+S\+::\+U\+N\+I\+T\+S\+T\+A\+TE \mbox{\hyperlink{class_sprite_unit_a226f5c7afb84e774eda581595c43381f}{render}} (S\+T\+A\+T\+E\+S\+::\+U\+N\+I\+T\+S\+T\+A\+TE changed\+State)
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{class_sprite}{Sprite}} extension with unit specific functions and stuff. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_sprite_unit_a360fd4a185c321515b0d9d8b67ee2b29}\label{class_sprite_unit_a360fd4a185c321515b0d9d8b67ee2b29}} 
+\index{SpriteUnit@{SpriteUnit}!SpriteUnit@{SpriteUnit}}
+\index{SpriteUnit@{SpriteUnit}!SpriteUnit@{SpriteUnit}}
+\doxysubsubsection{\texorpdfstring{SpriteUnit()}{SpriteUnit()}}
+{\footnotesize\ttfamily Sprite\+Unit\+::\+Sprite\+Unit (\begin{DoxyParamCaption}\item[{bool}]{colour\+Red,  }\item[{T\+Y\+P\+E\+S\+::\+Unit\+Type}]{type }\end{DoxyParamCaption})}
+
+constructor that creates the sprite of unit based on color and unittype.
+
+
+\begin{DoxyParams}{Parameters}
+{\em colour\+Red} & decide which sprite will be used \\
+\hline
+{\em type} & enum value of which unit type will be used \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_sprite_unit_a6d1195b283771a33af30c3bcc67dd9ff}\label{class_sprite_unit_a6d1195b283771a33af30c3bcc67dd9ff}} 
+\index{SpriteUnit@{SpriteUnit}!render@{render}}
+\index{render@{render}!SpriteUnit@{SpriteUnit}}
+\doxysubsubsection{\texorpdfstring{render()}{render()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Sprite\+Unit\+::render (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+render the sprite of a unit based on the timer and its current state. \mbox{\Hypertarget{class_sprite_unit_a226f5c7afb84e774eda581595c43381f}\label{class_sprite_unit_a226f5c7afb84e774eda581595c43381f}} 
+\index{SpriteUnit@{SpriteUnit}!render@{render}}
+\index{render@{render}!SpriteUnit@{SpriteUnit}}
+\doxysubsubsection{\texorpdfstring{render()}{render()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily S\+T\+A\+T\+E\+S\+::\+U\+N\+I\+T\+S\+T\+A\+TE Sprite\+Unit\+::render (\begin{DoxyParamCaption}\item[{S\+T\+A\+T\+E\+S\+::\+U\+N\+I\+T\+S\+T\+A\+TE}]{state }\end{DoxyParamCaption})}
+
+render a specific state of a unit and return the current state of the unit afterwards.
+
+
+\begin{DoxyParams}{Parameters}
+{\em state} & unitstate that will be rendered \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the current state of this specific unit after it rendered 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Trench\+Tactics/Sprite\+Unit.\+h\item 
+Trench\+Tactics/Sprite\+Unit.\+cpp\end{DoxyCompactItemize}

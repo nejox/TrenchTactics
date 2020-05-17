@@ -1,0 +1,73 @@
+\hypertarget{class_config_reader}{}\doxysection{Config\+Reader Class Reference}
+\label{class_config_reader}\index{ConfigReader@{ConfigReader}}
+
+
+{\ttfamily \#include $<$Config\+Reader.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_config_reader_a4c4009264e63a116bdc8d5a24ef4142d}{$\sim$\+Config\+Reader}} ()
+\item 
+\mbox{\Hypertarget{class_config_reader_aa63c1cc3b0249f17d128ba8910e43079}\label{class_config_reader_aa63c1cc3b0249f17d128ba8910e43079}} 
+{\bfseries Config\+Reader} (const \mbox{\hyperlink{class_config_reader}{Config\+Reader}} \&)=delete
+\item 
+\mbox{\Hypertarget{class_config_reader_a9be5f60a6742d56880a68c1bdca91bcb}\label{class_config_reader_a9be5f60a6742d56880a68c1bdca91bcb}} 
+\mbox{\hyperlink{class_config_reader}{Config\+Reader}} \& {\bfseries operator=} (const \mbox{\hyperlink{class_config_reader}{Config\+Reader}} \&)=delete
+\item 
+\mbox{\Hypertarget{class_config_reader_a9dc270127faa6ab6a9d8f01bf9e852e3}\label{class_config_reader_a9dc270127faa6ab6a9d8f01bf9e852e3}} 
+{\bfseries Config\+Reader} (\mbox{\hyperlink{class_config_reader}{Config\+Reader}} \&\&)=delete
+\item 
+\mbox{\Hypertarget{class_config_reader_a937b932d2bd222f0347c841e8eb9e1d2}\label{class_config_reader_a937b932d2bd222f0347c841e8eb9e1d2}} 
+\mbox{\hyperlink{class_config_reader}{Config\+Reader}} \& {\bfseries operator=} (\mbox{\hyperlink{class_config_reader}{Config\+Reader}} \&\&)=delete
+\item 
+\mbox{\Hypertarget{class_config_reader_a57e0887ce6722fd608d49a0fd8d4adb4}\label{class_config_reader_a57e0887ce6722fd608d49a0fd8d4adb4}} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_unit_conf}{Unit\+Conf}} $>$ {\bfseries get\+Unit\+Conf} (int id)
+\item 
+\mbox{\Hypertarget{class_config_reader_a6c345ae3d72100f2e6adc07f64f481cb}\label{class_config_reader_a6c345ae3d72100f2e6adc07f64f481cb}} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_balance_conf}{Balance\+Conf}} $>$ {\bfseries get\+Balance\+Conf} ()
+\item 
+\mbox{\Hypertarget{class_config_reader_a59eaeafe8a18202111a53b406114360b}\label{class_config_reader_a59eaeafe8a18202111a53b406114360b}} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_map_conf}{Map\+Conf}} $>$ {\bfseries get\+Map\+Conf} ()
+\item 
+\mbox{\Hypertarget{class_config_reader_aa8516de333c665dc36b167f5e37ba29e}\label{class_config_reader_aa8516de333c665dc36b167f5e37ba29e}} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_tech_conf}{Tech\+Conf}} $>$ {\bfseries get\+Technical\+Conf} ()
+\item 
+\mbox{\Hypertarget{class_config_reader_a9c9f9cd25b2146b8edcadebf2666ce8c}\label{class_config_reader_a9c9f9cd25b2146b8edcadebf2666ce8c}} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_tile_conf}{Tile\+Conf}} $>$ {\bfseries get\+Tile\+Conf} ()
+\item 
+void \mbox{\hyperlink{class_config_reader_a29ee0ca2575dae8cd745e699e3ee6e75}{init\+Configurations}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_config_reader_a96258712090b9faa21448b722e979d28}\label{class_config_reader_a96258712090b9faa21448b722e979d28}} 
+static auto \& {\bfseries instance} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{class_config_reader}{Config\+Reader}} class which enables reading configs Provides a singelton instance Then provides all instances of different configurations 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_config_reader_a4c4009264e63a116bdc8d5a24ef4142d}\label{class_config_reader_a4c4009264e63a116bdc8d5a24ef4142d}} 
+\index{ConfigReader@{ConfigReader}!````~ConfigReader@{$\sim$ConfigReader}}
+\index{````~ConfigReader@{$\sim$ConfigReader}!ConfigReader@{ConfigReader}}
+\doxysubsubsection{\texorpdfstring{$\sim$ConfigReader()}{~ConfigReader()}}
+{\footnotesize\ttfamily Config\+Reader\+::$\sim$\+Config\+Reader (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+standard destructor 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_config_reader_a29ee0ca2575dae8cd745e699e3ee6e75}\label{class_config_reader_a29ee0ca2575dae8cd745e699e3ee6e75}} 
+\index{ConfigReader@{ConfigReader}!initConfigurations@{initConfigurations}}
+\index{initConfigurations@{initConfigurations}!ConfigReader@{ConfigReader}}
+\doxysubsubsection{\texorpdfstring{initConfigurations()}{initConfigurations()}}
+{\footnotesize\ttfamily void Config\+Reader\+::init\+Configurations (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Base\+Function to initialize the all configurations from json config 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Trench\+Tactics/Config\+Reader.\+h\item 
+Trench\+Tactics/Config\+Reader.\+cpp\end{DoxyCompactItemize}

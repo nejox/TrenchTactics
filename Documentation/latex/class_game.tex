@@ -1,0 +1,77 @@
+\hypertarget{class_game}{}\doxysection{Game Class Reference}
+\label{class_game}\index{Game@{Game}}
+
+
+{\ttfamily \#include $<$Game.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_game_ad59df6562a58a614fda24622d3715b65}{Game}} ()
+\item 
+void \mbox{\hyperlink{class_game_ab684b380c7d3f3577e2fb80006415297}{init\+Game}} ()
+\item 
+void \mbox{\hyperlink{class_game_a22afe0713ff6f26064bc5da517040a7f}{start\+Player\+Phase}} ()
+\item 
+void \mbox{\hyperlink{class_game_ae8638ccdb0ef3bf39a6affa30aa1258f}{start\+Game}} ()
+\item 
+void \mbox{\hyperlink{class_game_a339a615cbe785164cafd1cf7fe55be8a}{quit}} (\mbox{\hyperlink{class_end_game_event}{End\+Game\+Event}} $\ast$event)
+\item 
+void \mbox{\hyperlink{class_game_a67a8c5c0356c9ad33fac1abc435a3746}{update\+Game}} ()
+\item 
+\mbox{\Hypertarget{class_game_a58e77bd9ab82790d00da9233949c4bc2}\label{class_game_a58e77bd9ab82790d00da9233949c4bc2}} 
+void {\bfseries handle\+End\+Turn} (\mbox{\hyperlink{class_end_turn_event}{End\+Turn\+Event}} $\ast$event)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Main class to start the game initializes all necessary components\+: Renderer, Eventmanager, Players Also has the main game loop 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_game_ad59df6562a58a614fda24622d3715b65}\label{class_game_ad59df6562a58a614fda24622d3715b65}} 
+\index{Game@{Game}!Game@{Game}}
+\index{Game@{Game}!Game@{Game}}
+\doxysubsubsection{\texorpdfstring{Game()}{Game()}}
+{\footnotesize\ttfamily Game\+::\+Game (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Constructor for game class 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_game_ab684b380c7d3f3577e2fb80006415297}\label{class_game_ab684b380c7d3f3577e2fb80006415297}} 
+\index{Game@{Game}!initGame@{initGame}}
+\index{initGame@{initGame}!Game@{Game}}
+\doxysubsubsection{\texorpdfstring{initGame()}{initGame()}}
+{\footnotesize\ttfamily void Game\+::init\+Game (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Function to init the game Inits\+: Renderer, \mbox{\hyperlink{class_config_reader}{Config\+Reader}}, both players, gamefield, eventgateway Sets the active player and starts game loop \mbox{\Hypertarget{class_game_a339a615cbe785164cafd1cf7fe55be8a}\label{class_game_a339a615cbe785164cafd1cf7fe55be8a}} 
+\index{Game@{Game}!quit@{quit}}
+\index{quit@{quit}!Game@{Game}}
+\doxysubsubsection{\texorpdfstring{quit()}{quit()}}
+{\footnotesize\ttfamily void Game\+::quit (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_end_game_event}{End\+Game\+Event}} $\ast$}]{event }\end{DoxyParamCaption})}
+
+quits the game \mbox{\Hypertarget{class_game_ae8638ccdb0ef3bf39a6affa30aa1258f}\label{class_game_ae8638ccdb0ef3bf39a6affa30aa1258f}} 
+\index{Game@{Game}!startGame@{startGame}}
+\index{startGame@{startGame}!Game@{Game}}
+\doxysubsubsection{\texorpdfstring{startGame()}{startGame()}}
+{\footnotesize\ttfamily void Game\+::start\+Game (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Main game loop switches between gamephases and players updates players each loop controlled by game\+Running variable \mbox{\Hypertarget{class_game_a22afe0713ff6f26064bc5da517040a7f}\label{class_game_a22afe0713ff6f26064bc5da517040a7f}} 
+\index{Game@{Game}!startPlayerPhase@{startPlayerPhase}}
+\index{startPlayerPhase@{startPlayerPhase}!Game@{Game}}
+\doxysubsubsection{\texorpdfstring{startPlayerPhase()}{startPlayerPhase()}}
+{\footnotesize\ttfamily void Game\+::start\+Player\+Phase (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+start a player phase in buy phase\+: waits for purchase in move and attack phase\+: inits the queue of a player with every unit and waits until its empty
+
+when condition is met the next phase of a player starts should update the game every time in the time waiting for the empty queue \mbox{\Hypertarget{class_game_a67a8c5c0356c9ad33fac1abc435a3746}\label{class_game_a67a8c5c0356c9ad33fac1abc435a3746}} 
+\index{Game@{Game}!updateGame@{updateGame}}
+\index{updateGame@{updateGame}!Game@{Game}}
+\doxysubsubsection{\texorpdfstring{updateGame()}{updateGame()}}
+{\footnotesize\ttfamily void Game\+::update\+Game (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+updates timer of the game triggers the event manager to forward the events 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Trench\+Tactics/Game.\+h\item 
+Trench\+Tactics/Game.\+cpp\end{DoxyCompactItemize}
