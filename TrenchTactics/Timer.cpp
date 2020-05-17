@@ -1,8 +1,9 @@
 #include "Timer.hpp"
 
-/// <summary>
-/// Consturctor which inits the timer with a base times
-/// </summary>
+/**
+ * Constructor which inits the timer with a base times.
+ *
+ */
 CTimer::CTimer()
 {
 	m_fCurTime = 0.0f;
@@ -10,9 +11,10 @@ CTimer::CTimer()
 	m_fElapsed = 0.0f;
 }
 
-/// <summary>
-/// updates timer data to the next tick
-/// </summary>
+/**
+ * updates timer data to the next tick.
+ *
+ */
 void CTimer::Update()
 {
 	m_fCurTime = SDL_GetTicks() / 1000.0f;

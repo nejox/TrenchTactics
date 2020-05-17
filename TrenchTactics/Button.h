@@ -63,6 +63,7 @@ public:
 		
 	}
 
+
 	void loadSpriteFromType(int type)
 	{
 		if ((int)type == 0) {
@@ -133,6 +134,10 @@ public:
 	}
 	~Button() {};
 
+	/**
+ * update the buttonsprite in its current state
+ *
+ */
 	void update() {
 		if (sprite != nullptr) {
 			sprite->render(pressed);

@@ -2,9 +2,9 @@
 #include "Tile.h"
 #include "Headquarter.h"
 
-/// <summary>
-/// PlayerTile class for postition of headquarter
-/// </summary>
+/**
+ * PlayerTile class for postition of headquarter, healthbar and sprites/
+ */
 class PlayerTile : public Tile {
 private:
 	std::shared_ptr<Headquarter> headquarter;
@@ -35,5 +35,5 @@ public:
 
 	PlayerTile() {};
 	~PlayerTile() {};
-	
+
 };

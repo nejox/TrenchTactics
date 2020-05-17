@@ -11,18 +11,20 @@
 
 
 
-/// <summary>
-/// Baseclass for units
-/// </summary>
+
+/**
+ * Base unit class that holds all information concerning a unit like health, cost or all spritefilepaths.
+ */
 class Unit : public std::enable_shared_from_this<Unit>
 {
 public:
 
-	/// <summary>
-	/// Initializes Unit type with all values from config
-	/// </summary>
-	/// <param name="unittype"></param>
-	/// <param name="colorRed"></param>
+	/**
+	 * Initializes Unit type with all values from config.
+	 *
+	 * \param unittype the type of unit that will be created
+	 * \param colorRed specifies which player is the owner of the new unit and selects the right sprites based on this bool
+	 */
 	Unit(TYPES::UnitType unittype, bool colorRed) {
 
 		m_colorRed = colorRed;
@@ -84,16 +86,17 @@ public:
 	void updateAP(int cost);
 	void resetAP();
 
-	/// <summary>
-	/// renders unit dependent on given state
-	/// </summary>
-	/// 
+	/**
+	 * renders unit dependent on given state.
+	 *
+	 * \param state
+	 */
 	void update(STATES::UNITSTATE state);
 
-	/// <summary>
-	/// renders unit dependent on current state
-	/// </summary>
-	/// 
+	/**
+	 * renders unit dependent on current state.
+	 *
+	 */
 	void update();
 
 	std::shared_ptr<Unit> getptr() {

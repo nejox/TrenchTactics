@@ -15,7 +15,8 @@
 
 /**
  * EventGateway class which does most of the heavy lifting with event forwarding and controlling
- * Takes all events, makes loigcal checks and forwards the action to the specific handler
+ * Takes all events, makes logic checks and forwards the action to the specific handler
+ * controls the flow within each turn
  */
 class EventGateway
 {

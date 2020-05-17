@@ -1,6 +1,9 @@
 #pragma once
 #include "Sprite.hpp"
 
+/**
+ * Sprite extension to add healthbars to a unit or hq.
+ */
 class SpriteHealthBar :
 	public Sprite
 {
@@ -41,7 +44,7 @@ public:
 	/**
 	*Renders the HealthBar dependent on the current percentage of HP
 	*/
-	void SpriteHealthBar::render(int maxHP, int currentHP) {
+	void render(int maxHP, int currentHP) {
 
 
 	this->render(10 - ((10 * currentHP) / maxHP));
@@ -54,7 +57,7 @@ private:
 	int m_frameWidth;
 	int m_frameHeight;
 
-	void SpriteHealthBar::render(int frame) {
+	void render(int frame) {
 		m_FrameRect.x = frame * m_frameWidth;
 		m_FrameRect.y = 0;
 

@@ -1,6 +1,11 @@
 #include "SpriteHQ.h"
 #include "ConfigReader.h";
 
+/**
+ * constructor for sprite hq.
+ *
+ * \param colorRed decied which kind of headequarter sprite will be loaded
+ */
 SpriteHQ::SpriteHQ(bool colorRed)
 {
 	m_colourRed = colorRed;
@@ -15,13 +20,22 @@ SpriteHQ::SpriteHQ(bool colorRed)
 	load(m_spritePath, 128, 128);
 }
 
+/**
+ * render the headquarter - either damged or not.
+ *
+ * \param damaged
+ */
 void SpriteHQ::render(bool damaged)
 {
 	m_damaged = damaged;
-	
+
 	render();
 }
 
+/**
+ * Standard render function, renders damaged version when damaged
+ *
+ */
 void SpriteHQ::render() {
 
 	// Ausschnitt der aktuellen Animationsphase berechnen
@@ -35,10 +49,10 @@ void SpriteHQ::render() {
 
 
 /**
- *
- * \param sFilename
- * \param FrameWidth
- * \param FrameHeight
+ * load the sprite hq from provided file
+ * \param sFilename filepath to the headquarter sprite
+ * \param FrameWidth width of the sprite
+ * \param FrameHeight height of the sprite
  */
 void SpriteHQ::load(const string sFilename, int frameWidth, int frameHeight)
 {
