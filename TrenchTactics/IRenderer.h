@@ -2,9 +2,9 @@
 #include "Timer.hpp"
 #include <SDL_ttf.h>
 
-/// <summary>
-/// IRenderer interface to achieve capsulation
-/// </summary>
+/**
+ * Renderer Interface with all necessary virtual functions.
+ */
 class IRenderer
 {
 public:

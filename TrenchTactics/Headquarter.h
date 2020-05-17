@@ -6,6 +6,9 @@
 #include "SpriteHQ.h"
 #include "SpriteHealthBar.h"
 
+/**
+ * Base headquarter class that holds all information concerning the headquarter of a player like health, color or spritefilepath.
+ */
 class Headquarter
 {
 
@@ -17,7 +20,7 @@ private:
 	std::string m_spriteFilePath;
 	std::shared_ptr<SpriteHQ> m_spriteHQ;
 	std::shared_ptr<SpriteHealthBar> m_spriteHealthBar;
-	
+
 public:
 	Headquarter(bool colourRed)
 	{
@@ -28,12 +31,13 @@ public:
 
 		m_spriteHQ = make_shared<SpriteHQ>(m_colorRed);
 		m_spriteHealthBar = make_shared<SpriteHealthBar>(SpriteHealthBar::TYPE::HQ);
-				
+
 	}
-	/// <summary>
-	/// Renders the HQ dependent on its current health state
-	/// </summary>
-	/// 
+
+	/**
+	 * Renders the HQ dependent on its current health state.
+	 *
+	 */
 	void render()
 	{
 		this->m_spriteHQ->render(this->getDamaged());
@@ -84,6 +88,6 @@ public:
 	std::shared_ptr<SpriteHealthBar> getSpriteHealthBar() {
 		return m_spriteHealthBar;
 	}
-	
+
 
 };

@@ -1,6 +1,9 @@
 #pragma once
 #include "Event.h"
 
+/**
+ * Base template for a handler function.
+ */
 class HandlerFunctionBase
 {
 public:

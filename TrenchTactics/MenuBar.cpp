@@ -4,27 +4,27 @@
 void MenuBar::resetMenuBar()
 {
 
-//is this a workaround? is this just fantasy?
-//tut erstmal was es soll, bisschen billige lösung, wird noch bisschen straffer gemacht aber reicht erstmal so
+	//is this a workaround? is this just fantasy?
+	//tut erstmal was es soll, bisschen billige lösung, wird noch bisschen straffer gemacht aber reicht erstmal so
 
-for (int x = 0; x < 3; x++)
-{
-	for (int y = 0; y < 3; y++)
+	for (int x = 0; x < 3; x++)
 	{
-		this->menuBar.get()->at(x).at(y).get()->getSprite()->render(x * 64, y * 64);
+		for (int y = 0; y < 3; y++)
+		{
+			this->menuBar.get()->at(x).at(y).get()->getSprite()->render(x * 64, y * 64);
+		}
 	}
-}
 
-for (int x = 19; x < 22; x++)
-{
-	for (int y = 0; y < 3; y++)
+	for (int x = 19; x < 22; x++)
 	{
-		this->menuBar.get()->at(x).at(y).get()->getSprite()->render(x * 64, y * 64);
+		for (int y = 0; y < 3; y++)
+		{
+			this->menuBar.get()->at(x).at(y).get()->getSprite()->render(x * 64, y * 64);
+		}
 	}
-}
 }
 /**
-* Displays Players current money, income and number of units 
+* Displays Players current money, income and number of units
 */
 void MenuBar::showPlayerStats(shared_ptr<Player> activePlayer)
 {
@@ -32,12 +32,12 @@ void MenuBar::showPlayerStats(shared_ptr<Player> activePlayer)
 	money->load(std::to_string(activePlayer->getMoney()));
 	money->render();
 
-	income->load("+" + std::to_string(activePlayer->computeInterest())); 
+	income->load("+" + std::to_string(activePlayer->computeInterest()));
 	income->render();
 
 	if (activePlayer->getUnitArray().empty())
 	{
-		unitCount->load((std::to_string(0)) + " / " + (std::to_string(ConfigReader::instance().getBalanceConf()->getMaxAmountUnits())));  
+		unitCount->load((std::to_string(0)) + " / " + (std::to_string(ConfigReader::instance().getBalanceConf()->getMaxAmountUnits())));
 		unitCount->render();
 	}
 
@@ -47,7 +47,7 @@ void MenuBar::showPlayerStats(shared_ptr<Player> activePlayer)
 		unitCount->render();
 	}
 
-	
+
 }
 
 
@@ -59,8 +59,8 @@ void MenuBar::resetUnitStats()
 	{
 		for (int y = 1; y < 3; y++)
 		{
-				this->menuBar.get()->at(x).at(y).get()->getSprite()->render(x * 64, y * 64);
-			
+			this->menuBar.get()->at(x).at(y).get()->getSprite()->render(x * 64, y * 64);
+
 		}
 	}
 }
@@ -299,19 +299,19 @@ void MenuBar::displayTokens(shared_ptr<Player> activePlayer)
 	{
 		activePhaseToken->load("../Data/Sprites/Token/MOVEPHASE_TOKEN.bmp");
 		activePhaseText->load("MOVE");
-		
+
 	}
 	else
 	{
 		activePhaseToken->load("../Data/Sprites/Token/ATTACKPHASE_TOKEN.bmp");
 		activePhaseText->load("ATTACK");
-		
+
 	}
-		activePlayerFlag->render();
-		activePhaseToken->render();
-		activePhaseText->render();
-		phaseText->render();
-	
+	activePlayerFlag->render();
+	activePhaseToken->render();
+	activePhaseText->render();
+	phaseText->render();
+
 }
 
 

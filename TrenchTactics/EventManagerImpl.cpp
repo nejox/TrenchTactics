@@ -3,6 +3,7 @@
 #include "EventBus.h"
 #include "MouseClickEvent.h"
 #include "EndGameEvent.h"
+#include <iostream>
 
 
 /**
@@ -31,7 +32,8 @@ void EventManagerImpl::processEvents()
 			bus.publish(new MouseClickEvent(x, y));
 		}
 		case(SDL_QUIT): {
-			bus.publish(new EndGameEvent());
+			std::cout << Event.type << std::endl;
+			//bus.publish(new EndGameEvent());
 		}
 
 		default:

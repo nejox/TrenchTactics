@@ -1,6 +1,9 @@
 #pragma once
 #include "Sprite.hpp"
 
+/**
+ * Sprite extension to add healthbars to a unit or hq.
+ */
 class SpriteHealthBar :
 	public Sprite
 {

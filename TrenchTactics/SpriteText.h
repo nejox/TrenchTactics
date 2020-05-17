@@ -9,11 +9,19 @@
 //beim linker schreibt ihr den kompletten pfad zur lib datei rein -> quasi "C:/bla/blabla/SDL_TTF/blablabla/lib
 //bei mir gings nur so und ihr müsst alle .dll files in den debug ordner ziehen, falls nicht automatisch beim pull passiert
 
+/**
+ * SpriteText class the provides a possibility to render a specific text base on sdl ttf backend.
+ */
 class SpriteText
 {
 public:
 
-	
+
+	/**
+	 * TODO -> pls in cpp.
+	 *
+	 * \param size
+	 */
 	SpriteText(int size)
 	{
 		m_pRenderer = RendererImpl::instance().GetRenderer();
@@ -28,12 +36,13 @@ public:
 
 		if (m_font == NULL)
 		{
+			// niemals new line in einer error message
 			std::string msg = "Font konnte nicht gefunden werden!\n Fehlermeldung: ";
 			msg.append(TTF_GetError());
 
 			Logger::instance().log(LOGLEVEL::FATAL, msg);
 
-			exit (1);
+			exit(1);
 		}
 		else
 		{
@@ -77,7 +86,7 @@ public:
 
 	void load(std::string text);
 	void render();
-	
+
 
 private:
 	TTF_Font* m_font;

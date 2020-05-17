@@ -1,6 +1,9 @@
 #pragma once
 #include "IRenderer.h"
 
+/**
+ * Renderer Implemantation based on the SDL Render functions.
+ */
 class RendererImpl :
 	public IRenderer
 {

@@ -2,9 +2,10 @@
 #include "Event.h"
 #include "Unit.h"
 
-/// <summary>
-/// MoveEvent class for implementing the specialised event
-/// </summary>
+/**
+ * MoveEvent class that provides a specialized event that gets raised when a unit gets moved.
+ * Contains the unit that will be moved as well as its destination
+ */
 class MoveEvent :
 	public Event
 {

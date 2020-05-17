@@ -2,6 +2,9 @@
 #include <string>
 #include "Sprite.hpp"
 
+/**
+ * Sprite extension for the headquarter.
+ */
 class SpriteHQ : public Sprite
 {
 public:
