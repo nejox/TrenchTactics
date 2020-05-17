@@ -186,13 +186,17 @@ void MenuBar::initButtons(GAMEPHASES::GAMEPHASE phase) {
  */
 void MenuBar::deleteButtons() {
 	for (int i = 4; i < 15; i = i++) {
+		this->getMenuBar().get()->at(i).at(2).get()->removeButtonDisplay(); // siehe unten
 		this->getMenuBar().get()->at(i).at(1).get()->removeButton();
 	}
 }
 
-void MenuBar::deleteAllButtonDisplays() {
+
+//TO DO: den kram umbenennen, mittlerweile ist der auch einfach da um zeug zu überdecken
+void MenuBar::deleteAllButtonDisplays() { 
 	for (int i = 4; i < 15; i = i++) {
 		this->getMenuBar().get()->at(i).at(1).get()->removeButtonDisplay();
+		this->getMenuBar().get()->at(i).at(2).get()->removeButtonDisplay();
 	}
 }
 

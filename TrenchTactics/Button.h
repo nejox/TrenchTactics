@@ -1,6 +1,7 @@
 #pragma once
 #include "SpriteButton.h"
-
+#include "SpriteText.h"
+#include "ConfigReader.h"
 class Button {
 
 
@@ -46,6 +47,7 @@ public:
 	void setType(BUTTONTYPE type) {
 		this->type = type;
 		this->loadSpriteFromType(type);
+		this->loadCostFromType(type);
 	}
 
 	BUTTONTYPE getType() {
@@ -55,6 +57,10 @@ public:
 	void setPos(int x, int y)
 	{
 		this->sprite->setPos(x, y);
+		if(this->cost != 0){
+			this->costText->setPos(x + 18, y + 58);
+		}
+		
 	}
 
 	void loadSpriteFromType(int type)
@@ -97,11 +103,32 @@ public:
 		}
 	}
 
+	void loadCostFromType(int type)
+	{
+		if ((int)type >= 0 && (int)type < 3) {
+			this->cost = ConfigReader::instance().getUnitConf(type)->getCost();
+			this->costText->load(std::to_string(cost));
+		}
+		else if ((int)type == 22) {
+			this->cost = 10;
+			this->costText->load(std::to_string(cost));
+		}
+		else if ((int)type == 23) {
+			this->cost = 5;
+			this->costText->load(" " + std::to_string(cost));
+		}
+		else {
+			this->cost = 0; //TO DO: um später möglichkeit zu haben kosten unter confirm button zu zeigen
+		}
+	}
+
 	Button(BUTTONTYPE type) {
 		this->type = type;
 		this->pressed = false;
 		this->sprite = new SpriteButton();
+		this->costText = make_shared<SpriteText>(20);
 		this->loadSpriteFromType(type);
+		this->loadCostFromType(type);
 
 	}
 	~Button() {};
@@ -109,12 +136,15 @@ public:
 	void update() {
 		if (sprite != nullptr) {
 			sprite->render(pressed);
+			costText->render();
 		}
 	}
 
 
 private:
 	SpriteButton* sprite;
+	int cost;
+	std::shared_ptr<SpriteText> costText;
 	Button::BUTTONTYPE type;
 	bool pressed;
 
