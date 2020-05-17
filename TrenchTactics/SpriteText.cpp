@@ -1,5 +1,10 @@
 #include "SpriteText.h"
 
+/**
+ * load a text and create it on a sdl surface so it can be rendered.
+ *
+ * \param text string representation of the text that you want to display
+ */
 void SpriteText::load(std::string text)
 {
 	SDL_Color color = { 0,0,0 };
@@ -19,7 +24,7 @@ void SpriteText::load(std::string text)
 		exit(1);
 	}
 
-	
+
 	m_pText = SDL_CreateTextureFromSurface(m_pRenderer, text_surface);
 
 
@@ -28,12 +33,16 @@ void SpriteText::load(std::string text)
 	int texH = 0;
 	SDL_QueryTexture(m_pText, NULL, NULL, &texW, &texH);
 	this->m_Rect = { m_posX, m_posY, texW, texH };
-	
-	
+
+
 
 	SDL_FreeSurface(text_surface);
 }
 
+/**
+ * render the text.
+ *
+ */
 void SpriteText::render()
 {
 	SDL_RenderCopy(m_pRenderer, m_pText, NULL, &m_Rect);

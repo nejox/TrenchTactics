@@ -2,10 +2,9 @@
 #pragma once
 #include "Event.h"
 
-
-/// <summary>
-/// DeathEvent class for implementing the specialised event
-/// </summary>
+/**
+ * Deathevent class which gets raised when one player dies, meaning the life of one headquarter is below or equal to zero.
+ */
 class GameEndEvent :
 	public Event
 {

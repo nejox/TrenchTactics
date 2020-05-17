@@ -3,12 +3,15 @@
 #include "Unit.h"
 
 
-/// <summary>
-/// FieldTile class for holding Units and Terraintyp
-/// </summary>
+/**
+ * FieldTile class for holding Units and Terraintype .
+ */
 class FieldTile : public Tile {
 
 public:
+	/**
+	 * Different possible terraintypes.
+	 */
 	enum TERRAINTYPE {
 		MUD,
 		CLAY,

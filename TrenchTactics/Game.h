@@ -13,6 +13,7 @@
 #include "Gamephases.h"
 #include "MenuBar.h"
 #include "EndTurnEvent.h"
+#include "EndGameEvent.h"
 
 /**
  * Main class to start the game
@@ -44,7 +45,7 @@ public:
 	void initGame();
 	void startPlayerPhase();
 	void startGame();
-	void quit();
+	void quit(EndGameEvent* event);
 	void updateGame();
 	void handleEndTurn(EndTurnEvent* event);
 

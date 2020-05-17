@@ -19,7 +19,9 @@ private:
 	bool colorRed;
 	bool buying;
 	Headquarter* headquarter;
+	// list holds all units of a player 
 	std::vector<std::shared_ptr<Unit>> unitArray;
+	// queue holds all units in a phase to be able to process them one after another
 	std::queue<std::shared_ptr<Unit>> unitQueue;
 	int money;
 	int supply;
@@ -32,17 +34,40 @@ public:
 	void copyUnitsToQueue();
 	void demarkActiveUnit();
 	void markActiveUnit();
+
+	/**
+	 * empties the unitQueue of the player.
+	 *
+	 */
 	void emptyQueue() {
 		while (!this->unitQueue.empty()) {
 			this->unitQueue.pop();
 		}
 	}
+
+	/**
+	 * wrapper function to pop a unit in the queue.
+	 * don't ask me why we need this but we do
+	 *
+	 */
 	void popUnit() {
 		this->unitQueue.pop();
 	}
+
+	/**
+	 * Add unit to the queue.
+	 *
+	 * \param unit that will be added
+	 */
 	void queueUnit(std::shared_ptr<Unit> unit) {
 		this->unitQueue.push(unit);
 	}
+
+	/**
+	 * add unit to the list of units of a player.
+	 *
+	 * \param unit
+	 */
 	void addUnit(std::shared_ptr<Unit> unit) {
 		this->unitArray.push_back(unit);
 	}
@@ -59,6 +84,12 @@ public:
 		return this->money;
 	}
 
+	/**
+	 * update the money with the given amount.
+	 * cuts values greater than 9999
+	 *
+	 * \param amount the amount of money you want to add to the players bank
+	 */
 	void updateMoney(int amount)
 	{
 		this->money += amount;

@@ -4,6 +4,12 @@
 #include "ConfigReader.h"
 #include "Timer.hpp"
 
+/**
+ * constructor that creates the sprite of unit based on color and unittype.
+ *
+ * \param colourRed decide which sprite will be used
+ * \param type enum value of which unit type will be used
+ */
 SpriteUnit::SpriteUnit(bool colourRed, TYPES::UnitType type)
 {
 	m_colourRed = colourRed;
@@ -60,6 +66,10 @@ SpriteUnit::SpriteUnit(bool colourRed, TYPES::UnitType type)
 	load(animations.at(m_currentState), 64, 64);
 }
 
+/**
+ * render the sprite of a unit based on the timer and its current state.
+ *
+ */
 void SpriteUnit::render()
 {
 	//calculate currentPhase
@@ -86,6 +96,12 @@ void SpriteUnit::render()
 	render(actFrame);
 }
 
+/**
+ * render a specific state of a unit and return the current state of the unit afterwards.
+ *
+ * \param state unitstate that will be rendered
+ * \return the current state of this specific unit after it rendered
+ */
 STATES::UNITSTATE SpriteUnit::render(STATES::UNITSTATE state)
 {
 	if (m_currentState == state) {
@@ -103,6 +119,12 @@ STATES::UNITSTATE SpriteUnit::render(STATES::UNITSTATE state)
 	return m_currentState;
 }
 
+/**
+ * render a specific frame of a unit.
+ * based on the state the unit currently has
+ *
+ * \param frame the value which frame should be rendered
+ */
 void SpriteUnit::render(int frame) {
 	m_FrameRect.x = frame * m_frameWidth;
 	m_FrameRect.y = 0;
@@ -112,10 +134,10 @@ void SpriteUnit::render(int frame) {
 }
 
 /**
- *
- * \param sFilename
- * \param FrameWidth
- * \param FrameHeight
+ * load a unitsprite from the provided filepath
+ * \param sFilename path to the unitsprite
+ * \param FrameWidth width of the sprite
+ * \param FrameHeight height of the sprite
  */
 void SpriteUnit::load(const std::string sFilename, int frameWidth, int frameHeight)
 {

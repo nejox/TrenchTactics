@@ -9,6 +9,9 @@ using namespace std;
 
 #define g_pFramework CFramework::Get()
 
+/**
+ * Do we need this ????
+ */
 class CFramework : public TSingleton<CFramework>
 {
 public:
