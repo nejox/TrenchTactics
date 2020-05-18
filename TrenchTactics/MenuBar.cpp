@@ -4,27 +4,27 @@
 void MenuBar::resetMenuBar()
 {
 
-//is this a workaround? is this just fantasy?
-//tut erstmal was es soll, bisschen billige lösung, wird noch bisschen straffer gemacht aber reicht erstmal so
+	//is this a workaround? is this just fantasy?
+	//tut erstmal was es soll, bisschen billige lösung, wird noch bisschen straffer gemacht aber reicht erstmal so
 
-for (int x = 0; x < 3; x++)
-{
-	for (int y = 0; y < 3; y++)
+	for (int x = 0; x < 3; x++)
 	{
-		this->menuBarBackGround.get()->at(x).at(y).get()->getSprite()->render(x * 64, y * 64);
+		for (int y = 0; y < 3; y++)
+		{
+			this->menuBar.get()->at(x).at(y).get()->getSprite()->render(x * 64, y * 64);
+		}
 	}
-}
 
-for (int x = 19; x < 22; x++)
-{
-	for (int y = 0; y < 3; y++)
+	for (int x = 19; x < 22; x++)
 	{
-		this->menuBarBackGround.get()->at(x).at(y).get()->getSprite()->render(x * 64, y * 64);
+		for (int y = 0; y < 3; y++)
+		{
+			this->menuBar.get()->at(x).at(y).get()->getSprite()->render(x * 64, y * 64);
+		}
 	}
-}
 }
 /**
-* Displays Players current money, income and number of units 
+* Displays Players current money, income and number of units
 */
 void MenuBar::showPlayerStats(shared_ptr<Player> activePlayer)
 {
@@ -32,12 +32,12 @@ void MenuBar::showPlayerStats(shared_ptr<Player> activePlayer)
 	money->load(std::to_string(activePlayer->getMoney()));
 	money->render();
 
-	income->load("+" + std::to_string(activePlayer->computeInterest())); 
+	income->load("+" + std::to_string(activePlayer->computeInterest()));
 	income->render();
 
 	if (activePlayer->getUnitArray().empty())
 	{
-		unitCount->load((std::to_string(0)) + " / " + (std::to_string(ConfigReader::instance().getBalanceConf()->getMaxAmountUnits())));  
+		unitCount->load((std::to_string(0)) + " / " + (std::to_string(ConfigReader::instance().getBalanceConf()->getMaxAmountUnits())));
 		unitCount->render();
 	}
 
@@ -47,7 +47,7 @@ void MenuBar::showPlayerStats(shared_ptr<Player> activePlayer)
 		unitCount->render();
 	}
 
-	
+
 }
 
 
@@ -59,8 +59,8 @@ void MenuBar::resetUnitStats()
 	{
 		for (int y = 1; y < 3; y++)
 		{
-				this->menuBarBackGround.get()->at(x).at(y).get()->getSprite()->render(x * 64, y * 64);
-			
+			this->menuBar.get()->at(x).at(y).get()->getSprite()->render(x * 64, y * 64);
+
 		}
 	}
 }
@@ -111,130 +111,120 @@ std::shared_ptr<MenuTile> MenuBar::getMenuTileFromXY(int posX, int posY) {
 		return nullptr;
 	}
 	else {
-		return this->getMenuBarBackGround().get()->at(posX).at(posY);
+		return this->getMenuBar().get()->at(posX).at(posY);
 	}
 
 }
 
-/**
- * get a random unit button sprite based on a provided rndNumber
- *
- * \param rndNumber
- * \return random button sprite
- */
-SpriteButton* MenuBar::getRandomUnitButtonSprite(int rndNumber) {
-	SpriteButton* buttonSprite = new SpriteButton();
-
-	if (rndNumber == 0) {
-		buttonSprite->load("../Data/Sprites/Token/GRENADE_TOKEN.bmp");
-	}
-	else if (rndNumber == 1) {
-		buttonSprite->load("../Data/Sprites/Token/GUNNER_TOKEN.bmp");
-	}
-	else if (rndNumber == 2) {
-		buttonSprite->load("../Data/Sprites/Token/CC_TOKEN.bmp");
-	}
-	return buttonSprite;
-}
 
 /**
  * display necessary buttons based on phase.
  *
  * \param current gamephase
  */
-void MenuBar::displayButtons(GAMEPHASES::GAMEPHASE phase) {
+void MenuBar::initButtons(GAMEPHASES::GAMEPHASE phase) {
 	if (phase == GAMEPHASES::BUY) {
 
-		//create the three buttons
-		std::shared_ptr<Button> button = std::make_shared<Button>();
-		std::shared_ptr<Button> button1 = std::make_shared<Button>();
-		std::shared_ptr<Button> button2 = std::make_shared<Button>();
-		std::shared_ptr<Button> button3 = std::make_shared<Button>();
-		std::shared_ptr<Button> button4 = std::make_shared<Button>();
 
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 3; i++) {
 			int rnd = std::rand() % 3;
 
-			//get sprite based on rnd number
-			SpriteButton* buttonSprite = getRandomUnitButtonSprite(rnd);
-
 			if (i == 0) {
-				//set type, positon and reference
-				button->setType(rnd);
-				button->setSprite(buttonSprite);
-				this->getMenuBarBackGround().get()->at(4).at(1).get()->setButton(button);
+				std::shared_ptr<Button> button1 = std::make_shared<Button>((Button::BUTTONTYPE)rnd);
+				this->getMenuBar().get()->at(7).at(1).get()->setButton(button1);
 			}
 			else if (i == 1) {
-				button1->setType(rnd);
-				button1->setSprite(buttonSprite);
-				this->getMenuBarBackGround().get()->at(5).at(1).get()->setButton(button1);
+				std::shared_ptr<Button> button2 = std::make_shared<Button>((Button::BUTTONTYPE)rnd);
+				this->getMenuBar().get()->at(8).at(1).get()->setButton(button2);
 			}
 			else if (i == 2) {
-				button2.get()->setType(rnd);
-				button2.get()->setSprite(buttonSprite);
-				this->getMenuBarBackGround().get()->at(6).at(1).get()->setButton(button2);
+				std::shared_ptr<Button> button3 = std::make_shared<Button>((Button::BUTTONTYPE)rnd);
+				this->getMenuBar().get()->at(9).at(1).get()->setButton(button3);
 			}
 
-			else if (i == 3) {
-				button3.get()->setType(rnd);
-				button3.get()->setSprite(buttonSprite);
-				this->getMenuBarBackGround().get()->at(6).at(1).get()->setButton(button3);
-			}
-
-			else if (i == 4) {
-				button4.get()->setType(rnd);
-				button4.get()->setSprite(buttonSprite);
-				this->getMenuBarBackGround().get()->at(6).at(1).get()->setButton(button4);
-			}
 		}
+
+		std::shared_ptr<Button> button4 = std::make_shared<Button>(Button::ADDUNIT);
+		this->getMenuBar().get()->at(10).at(1).get()->setButton(button4);
+
+		std::shared_ptr<Button> button5 = std::make_shared<Button>(Button::ADDUNIT);
+		this->getMenuBar().get()->at(11).at(1).get()->setButton(button5);
+
+		std::shared_ptr<Button> confirmButton = std::make_shared<Button>(Button::CONFIRM);
+		this->getMenuBar().get()->at(13).at(1).get()->setButton(confirmButton);
+
+		
+		std::shared_ptr<Button> cancelButton = std::make_shared<Button>(Button::CANCEL);
+		this->getMenuBar().get()->at(14).at(1).get()->setButton(cancelButton);
+		
+
+		std::shared_ptr<Button> rerollButton = std::make_shared<Button>(Button::REROLL);
+		this->getMenuBar().get()->at(12).at(1).get()->setButton(rerollButton);
+
+
 	}
 	else if (phase == GAMEPHASES::MOVE || phase == GAMEPHASES::ATTACK)
 	{
 		//display buttons for next and previous unit
-		std::shared_ptr<Button> previousUnitButton = std::make_shared<Button>();
-		std::shared_ptr<Button> nextUnitButton = std::make_shared<Button>();
-		SpriteButton* nextUnit = new SpriteButton();
-		nextUnit->load("../Data/Sprites/Token/NEXTUNIT_TOKEN.bmp");
-		SpriteButton* previousUnit = new SpriteButton();
-		previousUnit->load("../Data/Sprites/Token/PREVIOUSUNIT_TOKEN.bmp");
-
-		previousUnitButton->setSprite(previousUnit);
-		//dummy values until now -> move to a config style file required
-		previousUnitButton->setType(20);
-		nextUnitButton->setSprite(nextUnit);
-		nextUnitButton->setType(10);
-
-		this->getMenuBarBackGround().get()->at(4).at(1).get()->setButton(previousUnitButton);
-		this->getMenuBarBackGround().get()->at(5).at(1).get()->setButton(nextUnitButton);
+		std::shared_ptr<Button> previousUnitButton = std::make_shared<Button>(Button::PREVIOUSUNIT);
+		std::shared_ptr<Button> nextUnitButton = std::make_shared<Button>(Button::NEXTUNIT);
+	
+		this->getMenuBar().get()->at(4).at(1).get()->setButton(previousUnitButton);
+		this->getMenuBar().get()->at(5).at(1).get()->setButton(nextUnitButton);
 	}
 
 	//always display end phase and end turn buttons
-	std::shared_ptr<Button> nextPhaseButton = std::make_shared<Button>();
-	std::shared_ptr<Button> buttonEndTurn = std::make_shared<Button>();
+	std::shared_ptr<Button> nextPhaseButton = std::make_shared<Button>(Button::NEXTPHASE);
+	std::shared_ptr<Button> buttonEndTurn = std::make_shared<Button>(Button::ENDTURN);
 
-	SpriteButton* nextPhase = new SpriteButton();
-	nextPhase->load("../Data/Sprites/Token/NEXTPHASE_TOKEN.bmp");
-	SpriteButton* nextTurn = new SpriteButton();
-	nextTurn->load("../Data/Sprites/Token/ENDTURN_TOKEN.bmp");
-
-	nextPhaseButton->setSprite(nextPhase);
-	nextPhaseButton->setType(50);
-
-	buttonEndTurn->setSprite(nextTurn);
-	buttonEndTurn->setType(31);
-
-	this->getMenuBarBackGround().get()->at(16).at(1).get()->setButton(nextPhaseButton);
-	this->getMenuBarBackGround().get()->at(17).at(1).get()->setButton(buttonEndTurn);
+	this->getMenuBar().get()->at(16).at(1).get()->setButton(nextPhaseButton);
+	this->getMenuBar().get()->at(17).at(1).get()->setButton(buttonEndTurn);
 }
 
 /**
  *
  */
 void MenuBar::deleteButtons() {
-	for (int i = 4; i < 9; i = i++) {
-		this->getMenuBarBackGround().get()->at(i).at(1).get()->removeButton();
+	for (int i = 4; i < 15; i = i++) {
+		this->getMenuBar().get()->at(i).at(2).get()->removeButtonDisplay(); // siehe unten
+		this->getMenuBar().get()->at(i).at(1).get()->removeButton();
 	}
 }
+
+
+//TO DO: den kram umbenennen, mittlerweile ist der auch einfach da um zeug zu überdecken
+void MenuBar::deleteAllButtonDisplays() { 
+	for (int i = 4; i < 15; i = i++) {
+		this->getMenuBar().get()->at(i).at(1).get()->removeButtonDisplay();
+		this->getMenuBar().get()->at(i).at(2).get()->removeButtonDisplay();
+	}
+}
+
+
+void MenuBar::refreshAllButtonDisplays()
+{
+	deleteAllButtonDisplays();
+
+	for (int i = 4; i < 15; i = i++) {
+		if (getMenuBar().get()->at(i).at(1).get()->getButton() != nullptr) {
+			getMenuBar().get()->at(i).at(1).get()->getButton()->update();
+		}
+	}
+}
+
+void MenuBar::resetAllButtonDisplays()
+{
+	deleteAllButtonDisplays();
+
+	for (int i = 4; i < 15; i = i++) {
+		if (getMenuBar().get()->at(i).at(1).get()->getButton() != nullptr) {
+			getMenuBar().get()->at(i).at(1).get()->getButton()->setPressed(false);
+			getMenuBar().get()->at(i).at(1).get()->getButton()->update();
+		}
+	}
+}
+
+
 
 void MenuBar::displayTokens(shared_ptr<Player> activePlayer)
 {
@@ -256,19 +246,19 @@ void MenuBar::displayTokens(shared_ptr<Player> activePlayer)
 	{
 		activePhaseToken->load("../Data/Sprites/Token/MOVEPHASE_TOKEN.bmp");
 		activePhaseText->load("MOVE");
-		
+
 	}
 	else
 	{
 		activePhaseToken->load("../Data/Sprites/Token/ATTACKPHASE_TOKEN.bmp");
 		activePhaseText->load("ATTACK");
-		
+
 	}
-		activePlayerFlag->render();
-		activePhaseToken->render();
-		activePhaseText->render();
-		phaseText->render();
-	
+	activePlayerFlag->render();
+	activePhaseToken->render();
+	activePhaseText->render();
+	phaseText->render();
+
 }
 
 
@@ -278,7 +268,7 @@ void MenuBar::displayTokens(shared_ptr<Player> activePlayer)
  */
 void MenuBar::initiateMenuTiles()
 {
-	for (vector<vector<std::shared_ptr<MenuTile>>>::iterator xIter = this->menuBarBackGround->begin(); xIter != this->menuBarBackGround->end(); ++xIter) {
+	for (vector<vector<std::shared_ptr<MenuTile>>>::iterator xIter = this->menuBar->begin(); xIter != this->menuBar->end(); ++xIter) {
 		for (vector<std::shared_ptr<MenuTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
 
 			// create MenuTile as shared pointer 
@@ -289,12 +279,12 @@ void MenuBar::initiateMenuTiles()
 			terrainSprite->load("../Data/Sprites/Token/MENUE_BAR.bmp");
 
 			// set pos where sprite shall be renderd
-			terrainSprite->setPos((xIter - this->menuBarBackGround->begin()) * 64, (yIter - xIter->begin()) * 64 + 12 * 64);
+			terrainSprite->setPos((xIter - this->menuBar->begin()) * 64, (yIter - xIter->begin()) * 64 + 12 * 64);
 			tmpMenuTilePointer->setSprite(terrainSprite);
-			tmpMenuTilePointer->setPos((xIter - this->menuBarBackGround->begin()) * 64, (yIter - xIter->begin()) * 64 + 12 * 64);
+			tmpMenuTilePointer->setPos((xIter - this->menuBar->begin()) * 64, (yIter - xIter->begin()) * 64 + 12 * 64);
 
 			// tell render function to only render the specific 64*64 slice of whole menu
-			tmpMenuTilePointer->getSprite()->render((xIter - this->menuBarBackGround->begin()) * 64, (yIter - xIter->begin()) * 64);
+			tmpMenuTilePointer->getSprite()->render((xIter - this->menuBar->begin()) * 64, (yIter - xIter->begin()) * 64);
 			*yIter = tmpMenuTilePointer;
 		}
 	}
@@ -306,9 +296,9 @@ void MenuBar::initiateMenuTiles()
  */
 void MenuBar::setSizeMenuBar()
 {
-	this->menuBarBackGround->resize(22);
+	this->menuBar->resize(22);
 
-	for (vector<vector<shared_ptr<MenuTile>>>::iterator menuCol = this->menuBarBackGround->begin(); menuCol != this->menuBarBackGround->end(); ++menuCol)
+	for (vector<vector<shared_ptr<MenuTile>>>::iterator menuCol = this->menuBar->begin(); menuCol != this->menuBar->end(); ++menuCol)
 	{
 		menuCol->resize(3);
 	}

@@ -2,11 +2,15 @@
 #include <string>
 #include "Sprite.hpp"
 
+/**
+ * Sprite extension for the headquarter.
+ */
 class SpriteHQ : public Sprite
 {
 public:
 	SpriteHQ(bool colorRed);
 	void render(bool damaged);
+	void render();
 
 private:
 	bool m_colourRed;

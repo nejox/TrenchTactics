@@ -29,7 +29,7 @@ void Player::init(bool colorRed) {
  *
  */
 int Player::computeInterest() {
-	return (30 + 0.15 * this->money);
+	return (100 + 0.15 * this->money);
 }
 
 
@@ -47,9 +47,16 @@ void Player::updatePlayer() {
  *
  */
 void Player::copyUnitsToQueue() {
-	for (std::shared_ptr<Unit> unit : this->unitArray) {
-		this->unitQueue.push(unit);
+	if (this->unitArray.size() > 0) {
+		int i = this->unitArray.size() - 1;
+		for (int j = i; j >= 0; j--) {
+			this->unitQueue.push(this->unitArray[j]);
+		}
 	}
+
+	/*for (std::shared_ptr<Unit> unit : this->unitArray) {
+		this->unitQueue.push(unit);
+	}*/
 }
 
 /**
@@ -58,13 +65,13 @@ void Player::copyUnitsToQueue() {
  */
 void Player::markActiveUnit()
 {
+	Gamefield::instance().deselectAndUnmarkAllTiles();
 	//mark the first unit to be moved as active 
 	if (!unitQueue.empty()) {
 		this->unitQueue.front()->setState(STATES::UNITSTATE::STANDING);
 		MenuBar::instance().updateUnitStats(this->getUnitQueue().front());
+		Gamefield::instance().selectAndMarkeTilesByUnit(this->unitQueue.front(), this->currentPhase, this->getColor());
 	}
-	
-
 }
 
 /**
@@ -78,6 +85,7 @@ void Player::demarkActiveUnit()
 		this->unitQueue.front()->setState(STATES::UNITSTATE::STANDING_NEUTRAL);
 		MenuBar::instance().resetUnitStats();
 	}
+	Gamefield::instance().deselectAndUnmarkAllTiles();
 }
 
 /**

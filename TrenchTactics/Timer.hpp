@@ -5,6 +5,9 @@
 #include "singleton.hpp"
 
 #define g_pTimer CTimer::Get ()
+/**
+ * Timer class which provides the current time and can be updated each tick.
+ */
 class CTimer : public TSingleton<CTimer>
 {
 public:

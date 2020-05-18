@@ -2,9 +2,9 @@
 #include "Sprite.hpp"
 #include "MouseClickEvent.h"
 
-/// <summary>
-/// Tileclass with relevant information, setters and getters
-/// </summary>
+/**
+ * Tileclass with relevant information, setters and getters.
+ */
 class Tile {
 private:
 	bool marked = false;
@@ -37,7 +37,7 @@ public:
 		this->posY = y;
 		this->posX = x;
 		this->sprite->setPos(x, y);
-		
+
 	}
 	int getPosY() {
 		return this->posY;

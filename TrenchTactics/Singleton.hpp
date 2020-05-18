@@ -3,10 +3,13 @@
 #include <stdlib.h>
 
 template <class T>
+/**
+ * Singelton template - we should delete it i guess.
+ */
 class TSingleton
 {
 protected:
-	static T *m_pSingleton;
+	static T* m_pSingleton;
 
 public:
 	virtual ~TSingleton()

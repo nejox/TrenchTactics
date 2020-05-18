@@ -5,13 +5,14 @@
 #include "MenuTile.h"
 
 /**
-* 
+* Menubar wrapper class 
+* controls all things concerning the menubar including buttons sprites setup and teardown
 */
 class MenuBar
 {
 public:
 
-	MenuBar(const MenuBar&) = delete; 
+	MenuBar(const MenuBar&) = delete;
 	MenuBar& operator=(const MenuBar&) = delete;
 	MenuBar(MenuBar&&) = delete;
 	MenuBar& operator=(MenuBar&&) = delete;
@@ -24,15 +25,15 @@ public:
 
 
 	/**
-*set up Menubarbackground
-*Initializes a MenuBar instance with fully configurated moneyToken unitCountTOken incomeToken phaseText
-*initializes money, income, unitCount, activePhaseToken activePhaseText, activePlayer and sets positions
-*initializes unit stats HP, AP, DMG
-*/
+	* set up Menubarbackground
+	* Initializes a MenuBar instance with fully configurated moneyToken unitCountTOken incomeToken phaseText
+	* initializes money, income, unitCount, activePhaseToken activePhaseText, activePlayer and sets positions
+	* initializes unit stats HP, AP, DMG
+	*/
 	void init()
 	{
 
-		menuBarBackGround = make_shared<vector<vector<std::shared_ptr<MenuTile>>>>();
+		menuBar = make_shared<vector<vector<std::shared_ptr<MenuTile>>>>();
 		setSizeMenuBar();
 		initiateMenuTiles();
 
@@ -43,7 +44,7 @@ public:
 		activePhaseToken->setPos((64 * 19 + 3), (13 * 64 + 44));
 
 		activePhaseText = make_shared<SpriteText>(22);
-		activePhaseText->setPos((64 * 20 +4 ), (13 * 64 + 52));
+		activePhaseText->setPos((64 * 20 + 4), (13 * 64 + 52));
 
 		phaseText = make_shared<SpriteText>(22);
 		phaseText->setPos((64 * 20 + 4), (14 * 64 + 6));
@@ -53,7 +54,7 @@ public:
 		money->setPos((64 + 27), (12 * 64 + 9 + 32));
 
 		income = make_shared<SpriteText>(22);
-		income->setPos((64 + 27), (13 * 64 + 5 ));
+		income->setPos((64 + 27), (13 * 64 + 5));
 
 		unitCount = make_shared<SpriteText>(22);
 		unitCount->setPos((64 + 27), (13 * 64 + 48));
@@ -71,7 +72,15 @@ public:
 	void updateMenuBar(GAMEPHASES::GAMEPHASE phase, shared_ptr<Player> activePlayer)
 	{
 		this->resetMenuBar();
-		this->updateButtons(phase);
+		this->reInitButtons(phase); // hier muss nochmal dran gearbeitet werden
+		this->updateTokens(activePlayer);
+		this->updatePlayerStats(activePlayer);
+	}
+
+	void refreshMenuBar(shared_ptr<Player> activePlayer)
+	{
+		this->resetMenuBar();
+		this->refreshAllButtonDisplays(); 
 		this->updateTokens(activePlayer);
 		this->updatePlayerStats(activePlayer);
 	}
@@ -85,14 +94,14 @@ public:
 	void updatePlayerStats(shared_ptr<Player> activePlayer)
 	{
 		showPlayerStats(activePlayer);
-	}	
+	}
 	void showPlayerStats(shared_ptr<Player> activePlayer);
-	
+
 	/**
 	*renders the active players stats and the currently active Units HP
 	*Overloaded funtion
 	*/
-	void updateUnitStats( shared_ptr<Unit> unit)
+	void updateUnitStats(shared_ptr<Unit> unit)
 	{
 		resetUnitStats();
 		showUnitStats(unit);
@@ -112,24 +121,28 @@ public:
 		this->displayTokens(activePlayer);
 	}
 
-	SpriteButton* getRandomUnitButtonSprite(int rndNumber);
-	void displayButtons(GAMEPHASES::GAMEPHASE phase);
+	void initButtons(GAMEPHASES::GAMEPHASE phase);
 	void deleteButtons();
 
-	void updateButtons(GAMEPHASES::GAMEPHASE phase)
+	void MenuBar::deleteAllButtonDisplays();
+	void resetAllButtonDisplays();
+
+	void refreshAllButtonDisplays();
+
+	void reInitButtons(GAMEPHASES::GAMEPHASE phase)
 	{
 		this->deleteButtons();
-		this->displayButtons(phase);
+		this->initButtons(phase);
 	}
 
-	std::shared_ptr<vector<vector<std::shared_ptr<MenuTile>>>> getMenuBarBackGround()
+	std::shared_ptr<vector<vector<std::shared_ptr<MenuTile>>>> getMenuBar()
 	{
-		return this->menuBarBackGround;
+		return this->menuBar;
 	}
 
 
 private:
-	std::shared_ptr<vector<vector<std::shared_ptr<MenuTile>>>> menuBarBackGround;
+	std::shared_ptr<vector<vector<std::shared_ptr<MenuTile>>>> menuBar;
 	std::shared_ptr<Sprite> activePlayerFlag;
 	std::shared_ptr<Sprite> activePhaseToken;
 	std::shared_ptr<SpriteText> activePhaseText;
@@ -140,6 +153,7 @@ private:
 	std::shared_ptr<SpriteText> unitHP;
 	std::shared_ptr<SpriteText> unitAP;
 	std::shared_ptr<SpriteText> unitDMG;
+	
 
 	MenuBar() {};
 };

@@ -5,6 +5,9 @@
 #include "Sprite.hpp"
 #include "UnitTypes.h"
 
+/**
+ * all states of a unit.
+ */
 namespace STATES
 {
 	enum UNITSTATE {
@@ -16,12 +19,14 @@ namespace STATES
 	static const UNITSTATE All[] = { STANDING_NEUTRAL, STANDING, SHOOTING, RUNNING };
 
 	enum BUTTONSTATE {
-		NORMAL,
-		PRESSED,
-		DEACTIVATED
+		NEUTRAL,
+		PRESSED
 	};
 }
 
+/**
+ * Sprite extension with unit specific functions and stuff.
+ */
 class SpriteUnit :
 	public Sprite
 	//std::enable_shared_from_this<SpriteUnit>

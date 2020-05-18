@@ -1,7 +1,7 @@
 #pragma once
 
 /**
- * Tech configeration data container with all getters and setters
+ * Tech configuration data container with all getters and setters
  */
 class TechConf {
 private:

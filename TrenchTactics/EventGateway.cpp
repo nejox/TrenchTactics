@@ -34,6 +34,10 @@ void EventGateway::handleEvent(MouseClickEvent* event) {
 	}
 }
 
+/**
+ * Function that provides the possibilty to switch to the next unit in the queue of the active player
+ *
+ */
 void EventGateway::handleNextUnit()
 {
 	const std::shared_ptr<Unit> unit = this->activePlayer->getUnitQueue().front();
@@ -44,10 +48,13 @@ void EventGateway::handleNextUnit()
 
 	this->activePlayer->markActiveUnit();
 
-	Gamefield::instance().deselectAndUnmarkAllTiles();
-	Gamefield::instance().selectAndMarkeTilesByUnit(this->activePlayer->getUnitQueue().front(), this->currentPhase, this->activePlayer->getColor());
+
 }
 
+/**
+ * Function that provides the possibilty to switch to the previous unit in the queue of the active player
+ *
+ */
 void EventGateway::handlePrevUnit()
 {
 	const std::shared_ptr<Unit> unit = this->activePlayer->getUnitQueue().back();
@@ -63,10 +70,15 @@ void EventGateway::handlePrevUnit()
 
 	this->activePlayer->markActiveUnit();
 
-	Gamefield::instance().deselectAndUnmarkAllTiles();
-	Gamefield::instance().selectAndMarkeTilesByUnit(this->activePlayer->getUnitQueue().front(), this->currentPhase, this->activePlayer->getColor());
+	/*Gamefield::instance().deselectAndUnmarkAllTiles();
+	Gamefield::instance().selectAndMarkeTilesByUnit(this->activePlayer->getUnitQueue().front(), this->currentPhase, this->activePlayer->getColor());*/
 }
 
+/**
+ * Handle click of endturn button
+ * Publishes a new EndTurnEvent and empties the queue of the active player
+ *
+ */
 void EventGateway::handleEndTurn() {
 	this->activePlayer->demarkActiveUnit();
 	this->activePlayer->emptyQueue();
@@ -74,11 +86,20 @@ void EventGateway::handleEndTurn() {
 	EventBus::instance().publish(new EndTurnEvent());
 }
 
+/**
+ * Handle click of next phase button
+ * demarks active unit and empties the queue to skip to the next turn
+ *
+ */
 void EventGateway::handleNextPhase() {
-	this->activePlayer->demarkActiveUnit();
-	// empty the queue of the active player to get to the next phase
-	this->activePlayer->emptyQueue();
-	Gamefield::instance().deselectAndUnmarkAllTiles();
+	if (this->currentPhase == GAMEPHASES::BUY) {
+		this->activePlayer->setBuying(false);
+	}
+	else {
+		this->activePlayer->demarkActiveUnit();
+		// empty the queue of the active player to get to the next phase
+		this->activePlayer->emptyQueue();
+	}
 }
 
 /**
@@ -95,13 +116,13 @@ void EventGateway::handleAttackEvent(MouseClickEvent* event) {
 	// TODO: other buttons
 	if (checkButtonClicked(event)) {
 		int type = MenuBar::instance().getMenuTileFromXY(event->getX(), event->getY())->getButton()->getType();
-		
-		if (type == 50) {
+
+		if (type == 31) {
 
 			handleNextPhase();
 		}
 		// end turn
-		else if (type == 31) {
+		else if (type == 30) {
 			handleEndTurn();
 		}
 		//previous Unit
@@ -109,7 +130,7 @@ void EventGateway::handleAttackEvent(MouseClickEvent* event) {
 			handlePrevUnit();
 		}
 		//next unit
-		else if (type == 20) {
+		else if (type == 11) {
 			handleNextUnit();
 		}
 		return;
@@ -120,9 +141,10 @@ void EventGateway::handleAttackEvent(MouseClickEvent* event) {
 			std::shared_ptr<Unit>  unitToBeAttacked = Gamefield::instance().getFieldTileFromXY(event->getX(), event->getY())->getUnit();
 			std::shared_ptr<Unit> unitAttacking = this->activePlayer->getUnitQueue().front();
 
-			if (checkRange(Gamefield::instance().findTileByUnit(unitToBeAttacked))) {
+			if (checkRange(Gamefield::instance().findTileByUnit(unitToBeAttacked)) && unitAttacking->getCurrentAP() >= unitAttacking->getApCostAttack()) {
 				unitAttacking->attack(unitToBeAttacked);
 				this->activePlayer->popUnit();
+
 				this->activePlayer->markActiveUnit();
 
 			}
@@ -137,12 +159,19 @@ void EventGateway::handleAttackEvent(MouseClickEvent* event) {
 			tile = Gamefield::instance().getHqTilePlayerBlue();
 		}
 		else {
-			tile = Gamefield::instance().getHqTilePlayerBlue();
+			tile = Gamefield::instance().getHqTilePlayerRed();
 		}
-		std::shared_ptr < Headquarter> hq = tile->getHeadquarter();
-		unitAttacking->attack(hq);
-	}
+		if (checkRange(tile) && unitAttacking->getCurrentAP() >= unitAttacking->getApCostAttack()) {
+			std::shared_ptr < Headquarter> hq = tile->getHeadquarter();
+			unitAttacking->attack(hq);
 
+			this->activePlayer->popUnit();
+			this->activePlayer->markActiveUnit();
+		}
+	}
+	//Gamefield::instance().deselectAndUnmarkAllTiles();
+	//if (!this->activePlayer->getUnitQueue().empty())
+		//Gamefield::instance().selectAndMarkeTilesByUnit(this->activePlayer->getUnitQueue().front(), GAMEPHASES::MOVE, this->activePlayer->getColor());
 }
 
 /**
@@ -158,11 +187,11 @@ void EventGateway::handleMoveEvent(MouseClickEvent* event) {
 
 		int type = MenuBar::instance().getMenuTileFromXY(event->getX(), event->getY())->getButton()->getType();
 
-		if (type == 50) {
+		if (type == 31) {
 			handleNextPhase();
 		}
 		// end turn
-		else if (type == 31) {
+		else if (type == 30) {
 			handleEndTurn();
 		}
 		//previous Unit Button
@@ -170,7 +199,7 @@ void EventGateway::handleMoveEvent(MouseClickEvent* event) {
 			handlePrevUnit();
 		}
 		//next unit Button
-		else if (type == 20) {
+		else if (type == 11) {
 			handleNextUnit();
 		}
 		return;
@@ -182,20 +211,26 @@ void EventGateway::handleMoveEvent(MouseClickEvent* event) {
 		std::shared_ptr<FieldTile> tileToMoveTo = Gamefield::instance().getFieldTileFromXY(event->getX(), event->getY());
 
 		if (!tileToMoveTo->getUnit() && checkRange(tileToMoveTo)) {
+			//compute the cost of the movement
+			int cost = computeApCost(Gamefield::instance().findTileByUnit(unitToBeMoved), tileToMoveTo);
+			//subtract the cost from the unit ap
+			unitToBeMoved->reduceAp(cost);
+
 			// find current tile of the unit to overwrite the sprite and remove the unit
 			Gamefield::instance().findTileByUnit(unitToBeMoved).get()->removeUnit();
 
 			// attach unit to new tile 
 			tileToMoveTo.get()->setUnit(unitToBeMoved);
 			// delete the moved unit from the queue
+			this->activePlayer->demarkActiveUnit();
 			this->activePlayer->popUnit();
 			unitToBeMoved->setState(STATES::UNITSTATE::STANDING_NEUTRAL);
 			this->activePlayer->markActiveUnit();
 		}
 	}
-	Gamefield::instance().deselectAndUnmarkAllTiles();
+	/*Gamefield::instance().deselectAndUnmarkAllTiles();
 	if(!this->activePlayer->getUnitQueue().empty())
-		Gamefield::instance().selectAndMarkeTilesByUnit(this->activePlayer->getUnitQueue().front(), GAMEPHASES::MOVE, this->activePlayer->getColor());
+		Gamefield::instance().selectAndMarkeTilesByUnit(this->activePlayer->getUnitQueue().front(), GAMEPHASES::MOVE, this->activePlayer->getColor());*/
 }
 
 /**
@@ -206,17 +241,26 @@ void EventGateway::handleMoveEvent(MouseClickEvent* event) {
  */
 void EventGateway::handleBuyEvent(MouseClickEvent* event) {
 	// check wether a player is even allowed to buy a unit based on their supply and money  TO DO: vielleicht woanders hin die condition, wenn sie hier steht muss man erst klicken dass die buyphase geskippt wird
-	if ((this->activePlayer->getUnitArray().size() + 1) <= ConfigReader::instance().getBalanceConf()->getMaxAmountUnits() && (
-		this->activePlayer->getMoney() >= ConfigReader::instance().getUnitConf(0)->getCost() ||
-		this->activePlayer->getMoney() >= ConfigReader::instance().getUnitConf(1)->getCost() ||
-		this->activePlayer->getMoney() >= ConfigReader::instance().getUnitConf(2)->getCost()))
+	if ((this->activePlayer->getUnitArray().size() + 1) > ConfigReader::instance().getBalanceConf()->getMaxAmountUnits() ||
+		(
+			this->activePlayer->getMoney() < ConfigReader::instance().getUnitConf(0)->getCost() &&
+			this->activePlayer->getMoney() < ConfigReader::instance().getUnitConf(1)->getCost() &&
+			this->activePlayer->getMoney() < ConfigReader::instance().getUnitConf(2)->getCost()
+			))
 	{
+		this->activePlayer->setBuying(false);
+		Logger::instance().log(LOGLEVEL::INFO, "not enough supply or money to purchase unit");
+
+	}
+	else
+	{
+
 		// make sure a button was clicked
 		if (!checkButtonClicked(event)) {
 			Logger::instance().log(LOGLEVEL::INFO, "didnt click a button");
 			return;
 		}
-		MenuBar::instance().getMenuTileFromXY(event->getX(), event->getY())->getButton()->update(STATES::BUTTONSTATE::PRESSED);
+
 		// get the button type to decide what to do
 		int type = MenuBar::instance().getMenuTileFromXY(event->getX(), event->getY())->getButton()->getType();
 
@@ -224,35 +268,104 @@ void EventGateway::handleBuyEvent(MouseClickEvent* event) {
 		if (type >= 0 && type <= 2) {
 
 			//check if player can afford the unit
-			if (activePlayer->getMoney() >= ConfigReader::instance().getUnitConf(type)->getCost()) { 
+			if (activePlayer->getMoney() >= ConfigReader::instance().getUnitConf(type)->getCost()) {
 
-				// create new unit that will be spawned
-				std::shared_ptr<Unit> purchasedUnit = std::make_shared<Unit>(static_cast<TYPES::UnitType>(type), this->activePlayer->getColor());
-				// spawn unit
-				Gamefield::instance().spawnUnitInSpawn(purchasedUnit, this->activePlayer->getColor());
-				// add unit to vector of the player
-				this->activePlayer->addUnit(purchasedUnit);
-				this->activePlayer->updateMoney(-(purchasedUnit->getCost()));
-				MenuBar::instance().updateMenuBar(GAMEPHASES::BUY, activePlayer);
-				// remove player from buying phase
-				//this->activePlayer->setBuying(false);
+				//render over button
+				MenuBar::instance().getMenuTileFromXY(event->getX(), event->getY())->removeButtonDisplay();
+				//toggle buttonstate
+				MenuBar::instance().getMenuTileFromXY(event->getX(), event->getY())->getButton()->push();
+				//render button 
+				MenuBar::instance().getMenuTileFromXY(event->getX(), event->getY())->getButton()->update();
+
 			}
 		}
+
+		//add an additional unit button
+		if (type == 23)
+		{
+			if (activePlayer->getMoney() >= 5) {
+				this->activePlayer->updateMoney(-5);
+				MenuBar::instance().getMenuTileFromXY(event->getX(), event->getY())->removeButtonDisplay();
+				MenuBar::instance().getMenuTileFromXY(event->getX(), event->getY())->getButton()->setType((Button::BUTTONTYPE)(std::rand() % 3));
+				MenuBar::instance().getMenuTileFromXY(event->getX(), event->getY())->getButton()->update();
+				MenuBar::instance().refreshMenuBar(this->activePlayer);
+			}
+		}
+
+		//confirm purchase of unit
+		else if (type == 20)
+		{
+
+			int cost = 0;
+			//iterate over all unit buttons, summarize all pressed buttons cost
+			for (int i = 7; i <= 11; i = i++) {
+				//if it isnt empty
+				if (MenuBar::instance().getMenuBar().get()->at(i).at(1).get()->getButton() != nullptr) {
+					//if it is pressed
+					if (MenuBar::instance().getMenuBar().get()->at(i).at(1).get()->getButton()->getState() == true)
+					{
+						cost = cost + (ConfigReader::instance().getUnitConf(MenuBar::instance().getMenuBar().get()->at(i).at(1).get()->getButton()->getType())->getCost());
+					}
+				}
+			}
+
+			//check if player can afford all his purchases
+			if (cost <= activePlayer->getMoney()) {
+				//iterate over all unitbuttons
+				for (int i = 7; i <= 11; i = i++) {
+					//if it isnt empty
+					if (MenuBar::instance().getMenuBar().get()->at(i).at(1).get()->getButton() != nullptr) {
+						//if it is pressed
+						if (MenuBar::instance().getMenuBar().get()->at(i).at(1).get()->getButton()->getState() == true)
+						{
+							// create new unit that will be purchased
+							purchasedUnit = std::make_shared<Unit>(static_cast<TYPES::UnitType>(MenuBar::instance().getMenuBar().get()->at(i).at(1).get()->getButton()->getType()), this->activePlayer->getColor());
+							// spawn unit
+							Gamefield::instance().spawnUnitInSpawn(purchasedUnit, this->activePlayer->getColor());
+							// add unit to vector of the player
+							this->activePlayer->addUnit(purchasedUnit);
+							//update players money
+							this->activePlayer->updateMoney(-(purchasedUnit->getCost()));
+						}
+					}
+				}
+				//MenuBar::instance().updateMenuBar(GAMEPHASES::BUY, activePlayer); überflüssig?
+				this->activePlayer->setBuying(false);
+			}
+
+			//if player cant afford, deactivate all Buttons
+			else
+			{
+				MenuBar::instance().resetAllButtonDisplays();
+			}
+
+		}
+
+		//Reroll Units
+		else if (type == 22)
+		{
+			this->activePlayer->updateMoney(-10);
+			MenuBar::instance().updateMenuBar(GAMEPHASES::BUY, this->activePlayer);
+		}
+
+		//cancel purchase of unit
+		else if (type == 21)
+		{
+			
+				MenuBar::instance().resetAllButtonDisplays();
+			
+		}
 		// react to next phase
-		else if (type == 50) {
+		else if (type == 31) {
 			this->activePlayer->setBuying(false);
+
 		}
 		// end turn
-		else if (type == 31) {
+		else if (type == 30) {
 			handleEndTurn();
 		}
 	}
-	else
-	{
-		this->activePlayer->setBuying(false);
-		Logger::instance().log(LOGLEVEL::INFO, "not enough supply or money to purchase unit");
 
-	}
 
 }
 
@@ -321,4 +434,15 @@ bool EventGateway::checkEventOnHQ(MouseClickEvent* event) {
 
 bool EventGateway::checkRange(shared_ptr<Tile> targetTile) {
 	return targetTile->getMarked();
+}
+
+/**
+* computes the amount of tiles a unit has to pass to get from start to end, order of end and start does not matter
+* \param start from which tile 
+* \param end to which tile
+* \return integer value of the added differences of the X and Y positions of start and end
+*/
+int EventGateway::computeApCost(shared_ptr<Tile> start, shared_ptr<Tile> end)
+{
+	return abs((end->getPosX() - start->getPosX()) / 64) + abs((end->getPosY() - start->getPosY()) / 64);
 }

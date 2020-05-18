@@ -2,7 +2,9 @@
 
 /**
  * Base class for balnce configuration of the game 
- * Used to hold data and provide it to otherinstances
+ * Used to hold data and provide it to other instances
+ * Provides all necessary getters and setters
+ * Provided by ConfigReader
  */
 class BalanceConf {
 private:

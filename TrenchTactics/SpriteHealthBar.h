@@ -1,6 +1,9 @@
 #pragma once
 #include "Sprite.hpp"
 
+/**
+ * Sprite extension to add healthbars to a unit or hq.
+ */
 class SpriteHealthBar :
 	public Sprite
 {
@@ -23,7 +26,9 @@ public:
 	* \param maxHP maximum HP of specific object
 	* \param currentHP the current HP of the specific object
 	*/
+
 	void SpriteHealthBar::render(int maxHP, int currentHP);
+
 
 
 
@@ -35,4 +40,5 @@ private:
 	* made private, only to be called by render(int maxHP, int currentHP)
 	*/
 	void SpriteHealthBar::render(int frame);
+
 };
