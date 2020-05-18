@@ -634,7 +634,7 @@ void Gamefield::initiatePlayerTilesBlue()
 
 	// create Sprite and load menuBar file with all individual sprites
 	std::shared_ptr<SpriteHQ> hqSprite = make_shared<SpriteHQ>(false);
-	std::shared_ptr<SpriteHealthBar> hqHealthBar = make_shared<SpriteHealthBar>(SpriteHealthBar::TYPE::HQ);
+	std::shared_ptr<SpriteHealthBar> hqHealthBar = make_shared<SpriteHealthBar>();
 
 	// set pos where sprite shall be renderd
 
@@ -666,7 +666,7 @@ void Gamefield::initiatePlayerTilesRed()
 {
 
 	std::shared_ptr<Headquarter> hq = make_shared<Headquarter>(true);
-	std::shared_ptr<SpriteHealthBar> hqHealthBar = make_shared<SpriteHealthBar>(SpriteHealthBar::TYPE::HQ);
+	std::shared_ptr<SpriteHealthBar> hqHealthBar = make_shared<SpriteHealthBar>();
 
 	// create PlayerTile as shared pointer 
 	std::shared_ptr<PlayerTile> tmpPlayerTilePointer = std::make_shared<PlayerTile>();
