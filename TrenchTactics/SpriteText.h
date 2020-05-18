@@ -18,40 +18,15 @@ public:
 
 
 	/**
-	 * TODO -> pls in cpp.
+	 * Initializes textsprite by initializing Font in given size
 	 *
 	 * \param size
 	 */
-	SpriteText(int size)
-	{
-		m_pRenderer = RendererImpl::instance().GetRenderer();
-		m_pText = NULL;
-		m_posX = 0;
-		m_posY = 0;
+	SpriteText(int size);
 
 
-		//TO DO:
-//this->m_font = TTF_OpenFont(ConfigReader::instance()->getBalanceConf()->getPathToFont(), size);
-		this->m_font = TTF_OpenFont("../Data/Fonts/BOO_REG.ttf", size);
-
-		if (m_font == NULL)
-		{
-			// niemals new line in einer error message
-			std::string msg = "Font konnte nicht gefunden werden!\n Fehlermeldung: ";
-			msg.append(TTF_GetError());
-
-			Logger::instance().log(LOGLEVEL::FATAL, msg);
-
-			exit(1);
-		}
-		else
-		{
-			std::string msg = "Font wurde geladen.\n";
-			Logger::instance().log(LOGLEVEL::INFO, msg);
-		}
-	}
-
-	//sets position to tile
+	/**sets position to text, takes the X and Y positions of the tile, not absolute values
+	*/
 	void setPosGrid(int tileX, int tileY)
 	{
 		this->m_posX = tileX * 64;
@@ -60,6 +35,8 @@ public:
 		this->m_Rect.y = tileY * 64;
 	}
 
+	/**sets position to text, takes the absolute X and Y values
+*/
 	void setPos(int x, int y)
 	{
 		this->m_posX = x;
@@ -78,11 +55,9 @@ public:
 		return m_posY;
 	}
 
-	~SpriteText()
-	{
-		TTF_CloseFont(m_font);
-		SDL_DestroyTexture(m_pText);
-	}
+	/** Destroys the text sprite by closing the font and destroying the teture
+	*/
+	~SpriteText();
 
 	void load(std::string text);
 	void render();

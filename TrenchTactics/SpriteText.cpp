@@ -1,5 +1,37 @@
 #include "SpriteText.h"
 
+
+SpriteText::SpriteText(int size)
+{
+	m_pRenderer = RendererImpl::instance().GetRenderer();
+	m_pText = NULL;
+	m_posX = 0;
+	m_posY = 0;
+
+
+	//TO DO:
+//this->m_font = TTF_OpenFont(ConfigReader::instance()->getBalanceConf()->getPathToFont(), size);
+	this->m_font = TTF_OpenFont("../Data/Fonts/BOO_REG.ttf", size);
+
+	if (m_font == NULL)
+	{
+		std::string msg = "Font konnte nicht gefunden werden!\n Fehlermeldung: ";
+		msg.append(TTF_GetError());
+
+		Logger::instance().log(LOGLEVEL::FATAL, msg);
+
+		exit(1);
+	}
+
+}
+
+
+SpriteText::~SpriteText()
+{
+	TTF_CloseFont(m_font);
+	SDL_DestroyTexture(m_pText);
+}
+
 /**
  * load a text and create it on a sdl surface so it can be rendered.
  *
@@ -28,7 +60,6 @@ void SpriteText::load(std::string text)
 	m_pText = SDL_CreateTextureFromSurface(m_pRenderer, text_surface);
 
 
-	//TO DO: hier ist der wurm drin
 	int texW = 0;
 	int texH = 0;
 	SDL_QueryTexture(m_pText, NULL, NULL, &texW, &texH);

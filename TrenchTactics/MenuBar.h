@@ -60,13 +60,16 @@ public:
 		unitCount->setPos((64 + 27), (13 * 64 + 48));
 
 		unitHP = make_shared<SpriteText>(25);
-		unitHP->setPos((64 * 9 + 40), (64 * 13));
+		unitHP->setPos((64 * 9 + 40), (64 * 12 + 32));
 
 		unitAP = make_shared<SpriteText>(25);
-		unitAP->setPos((64 * 9 + 40), (64 * 13 + 32));
+		unitAP->setPos((64 * 9 + 40), (64 * 13));
 
 		unitDMG = make_shared<SpriteText>(25);
-		unitDMG->setPos((64 * 9 + 40), (64 * 14));
+		unitDMG->setPos((64 * 9 + 40), (64 * 13 + 32));
+		
+		unitRange = make_shared<SpriteText>(25);
+		unitRange->setPos((64 * 9 + 40), (64 * 14));
 	}
 
 	void updateMenuBar(GAMEPHASES::GAMEPHASE phase, shared_ptr<Player> activePlayer)
@@ -153,6 +156,7 @@ private:
 	std::shared_ptr<SpriteText> unitHP;
 	std::shared_ptr<SpriteText> unitAP;
 	std::shared_ptr<SpriteText> unitDMG;
+	std::shared_ptr<SpriteText> unitRange;
 	
 
 	MenuBar() {};
