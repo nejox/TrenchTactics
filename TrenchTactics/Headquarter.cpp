@@ -12,7 +12,7 @@ void Headquarter::changeHP(int damage)
 {
 	m_currentHP -= damage;
 
-	if (this->getCurrentHP() <= 250 && this->getCurrentHP() > 0)
+	if (this->getCurrentHP() <= (ConfigReader::instance().getBalanceConf()->getHqHP() / 2) && this->getCurrentHP() > 0)
 	{
 		this->setDamaged(true);
 		this->m_spriteHQ->render(this->getDamaged());
