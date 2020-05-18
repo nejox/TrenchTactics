@@ -40,7 +40,7 @@ public:
 		m_spawnProbability = ConfigReader::instance().getUnitConf(unittype)->getSpawnProbability();
 		m_name = ConfigReader::instance().getUnitConf(unittype)->getName();
 		m_sprite = make_shared<SpriteUnit>(colorRed, unittype);
-		m_spriteHealthBar = make_shared<SpriteHealthBar>(SpriteHealthBar::TYPE::UNIT);
+		m_spriteHealthBar = make_shared<SpriteHealthBar>(colorRed);
 		m_state = STATES::UNITSTATE::STANDING_NEUTRAL;
 
 	}
