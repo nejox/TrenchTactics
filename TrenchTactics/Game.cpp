@@ -210,12 +210,7 @@ void Game::startAttackPhase() {
 	this->gateway.setCurrentPhase(GAMEPHASES::ATTACK);
 	this->activePlayer->copyUnitsToQueue();
 
-
-	//if (!this->activePlayer->getUnitQueue().empty())
-		//Gamefield::instance().selectAndMarkeTilesByUnit(this->activePlayer->getUnitQueue().front(), GAMEPHASES::ATTACK, this->activePlayer->getColor());
-
 	this->activePlayer->markActiveUnit();
-	//this->activePlayer->popUnit();
 
 }
 

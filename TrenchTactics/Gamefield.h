@@ -111,4 +111,6 @@ public:
 	void selectAndMarkeTilesByUnit(shared_ptr<Unit> pUnit, GAMEPHASES::GAMEPHASE gamephase, bool redPlayerActiv);
 
 	void deselectAndUnmarkAllTiles();
+
+	bool checkUnitHasEnemysAround(shared_ptr<Unit> pUnit, bool colorRed);
 };
