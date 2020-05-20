@@ -473,20 +473,19 @@ bool Gamefield::checkUnitHasEnemysAround(shared_ptr<Unit> pUnit, bool colorRed)
 			//checks if the current tile is on playingfield
 			if ((2 <= (xPos + i)) && ((xPos + i) <= 19) && (0 <= (yPos + j)) && ((yPos + j) <= 11)) {
 
-				if (Gamefield::playingfield.get()->at(xPos - 2 + i).at(yPos + j)->getUnit() != nullptr 
+				if (Gamefield::playingfield.get()->at(xPos - 2 + i).at(yPos + j)->getUnit() != nullptr
 					&& Gamefield::playingfield.get()->at(xPos - 2 + i).at(yPos + j)->getUnit()->getColorRed() != pUnit->getColorRed()) {
 
 					return true;
 				}
-
-				//check if blue hq needs to be marked as attackable
-				else if (colorRed && (xPos + i == 0 || xPos + i == 1) && (yPos + j == 5 || yPos + j == 6)) {
-					return true;
-				}
-				//checks if red hq needs to be marked as attackable
-				else if ((!colorRed) && (xPos + i == 20 || xPos + i == 21) && (yPos + j == 5 || yPos + j == 6)) {
-					return true;
-				}
+			}
+			//check if blue hq needs to be marked as attackable
+			else if (colorRed && (xPos + i == 0 || xPos + i == 1) && (yPos + j == 5 || yPos + j == 6)) {
+				return true;
+			}
+			//checks if red hq needs to be marked as attackable
+			else if ((!colorRed) && (xPos + i == 20 || xPos + i == 21) && (yPos + j == 5 || yPos + j == 6)) {
+				return true;
 			}
 		}
 	}
