@@ -113,7 +113,7 @@ std::shared_ptr<FieldTile> Gamefield::getFieldTileFromXY(int posX, int posY) {
 }
 
 /**
-* get a player tile based on a pixel position posX and posY 
+* get a player tile based on a pixel position posX and posY
 * returns a nullptr if the tile does not exist or is not a playertile
 *
 * \param posX horizontal pixelposition
@@ -167,7 +167,7 @@ std::shared_ptr<FieldTile> Gamefield::getSpawnTileFromXY(bool colorRed, int posX
 int Gamefield::spawnUnitInSpawn(std::shared_ptr<Unit> pUnit, bool redPlayerActive)
 {
 	std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> activeSpawn;
-	
+
 	//spawn unit for red player
 	if (redPlayerActive) {
 		activeSpawn = spawnRed;
@@ -359,7 +359,7 @@ void Gamefield::selectAndMarkeTilesByUnit(shared_ptr<Unit> pUnit, GAMEPHASES::GA
 		for (int j = (abs(i) - range); j <= abs(abs(i) - range); ++j) {
 			//checks if the current tile is on playingfield
 			if ((2 <= (xPos + i)) && ((xPos + i) <= 19) && (0 <= (yPos + j)) && ((yPos + j) <= 11)) {
-				
+
 				Gamefield::playingfield.get()->at(xPos - 2 + i).at(yPos + j)->setMarked(true);
 				SpriteMarker* tmpMarkerSprite = new SpriteMarker();
 				//markes the tiles on which the unit can only move and not shoot in movephase
@@ -402,7 +402,7 @@ void Gamefield::selectAndMarkeTilesByUnit(shared_ptr<Unit> pUnit, GAMEPHASES::GA
 		tmpHqMarkerSprite->load("../Data/Sprites/Token/REACHABLE_MARKER.bmp");
 		tmpHqMarkerSprite->makeTransparent();
 		for (int i = 0; i < 4; ++i) {
-			tmpHqMarkerSprite->setPos((i % 2) * 64 + 20 * 64, (i / 2) * 64 + 5* 64);
+			tmpHqMarkerSprite->setPos((i % 2) * 64 + 20 * 64, (i / 2) * 64 + 5 * 64);
 			tmpHqMarkerSprite->render();
 		}
 	}
@@ -436,20 +436,61 @@ void Gamefield::deselectAndUnmarkAllTiles()
 			yIter2->get()->setSelected(false);
 		}
 	}
-	
+
 	//unmarks blue headquarters
 	std::shared_ptr<Headquarter> tmpBlue = getPlayerTileFromXY(0, 5 * 64).get()->getHeadquarter();
 	tmpBlue->getSprite().get()->setPos(0, 5 * 64);
 
 	tmpBlue->getSpriteHealthBar()->setPos(0, 5 * 64);
 	tmpBlue->render();
-	
+
 	//unmark red headquarters
 	std::shared_ptr<Headquarter> tmpRed = getPlayerTileFromXY(20 * 64, 5 * 64).get()->getHeadquarter();
 	tmpRed->getSprite().get()->setPos(20 * 64, 5 * 64);
 	tmpRed->getSpriteHealthBar()->setPos(20 * 64, 5 * 64);
 	tmpRed->render();
 
+}
+
+
+/**
+*
+* Function to scan the tiles around which are in range for enemy units who can be attacked
+*/
+bool Gamefield::checkUnitHasEnemysAround(shared_ptr<Unit> pUnit, bool colorRed)
+{
+	//change position from pixels to tiles
+	int xPos = findTileByUnit(pUnit).get()->getPosX() / 64;
+	int yPos = findTileByUnit(pUnit).get()->getPosY() / 64;
+
+	int range = pUnit.get()->getRange();
+
+	bool redHqInRange = false;
+	bool blueHqInRange = false;
+
+	//iterates over all tiles, that are in range of selected tile
+	for (int i = -range; i <= range; ++i) {
+		for (int j = (abs(i) - range); j <= abs(abs(i) - range); ++j) {
+			//checks if the current tile is on playingfield
+			if ((2 <= (xPos + i)) && ((xPos + i) <= 19) && (0 <= (yPos + j)) && ((yPos + j) <= 11)) {
+
+				if (Gamefield::playingfield.get()->at(xPos - 2 + i).at(yPos + j)->getUnit() != nullptr
+					&& Gamefield::playingfield.get()->at(xPos - 2 + i).at(yPos + j)->getUnit()->getColorRed() != pUnit->getColorRed()) {
+
+					return true;
+				}
+			}
+			//check if blue hq needs to be marked as attackable
+			else if (colorRed && (xPos + i == 0 || xPos + i == 1) && (yPos + j == 5 || yPos + j == 6)) {
+				return true;
+			}
+			//checks if red hq needs to be marked as attackable
+			else if ((!colorRed) && (xPos + i == 20 || xPos + i == 21) && (yPos + j == 5 || yPos + j == 6)) {
+				return true;
+			}
+		}
+	}
+	return false;
 }
 
 
@@ -553,7 +594,7 @@ Sprite* Gamefield::getRandomSpawnTileSprite(int rndNumber, bool colorRed) {
  */
 void Gamefield::initiateSpawnTilesBlue()
 {
-	int cnt = 0;	
+	int cnt = 0;
 	//iterates over the blue spawn from top left 
 	for (vector<vector<std::shared_ptr<FieldTile>>>::iterator xIter = spawnBlue->begin(); xIter != spawnBlue->end(); ++xIter) {
 		for (vector<std::shared_ptr<FieldTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
@@ -633,28 +674,17 @@ void Gamefield::initiatePlayerTilesBlue()
 	std::shared_ptr<PlayerTile> tmpPlayerTilePointer = std::make_shared<PlayerTile>();
 	tmpPlayerTilePointer->setHeadquarter(hq);
 
-	// create Sprite and load menuBar file with all individual sprites
-	std::shared_ptr<SpriteHQ> hqSprite = make_shared<SpriteHQ>(false);
-	std::shared_ptr<SpriteHealthBar> hqHealthBar = make_shared<SpriteHealthBar>();
 
-	// set pos where sprite shall be renderd
-
-	hqSprite->setPos(0 * 64, 5 * 64);
-	hqHealthBar->setPos(0 * 64, 5 * 64);
-	tmpPlayerTilePointer->setSpriteHq(hqSprite);
-	tmpPlayerTilePointer->setSpriteHealthBar(hqHealthBar);
+	// set pos where sprite shall be rendered
+	hq->getSprite()->setPos(0 * 64, 5 * 64);
+	hq->getSpriteHealthBar()->setPos(0 * 64, 5 * 64);
 
 
-	tmpPlayerTilePointer->getSpriteHq()->render(false);
-	tmpPlayerTilePointer->getSpriteHealthBar()->render(hq->getHP(),hq->getCurrentHP());
+	hq->getSprite()->render();
+	hq->getSpriteHealthBar()->render(hq->getHP(), hq->getCurrentHP());
 
 
 	this->setHqTilePlayerBlue(tmpPlayerTilePointer);
-
-
-	//std::shared_ptr<Headquarter> tmpBlue = getPlayerTileFromXY(0, 5 * 64).get()->getHeadquarter();
-	//tmpBlue->getSprite().get()->setPos(0, 5 * 64);
-	//tmpBlue->getSprite().get()->render(tmpBlue->getDamaged());
 }
 
 
@@ -665,26 +695,19 @@ void Gamefield::initiatePlayerTilesBlue()
  */
 void Gamefield::initiatePlayerTilesRed()
 {
-
 	std::shared_ptr<Headquarter> hq = make_shared<Headquarter>(true);
-	std::shared_ptr<SpriteHealthBar> hqHealthBar = make_shared<SpriteHealthBar>();
+
 
 	// create PlayerTile as shared pointer 
 	std::shared_ptr<PlayerTile> tmpPlayerTilePointer = std::make_shared<PlayerTile>();
 	tmpPlayerTilePointer->setHeadquarter(hq);
 
-	// create Sprite and load menuBar file with all individual sprites
-	std::shared_ptr<SpriteHQ> hqSprite = make_shared<SpriteHQ>(true);
-
 	// set pos where sprite shall be renderd
+	hq->getSprite()->setPos(20 * 64, 5 * 64);
+	hq->getSpriteHealthBar()->setPos(20 * 64, 5 * 64);
 
-	hqSprite->setPos(20 * 64, 5 * 64);
-	hqHealthBar->setPos(20 * 64, 5 * 64);
-	tmpPlayerTilePointer->setSpriteHq(hqSprite);
-	tmpPlayerTilePointer->setSpriteHealthBar(hqHealthBar);
-
-	tmpPlayerTilePointer->getSpriteHq()->render(false);
-	tmpPlayerTilePointer->getSpriteHealthBar()->render(hq->getHP(), hq->getCurrentHP());
+	hq->getSprite()->render();
+	hq->getSpriteHealthBar()->render(hq->getHP(), hq->getCurrentHP());
 
 	this->setHqTilePlayerRed(tmpPlayerTilePointer);
 }

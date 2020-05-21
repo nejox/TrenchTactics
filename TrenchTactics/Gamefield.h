@@ -114,4 +114,5 @@ public:
 	void deselectAndUnmarkAllTiles();
 
 
+	bool checkUnitHasEnemysAround(shared_ptr<Unit> pUnit, bool colorRed);
 };

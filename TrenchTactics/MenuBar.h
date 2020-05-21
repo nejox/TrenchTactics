@@ -127,7 +127,7 @@ public:
 	void initButtons(GAMEPHASES::GAMEPHASE phase);
 	void deleteButtons();
 
-	void MenuBar::deleteAllButtonDisplays();
+	void deleteAllButtonDisplays();
 	void resetAllButtonDisplays();
 
 	void refreshAllButtonDisplays();
