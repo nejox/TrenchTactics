@@ -95,6 +95,7 @@ void Player::demarkActiveUnit()
  */
 void Player::deleteUnit(DeathEvent* deathEvent) {
 
+
 	if (this->colorRed == deathEvent->getKilledUnit()->getColorRed()) {
 		if (Gamefield::instance().findTileByUnit(deathEvent->getKilledUnit()).get()) {
 			Gamefield::instance().findTileByUnit(deathEvent->getKilledUnit()).get()->removeUnit();
@@ -110,4 +111,13 @@ void Player::deleteUnit(DeathEvent* deathEvent) {
 			this->unitArray.erase(unitArray.begin());
 		}
 	}
+
+	else
+	{
+		// adds corpse with coordinates of death unit 
+		cout << "from deleteUnit in player ";
+		Gamefield::instance().findTileByUnit(deathEvent->getKilledUnit())->addCorpse();
+	}
+
+
 }

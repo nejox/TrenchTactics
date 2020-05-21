@@ -15,7 +15,7 @@ void FieldTile::removeUnit()
 /**
  *
  * refresh Tile
- *
+ *including corpse 
  */
 void FieldTile::refreshTile() {
 	if (this->getTerrain() == TERRAINTYPE::SPAWNTERRAIN) {
@@ -25,6 +25,9 @@ void FieldTile::refreshTile() {
 	}
 	else {
 		this->getSprite()->render();
+		if (this->corpse != nullptr) {
+			this->corpse->render();
+		}
 	}
 }
 
@@ -42,5 +45,25 @@ void FieldTile::setUnit(std::shared_ptr<Unit> unit)
 		this->unit = unit;
 	}
 
+}
+
+bool FieldTile::hasCopse()
+{
+	if (this->corpse == nullptr) return false;
+	else return true;
+}
+
+void FieldTile::addCorpse()
+{
+	cout << "try to add corpse" << endl;
+	this->corpse = make_shared<Corpse>(this->getPosX(), this->getPosY());
+	refreshTile();
+	cout << "added corpse" << endl;
+}
+
+void FieldTile::removeCorpse()
+{
+	this->corpse = nullptr;
+	refreshTile();
 }
 
