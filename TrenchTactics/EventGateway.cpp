@@ -169,9 +169,6 @@ void EventGateway::handleAttackEvent(MouseClickEvent* event) {
 			this->activePlayer->markActiveUnit();
 		}
 	}
-	//Gamefield::instance().deselectAndUnmarkAllTiles();
-	//if (!this->activePlayer->getUnitQueue().empty())
-		//Gamefield::instance().selectAndMarkeTilesByUnit(this->activePlayer->getUnitQueue().front(), GAMEPHASES::MOVE, this->activePlayer->getColor());
 }
 
 /**

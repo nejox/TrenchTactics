@@ -50,7 +50,15 @@ void Player::copyUnitsToQueue() {
 	if (this->unitArray.size() > 0) {
 		int i = this->unitArray.size() - 1;
 		for (int j = i; j >= 0; j--) {
-			this->unitQueue.push(this->unitArray[j]);
+			if (this->getCurrentPhase() == GAMEPHASES::GAMEPHASE::ATTACK) {
+				if (this->unitArray[j]->getCurrentAP() >= this->unitArray[j]->getApCostAttack() && Gamefield::instance().checkUnitHasEnemysAround(this->unitArray[j],this->getColor())) {
+					this->unitQueue.push(this->unitArray[j]);
+				}
+			}
+			else {
+				this->unitQueue.push(this->unitArray[j]);
+			}
+
 		}
 	}
 
