@@ -104,9 +104,20 @@ void Player::demarkActiveUnit()
 void Player::deleteUnit(DeathEvent* deathEvent) {
 
 
+	//if unit belongs to player
 	if (this->colorRed == deathEvent->getKilledUnit()->getColorRed()) {
+
+		//if unit is placed anywhere
 		if (Gamefield::instance().findTileByUnit(deathEvent->getKilledUnit()).get()) {
+
+			// if no corpse on the field adds corpse with coordinates of death unit 
+			if (!(Gamefield::instance().findTileByUnit(deathEvent->getKilledUnit())->hasCopse())) {
+				Gamefield::instance().findTileByUnit(deathEvent->getKilledUnit())->addCorpse();
+			}
+
 			Gamefield::instance().findTileByUnit(deathEvent->getKilledUnit()).get()->removeUnit();
+
+
 		}
 		std::vector<std::shared_ptr<Unit>>::iterator position = std::find(this->unitArray.begin(), this->unitArray.end(), deathEvent->getKilledUnit());
 
@@ -119,13 +130,5 @@ void Player::deleteUnit(DeathEvent* deathEvent) {
 			this->unitArray.erase(unitArray.begin());
 		}
 	}
-
-	else
-	{
-		// adds corpse with coordinates of death unit 
-		cout << "from deleteUnit in player ";
-		Gamefield::instance().findTileByUnit(deathEvent->getKilledUnit())->addCorpse();
-	}
-
 
 }

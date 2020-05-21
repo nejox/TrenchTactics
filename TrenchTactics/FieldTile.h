@@ -57,9 +57,9 @@ public:
 	bool hasCopse();
 
 	/**
-*adds a copse to the corpse vector
-* \param x y coordinates of the copse
-*/
+	*adds a copse to the corpse vector
+	* \param x y coordinates of the copse
+	*/
 	void addCorpse();
 
 	void removeCorpse();

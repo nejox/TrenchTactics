@@ -42,6 +42,7 @@ void FieldTile::setUnit(std::shared_ptr<Unit> unit)
 	if (unit) {
 		unit.get()->getSprite().get()->setPos(this->getPosX(), this->getPosY());
 		unit.get()->getSpriteHealthBar().get()->setPos(this->getPosX(), this->getPosY());
+
 		this->unit = unit;
 	}
 
