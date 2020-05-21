@@ -56,10 +56,8 @@ bool FieldTile::hasCopse()
 
 void FieldTile::addCorpse()
 {
-	cout << "try to add corpse" << endl;
 	this->corpse = make_shared<Corpse>(this->getPosX(), this->getPosY());
 	refreshTile();
-	cout << "added corpse" << endl;
 }
 
 void FieldTile::removeCorpse()
