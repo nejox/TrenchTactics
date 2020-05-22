@@ -26,6 +26,7 @@ private:
 	std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> playingfield;
 	std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> spawnBlue;
 	std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> spawnRed;
+	
 
 	Gamefield();
 
@@ -111,6 +112,7 @@ public:
 	void selectAndMarkeTilesByUnit(shared_ptr<Unit> pUnit, GAMEPHASES::GAMEPHASE gamephase, bool redPlayerActiv);
 
 	void deselectAndUnmarkAllTiles();
+
 
 	bool checkUnitHasEnemysAround(shared_ptr<Unit> pUnit, bool colorRed);
 };

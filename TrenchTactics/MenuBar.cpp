@@ -57,7 +57,7 @@ void MenuBar::resetUnitStats()
 {
 	for (int x = 9; x < 13; x++)
 	{
-		for (int y = 1; y < 3; y++)
+		for (int y = 0; y < 3; y++)
 		{
 			this->menuBar.get()->at(x).at(y).get()->getSprite()->render(x * 64, y * 64);
 
@@ -67,7 +67,10 @@ void MenuBar::resetUnitStats()
 
 
 /**
-* Displays units currentHp/MaxHp
+* Displays units currentHp/MaxHp/
+* Displays units currentAp/MaxAp/
+* Displays units damage
+* Displays units range
 */
 void MenuBar::showUnitStats(shared_ptr<Unit> unit)
 {
@@ -75,6 +78,7 @@ void MenuBar::showUnitStats(shared_ptr<Unit> unit)
 	std::string slash = " / ";
 	std::string ap = "AP: ";
 	std::string dmg = "DMG: ";
+	std::string rng = "RANGE: ";
 
 	unitHP->load(hp + std::to_string(unit->getCurrentHP()) + slash + std::to_string(unit->getHp()));
 	unitHP->render();
@@ -84,6 +88,9 @@ void MenuBar::showUnitStats(shared_ptr<Unit> unit)
 
 	unitDMG->load(dmg + std::to_string(unit->getDmg()));
 	unitDMG->render();
+
+	unitRange->load(rng + std::to_string(unit->getRange()));
+	unitRange->render();
 }
 
 

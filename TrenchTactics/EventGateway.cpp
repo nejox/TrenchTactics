@@ -213,6 +213,14 @@ void EventGateway::handleMoveEvent(MouseClickEvent* event) {
 			//subtract the cost from the unit ap
 			unitToBeMoved->reduceAp(cost);
 
+			//if copse is on tile to move to, add reward
+			if (tileToMoveTo->hasCopse())
+			{
+				tileToMoveTo->removeCorpse();
+				this->activePlayer->updateMoney(10); //TO DO: Reward from config
+				MenuBar::instance().refreshMenuBar(this->activePlayer);
+			}
+
 			// find current tile of the unit to overwrite the sprite and remove the unit
 			Gamefield::instance().findTileByUnit(unitToBeMoved).get()->removeUnit();
 

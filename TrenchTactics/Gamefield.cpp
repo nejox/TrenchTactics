@@ -419,7 +419,7 @@ void Gamefield::deselectAndUnmarkAllTiles()
 		for (vector<std::shared_ptr<FieldTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
 			yIter->get()->setSelected(false);
 			yIter->get()->setMarked(false);
-			yIter->get()->getSprite()->render();
+			yIter->get()->refreshTile();
 			if (yIter->get()->getUnit().get())
 				yIter->get()->getUnit()->getSprite()->render();
 		}
@@ -451,6 +451,7 @@ void Gamefield::deselectAndUnmarkAllTiles()
 	tmpRed->render();
 
 }
+
 
 /**
 *
@@ -491,6 +492,7 @@ bool Gamefield::checkUnitHasEnemysAround(shared_ptr<Unit> pUnit, bool colorRed)
 	}
 	return false;
 }
+
 
 // ------------ Setupfunctions for gamestart -------------------------
 

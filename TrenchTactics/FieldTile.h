@@ -1,6 +1,7 @@
 #pragma once
 #include "Tile.h"
 #include "Unit.h"
+#include "Corpse.h"
 
 
 /**
@@ -22,6 +23,8 @@ public:
 private:
 	std::shared_ptr<Unit> unit;
 	TERRAINTYPE terrain;
+	std::shared_ptr<Corpse> corpse;
+
 public:
 
 	FieldTile() {};
@@ -46,4 +49,19 @@ public:
 	TERRAINTYPE getTerrain() {
 		return this->terrain;
 	}
+
+	std::shared_ptr<Corpse> getCorpse() {
+		return this->corpse;
+	}
+
+	bool hasCopse();
+
+	/**
+	*adds a copse to the corpse vector
+	* \param x y coordinates of the copse
+	*/
+	void addCorpse();
+
+	void removeCorpse();
+
 };
