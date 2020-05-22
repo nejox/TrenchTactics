@@ -15,7 +15,7 @@ void FieldTile::removeUnit()
 /**
  *
  * refresh Tile
- *including corpse 
+ *including corpse and trench
  */
 void FieldTile::refreshTile() {
 	if (this->getTerrain() == TERRAINTYPE::SPAWNTERRAIN) {
@@ -25,6 +25,18 @@ void FieldTile::refreshTile() {
 	}
 	else {
 		this->getSprite()->render();
+
+		//if it has a trenchsprite
+		if (!this->trenchSprites.empty())
+		{
+			//iterate over map
+			map<int, Sprite*>::iterator itr;
+			for (itr = trenchSprites.begin(); itr != trenchSprites.end(); ++itr) {
+				//itr second is the sprite, itr first is the framenumber to render
+				itr->second->render(itr->first);
+			}
+		}
+
 		if (this->corpse != nullptr) {
 			this->corpse->render();
 		}

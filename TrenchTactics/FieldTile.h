@@ -25,6 +25,11 @@ private:
 	TERRAINTYPE terrain;
 	std::shared_ptr<Corpse> corpse;
 
+	bool trench;
+	std::map<int, Sprite*> trenchSprites;
+	
+
+
 public:
 
 	FieldTile() {};
@@ -52,6 +57,25 @@ public:
 
 	std::shared_ptr<Corpse> getCorpse() {
 		return this->corpse;
+	}
+
+	void setTrench(bool trench) {
+		this->trench = trench;
+	}
+
+
+	bool hasTrench(){
+		return this->trench;
+	}
+
+	std::map<int, Sprite*> getTrenchSprites()
+	{
+		return this->trenchSprites;
+	}
+
+	void addTrenchSprite(int rect, Sprite* sprite)
+	{
+		this->trenchSprites.insert(pair<int,Sprite*>(rect, sprite));
 	}
 
 	bool hasCopse();

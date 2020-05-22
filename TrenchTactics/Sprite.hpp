@@ -18,6 +18,7 @@ public:
 	void load(const string sFilename);
 	void render(int locX, int locY);
 	void render();
+	virtual void Sprite::render(int frameNumber);
 
 protected:
 
