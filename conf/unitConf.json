@@ -9,7 +9,7 @@
 		"hp": 80,
 		"id": 0,
 		"name": "Grenadier",
-		"range": 8,
+		"range": 12,
 		"spawnProbability": 30,
 		"spritesRed": {
 			"standingActive": "../Data/Sprites/R_Units/R_GRENADE_STANDING_ACTIVE.bmp",
@@ -25,7 +25,7 @@
 		}
 	},
 	{
-		"ap": 5,
+		"ap": 7,
 		"apCostAttack": 3,
 		"apCostMove": 1,
 		"apCostTrench": 4,
@@ -34,7 +34,7 @@
 		"hp": 100,
 		"id": 1,
 		"name": "Gunner",
-		"range": 4,
+		"range": 6,
 		"spawnProbability": 40,
 		"spritesRed": {
 			"standingActive": "../Data/Sprites/R_Units/R_GUNNER_STANDING_ACTIVE.bmp",
@@ -50,7 +50,7 @@
 		}
 	},
 	{
-		"ap": 6,
+		"ap": 9,
 		"apCostAttack": 3,
 		"apCostMove": 1,
 		"apCostTrench": 3,
@@ -59,7 +59,7 @@
 		"hp": 130,
 		"id": 2,
 		"name": "CloseCombat",
-		"range": 2,
+		"range": 3,
 		"spawnProbability": 30,
 		"spritesRed": {
 			"standingActive": "../Data/Sprites/R_Units/R_CC_STANDING_ACTIVE.bmp",

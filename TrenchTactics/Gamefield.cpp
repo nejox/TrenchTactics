@@ -672,9 +672,11 @@ void Gamefield::initiatePlayerTilesBlue()
 	std::shared_ptr<PlayerTile> tmpPlayerTilePointer = std::make_shared<PlayerTile>();
 	tmpPlayerTilePointer->setHeadquarter(hq);
 
+
 	// set pos where sprite shall be rendered
 	hq->getSprite()->setPos(0 * 64, 5 * 64);
 	hq->getSpriteHealthBar()->setPos(0 * 64, 5 * 64);
+
 
 	hq->getSprite()->render();
 	hq->getSpriteHealthBar()->render(hq->getHP(), hq->getCurrentHP());
@@ -692,6 +694,7 @@ void Gamefield::initiatePlayerTilesBlue()
 void Gamefield::initiatePlayerTilesRed()
 {
 	std::shared_ptr<Headquarter> hq = make_shared<Headquarter>(true);
+
 
 	// create PlayerTile as shared pointer 
 	std::shared_ptr<PlayerTile> tmpPlayerTilePointer = std::make_shared<PlayerTile>();

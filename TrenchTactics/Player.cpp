@@ -29,7 +29,7 @@ void Player::init(bool colorRed) {
  *
  */
 int Player::computeInterest() {
-	return (30 + 0.15 * this->money);
+	return (100 + 0.15 * this->money);
 }
 
 

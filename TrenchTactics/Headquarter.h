@@ -30,7 +30,8 @@ public:
 		m_damaged = false;
 
 		m_spriteHQ = make_shared<SpriteHQ>(m_colorRed);
-		m_spriteHealthBar = make_shared<SpriteHealthBar>(SpriteHealthBar::TYPE::HQ);
+
+		m_spriteHealthBar = make_shared<SpriteHealthBar>();
 
 	}
 

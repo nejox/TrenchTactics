@@ -433,20 +433,13 @@ bool EventGateway::checkRange(shared_ptr<Tile> targetTile) {
 	return targetTile->getMarked();
 }
 
+/**
+* computes the amount of tiles a unit has to pass to get from start to end, order of end and start does not matter
+* \param start from which tile 
+* \param end to which tile
+* \return integer value of the added differences of the X and Y positions of start and end
+*/
 int EventGateway::computeApCost(shared_ptr<Tile> start, shared_ptr<Tile> end)
 {
-	int costX;
-	int costY;
-
-	if (!this->activePlayer->getColor()) {
-	 costX = (end->getPosX() - start->getPosX()) / 64;
-	 costY = (end->getPosY() - start->getPosY()) / 64;
-	}
-	
-	else{
-	 costX = (start->getPosX() - end->getPosX()) / 64;
-	 costY = (start->getPosY() - end->getPosY()) / 64;
-	}
-
-	return costX + costY;
+	return abs((end->getPosX() - start->getPosX()) / 64) + abs((end->getPosY() - start->getPosY()) / 64);
 }
