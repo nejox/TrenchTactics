@@ -26,16 +26,21 @@ private:
 	std::shared_ptr<Corpse> corpse;
 
 	bool trench;
-	std::map<int, Sprite*> trenchSprites;
+	std::shared_ptr<std::map<int, Sprite*>> trenchSprites;
 	
 
 
 public:
 
-	FieldTile() {};
+	FieldTile() {
+		this->trenchSprites = make_shared<std::map<int, Sprite*>>();
+		this->trench = false;
+	};
 
 	FieldTile(TERRAINTYPE terrain) {
 		this->terrain = terrain;
+		this->trenchSprites = make_shared<std::map<int, Sprite*>>();
+		this->trench = false;
 	}
 
 	~FieldTile() {};
@@ -60,22 +65,28 @@ public:
 	}
 
 	void setTrench(bool trench) {
-		this->trench = trench;
+		if (this->getTerrain() != TERRAINTYPE::SPAWNTERRAIN) {
+
+			this->trench = trench;
+		}
 	}
 
 
 	bool hasTrench(){
+		if (this->getTerrain() == TERRAINTYPE::SPAWNTERRAIN) {
+			return false;
+		}
 		return this->trench;
 	}
 
-	std::map<int, Sprite*> getTrenchSprites()
+	std::shared_ptr<std::map<int, Sprite*>> getTrenchSprites()
 	{
 		return this->trenchSprites;
 	}
 
 	void addTrenchSprite(int rect, Sprite* sprite)
 	{
-		this->trenchSprites.insert(pair<int,Sprite*>(rect, sprite));
+		this->trenchSprites->insert(pair<int,Sprite*>(rect, sprite));
 	}
 
 	bool hasCopse();

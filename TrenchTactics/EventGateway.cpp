@@ -106,7 +106,14 @@ void EventGateway::handleTrench()
 {
 	//get the field tile of the digging unit
 	std::shared_ptr<FieldTile> trenchcenter = Gamefield::instance().findTileByUnit(this->activePlayer->getUnitQueue().front());
-	trenchcenter->setTrench(true);
+	
+
+	//erase sprites from trenchcenter
+	if (!(trenchcenter->getTrenchSprites()->empty())) {
+		trenchcenter->getTrenchSprites()->clear();
+	}
+
+	//rect to render
 	int rectcount = 0;
 
 	//iterate over the 8 surrounding tiles and refresh them
@@ -119,8 +126,8 @@ void EventGateway::handleTrench()
 			//get the tile 
 			std::shared_ptr<FieldTile> tmp = Gamefield::instance().getFieldTileFromXY((trenchcenter->getPosX() + x), (trenchcenter->getPosY() + y));
 			
-			//if tile does not already has a trench
-			if (!tmp->hasTrench())
+			//if tile does not already has a trench and is not a spawntile
+			if (!(tmp->hasTrench()) && (tmp->getTerrain() != FieldTile::TERRAINTYPE::SPAWNTERRAIN))
 			{
 				//temporary sprite to pass to the tile
 				Sprite* trenchsprite = new Sprite();
@@ -145,6 +152,9 @@ void EventGateway::handleTrench()
 			rectcount++;
 		}
 	}
+
+	trenchcenter->setTrench(true);
+
 }
 
 /**

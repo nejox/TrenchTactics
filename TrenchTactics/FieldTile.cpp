@@ -18,6 +18,7 @@ void FieldTile::removeUnit()
  *including corpse and trench
  */
 void FieldTile::refreshTile() {
+
 	if (this->getTerrain() == TERRAINTYPE::SPAWNTERRAIN) {
 		int x = (this->getPosX() / 64) % 2 * 64;
 		int y = (this->getPosY() / 64) % 2 * 64;
@@ -27,15 +28,18 @@ void FieldTile::refreshTile() {
 		this->getSprite()->render();
 
 		//if it has a trenchsprite
-		if (!this->trenchSprites.empty())
+		if (!(this->trenchSprites->empty()))
 		{
+
 			//iterate over map
-			map<int, Sprite*>::iterator itr;
-			for (itr = trenchSprites.begin(); itr != trenchSprites.end(); ++itr) {
+			std::map<int, Sprite*>::iterator itr = trenchSprites->begin();
+			while(itr != trenchSprites->end()) {
 				//itr second is the sprite, itr first is the framenumber to render
 				itr->second->render(itr->first);
+				itr++;
 			}
 		}
+
 
 		if (this->corpse != nullptr) {
 			this->corpse->render();
