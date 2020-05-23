@@ -27,7 +27,7 @@ public:
 	* \param currentHP the current HP of the specific object
 	*/
 
-	void SpriteHealthBar::render(int maxHP, int currentHP);
+	void render(int maxHP, int currentHP);
 
 
 
@@ -39,6 +39,6 @@ private:
 	/**Renders specific frame
 	* made private, only to be called by render(int maxHP, int currentHP)
 	*/
-	void SpriteHealthBar::render(int frame);
+	void render(int frame);
 
 };

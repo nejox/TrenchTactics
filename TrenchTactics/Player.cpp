@@ -82,6 +82,18 @@ void Player::markActiveUnit()
 	}
 }
 
+bool Player::checkPlayerCanBuyUnits()
+{
+	for (int i = 0; i < 3; i++) {
+		std::shared_ptr<UnitConf> unit = ConfigReader::instance().getUnitConf(i);
+		if (this->getMoney() >= unit->getCost()) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
 /**
  * demarks the active Unit = the first one in the queue
  *

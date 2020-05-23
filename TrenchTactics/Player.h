@@ -35,6 +35,8 @@ public:
 	void demarkActiveUnit();
 	void markActiveUnit();
 
+	bool checkPlayerCanBuyUnits();
+
 	/**
 	 * empties the unitQueue of the player.
 	 *
