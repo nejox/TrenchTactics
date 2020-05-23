@@ -30,10 +30,10 @@ void Player::init(bool colorRed) {
  * base income plus 15% of the current money of the player
  *
  */
-int Player::computeInterest() {
+int Player::computeIncome() {
 
 	//modifier which sums up all trenchpositions / 100 as a modifier
-	double trenchCount = 0.0;
+	float trenchCount = 0.0f;
 
 	//iterate over unitArray and for every unit check if it is in a trench
 	for (std::shared_ptr<Unit> unit : unitArray)
@@ -44,16 +44,16 @@ int Player::computeInterest() {
 		{
 			//check which player and add the position of the trench/100 to trenchcount
 			if (this->colorRed){
-				trenchCount += abs((21 -(tmp->getPosX() / 64)) / 100);
+				trenchCount += abs(21.0f - (tmp->getPosX() / 64.0f)) / 100.0f;
 			}
 
 			else{
-				trenchCount += ((tmp->getPosX() / 64) / 100);
+				trenchCount += ((tmp->getPosX() / 64.0f) / 100.0f);
 			}
 		}
 	}
 
-	return (100 + trenchCount * this->money);
+	return (100 + (int)(trenchCount * this->money));
 }
 
 
@@ -62,7 +62,7 @@ int Player::computeInterest() {
  *
  */
 void Player::updatePlayer() {
-	this->updateMoney(computeInterest());
+	this->updateMoney(computeIncome());
 	//this->supply = this->unitArray.size();
 }
 

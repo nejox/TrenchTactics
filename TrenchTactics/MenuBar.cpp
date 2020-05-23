@@ -32,7 +32,7 @@ void MenuBar::showPlayerStats(shared_ptr<Player> activePlayer)
 	money->load(std::to_string(activePlayer->getMoney()));
 	money->render();
 
-	income->load("+" + std::to_string(activePlayer->computeInterest()));
+	income->load("+" + std::to_string(activePlayer->computeIncome()));
 	income->render();
 
 	if (activePlayer->getUnitArray().empty())
