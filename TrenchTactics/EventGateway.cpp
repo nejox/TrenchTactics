@@ -117,13 +117,12 @@ void EventGateway::handleTrench()
 	int rectcount = 0;
 
 	//iterate over the 8 surrounding tiles and refresh them
-	for (int y = -1; y <= 1; y++)
+	for (int y = -64; y <= 64; y +=64)
 	{
-		for (int x = -1; x <= 1; x++)
+		for (int x = -64; x <= 64; x += 64)
 		{
 
-			
-			//get the tile 
+			 
 			std::shared_ptr<FieldTile> tmp = Gamefield::instance().getFieldTileFromXY((trenchcenter->getPosX() + x), (trenchcenter->getPosY() + y));
 			
 			//if tile does not already has a trench and is not a spawntile
@@ -146,7 +145,6 @@ void EventGateway::handleTrench()
 
 				//add new sprite to the map 
 				tmp->addTrenchSprite(rectcount, trenchsprite);
-				tmp->refreshTile();
 			}
 
 			rectcount++;

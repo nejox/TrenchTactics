@@ -35,8 +35,9 @@ void FieldTile::refreshTile() {
 			std::map<int, Sprite*>::iterator itr = trenchSprites->begin();
 			while(itr != trenchSprites->end()) {
 				//itr second is the sprite, itr first is the framenumber to render
-				itr->second->render(itr->first);
+				itr->second->render((itr->first * 64), 0);
 				itr++;
+			
 			}
 		}
 

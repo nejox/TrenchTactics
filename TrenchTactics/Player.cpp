@@ -2,6 +2,8 @@
 #include "Gamefield.h"
 
 
+
+
 Player::Player() {
 	this->supply = 0;
 	this->money = 0;
@@ -29,7 +31,29 @@ void Player::init(bool colorRed) {
  *
  */
 int Player::computeInterest() {
-	return (100 + 0.15 * this->money);
+
+	//modifier which sums up all trenchpositions / 100 as a modifier
+	double trenchCount = 0.0;
+
+	//iterate over unitArray and for every unit check if it is in a trench
+	for (std::shared_ptr<Unit> unit : unitArray)
+	{
+		shared_ptr<FieldTile> tmp = Gamefield::instance().findTileByUnit(unit);
+
+		if (tmp->hasTrench())
+		{
+			//check which player and add the position of the trench/100 to trenchcount
+			if (this->colorRed){
+				trenchCount += abs((21 -(tmp->getPosX() / 64)) / 100);
+			}
+
+			else{
+				trenchCount += ((tmp->getPosX() / 64) / 100);
+			}
+		}
+	}
+
+	return (100 + trenchCount * this->money);
 }
 
 

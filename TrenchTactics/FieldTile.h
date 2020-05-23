@@ -87,6 +87,7 @@ public:
 	void addTrenchSprite(int rect, Sprite* sprite)
 	{
 		this->trenchSprites->insert(pair<int,Sprite*>(rect, sprite));
+		refreshTile();
 	}
 
 	bool hasCopse();

@@ -11,7 +11,6 @@
 
 
 
-
 /**
  * Base unit class that holds all information concerning a unit like health, cost or all spritefilepaths.
  */
