@@ -1,12 +1,51 @@
 #include "MenuBar.h"
 
 
-void MenuBar::resetMenuBar()
+
+void MenuBar::init()
 {
 
-	//is this a workaround? is this just fantasy?
-	//tut erstmal was es soll, bisschen billige lösung, wird noch bisschen straffer gemacht aber reicht erstmal so
+	menuBar = make_shared<vector<vector<std::shared_ptr<MenuTile>>>>();
+	setSizeMenuBar();
+	initiateMenuTiles();
 
+	activePlayerFlag = make_shared<Sprite>();
+	activePlayerFlag->setPos(19 * 64 + 4, 12 * 64 + 37);
+
+	activePhaseToken = make_shared<Sprite>();
+	activePhaseToken->setPos((64 * 19 + 3), (13 * 64 + 44));
+
+	activePhaseText = make_shared<SpriteText>(22);
+	activePhaseText->setPos((64 * 20 + 4), (13 * 64 + 52));
+
+	phaseText = make_shared<SpriteText>(22);
+	phaseText->setPos((64 * 20 + 4), (14 * 64 + 6));
+	phaseText->load("PHASE");
+
+	money = make_shared<SpriteText>(22);
+	money->setPos((64 + 27), (12 * 64 + 9 + 32));
+
+	income = make_shared<SpriteText>(22);
+	income->setPos((64 + 27), (13 * 64 + 5));
+
+	unitCount = make_shared<SpriteText>(22);
+	unitCount->setPos((64 + 27), (13 * 64 + 48));
+
+	unitHP = make_shared<SpriteText>(25);
+	unitHP->setPos((64 * 9 + 40), (64 * 12 + 32));
+
+	unitAP = make_shared<SpriteText>(25);
+	unitAP->setPos((64 * 9 + 40), (64 * 13));
+
+	unitDMG = make_shared<SpriteText>(25);
+	unitDMG->setPos((64 * 9 + 40), (64 * 13 + 32));
+
+	unitRange = make_shared<SpriteText>(25);
+	unitRange->setPos((64 * 9 + 40), (64 * 14));
+}
+
+void MenuBar::resetMenuBarSidePanels()
+{
 	for (int x = 0; x < 3; x++)
 	{
 		for (int y = 0; y < 3; y++)
@@ -23,10 +62,8 @@ void MenuBar::resetMenuBar()
 		}
 	}
 }
-/**
-* Displays Players current money, income and number of units
-*/
-void MenuBar::showPlayerStats(shared_ptr<Player> activePlayer)
+
+void MenuBar::updatePlayerStats(shared_ptr<Player> activePlayer)
 {
 
 	money->load(std::to_string(activePlayer->getMoney()));
@@ -51,8 +88,6 @@ void MenuBar::showPlayerStats(shared_ptr<Player> activePlayer)
 }
 
 
-//is this a workaround? is this just fantasy?
-//tut erstmal was es soll, bisschen billige lösung, wird noch bisschen straffer gemacht aber reicht erstmal so
 void MenuBar::resetUnitStats()
 {
 	for (int x = 9; x < 13; x++)
@@ -66,12 +101,7 @@ void MenuBar::resetUnitStats()
 }
 
 
-/**
-* Displays units currentHp/MaxHp/
-* Displays units currentAp/MaxAp/
-* Displays units damage
-* Displays units range
-*/
+
 void MenuBar::showUnitStats(shared_ptr<Unit> unit)
 {
 	std::string hp = "HP: ";
@@ -96,14 +126,7 @@ void MenuBar::showUnitStats(shared_ptr<Unit> unit)
 
 
 
-/**
- * get a menu tile based on a pixel position x and y
- * returns nullptr when not valid
- *
- * \param posX
- * \param posY
- * \return
- */
+
 
 
 std::shared_ptr<MenuTile> MenuBar::getMenuTileFromXY(int posX, int posY) {
@@ -124,11 +147,7 @@ std::shared_ptr<MenuTile> MenuBar::getMenuTileFromXY(int posX, int posY) {
 }
 
 
-/**
- * display necessary buttons based on phase.
- *
- * \param current gamephase
- */
+
 void MenuBar::initButtons(GAMEPHASES::GAMEPHASE phase) {
 	if (phase == GAMEPHASES::BUY) {
 
@@ -191,15 +210,14 @@ void MenuBar::initButtons(GAMEPHASES::GAMEPHASE phase) {
 /**
  *
  */
-void MenuBar::deleteButtons() {
+void MenuBar::deleteAllButtons() {
 	for (int i = 4; i < 15; i = i++) {
-		this->getMenuBar().get()->at(i).at(2).get()->removeButtonDisplay(); // siehe unten
+		this->getMenuBar().get()->at(i).at(2).get()->removeButtonDisplay();
 		this->getMenuBar().get()->at(i).at(1).get()->removeButton();
 	}
 }
 
 
-//TO DO: den kram umbenennen, mittlerweile ist der auch einfach da um zeug zu überdecken
 void MenuBar::deleteAllButtonDisplays() { 
 	for (int i = 4; i < 15; i = i++) {
 		this->getMenuBar().get()->at(i).at(1).get()->removeButtonDisplay();
@@ -219,7 +237,7 @@ void MenuBar::refreshAllButtonDisplays()
 	}
 }
 
-void MenuBar::resetAllButtonDisplays()
+void MenuBar::resetAllButtonsToNeutral()
 {
 	deleteAllButtonDisplays();
 
@@ -233,7 +251,7 @@ void MenuBar::resetAllButtonDisplays()
 
 
 
-void MenuBar::displayTokens(shared_ptr<Player> activePlayer)
+void MenuBar::updateTokens(shared_ptr<Player> activePlayer)
 {
 	if (activePlayer->getColor())
 	{
@@ -269,10 +287,7 @@ void MenuBar::displayTokens(shared_ptr<Player> activePlayer)
 }
 
 
-/**
- * Function to set up the MenuTiles at gamestart.
- *
- */
+
 void MenuBar::initiateMenuTiles()
 {
 	for (vector<vector<std::shared_ptr<MenuTile>>>::iterator xIter = this->menuBar->begin(); xIter != this->menuBar->end(); ++xIter) {
@@ -297,10 +312,7 @@ void MenuBar::initiateMenuTiles()
 	}
 }
 
-/**
- * Sets the size of the menubar at the gamestart.
- *
- */
+
 void MenuBar::setSizeMenuBar()
 {
 	this->menuBar->resize(22);

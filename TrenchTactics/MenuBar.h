@@ -30,78 +30,47 @@ public:
 	* initializes money, income, unitCount, activePhaseToken activePhaseText, activePlayer and sets positions
 	* initializes unit stats HP, AP, DMG
 	*/
-	void init()
-	{
+	void init();
 
-		menuBar = make_shared<vector<vector<std::shared_ptr<MenuTile>>>>();
-		setSizeMenuBar();
-		initiateMenuTiles();
-
-		activePlayerFlag = make_shared<Sprite>();
-		activePlayerFlag->setPos(19 * 64 + 4, 12 * 64 + 37);
-
-		activePhaseToken = make_shared<Sprite>();
-		activePhaseToken->setPos((64 * 19 + 3), (13 * 64 + 44));
-
-		activePhaseText = make_shared<SpriteText>(22);
-		activePhaseText->setPos((64 * 20 + 4), (13 * 64 + 52));
-
-		phaseText = make_shared<SpriteText>(22);
-		phaseText->setPos((64 * 20 + 4), (14 * 64 + 6));
-		phaseText->load("PHASE");
-
-		money = make_shared<SpriteText>(22);
-		money->setPos((64 + 27), (12 * 64 + 9 + 32));
-
-		income = make_shared<SpriteText>(22);
-		income->setPos((64 + 27), (13 * 64 + 5));
-
-		unitCount = make_shared<SpriteText>(22);
-		unitCount->setPos((64 + 27), (13 * 64 + 48));
-
-		unitHP = make_shared<SpriteText>(25);
-		unitHP->setPos((64 * 9 + 40), (64 * 12 + 32));
-
-		unitAP = make_shared<SpriteText>(25);
-		unitAP->setPos((64 * 9 + 40), (64 * 13));
-
-		unitDMG = make_shared<SpriteText>(25);
-		unitDMG->setPos((64 * 9 + 40), (64 * 13 + 32));
-		
-		unitRange = make_shared<SpriteText>(25);
-		unitRange->setPos((64 * 9 + 40), (64 * 14));
-	}
-
+	/**
+	* Updaes the MenuBar with new Buttons
+	* \param phase current phase
+	* \param activePlayer currently activePlayer
+	*/
 	void updateMenuBar(GAMEPHASES::GAMEPHASE phase, shared_ptr<Player> activePlayer)
 	{
-		this->resetMenuBar();
+		this->resetMenuBarSidePanels();
 		this->reInitButtons(phase); // hier muss nochmal dran gearbeitet werden
 		this->updateTokens(activePlayer);
 		this->updatePlayerStats(activePlayer);
 	}
 
+	/**
+	* Refreshes the MenuBar with current Buttons
+	* \param phase current phase
+	* \param activePlayer currently activePlayer
+	*/
 	void refreshMenuBar(shared_ptr<Player> activePlayer)
 	{
-		this->resetMenuBar();
+		this->resetMenuBarSidePanels();
 		this->refreshAllButtonDisplays(); 
 		this->updateTokens(activePlayer);
 		this->updatePlayerStats(activePlayer);
 	}
+	
+	/**
+	* Renders background over the sidePanels of the menubar
+	*/
+	void resetMenuBarSidePanels();
 
-	void resetMenuBar();
 
 	/**
 	*renders the active players stats
-	*Overloaded funtion
 	*/
-	void updatePlayerStats(shared_ptr<Player> activePlayer)
-	{
-		showPlayerStats(activePlayer);
-	}
-	void showPlayerStats(shared_ptr<Player> activePlayer);
+	void updatePlayerStats(shared_ptr<Player> activePlayer);
 
-	/**
-	*renders the active players stats and the currently active Units HP
+	/** 
+	*renders the currently active Units stats
 	*Overloaded funtion
 	*/
 	void updateUnitStats(shared_ptr<Unit> unit)
@@ -110,31 +79,81 @@ public:
 		showUnitStats(unit);
 	}
 
+	/** 
+	* renders over the middle of the menubar, where unitstats are shown
+	*/
 	void resetUnitStats();
+
+	/**
+	* Displays units currentHp/MaxHp/
+	* Displays units currentAp/MaxAp/
+	* Displays units damage
+	* Displays units range
+	*/
 	void showUnitStats(shared_ptr<Unit>unit);
 
+	/**
+	* Sets the size of the menubar at the gamestart.
+	*
+	*/
 	void setSizeMenuBar();
+
+	/**
+	* Function to set up the MenuTiles at gamestart.
+	*
+	*/
 	void initiateMenuTiles();
+
+	/**
+	* get a menu tile based on a pixel position x and y
+	* returns nullptr when not valid
+	*
+	* \param posX
+	* \param posY
+	* \return
+	*/
 	std::shared_ptr<MenuTile> getMenuTileFromXY(int posX, int posY);
 
-	void displayTokens(shared_ptr<Player> activePlayer);
+	/**
+	*  Updates the tokens on the Menubar: CurrentPhase, ActivePlayerFlag 
+	* 
+	*/
+	void updateTokens(shared_ptr<Player> activePlayer);
 
-	void updateTokens(shared_ptr<Player> activePlayer)
-	{
-		this->displayTokens(activePlayer);
-	}
-
+	/**
+	* display necessary buttons based on phase.
+	*
+	* \param current gamephase
+	*/
 	void initButtons(GAMEPHASES::GAMEPHASE phase);
-	void deleteButtons();
 
+	/**
+	* deletes all Buttons
+	*/
+	void deleteAllButtons();
+
+	/**
+	* renders background over all current buttons being displayed
+	*/
 	void deleteAllButtonDisplays();
-	void resetAllButtonDisplays();
 
+	/**
+	* Sets all buttons in menubar to be unpressed
+	*/
+	void resetAllButtonsToNeutral();
+
+	/**
+	* rerenders All Buttons
+	*/
 	void refreshAllButtonDisplays();
 
+	/**
+	* Sets up all buttons for the gamephase
+	* \ param current gamephase
+	*/
 	void reInitButtons(GAMEPHASES::GAMEPHASE phase)
 	{
-		this->deleteButtons();
+		this->deleteAllButtons();
 		this->initButtons(phase);
 	}
 
