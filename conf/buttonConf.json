@@ -1,0 +1,15 @@
+{
+	"grenadeTokenSprite": "../Data/Sprites/Token/GRENADE_TOKEN.bmp",
+	"gunnerTokenSprite": "../Data/Sprites/Token/GUNNER_TOKEN.bmp",
+	"ccTokenSprite": "../Data/Sprites/Token/CC_TOKEN.bmp",
+	"previousUnitTokenSprite": "../Data/Sprites/Token/PREVIOUSUNIT_TOKEN.bmp",
+	"nextUnitTokenSprite": "../Data/Sprites/Token/NEXTUNIT_TOKEN.bmp",
+	"digTokenSprite": "../Data/Sprites/Token/DIG_TOKEN.bmp",
+	"confirmTokenSprite": "../Data/Sprites/Token/CONFIRM_TOKEN.bmp",
+	"cancelTokenSprite": "../Data/Sprites/Token/CANCEL_TOKEN.bmp",
+	"rerollTokenSprite": "../Data/Sprites/Token/REROLL_TOKEN.bmp",
+	"addTokenSprite": "../Data/Sprites/Token/ADD_TOKEN.bmp",
+	"endTurnTokenSprite": "../Data/Sprites/Token/ENDTURN_TOKEN.bmp",
+	"nextPhaseTokenSprite": "../Data/Sprites/Token/NEXTPHASE_TOKEN.bmp",
+	"blankTokenSprite": "../Data/Sprites/Token/BLANK_TOKEN.bmp"
+}

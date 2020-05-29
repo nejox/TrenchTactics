@@ -58,13 +58,17 @@ public:
 	void setPos(int x, int y)
 	{
 		this->sprite->setPos(x, y);
-		if(this->cost != 0){
+		if (this->cost != 0) {
 			this->costText->setPos(x + 18, y + 58);
 		}
-		
+
 	}
 
-
+	/**
+	 * Load a Button Sprite specified by the supplied type
+	 *
+	 * \param type int value for button type
+	 */
 	void loadSpriteFromType(int type)
 	{
 		if ((int)type == 0) {
@@ -139,9 +143,9 @@ public:
 	~Button() {};
 
 	/**
- * update the buttonsprite in its current state
- *
- */
+	 * update the buttonsprite in its current state
+	 *
+	 */
 	void update() {
 		if (sprite != nullptr) {
 			sprite->render(pressed);

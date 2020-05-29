@@ -1,0 +1,8 @@
+{
+	"menuBarBaseSprite": "../Data/Sprites/Token/MENUE_BAR.bmp",
+	"redPlayerActiveFlagSprite": "../Data/Sprites/Token/R_FLAG_SMOL.bmp",
+	"bluePlayerActiveFlagSprite": "../Data/Sprites/Token/B_FLAG_SMOL.bmp",
+	"buyPhaseTokenSprite": "../Data/Sprites/Token/BUYPHASE_TOKEN.bmp",
+	"movePhaseTokenSprite": "../Data/Sprites/Token/MOVEPHASE_TOKEN.bmp",
+	"attackPhaseTokenSprite": "../Data/Sprites/Token/ATTACKPHASE_TOKEN.bmp"
+}

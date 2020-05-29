@@ -35,6 +35,8 @@ void ConfigReader::initConfigurations()
 	this->techConf = createTechConf();
 	this->mapConf = createMapConf();
 	this->tileConf = createTileConf();
+	this->buttonConf = createButtonConf();
+	this->menuBarConf = createMenuBarConf();
 }
 
 /**
@@ -182,4 +184,47 @@ std::map<int, std::shared_ptr<UnitConf>> ConfigReader::createUnitConfMap()
 	}
 	this->unitConfMap = unitConfMap;
 	return unitConfMap;
+}
+
+/**
+ * Wrapper function to create Button Config
+ *
+ * \return Button configuration
+ */
+std::shared_ptr<ButtonConf> ConfigReader::createButtonConf()
+{
+	Json::Value root = getJsonRootFromFile("../conf/buttonConf.json");
+	std::shared_ptr<ButtonConf> buttonConf = std::make_shared<ButtonConf>();
+	buttonConf->setBlankTokenSprite(root["blankTokenSprite"].asString());
+	buttonConf->setNextPhaseTokenSprite(root["nextPhaseTokenSprite"].asString());
+	buttonConf->setEndTurnTokenSprite(root["endTurnTokenSprite"].asString());
+	buttonConf->setAddTokenSprite(root["addTokenSprite"].asString());
+	buttonConf->setRerollTokenSprite(root["rerollTokenSprite"].asString());
+	buttonConf->setCancelTokenSprite(root["cancelTokenSprite"].asString());
+	buttonConf->setConfirmTokenSprite(root["confirmTokenSprite"].asString());
+	buttonConf->setDigTokenSprite(root["digTokenSprite"].asString());
+	buttonConf->setNextUnitTokenSprite(root["nextUnitTokenSprite"].asString());
+	buttonConf->setPreviousUnitTokenSprite(root["previousUnitTokenSprite"].asString());
+	buttonConf->setCCTokenSprite(root["ccTokenSprite"].asString());
+	buttonConf->setGunnerTokenSprite(root["gunnerTokenSprite"].asString());
+	buttonConf->setGrenadeTokenSprite(root["grenadeTokenSprite"].asString());
+	return buttonConf;
+}
+
+/**
+ * Wrapper function to create MenuBar Config
+ *
+ * \return MenuBar configuration
+ */
+std::shared_ptr<MenuBarConf> ConfigReader::createMenuBarConf()
+{
+	Json::Value root = getJsonRootFromFile("../conf/menuBarConf.json");
+	std::shared_ptr<MenuBarConf> menuBarConf = std::make_shared<MenuBarConf>();
+	menuBarConf->setMenuBarBaseSprite(root["menuBarBaseSprite"].asString());
+	menuBarConf->setRedPlayerActiveFlagSprite(root["redPlayerActiveFlagSprite"].asString());
+	menuBarConf->setBluePlayerActiveFlagSprite(root["bluePlayerActiveFlagSprite"].asString());
+	menuBarConf->setBuyPhaseTokenSprite(root["buyPhaseTokenSprite"].asString());
+	menuBarConf->setAttackPhaseTokenSprite(root["attackPhaseTokenSprite"].asString());
+	menuBarConf->setMovePhaseTokenSprite(root["movePhaseTokenSprite"].asString());
+	return menuBarConf;
 }
