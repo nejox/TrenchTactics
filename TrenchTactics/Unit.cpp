@@ -37,6 +37,7 @@ void Unit::attack(std::shared_ptr<Headquarter> target)
  */
 void Unit::changeHP(int damage)
 {
+    
 	m_currentHP -= damage;
 
 	if (m_currentHP <= 0)

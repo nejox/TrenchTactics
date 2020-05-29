@@ -15,6 +15,7 @@ public:
 
 		PREVIOUSUNIT = 10,
 		NEXTUNIT = 11,
+		DIG = 12,
 
 		CONFIRM = 20,
 		CANCEL = 21,
@@ -80,6 +81,9 @@ public:
 		}
 		else if ((int)type == 11) {
 			this->sprite->load("../Data/Sprites/Token/NEXTUNIT_TOKEN.bmp");
+		}
+		else if ((int)type == 12) {
+			this->sprite->load("../Data/Sprites/Token/DIG_TOKEN.bmp");
 		}
 		else if ((int)type == 20) {
 			this->sprite->load("../Data/Sprites/Token/CONFIRM_TOKEN.bmp");

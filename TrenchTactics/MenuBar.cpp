@@ -32,7 +32,7 @@ void MenuBar::showPlayerStats(shared_ptr<Player> activePlayer)
 	money->load(std::to_string(activePlayer->getMoney()));
 	money->render();
 
-	income->load("+" + std::to_string(activePlayer->computeInterest()));
+	income->load("+" + std::to_string(activePlayer->computeIncome()));
 	income->render();
 
 	if (activePlayer->getUnitArray().empty())
@@ -175,9 +175,11 @@ void MenuBar::initButtons(GAMEPHASES::GAMEPHASE phase) {
 		//display buttons for next and previous unit
 		std::shared_ptr<Button> previousUnitButton = std::make_shared<Button>(Button::PREVIOUSUNIT);
 		std::shared_ptr<Button> nextUnitButton = std::make_shared<Button>(Button::NEXTUNIT);
+		std::shared_ptr<Button> digButton = std::make_shared<Button>(Button::DIG);
 	
 		this->getMenuBar().get()->at(4).at(1).get()->setButton(previousUnitButton);
-		this->getMenuBar().get()->at(5).at(1).get()->setButton(nextUnitButton);
+		this->getMenuBar().get()->at(5).at(1).get()->setButton(digButton);
+		this->getMenuBar().get()->at(6).at(1).get()->setButton(nextUnitButton);
 	}
 
 	//always display end phase and end turn buttons

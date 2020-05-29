@@ -102,6 +102,59 @@ void EventGateway::handleNextPhase() {
 	}
 }
 
+void EventGateway::handleTrench()
+{
+	//get the field tile of the digging unit
+	std::shared_ptr<FieldTile> trenchcenter = Gamefield::instance().findTileByUnit(this->activePlayer->getUnitQueue().front());
+	
+
+	//erase sprites from trenchcenter
+	if (!(trenchcenter->getTrenchSprites()->empty())) {
+		trenchcenter->getTrenchSprites()->clear();
+	}
+
+	//rect to render
+	int rectcount = 0;
+
+	//iterate over the 8 surrounding tiles and refresh them
+	for (int y = -64; y <= 64; y +=64)
+	{
+		for (int x = -64; x <= 64; x += 64)
+		{
+
+			 
+			std::shared_ptr<FieldTile> tmp = Gamefield::instance().getFieldTileFromXY((trenchcenter->getPosX() + x), (trenchcenter->getPosY() + y));
+			
+			//if tile does not already has a trench and is not a spawntile
+			if (!(tmp->hasTrench()) && (tmp->getTerrain() != FieldTile::TERRAINTYPE::SPAWNTERRAIN))
+			{
+				//temporary sprite to pass to the tile
+				Sprite* trenchsprite = new Sprite();
+				trenchsprite->setPos(tmp->getPosX(), tmp->getPosY());
+
+				//check which terrain to load
+				if (trenchcenter->getTerrain() == FieldTile::TERRAINTYPE::CLAY) {
+					trenchsprite->load("../Data/Sprites/Terrain/CLAY_TRENCH.bmp");
+				}
+				else if (trenchcenter->getTerrain() == FieldTile::TERRAINTYPE::STONE) {
+					trenchsprite->load("../Data/Sprites/Terrain/STONE_TRENCH.bmp"); // TO DO: load from config
+				}
+				else {
+					trenchsprite->load("../Data/Sprites/Terrain/MUD_TRENCH.bmp");
+				}
+
+				//add new sprite to the map 
+				tmp->addTrenchSprite(rectcount, trenchsprite);
+			}
+
+			rectcount++;
+		}
+	}
+
+	trenchcenter->setTrench(true);
+
+}
+
 /**
  * handle attackevent
  * gets the target unit and the attackin unit
@@ -132,6 +185,10 @@ void EventGateway::handleAttackEvent(MouseClickEvent* event) {
 		//next unit
 		else if (type == 11) {
 			handleNextUnit();
+		}
+		//handle dig button
+		else if (type == 12) {
+			handleTrench();
 		}
 		return;
 	}
@@ -199,8 +256,14 @@ void EventGateway::handleMoveEvent(MouseClickEvent* event) {
 		else if (type == 11) {
 			handleNextUnit();
 		}
+		//handle dig button
+		else if (type == 12) {
+			handleTrench();
+		}
 		return;
 	}
+
+
 	if (checkEventInField(event)) {
 		// get unit that will be moved from the front of the queue
 		std::shared_ptr<Unit> unitToBeMoved = this->activePlayer->getUnitQueue().front();

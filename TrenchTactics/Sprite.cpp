@@ -112,7 +112,7 @@ void Sprite::render(int locX, int locY) {
 void Sprite::render(int frameNumber)
 {
 	// Ausschnitt der aktuellen Animationsphase berechnen
-	m_FrameRect.x = (frameNumber * m_FrameWidth);
+	m_FrameRect.x = (frameNumber * 64);
 	m_FrameRect.y = 0;
 
 	// Ausschnitt rendern
@@ -120,3 +120,4 @@ void Sprite::render(int frameNumber)
 
 }
 */
+
