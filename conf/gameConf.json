@@ -4,7 +4,8 @@
 		"trenchIncomeFactor": 2,
 		"maxAmountUnits": 20,
 		"startingGold": 300,
-		"rerollCost": 10
+		"rerollCost": 10,
+		"additionalUnitRollCost" : 5
 	},
 	"map": {
 		"seed": 1234561,

@@ -31,11 +31,6 @@ public:
 		this->pressed = pressed;
 	}
 
-	void push()
-	{
-		this->pressed = (!(this->pressed));
-	}
-
 	bool getState()
 	{
 		return this->pressed;
@@ -45,91 +40,15 @@ public:
 		this->sprite = sprite;
 	}
 
-	void setType(BUTTONTYPE type) {
-		this->type = type;
-		this->loadSpriteFromType(type);
-		this->loadCostFromType(type);
-	}
-
 	BUTTONTYPE getType() {
 		return this->type;
 	}
 
-	void setPos(int x, int y)
-	{
-		this->sprite->setPos(x, y);
-		if (this->cost != 0) {
-			this->costText->setPos(x + 18, y + 58);
-		}
-
-	}
-
-	/**
-	 * Load a Button Sprite specified by the supplied type
-	 *
-	 * \param type int value for button type
-	 */
-	void loadSpriteFromType(int type)
-	{
-		if ((int)type == 0) {
-			this->sprite->load("../Data/Sprites/Token/GRENADE_TOKEN.bmp");
-		}
-		else if ((int)type == 1) {
-			this->sprite->load("../Data/Sprites/Token/GUNNER_TOKEN.bmp");
-		}
-		else if ((int)type == 2) {
-			this->sprite->load("../Data/Sprites/Token/CC_TOKEN.bmp");
-		}
-		else if ((int)type == 10) {
-			this->sprite->load("../Data/Sprites/Token/PREVIOUSUNIT_TOKEN.bmp");
-		}
-		else if ((int)type == 11) {
-			this->sprite->load("../Data/Sprites/Token/NEXTUNIT_TOKEN.bmp");
-		}
-		else if ((int)type == 12) {
-			this->sprite->load("../Data/Sprites/Token/DIG_TOKEN.bmp");
-		}
-		else if ((int)type == 20) {
-			this->sprite->load("../Data/Sprites/Token/CONFIRM_TOKEN.bmp");
-		}
-		else if ((int)type == 21) {
-			this->sprite->load("../Data/Sprites/Token/CANCEL_TOKEN.bmp");
-		}
-		else if ((int)type == 22) {
-			this->sprite->load("../Data/Sprites/Token/REROLL_TOKEN.bmp");
-		}
-		else if ((int)type == 23) {
-			this->sprite->load("../Data/Sprites/Token/ADD_TOKEN.bmp");
-		}
-		else if ((int)type == 30) {
-			this->sprite->load("../Data/Sprites/Token/ENDTURN_TOKEN.bmp");
-		}
-		else if ((int)type == 31) {
-			this->sprite->load("../Data/Sprites/Token/NEXTPHASE_TOKEN.bmp");
-		}
-		else {
-			this->sprite->load("../Data/Sprites/Token/BLANK_TOKEN.bmp");
-		}
-	}
-
-	void loadCostFromType(int type)
-	{
-		if ((int)type >= 0 && (int)type < 3) {
-			this->cost = ConfigReader::instance().getUnitConf(type)->getCost();
-			this->costText->load(std::to_string(cost));
-		}
-		else if ((int)type == 22) {
-			this->cost = 10;
-			this->costText->load(std::to_string(cost));
-		}
-		else if ((int)type == 23) {
-			this->cost = 5;
-			this->costText->load(" " + std::to_string(cost));
-		}
-		else {
-			this->cost = 0; //TO DO: um später möglichkeit zu haben kosten unter confirm button zu zeigen
-		}
-	}
+	void setType(BUTTONTYPE type);
+	void setPos(int x, int y);
+	void push();
+	void loadSpriteFromType(int type);
+	void loadCostFromType(int type);
 
 	Button(BUTTONTYPE type) {
 		this->type = type;

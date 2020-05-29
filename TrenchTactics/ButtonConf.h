@@ -73,7 +73,7 @@ public:
 	std::string getRerollTokenSprite() {
 		return this->rerollTokenSprite;
 	}
-	void setRerollTokenSprite(std::string rerrollTokenSprite) {
+	void setRerollTokenSprite(std::string rerollTokenSprite) {
 		this->rerollTokenSprite = rerollTokenSprite;
 	}
 	std::string getAddTokenSprite() {

@@ -144,6 +144,7 @@ std::shared_ptr<BalanceConf> ConfigReader::createBalanceConf()
 	balanceConf->setRerollCost(root["rerollCost"].asInt());
 	balanceConf->setStartingGold(root["startingGold"].asInt());
 	balanceConf->setTrenchIncomeFactoR(root["trenchIncomeFactor"].asInt());
+	balanceConf->setAdditionalUnitRollCost(root["additionalUnitRollCost"].asInt());
 	return balanceConf;
 }
 
