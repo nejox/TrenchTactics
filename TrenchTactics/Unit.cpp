@@ -10,7 +10,11 @@
 void Unit::attack(std::shared_ptr<Unit> target)
 {
 	this->m_state = STATES::UNITSTATE::SHOOTING;
-	target->changeHP(m_dmg);
+
+    if (target->changeHP(m_dmg))
+    {
+        this->levelUp();
+    }
 
 	updateAP(m_apCostAttack);
 
@@ -25,17 +29,17 @@ void Unit::attack(std::shared_ptr<Unit> target)
 void Unit::attack(std::shared_ptr<Headquarter> target)
 {
 	this->m_state = STATES::UNITSTATE::SHOOTING;
-	target->changeHP(m_dmg);
+    target->changeHP(m_dmg);
 	updateAP(m_apCostAttack);
 }
 
 /**
  * change the hp of the current unit
  * raises deathevent if unit is at or below zero health after health change
- *
+ * returns booleans if unit died
  * \param damage the amount of dmg dealt
  */
-void Unit::changeHP(int damage)
+bool Unit::changeHP(int damage)
 {
     
 	m_currentHP -= damage;
@@ -43,7 +47,12 @@ void Unit::changeHP(int damage)
 	if (m_currentHP <= 0)
 	{
 		EventBus::instance().publish(new DeathEvent(this->getptr()));
+        return true;
 	}
+    else
+    {
+        return false;
+    }
 }
 
 /**
@@ -93,6 +102,16 @@ void Unit::update(STATES::UNITSTATE state)
 void Unit::updateAP(int cost)
 {
 	m_currentAP -= cost;
+}
+
+void Unit::levelUp()
+{
+    this->m_level++;
+    //adds 10% to each value for every level
+    this->m_hp = m_hp * (1.0f + (((float)m_level - 1) / 10.0f));
+    this->m_currentHP = m_currentHP * (1.0f + (((float)m_level - 1) / 10.0f));
+    this->m_dmg = m_dmg * (1.0f + (((float)m_level - 1) / 10.0f));
+    this->m_range = m_range * (1.0f + (((float)m_level - 1) / 10.0f));
 }
 
 /**
