@@ -91,7 +91,7 @@ STATES::UNITSTATE Unit::getState()
 void Unit::update(STATES::UNITSTATE state)
 {
 	m_state = m_sprite->render(state);
-	m_spriteHealthBar->render(this->getHp(), this->getCurrentHP());
+	m_spriteHealthBar->render(this->getHp(), this->getCurrentHP(),this->getLevel());
 }
 
 /**
@@ -107,6 +107,11 @@ void Unit::updateAP(int cost)
 void Unit::levelUp()
 {
     this->m_level++;
+    if (this->m_level > 3)
+    {
+        this->m_level = 3;
+    }
+
     //adds 10% to each value for every level
     this->m_hp = m_hp * (1.0f + (((float)m_level - 1) / 10.0f));
     this->m_currentHP = m_currentHP * (1.0f + (((float)m_level - 1) / 10.0f));
