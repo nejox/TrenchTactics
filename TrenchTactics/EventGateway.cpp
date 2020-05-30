@@ -102,6 +102,11 @@ void EventGateway::handleNextPhase() {
 	}
 }
 
+/**
+*Handles the Trench build event
+*changes the tile of the current unit to having a trench, if so removes all other trenchsprites from this tile 
+*every tile around which has no trench gets its trenchsprite
+*/
 void EventGateway::handleTrench()
 {
 	//get the field tile of the digging unit
