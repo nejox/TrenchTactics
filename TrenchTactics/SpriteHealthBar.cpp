@@ -53,7 +53,6 @@ SpriteHealthBar::SpriteHealthBar(bool ColorRed)
 
 void SpriteHealthBar::render(int maxHP, int currentHP) {
 
-
 	m_FrameRect.x = (10 - ((10 * currentHP) / maxHP)) * m_frameWidth;
 	m_FrameRect.y = 0;
 
@@ -63,9 +62,9 @@ void SpriteHealthBar::render(int maxHP, int currentHP) {
 
 void SpriteHealthBar::render(int maxHP, int currentHP, int level) {
 
-
 	m_FrameRect.x = (10 - ((10 * currentHP) / maxHP)) * m_frameWidth;
 	m_FrameRect.y = (level - 1) * m_frameHeight; // needs rework
+	
 
 	SDL_RenderCopy(m_pRenderer, m_pImage, &m_FrameRect, &m_Rect);
 

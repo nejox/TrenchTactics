@@ -421,7 +421,7 @@ void Gamefield::deselectAndUnmarkAllTiles()
 			yIter->get()->setMarked(false);
 			yIter->get()->refreshTile();
 			if (yIter->get()->getUnit().get())
-				yIter->get()->getUnit()->getSprite()->render();
+				yIter->get()->getUnit()->update();
 		}
 	}
 	//deselects and unmarks the blue player's spawn

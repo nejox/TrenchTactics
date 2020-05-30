@@ -70,7 +70,18 @@ void Unit::resetAP()
  */
 void Unit::update() {
 	m_state = m_sprite->render(m_state);
-	m_spriteHealthBar->render(this->getHp(), this->getCurrentHP());
+	m_spriteHealthBar->render(this->getHp(), this->getCurrentHP(),this->getLevel());
+}
+
+/**
+ * update the state of the unit, takes current hp into account
+ *
+ * \param state
+ */
+void Unit::update(STATES::UNITSTATE state)
+{
+    m_state = m_sprite->render(state);
+    m_spriteHealthBar->render(this->getHp(), this->getCurrentHP(), this->getLevel());
 }
 
 void Unit::setState(STATES::UNITSTATE state)
@@ -81,17 +92,6 @@ void Unit::setState(STATES::UNITSTATE state)
 STATES::UNITSTATE Unit::getState()
 {
 	return this->m_state;
-}
-
-/**
- * update the state of the unit, takes current hp into account
- *
- * \param state
- */
-void Unit::update(STATES::UNITSTATE state)
-{
-	m_state = m_sprite->render(state);
-	m_spriteHealthBar->render(this->getHp(), this->getCurrentHP(),this->getLevel());
 }
 
 /**
