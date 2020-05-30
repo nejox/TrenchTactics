@@ -9,13 +9,13 @@ class SpriteHealthBar :
 {
 public:
 
-	
+
 	/**Initializes HealthBar for HQ
 	* Overloaded Constructor
 	*/
 	SpriteHealthBar();
 
-	/**Initializes HealthBar for Unit 
+	/**Initializes HealthBar for Unit
 	* Overloaded Constructor
 	* \param ColorRed if Unit is part of team RED
 	*/
@@ -33,6 +33,9 @@ public:
 
 
 private:
+	const std::string rHealthbarSprite = "../Data/Sprites/Token/R_HEALTHBAR_UNIT.bmp";
+	const std::string bHealthbarSprite = "../Data/Sprites/Token/B_HEALTHBAR_UNIT.bmp";
+	const std::string hqHealthbarSprite = "../Data/Sprites/Token/HEALTHBAR_HQ.bmp";
 	int m_frameWidth;
 	int m_frameHeight;
 

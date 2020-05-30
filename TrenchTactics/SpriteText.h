@@ -2,6 +2,7 @@
 #include "RendererImpl.h"
 #include "Framework.hpp"
 #include "Logger.hpp"
+#include "ConfigReader.h"
 #include <string>
 
 

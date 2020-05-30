@@ -37,6 +37,17 @@ void Button::push() {
 }
 
 /**
+ * Update the Button and render its current state
+ *
+ */
+void Button::update() {
+	if (sprite != nullptr) {
+		sprite->render(pressed);
+		costText->render();
+	}
+}
+
+/**
  * Load a Button Sprite specified by the supplied type
  *
  * \param type int value for button type

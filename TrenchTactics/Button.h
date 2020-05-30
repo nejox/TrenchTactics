@@ -2,8 +2,9 @@
 #include "SpriteButton.h"
 #include "SpriteText.h"
 #include "ConfigReader.h"
-class Button {
 
+
+class Button {
 
 public:
 
@@ -25,6 +26,18 @@ public:
 		ENDTURN = 30,
 		NEXTPHASE = 31
 	};
+
+	Button(BUTTONTYPE type) {
+		this->type = type;
+		this->pressed = false;
+		this->sprite = new SpriteButton();
+		this->costText = make_shared<SpriteText>(20);
+		this->loadSpriteFromType(type);
+		this->loadCostFromType(type);
+
+	}
+	~Button() {};
+
 
 	void setPressed(bool pressed)
 	{
@@ -50,28 +63,7 @@ public:
 	void loadSpriteFromType(int type);
 	void loadCostFromType(int type);
 
-	Button(BUTTONTYPE type) {
-		this->type = type;
-		this->pressed = false;
-		this->sprite = new SpriteButton();
-		this->costText = make_shared<SpriteText>(20);
-		this->loadSpriteFromType(type);
-		this->loadCostFromType(type);
-
-	}
-	~Button() {};
-
-	/**
-	 * update the buttonsprite in its current state
-	 *
-	 */
-	void update() {
-		if (sprite != nullptr) {
-			sprite->render(pressed);
-			costText->render();
-		}
-	}
-
+	void update();
 
 private:
 	SpriteButton* sprite;

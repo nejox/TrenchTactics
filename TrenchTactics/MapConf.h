@@ -8,6 +8,7 @@ private:
 	int seed;
 	int sizeX;
 	int sizeY;
+	std::string corpseSprite;
 
 public:
 	void setSeed(int seed) {
@@ -27,5 +28,11 @@ public:
 	}
 	int getSizeY() {
 		return this->sizeY;
+	}
+	void setCorpseSprite(std::string corpseSprite) {
+		this->corpseSprite = corpseSprite;
+	}
+	std::string getCorpseSprite() {
+		return this->corpseSprite;
 	}
 };

@@ -3,7 +3,7 @@
 SpriteHealthBar::SpriteHealthBar()
 {
 
-	this->load("../Data/Sprites/Token/HEALTHBAR_HQ.bmp");
+	this->load(hqHealthbarSprite);
 	m_frameWidth = 128;
 	m_frameHeight = 128;
 
@@ -24,14 +24,14 @@ SpriteHealthBar::SpriteHealthBar(bool ColorRed)
 {
 	if (ColorRed)
 	{
-		this->load("../Data/Sprites/Token/R_HEALTHBAR_UNIT.bmp");
+		this->load(rHealthbarSprite);
 		m_frameWidth = 64;
 		m_frameHeight = 64;
 	}
 
 	else
 	{
-		this->load("../Data/Sprites/Token/B_HEALTHBAR_UNIT.bmp");
+		this->load(bHealthbarSprite);
 		m_frameWidth = 64;
 		m_frameHeight = 64;
 	}

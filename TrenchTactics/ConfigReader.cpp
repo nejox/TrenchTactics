@@ -73,6 +73,7 @@ std::shared_ptr<MapConf> ConfigReader::createMapConf()
 	mapConf->setSeed(root["seed"].asInt());
 	mapConf->setSizeX(root["sizeX"].asInt());
 	mapConf->setSizeY(root["sizeY"].asInt());
+	mapConf->setCorpseSprite(root["corpseSprite"].asString());
 	return mapConf;
 }
 
@@ -127,6 +128,7 @@ std::shared_ptr<TechConf> ConfigReader::createTechConf()
 	techConf->setFPS(root["fps"].asInt());
 	techConf->setWindowSizeX(root["windowSizeX"].asInt());
 	techConf->setWindowSizeY(root["windowSizeY"].asInt());
+	techConf->setTextFont(root["textFont"].asString());
 	return techConf;
 }
 
