@@ -25,10 +25,10 @@ void Player::init(bool colorRed) {
 }
 
 /**
- * add the interest to a players money
- * based on a simple formular
- * base income plus 15% of the current money of the player
- *
+ * computes the income from a simple formula 
+ *  based on the current position of occupied trenches
+ *  every occupied trench adds its x distance from the HQ / 100 to the interestfactor 
+ *	100 + interestfactor * leftover money is the new income
  */
 int Player::computeIncome() {
 
