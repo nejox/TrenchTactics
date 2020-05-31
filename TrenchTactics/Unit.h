@@ -43,6 +43,7 @@ public:
 		m_sprite = make_shared<SpriteUnit>(colorRed, unittype);
 		m_spriteHealthBar = make_shared<SpriteHealthBar>(colorRed);
 		m_state = STATES::UNITSTATE::STANDING_NEUTRAL;
+		m_level = 1;
 
 	}
 
@@ -61,6 +62,7 @@ private:
 	int m_apCostMove;
 	int m_apCostTrench;
 	int m_spawnProbability;
+	int m_level;
 	std::string m_name;
 	std::shared_ptr<SpriteUnit>m_sprite;
 	std::shared_ptr<SpriteHealthBar>m_spriteHealthBar;
@@ -78,12 +80,17 @@ public:
 	Unit& operator=(Unit&&);
 	*/
 
-	void changeHP(int damage);
+	bool changeHP(int damage);
 	void attack(std::shared_ptr<Unit> target);
 	void attack(std::shared_ptr< Headquarter> target);
 	void move();
 	void updateAP(int cost);
 	void resetAP();
+
+	/**
+	*changes the stats with a level up
+	*/
+	void levelUp();
 
 	/**
 	 * renders unit dependent on given state.
@@ -123,6 +130,16 @@ public:
 	void setCurrentAP(int currentAP)
 	{
 		m_currentAP = currentAP;
+	}
+
+	int getLevel()
+	{
+		return this->m_level;
+	}
+
+	void setLevel(int level)
+	{
+		m_level = level;
 	}
 
 	bool getColorRed()
