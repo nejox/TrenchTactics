@@ -1,7 +1,7 @@
 #pragma once
 
 /**
- * Base class for balnce configuration of the game 
+ * Base class for balnce configuration of the game
  * Used to hold data and provide it to other instances
  * Provides all necessary getters and setters
  * Provided by ConfigReader
@@ -13,6 +13,7 @@ private:
 	int maxAmountUnits;
 	int startingGold;
 	int rerollCost;
+	int additionalUnitRollCost;
 public:
 	void setHqHp(int hqHP) {
 		this->hqHP = hqHP;
@@ -43,5 +44,11 @@ public:
 	}
 	int getRerollCost() {
 		return this->rerollCost;
+	}
+	void setAdditionalUnitRollCost(int additionalUnitRollCost) {
+		this->additionalUnitRollCost = additionalUnitRollCost;
+	}
+	int getAdditionalUnitRollCost() {
+		return this->additionalUnitRollCost;
 	}
 };

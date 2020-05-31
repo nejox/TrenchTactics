@@ -52,7 +52,8 @@ private:
 	void handlePrevUnit();
 	void handleEndTurn();
 	void handleNextPhase();
-
+	void handleTrench();
+	
 	void handleAttackEvent(MouseClickEvent* event);
 	void handleMoveEvent(MouseClickEvent* event);
 	void handleBuyEvent(MouseClickEvent* event);

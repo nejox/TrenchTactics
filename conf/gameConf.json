@@ -4,16 +4,19 @@
 		"trenchIncomeFactor": 2,
 		"maxAmountUnits": 20,
 		"startingGold": 300,
-		"rerollCost": 10
+		"rerollCost": 10,
+		"additionalUnitRollCost" : 5
 	},
 	"map": {
 		"seed": 1234561,
 		"sizeX": 18,
-		"sizeY": 12
+		"sizeY": 12,
+		"corpseSprite": "../Data/Sprites/Token/CORPSE.bmp"
 	},
 	"technical": {
 		"fps": 30,
 		"windowSizeX": 1408,
-		"windowSizeY": 960
+		"windowSizeY": 960,
+		"textFont" : "../Data/Fonts/BOO_REG.ttf"
 	}
 }

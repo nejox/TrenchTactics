@@ -108,15 +108,5 @@ void Sprite::render(int locX, int locY) {
 	SDL_RenderCopy(m_pRenderer, m_pImage, &renderQuad, &m_Rect);
 }
 
-/*
-void Sprite::render(int frameNumber)
-{
-	// Ausschnitt der aktuellen Animationsphase berechnen
-	m_FrameRect.x = (frameNumber * m_FrameWidth);
-	m_FrameRect.y = 0;
 
-	// Ausschnitt rendern
-	SDL_RenderCopy(m_pRenderer, m_pImage, &m_FrameRect, &m_Rect);
 
-}
-*/

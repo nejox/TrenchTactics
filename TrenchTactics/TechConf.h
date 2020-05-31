@@ -8,6 +8,7 @@ private:
 	int fps;
 	int windowSizeX;
 	int windowSizeY;
+	std::string textFont;
 public:
 	void setFPS(int fps) {
 		this->fps = fps;
@@ -26,5 +27,11 @@ public:
 	}
 	int getWindowSizeY() {
 		return this->windowSizeY;
+	}
+	void setTextFont(std::string textFont) {
+		this->textFont = textFont;
+	}
+	std::string getTextFont() {
+		return this->textFont;
 	}
 };

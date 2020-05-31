@@ -29,7 +29,7 @@ private:
 public:
 	Player();
 	void init(bool colorRed);
-	int computeInterest();
+	int computeIncome();
 	void updatePlayer();
 	void copyUnitsToQueue();
 	void demarkActiveUnit();

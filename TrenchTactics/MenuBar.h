@@ -5,7 +5,7 @@
 #include "MenuTile.h"
 
 /**
-* Menubar wrapper class 
+* Menubar wrapper class
 * controls all things concerning the menubar including buttons sprites setup and teardown
 */
 class MenuBar
@@ -37,31 +37,20 @@ public:
 	* \param phase current phase
 	* \param activePlayer currently activePlayer
 	*/
-	void updateMenuBar(GAMEPHASES::GAMEPHASE phase, shared_ptr<Player> activePlayer)
-	{
-		this->resetMenuBarSidePanels();
-		this->reInitButtons(phase); // hier muss nochmal dran gearbeitet werden
-		this->updateTokens(activePlayer);
-		this->updatePlayerStats(activePlayer);
-	}
+	void updateMenuBar(GAMEPHASES::GAMEPHASE phase, shared_ptr<Player> activePlayer);
 
 	/**
 	* Refreshes the MenuBar with current Buttons
-	* \param phase current phase
-	* \param activePlayer currently activePlayer
+ * \param phase the gamephase the game currently resides in
+ * \param activePlayer the currently active player - respectively the new active player
 	*/
-	void refreshMenuBar(shared_ptr<Player> activePlayer)
-	{
-		this->resetMenuBarSidePanels();
-		this->refreshAllButtonDisplays(); 
-		this->updateTokens(activePlayer);
-		this->updatePlayerStats(activePlayer);
-	}
+	void refreshMenuBar(shared_ptr<Player> activePlayer);
 	
 	/**
 	* Renders background over the sidePanels of the menubar
 	*/
 	void resetMenuBarSidePanels();
+
 
 
 	/**
@@ -164,6 +153,14 @@ public:
 
 
 private:
+	const std::string slash = " / ";
+	const std::string hp = "HP: ";
+	const std::string ap = "AP: ";
+	const std::string dmg = "DMG: ";
+	const std::string rng = "RANGE: ";
+
+	const int pixelToTileFactor = 64;
+
 	std::shared_ptr<vector<vector<std::shared_ptr<MenuTile>>>> menuBar;
 	std::shared_ptr<Sprite> activePlayerFlag;
 	std::shared_ptr<Sprite> activePhaseToken;
@@ -176,7 +173,6 @@ private:
 	std::shared_ptr<SpriteText> unitAP;
 	std::shared_ptr<SpriteText> unitDMG;
 	std::shared_ptr<SpriteText> unitRange;
-	
 
 	MenuBar() {};
 };
