@@ -1,12 +1,7 @@
 #include "MenuBar.h"
 
 
-/**
-* set up Menubarbackground
-* Initializes a MenuBar instance with fully configurated moneyToken unitCountTOken incomeToken phaseText
-* initializes money, income, unitCount, activePhaseToken activePhaseText, activePlayer and sets positions
-* initializes unit stats HP, AP, DMG
-*/
+
 void MenuBar::init()
 {
 
@@ -49,44 +44,26 @@ void MenuBar::init()
 	unitRange->setPos((pixelToTileFactor * 9 + 40), (pixelToTileFactor * 14));
 }
 
-/**
- * Update the menubar with the current phase the game is currently in as well as the active player
- *
- * updates the tokens (buttons) and if needed resets and reinitializes the menubar
- * \param phase the gamephase the game currently resides in
- * \param activePlayer the currently active player - respectively the new active player
- */
-void MenuBar::updateMenuBar(GAMEPHASES::GAMEPHASE phase, shared_ptr<Player> activePlayer) {
-	this->resetMenuBar();
+
+void MenuBar::updateMenuBar(GAMEPHASES::GAMEPHASE phase, shared_ptr<Player> activePlayer)
+{
+	this->resetMenuBarSidePanels();
 	this->reInitButtons(phase); // hier muss nochmal dran gearbeitet werden
 	this->updateTokens(activePlayer);
 	this->updatePlayerStats(activePlayer);
 }
 
-/**
- * refresh the menubar with only a player switch
- * TODO: duplicated function - remove one of updatemenubar and refreshmenubar
- *
- * \param activePlayer
- */
+
 void MenuBar::refreshMenuBar(shared_ptr<Player> activePlayer) {
-	this->resetMenuBar();
+	this->resetMenuBarSidePanels();
 	this->refreshAllButtonDisplays();
 	this->updateTokens(activePlayer);
 	this->updatePlayerStats(activePlayer);
 }
 
-/**
- * Resets the menubar by iterating over all possible button locations and rendering over the previously displayed button
- * TODO: if we use this? doesnt it mean that the button is still there? in the backgrounmd?
- *
- */
-void MenuBar::resetMenuBar()
+
+void MenuBar::resetMenuBarSidePanels()
 {
-
-	//is this a workaround? is this just fantasy?
-	//tut erstmal was es soll, bisschen billige lösung, wird noch bisschen straffer gemacht aber reicht erstmal so
-
 	for (int x = 0; x < 3; x++)
 	{
 		for (int y = 0; y < 3; y++)
@@ -103,10 +80,8 @@ void MenuBar::resetMenuBar()
 		}
 	}
 }
-/**
-* Displays Players current money, income and number of units
-*/
-void MenuBar::showPlayerStats(shared_ptr<Player> activePlayer)
+
+void MenuBar::updatePlayerStats(shared_ptr<Player> activePlayer)
 {
 
 	money->load(std::to_string(activePlayer->getMoney()));
@@ -131,15 +106,8 @@ void MenuBar::showPlayerStats(shared_ptr<Player> activePlayer)
 }
 
 
-
-/**
- * i actually dont know anything about this
- * actually just why?
- *
- */
 void MenuBar::resetUnitStats()
-//is this a workaround? is this just fantasy?
-//tut erstmal was es soll, bisschen billige lösung, wird noch bisschen straffer gemacht aber reicht erstmal so
+
 {
 	for (int x = 9; x < 13; x++)
 	{
@@ -152,12 +120,7 @@ void MenuBar::resetUnitStats()
 }
 
 
-/**
-* Displays units currentHp/MaxHp/
-* Displays units currentAp/MaxAp/
-* Displays units damage
-* Displays units range
-*/
+
 void MenuBar::showUnitStats(shared_ptr<Unit> unit)
 {
 	unitHP->load(hp + std::to_string(unit->getCurrentHP()) + slash + std::to_string(unit->getHp()));
@@ -176,14 +139,6 @@ void MenuBar::showUnitStats(shared_ptr<Unit> unit)
 
 
 
-/**
- * get a menu tile based on a pixel position x and y
- * returns nullptr when not valid
- *
- * \param posX
- * \param posY
- * \return
- */
 std::shared_ptr<MenuTile> MenuBar::getMenuTileFromXY(int posX, int posY) {
 	//changing position from pixels to tiles
 	posY = posY / pixelToTileFactor - 12;
@@ -202,11 +157,7 @@ std::shared_ptr<MenuTile> MenuBar::getMenuTileFromXY(int posX, int posY) {
 }
 
 
-/**
- * display necessary buttons based on phase.
- *
- * \param current gamephase
- */
+
 void MenuBar::initButtons(GAMEPHASES::GAMEPHASE phase) {
 	if (phase == GAMEPHASES::BUY) {
 
@@ -271,16 +222,16 @@ void MenuBar::initButtons(GAMEPHASES::GAMEPHASE phase) {
 /**
  *
  */
-void MenuBar::deleteButtons() {
+void MenuBar::deleteAllButtons() {
 	for (int i = 4; i < 15; i = i++) {
-		this->getMenuBar().get()->at(i).at(2).get()->removeButtonDisplay(); // siehe unten
+		this->getMenuBar().get()->at(i).at(2).get()->removeButtonDisplay();
 		this->getMenuBar().get()->at(i).at(1).get()->removeButton();
 	}
 }
 
 
-//TO DO: den kram umbenennen, mittlerweile ist der auch einfach da um zeug zu überdecken
-void MenuBar::deleteAllButtonDisplays() {
+void MenuBar::deleteAllButtonDisplays() { 
+
 	for (int i = 4; i < 15; i = i++) {
 		this->getMenuBar().get()->at(i).at(1).get()->removeButtonDisplay();
 		this->getMenuBar().get()->at(i).at(2).get()->removeButtonDisplay();
@@ -299,7 +250,7 @@ void MenuBar::refreshAllButtonDisplays()
 	}
 }
 
-void MenuBar::resetAllButtonDisplays()
+void MenuBar::resetAllButtonsToNeutral()
 {
 	deleteAllButtonDisplays();
 
@@ -313,7 +264,7 @@ void MenuBar::resetAllButtonDisplays()
 
 
 
-void MenuBar::displayTokens(shared_ptr<Player> activePlayer)
+void MenuBar::updateTokens(shared_ptr<Player> activePlayer)
 {
 	shared_ptr<MenuBarConf> menuBarConf = ConfigReader::instance().getMenuBarConf();
 	if (activePlayer->getColor())
@@ -350,10 +301,7 @@ void MenuBar::displayTokens(shared_ptr<Player> activePlayer)
 }
 
 
-/**
- * Function to set up the MenuTiles at gamestart.
- *
- */
+
 void MenuBar::initiateMenuTiles()
 {
 	for (vector<vector<std::shared_ptr<MenuTile>>>::iterator xIter = this->menuBar->begin(); xIter != this->menuBar->end(); ++xIter) {
@@ -378,10 +326,7 @@ void MenuBar::initiateMenuTiles()
 	}
 }
 
-/**
- * Sets the size of the menubar at the gamestart.
- *
- */
+
 void MenuBar::setSizeMenuBar()
 {
 	this->menuBar->resize(22);

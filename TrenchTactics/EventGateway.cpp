@@ -409,7 +409,7 @@ void EventGateway::handleBuyEvent(MouseClickEvent* event) {
 			//if player cant afford, deactivate all Buttons
 			else
 			{
-				MenuBar::instance().resetAllButtonDisplays();
+				MenuBar::instance().resetAllButtonsToNeutral();
 			}
 
 		}
@@ -425,7 +425,7 @@ void EventGateway::handleBuyEvent(MouseClickEvent* event) {
 		else if (type == 21)
 		{
 			
-				MenuBar::instance().resetAllButtonDisplays();
+				MenuBar::instance().resetAllButtonsToNeutral();
 			
 		}
 		// react to next phase

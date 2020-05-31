@@ -23,27 +23,43 @@ public:
 		return menuBar;
 	}
 
+
+	/**
+	* set up Menubarbackground
+	* Initializes a MenuBar instance with fully configurated moneyToken unitCountTOken incomeToken phaseText
+	* initializes money, income, unitCount, activePhaseToken activePhaseText, activePlayer and sets positions
+	* initializes unit stats HP, AP, DMG
+	*/
 	void init();
 
+	/**
+	* Updaes the MenuBar with new Buttons
+	* \param phase current phase
+	* \param activePlayer currently activePlayer
+	*/
 	void updateMenuBar(GAMEPHASES::GAMEPHASE phase, shared_ptr<Player> activePlayer);
 
+	/**
+	* Refreshes the MenuBar with current Buttons
+ * \param phase the gamephase the game currently resides in
+ * \param activePlayer the currently active player - respectively the new active player
+	*/
 	void refreshMenuBar(shared_ptr<Player> activePlayer);
+	
+	/**
+	* Renders background over the sidePanels of the menubar
+	*/
+	void resetMenuBarSidePanels();
 
 
-	void resetMenuBar();
 
 	/**
 	*renders the active players stats
-	*Overloaded funtion
 	*/
-	void updatePlayerStats(shared_ptr<Player> activePlayer)
-	{
-		showPlayerStats(activePlayer);
-	}
-	void showPlayerStats(shared_ptr<Player> activePlayer);
+	void updatePlayerStats(shared_ptr<Player> activePlayer);
 
-	/**
-	*renders the active players stats and the currently active Units HP
+	/** 
+	*renders the currently active Units stats
 	*Overloaded funtion
 	*/
 	void updateUnitStats(shared_ptr<Unit> unit)
@@ -52,31 +68,81 @@ public:
 		showUnitStats(unit);
 	}
 
+	/** 
+	* renders over the middle of the menubar, where unitstats are shown
+	*/
 	void resetUnitStats();
+
+	/**
+	* Displays units currentHp/MaxHp/
+	* Displays units currentAp/MaxAp/
+	* Displays units damage
+	* Displays units range
+	*/
 	void showUnitStats(shared_ptr<Unit>unit);
 
+	/**
+	* Sets the size of the menubar at the gamestart.
+	*
+	*/
 	void setSizeMenuBar();
+
+	/**
+	* Function to set up the MenuTiles at gamestart.
+	*
+	*/
 	void initiateMenuTiles();
+
+	/**
+	* get a menu tile based on a pixel position x and y
+	* returns nullptr when not valid
+	*
+	* \param posX
+	* \param posY
+	* \return
+	*/
 	std::shared_ptr<MenuTile> getMenuTileFromXY(int posX, int posY);
 
-	void displayTokens(shared_ptr<Player> activePlayer);
+	/**
+	*  Updates the tokens on the Menubar: CurrentPhase, ActivePlayerFlag 
+	* 
+	*/
+	void updateTokens(shared_ptr<Player> activePlayer);
 
-	void updateTokens(shared_ptr<Player> activePlayer)
-	{
-		this->displayTokens(activePlayer);
-	}
-
+	/**
+	* display necessary buttons based on phase.
+	*
+	* \param current gamephase
+	*/
 	void initButtons(GAMEPHASES::GAMEPHASE phase);
-	void deleteButtons();
 
+	/**
+	* deletes all Buttons
+	*/
+	void deleteAllButtons();
+
+	/**
+	* renders background over all current buttons being displayed
+	*/
 	void deleteAllButtonDisplays();
-	void resetAllButtonDisplays();
 
+	/**
+	* Sets all buttons in menubar to be unpressed
+	*/
+	void resetAllButtonsToNeutral();
+
+	/**
+	* rerenders All Buttons
+	*/
 	void refreshAllButtonDisplays();
 
+	/**
+	* Sets up all buttons for the gamephase
+	* \ param current gamephase
+	*/
 	void reInitButtons(GAMEPHASES::GAMEPHASE phase)
 	{
-		this->deleteButtons();
+		this->deleteAllButtons();
 		this->initButtons(phase);
 	}
 
