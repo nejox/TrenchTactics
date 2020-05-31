@@ -4,7 +4,7 @@ Corpse::Corpse(int x, int y)
 {
 	reward = 10; //TO DO: ConfigReader::instance().get ...
 	corpseSprite = new Sprite();
-	corpseSprite->load("../Data/Sprites/Token/CORPSE.bmp"); // TO DO: same
+	corpseSprite->load(ConfigReader::instance().getMapConf()->getCorpseSprite()); // TO DO: same
 	this->corpseSprite->setPos(x, y);
 }
 

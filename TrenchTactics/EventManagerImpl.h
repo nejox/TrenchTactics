@@ -1,6 +1,5 @@
 #pragma once
 #include "IEventManager.h"
-#include "Singleton.hpp"
 
 /**
  * EventManagerImpl class based on singelton pattern

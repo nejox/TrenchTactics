@@ -3,7 +3,6 @@
 #include <typeindex>
 #include <list>
 #include "MemberFunctionHandler.h"
-#include "Singleton.hpp"
 
 //typedefs
 //a list of handler objects

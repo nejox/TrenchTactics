@@ -1,5 +1,6 @@
 #include "SpriteHQ.h"
-#include "ConfigReader.h";
+#include "ConfigReader.h"
+
 
 /**
  * constructor for sprite hq.

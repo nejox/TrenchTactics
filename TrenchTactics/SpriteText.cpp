@@ -8,10 +8,7 @@ SpriteText::SpriteText(int size)
 	m_posX = 0;
 	m_posY = 0;
 
-
-	//TO DO:
-//this->m_font = TTF_OpenFont(ConfigReader::instance()->getBalanceConf()->getPathToFont(), size);
-	this->m_font = TTF_OpenFont("../Data/Fonts/BOO_REG.ttf", size);
+	this->m_font = TTF_OpenFont(ConfigReader::instance().getTechnicalConf()->getTextFont().c_str(), size);
 
 	if (m_font == NULL)
 	{
