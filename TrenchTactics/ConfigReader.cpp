@@ -211,6 +211,7 @@ std::shared_ptr<ButtonConf> ConfigReader::createButtonConf()
 	buttonConf->setCCTokenSprite(root["ccTokenSprite"].asString());
 	buttonConf->setGunnerTokenSprite(root["gunnerTokenSprite"].asString());
 	buttonConf->setGrenadeTokenSprite(root["grenadeTokenSprite"].asString());
+	buttonConf->setMainMenuButtonSprite(root["mainMenuButtonSprite"].asString());
 	return buttonConf;
 }
 

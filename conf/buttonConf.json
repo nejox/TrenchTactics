@@ -11,5 +11,7 @@
 	"addTokenSprite": "../Data/Sprites/Token/ADD_TOKEN.bmp",
 	"endTurnTokenSprite": "../Data/Sprites/Token/ENDTURN_TOKEN.bmp",
 	"nextPhaseTokenSprite": "../Data/Sprites/Token/NEXTPHASE_TOKEN.bmp",
-	"blankTokenSprite": "../Data/Sprites/Token/BLANK_TOKEN.bmp"
+	"blankTokenSprite": "../Data/Sprites/Token/BLANK_TOKEN.bmp",
+	"mainMenuButtonSprite": "../Data/Sprites/Token/MENU_MAIN_BUTTON.bmp"
+
 }

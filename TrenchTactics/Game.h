@@ -14,6 +14,8 @@
 #include "MenuBar.h"
 #include "EndTurnEvent.h"
 #include "EndGameEvent.h"
+#include "Mainmenu.h"
+#include "StartGameEvent.h"
 
 /**
  * Main class to start the game
@@ -33,7 +35,7 @@ private:
 	Gamefield& field = Gamefield::instance();
 	EventGateway& gateway = EventGateway::instance();
 	MenuBar& menuBar = MenuBar::instance();
-
+	Mainmenu& mainMenu = Mainmenu::instance();
 
 	bool gameRunning;
 	void switchActivePlayer();
@@ -42,11 +44,14 @@ private:
 	void startAttackPhase();
 public:
 	Game();
+	bool isRunning();
 	void initGame();
+	void startMenu();
 	void startPlayerPhase();
 	void startGame();
 	void quit(EndGameEvent* event);
 	void updateGame();
 	void handleEndTurn(EndTurnEvent* event);
+	void handleStartGame(StartGameEvent* event);
 
 };

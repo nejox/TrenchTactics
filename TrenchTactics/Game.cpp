@@ -2,7 +2,6 @@
 #include "MenuBar.h"
 
 
-
 /**
  * Constructor for game class
  *
@@ -15,6 +14,15 @@ Game::Game() {
 	activePlayer = NULL;
 	ctrTurns = 0;
 	endTurn = false;
+}
+
+/**
+ * Returns if game is running
+ *
+ */
+bool Game::isRunning()
+{
+	return gameRunning;
 }
 
 /**
@@ -34,11 +42,17 @@ void Game::initGame() {
 	this->playerBlue->init(false);
 
 	EventBus::instance().subscribe(this, &Game::handleEndTurn);
-
 	EventBus::instance().subscribe(this, &Game::quit);
+	EventBus::instance().subscribe(this, &Game::handleStartGame);
 
 	Logger::instance().log(LOGLEVEL::INFO, "Initializing Renderer");
 	this->renderer.init(ConfigReader::instance().getTechnicalConf()->getWindowSizeX(), ConfigReader::instance().getTechnicalConf()->getWindowSizeY(), 16, false);
+
+	Logger::instance().log(LOGLEVEL::INFO, "Initializing Main Menu");
+	this->mainMenu.initMenu();
+
+	Logger::instance().log(LOGLEVEL::INFO, "Initializing Gateway");
+	this->gateway.init();
 
 	Logger::instance().log(LOGLEVEL::INFO, "Initializing Gamefield");
 	this->field.init(ConfigReader::instance().getMapConf()->getSizeX(), ConfigReader::instance().getMapConf()->getSizeY(), ConfigReader::instance().getMapConf()->getSeed());
@@ -46,9 +60,8 @@ void Game::initGame() {
 	Logger::instance().log(LOGLEVEL::INFO, "Initializing MenuBar");
 	this->menuBar.init();
 
-	Logger::instance().log(LOGLEVEL::INFO, "Initializing Gateway");
-	this->gateway.init();
-
+	startMenu();
+	
 	this->activePlayer = playerBlue;
 	this->gateway.setActivePlayer(playerBlue);
 
@@ -57,7 +70,15 @@ void Game::initGame() {
 	this->renderer.updateTimer();
 
 	startGame();
+}
 
+void Game::startMenu()
+{
+	this->mainMenu.showMenu();
+
+	while (!gameRunning) {
+		this->updateGame();
+	}
 }
 
 /**
@@ -70,6 +91,8 @@ void Game::initGame() {
 void Game::startGame() {
 	Logger::instance().log(LOGLEVEL::INFO, "Game Running");
 	// start a player phase and switch player afterwards
+	this->field.init(ConfigReader::instance().getMapConf()->getSizeX(), ConfigReader::instance().getMapConf()->getSizeY(), ConfigReader::instance().getMapConf()->getSeed());
+	this->menuBar.init();
 
 	while (gameRunning) {
 		this->ctrTurns++;
@@ -162,9 +185,23 @@ void Game::updateGame() {
 
 }
 
+/**
+ * handles the end of a turn event
+ *
+ */
 void Game::handleEndTurn(EndTurnEvent* event)
 {
 	this->endTurn = true;
+}
+
+/**
+ * handles the start of a game
+ *
+ */
+void Game::handleStartGame(StartGameEvent* event)
+{
+	this->gameRunning = true;
+
 }
 
 /**
@@ -221,12 +258,14 @@ void Game::startAttackPhase() {
  *
  */
 void Game::startBuyPhase() {
-	menuBar.resetUnitStats();
+	if (this->activePlayer->checkPlayerCanBuyUnits()) {
+		menuBar.resetUnitStats();
 
-	menuBar.updateMenuBar(GAMEPHASES::BUY, activePlayer);
-	this->activePlayer->setBuying(true);
-	this->gateway.setCurrentPhase(GAMEPHASES::BUY);
+		menuBar.updateMenuBar(GAMEPHASES::BUY, activePlayer);
+		this->gateway.setCurrentPhase(GAMEPHASES::BUY);
 
+		this->activePlayer->setBuying(true);
+	}
 }
 
 /**

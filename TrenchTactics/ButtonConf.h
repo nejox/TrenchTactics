@@ -20,6 +20,7 @@ private:
 	std::string endTurnTokenSprite;
 	std::string nextPhaseTokenSprite;
 	std::string blankTokenSprite;
+	std::string mainMenueButtonSprite;
 
 public:
 	std::string getGrenadeTokenSprite() {
@@ -99,5 +100,13 @@ public:
 	}
 	void setBlankTokenSprite(std::string blankTokenSprite) {
 		this->blankTokenSprite = blankTokenSprite;
+	}
+
+	std::string getMainMenuButtonSprite() {
+		return this->mainMenueButtonSprite;
+	}
+
+	void setMainMenuButtonSprite(std::string mainMenuSprite) {
+		this->mainMenueButtonSprite = mainMenuSprite;
 	}
 };

@@ -53,6 +53,7 @@ private:
 	void handleEndTurn();
 	void handleNextPhase();
 	void handleTrench();
+	void handleMainMenuEvent(MouseClickEvent* event);
 	
 	void handleAttackEvent(MouseClickEvent* event);
 	void handleMoveEvent(MouseClickEvent* event);

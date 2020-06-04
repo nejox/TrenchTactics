@@ -1,6 +1,7 @@
 #include "EventGateway.h"
 #include "EndTurnEvent.h"
-
+#include "Mainmenu.h"
+#include "StartGameEvent.h"
 
 EventGateway::EventGateway() {
 }
@@ -161,6 +162,25 @@ void EventGateway::handleTrench()
 }
 
 /**
+ * Function that handles Main menu events
+ * \param event provided event from eventbus, in this case mouseclickevent
+ */
+void EventGateway::handleMainMenuEvent(MouseClickEvent* event)
+{
+	int btntype = Mainmenu::instance().getButtonTypeFromXY(event->getX(), event->getY());
+
+	switch (btntype)
+	{
+	//start game
+	case 40:
+		EventBus::instance().publish(new StartGameEvent());
+		break;
+	default:
+		break;
+	}
+}
+
+/**
  * handle attackevent
  * gets the target unit and the attackin unit
  * checks range of the attacking unit
@@ -313,6 +333,12 @@ void EventGateway::handleMoveEvent(MouseClickEvent* event) {
  * \param event provided event from eventbus, in this case mouseclickevent
  */
 void EventGateway::handleBuyEvent(MouseClickEvent* event) {
+	//Game is not started yet - Main menu
+	if (this->activePlayer == NULL) {
+		handleMainMenuEvent(event);
+		return;
+	}
+
 	// check wether a player is even allowed to buy a unit based on their supply and money  TO DO: vielleicht woanders hin die condition, wenn sie hier steht muss man erst klicken dass die buyphase geskippt wird
 	if ((this->activePlayer->getUnitArray().size() + 1) > ConfigReader::instance().getBalanceConf()->getMaxAmountUnits() ||
 		(

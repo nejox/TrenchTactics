@@ -37,6 +37,12 @@ void EventManagerImpl::processEvents()
 			break;
 		}
 
+		case(SDL_KEYDOWN) : {
+			if (Event.key.keysym.sym == SDLK_ESCAPE) {
+				break;
+			}
+		}
+
 		default:
 			break;
 		}
