@@ -81,7 +81,7 @@ public:
 	*/
 
 	bool changeHP(int damage);
-	void attack(std::shared_ptr<Unit> target);
+	void attack(std::shared_ptr<Unit> target, bool cover);
 	void attack(std::shared_ptr< Headquarter> target);
 	void move();
 	void updateAP(int cost);

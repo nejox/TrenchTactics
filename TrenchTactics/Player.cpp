@@ -72,10 +72,12 @@ void Player::updatePlayer() {
  */
 void Player::copyUnitsToQueue() {
 	if (this->unitArray.size() > 0) {
-		int i = this->unitArray.size() - 1;
+		int i = this->unitArray.size() - 1; // LOL?
 		for (int j = i; j >= 0; j--) {
 			if (this->getCurrentPhase() == GAMEPHASES::GAMEPHASE::ATTACK) {
-				if (this->unitArray[j]->getCurrentAP() >= this->unitArray[j]->getApCostAttack() && Gamefield::instance().checkUnitHasEnemysAround(this->unitArray[j],this->getColor())) {
+				if (this->unitArray[j]->getCurrentAP() >= this->unitArray[j]->getApCostAttack() 
+					&& this->unitArray[j]->getCurrentAP() >= 3 //TO DO: Get TRENCH AP COST FROM CONFIG 
+					&& Gamefield::instance().checkUnitHasEnemysAround(this->unitArray[j],this->getColor())) {
 					this->unitQueue.push(this->unitArray[j]);
 				}
 			}

@@ -109,54 +109,63 @@ void EventGateway::handleNextPhase() {
 */
 void EventGateway::handleTrench()
 {
-	//get the field tile of the digging unit
-	std::shared_ptr<FieldTile> trenchcenter = Gamefield::instance().findTileByUnit(this->activePlayer->getUnitQueue().front());
-	
-
-	//erase sprites from trenchcenter
-	if (!(trenchcenter->getTrenchSprites()->empty())) {
-		trenchcenter->getTrenchSprites()->clear();
-	}
-
-	//rect to render
-	int rectcount = 0;
-
-	//iterate over the 8 surrounding tiles and refresh them
-	for (int y = -64; y <= 64; y +=64)
+	//Check if Tile of the Unit does not already has a trench
+	if (!(Gamefield::instance().findTileByUnit(this->activePlayer->getUnitQueue().front())->hasTrench()))
 	{
-		for (int x = -64; x <= 64; x += 64)
-		{
+		//get the field tile of the digging unit
+		std::shared_ptr<FieldTile> trenchcenter = Gamefield::instance().findTileByUnit(this->activePlayer->getUnitQueue().front());
 
-			 
-			std::shared_ptr<FieldTile> tmp = Gamefield::instance().getFieldTileFromXY((trenchcenter->getPosX() + x), (trenchcenter->getPosY() + y));
-			
-			//if tile does not already has a trench and is not a spawntile
-			if (!(tmp->hasTrench()) && (tmp->getTerrain() != FieldTile::TERRAINTYPE::SPAWNTERRAIN))
-			{
-				//temporary sprite to pass to the tile
-				Sprite* trenchsprite = new Sprite();
-				trenchsprite->setPos(tmp->getPosX(), tmp->getPosY());
 
-				//check which terrain to load
-				if (trenchcenter->getTerrain() == FieldTile::TERRAINTYPE::CLAY) {
-					trenchsprite->load("../Data/Sprites/Terrain/CLAY_TRENCH.bmp");
-				}
-				else if (trenchcenter->getTerrain() == FieldTile::TERRAINTYPE::STONE) {
-					trenchsprite->load("../Data/Sprites/Terrain/STONE_TRENCH.bmp"); // TO DO: load from config
-				}
-				else {
-					trenchsprite->load("../Data/Sprites/Terrain/MUD_TRENCH.bmp");
-				}
-
-				//add new sprite to the map 
-				tmp->addTrenchSprite(rectcount, trenchsprite);
-			}
-
-			rectcount++;
+		//erase sprites from trenchcenter
+		if (!(trenchcenter->getTrenchSprites()->empty())) {
+			trenchcenter->getTrenchSprites()->clear();
 		}
-	}
 
-	trenchcenter->setTrench(true);
+		//rect to render
+		int rectcount = 0;
+
+		//iterate over the 8 surrounding tiles and refresh them
+		for (int y = -64; y <= 64; y += 64)
+		{
+			for (int x = -64; x <= 64; x += 64)
+			{
+
+
+				std::shared_ptr<FieldTile> tmp = Gamefield::instance().getFieldTileFromXY((trenchcenter->getPosX() + x), (trenchcenter->getPosY() + y));
+
+				//if tile does not already has a trench and is nothing other than a fieldtile 
+				//NOTE: condition-order is important, if change first check if nullptr, getFieldTileFromXY returns nullptr for everything other than fieldtiles, otherwise game crashes
+				if ((tmp != nullptr) && !(tmp->hasTrench()) )
+				{
+					//temporary sprite to pass to the tile
+					Sprite* trenchsprite = new Sprite();
+					trenchsprite->setPos(tmp->getPosX(), tmp->getPosY());
+
+					//check which terrain to load
+					if (trenchcenter->getTerrain() == FieldTile::TERRAINTYPE::CLAY) {
+						trenchsprite->load("../Data/Sprites/Terrain/CLAY_TRENCH.bmp");
+					}
+					else if (trenchcenter->getTerrain() == FieldTile::TERRAINTYPE::STONE) {
+						trenchsprite->load("../Data/Sprites/Terrain/STONE_TRENCH.bmp"); // TO DO: load from config
+					}
+					else {
+						trenchsprite->load("../Data/Sprites/Terrain/MUD_TRENCH.bmp");
+					}
+
+					//add new sprite to the map 
+					tmp->addTrenchSprite(rectcount, trenchsprite);
+				}
+
+				rectcount++;
+			}
+		}
+
+		trenchcenter->setTrench(true);
+		this->activePlayer->getUnitQueue().front()->updateAP(3); // TO DO: COST FROM CONFIG
+		this->activePlayer->demarkActiveUnit();
+		this->activePlayer->popUnit();
+		this->activePlayer->markActiveUnit();
+	}
 
 }
 
@@ -193,7 +202,7 @@ void EventGateway::handleAttackEvent(MouseClickEvent* event) {
 		}
 		//handle dig button
 		else if (type == 12) {
-			handleTrench();
+				handleTrench();
 		}
 		return;
 	}
@@ -204,7 +213,7 @@ void EventGateway::handleAttackEvent(MouseClickEvent* event) {
 			std::shared_ptr<Unit> unitAttacking = this->activePlayer->getUnitQueue().front();
 
 			if (checkRange(Gamefield::instance().findTileByUnit(unitToBeAttacked)) && unitAttacking->getCurrentAP() >= unitAttacking->getApCostAttack()) {
-				unitAttacking->attack(unitToBeAttacked);
+				unitAttacking->attack(unitToBeAttacked, Gamefield::instance().findTileByUnit(unitToBeAttacked)->hasTrench());
 				this->activePlayer->popUnit();
 
 				this->activePlayer->markActiveUnit();
