@@ -76,6 +76,8 @@ int Mainmenu::getButtonTypeFromXY(int eventX, int eventY)
 		int y = buttons[i]->getSprite()->getY();
 		if ((eventX >= x && eventX <= (x + buttonSizeX)) && (eventY >= y && eventY <= (y + buttonSizeY))) {
 			Btntype = 40 + i % 3;
+			//buttons[i]->push();
+			//buttons[i]->update();
 			break;
 		}
 		else {
