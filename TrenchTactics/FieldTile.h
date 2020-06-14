@@ -66,16 +66,12 @@ public:
 
 	void setTrench(bool trench) {
 		if (this->getTerrain() != TERRAINTYPE::SPAWNTERRAIN) {
-
 			this->trench = trench;
 		}
 	}
 
 
 	bool hasTrench(){
-		if (this->getTerrain() == TERRAINTYPE::SPAWNTERRAIN) {
-			return false;
-		}
 		return this->trench;
 	}
 
@@ -86,8 +82,10 @@ public:
 
 	void addTrenchSprite(int rect, Sprite* sprite)
 	{
-		this->trenchSprites->insert(pair<int,Sprite*>(rect, sprite));
-		refreshTile();
+		if (this->getTerrain() != TERRAINTYPE::SPAWNTERRAIN) {
+			this->trenchSprites->insert(pair<int, Sprite*>(rect, sprite));
+			refreshTile();
+		}
 	}
 
 	bool hasCopse();
