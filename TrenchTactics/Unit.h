@@ -28,6 +28,7 @@ public:
 
 		m_colorRed = colorRed;
 
+		m_ID = ConfigReader::instance().getUnitConf(unittype)->getId();
 		m_hp = ConfigReader::instance().getUnitConf(unittype)->getHp();
 		m_currentHP = ConfigReader::instance().getUnitConf(unittype)->getHp();
 		m_range = ConfigReader::instance().getUnitConf(unittype)->getRange();
@@ -36,7 +37,8 @@ public:
 		m_currentAP = ConfigReader::instance().getUnitConf(unittype)->getAp();
 		m_dmg = ConfigReader::instance().getUnitConf(unittype)->getDmg();
 		m_apCostAttack = ConfigReader::instance().getUnitConf(unittype)->getApCostAttack();
-		m_apCostMove = ConfigReader::instance().getUnitConf(unittype)->getApCostMove();
+		m_apCostAttack = ConfigReader::instance().getUnitConf(unittype)->getApCostMove();
+		m_movementRange = ConfigReader::instance().getUnitConf(unittype)->getMovementRange();
 		m_apCostTrench = ConfigReader::instance().getUnitConf(unittype)->getApCostTrench();
 		m_spawnProbability = ConfigReader::instance().getUnitConf(unittype)->getSpawnProbability();
 		m_name = ConfigReader::instance().getUnitConf(unittype)->getName();
@@ -50,6 +52,7 @@ public:
 private:
 	Unit() = delete;
 
+	int m_ID;
 	int m_colorRed;
 	int m_hp;
 	int m_currentHP;
@@ -59,8 +62,9 @@ private:
 	int m_currentAP;
 	int m_dmg;
 	int m_apCostAttack;
-	int m_apCostMove;
+	int m_movementRange;
 	int m_apCostTrench;
+	int m_apCostMove;
 	int m_spawnProbability;
 	int m_level;
 	std::string m_name;
@@ -195,6 +199,24 @@ public:
 	int getCost()
 	{
 		return this->m_cost;
+	}
+
+	int getMovementRange()
+	{
+		return this->m_movementRange;
+	}
+
+	int getID()
+	{
+		return this->m_ID;
+	}
+
+	int getApCostTrench() {
+		return this->m_apCostTrench;
+	}
+
+	int getApCostMove() {
+		return this->m_apCostMove;
 	}
 
 

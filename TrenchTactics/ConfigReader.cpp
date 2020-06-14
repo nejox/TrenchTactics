@@ -167,8 +167,9 @@ std::map<int, std::shared_ptr<UnitConf>> ConfigReader::createUnitConfMap()
 		std::shared_ptr<UnitConf> unitConf = std::make_shared<UnitConf>();
 		unitConf->setAp(rootElem["ap"].asInt());
 		unitConf->setApCostAttack(rootElem["apCostAttack"].asInt());
-		unitConf->setApCostMove(rootElem["apCostMove"].asInt());
+		unitConf->setMovementRange(rootElem["movementRange"].asInt());
 		unitConf->setApCostTrench(rootElem["apCostTrench"].asInt());
+		unitConf->setApCostMove(rootElem["apCostMove"].asInt());
 		unitConf->setCost(rootElem["cost"].asInt());
 		unitConf->setDmg(rootElem["dmg"].asInt());
 		unitConf->setHp(rootElem["hp"].asInt());

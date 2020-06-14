@@ -17,8 +17,9 @@ private:
 	int ap;
 	int dmg;
 	int apCostAttack;
-	int apCostMove;
+	int movementRange;
 	int apCostTrench;
+	int apCostMove;
 	int spawnProbability;
 	std::string name;
 
@@ -77,12 +78,12 @@ public:
 	int getApCostAttack() {
 		return this->apCostAttack;
 	}
-	void setApCostMove(int apCostMove)
+	void setMovementRange(int movementRange)
 	{
-		this->apCostMove = apCostMove;
+		this->movementRange = movementRange;
 	}
-	int getApCostMove() {
-		return this->apCostMove;
+	int getMovementRange() {
+		return this->movementRange;
 	}
 	void setApCostTrench(int apCostTrench)
 	{
@@ -91,6 +92,14 @@ public:
 	int getApCostTrench() {
 		return this->apCostTrench;
 	}
+	void setApCostMove(int apCostMove)
+	{
+		this->apCostMove = apCostMove;
+	}
+	int getApCostMove() {
+		return this->apCostMove;
+	}
+
 	void setSpawnProbability(int spawnProbability) {
 		this->spawnProbability = spawnProbability;
 	}

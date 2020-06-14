@@ -161,7 +161,7 @@ void EventGateway::handleTrench()
 		}
 
 		trenchcenter->setTrench(true);
-		this->activePlayer->getUnitQueue().front()->updateAP(3); // TO DO: COST FROM CONFIG
+		this->activePlayer->getUnitQueue().front()->updateAP(this->activePlayer->getUnitQueue().front()->getApCostTrench()); 
 		this->activePlayer->demarkActiveUnit();
 		this->activePlayer->popUnit();
 		this->activePlayer->markActiveUnit();
@@ -285,10 +285,10 @@ void EventGateway::handleMoveEvent(MouseClickEvent* event) {
 		std::shared_ptr<FieldTile> tileToMoveTo = Gamefield::instance().getFieldTileFromXY(event->getX(), event->getY());
 
 		if (!tileToMoveTo->getUnit() && checkRange(tileToMoveTo)) {
-			//compute the cost of the movement
-			int cost = computeApCost(Gamefield::instance().findTileByUnit(unitToBeMoved), tileToMoveTo);
+			
 			//subtract the cost from the unit ap
-			unitToBeMoved->reduceAp(cost);
+			unitToBeMoved->reduceAp(computeApCost(unitToBeMoved, tileToMoveTo));
+			
 
 			//if copse is on tile to move to, add reward
 			if (tileToMoveTo->hasCopse())
@@ -524,7 +524,10 @@ bool EventGateway::checkRange(shared_ptr<Tile> targetTile) {
 * \param end to which tile
 * \return integer value of the added differences of the X and Y positions of start and end
 */
-int EventGateway::computeApCost(shared_ptr<Tile> start, shared_ptr<Tile> end)
+int EventGateway::computeApCost(shared_ptr<Unit> unitToBeMoved, shared_ptr<Tile> end)
 {
-	return abs((end->getPosX() - start->getPosX()) / 64) + abs((end->getPosY() - start->getPosY()) / 64);
+	shared_ptr<FieldTile> start = Gamefield::instance().findTileByUnit(unitToBeMoved);
+	int distance = abs((end->getPosX() - start->getPosX()) / 64) + abs((end->getPosY() - start->getPosY()) / 64);
+	if (distance <= unitToBeMoved->getMovementRange()) return 1;
+	else return 2;
 }
