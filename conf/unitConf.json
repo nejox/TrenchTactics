@@ -15,12 +15,14 @@
 		"spritesRed": {
 			"standingActive": "../Data/Sprites/R_Units/R_GRENADE_STANDING_ACTIVE.bmp",
 			"standingNeutral": "../Data/Sprites/R_Units/R_GRENADE_STANDING_NEUTRAL.bmp",
+			"standingDark": "../Data/Sprites/R_Units/R_GRENADE_STANDING_DARK.bmp",
 			"shooting": "../Data/Sprites/R_Units/R_GRENADE_SHOOTING.bmp",
 			"running": "../Data/Sprites/R_Units/R_GRENADE_RUNNING.bmp"
 		},
 		"spritesBlue": {
 			"standingActive": "../Data/Sprites/B_Units/B_GRENADE_STANDING_ACTIVE.bmp",
 			"standingNeutral": "../Data/Sprites/B_Units/B_GRENADE_STANDING_NEUTRAL.bmp",
+			"standingDark": "../Data/Sprites/B_Units/B_GRENADE_STANDING_DARK.bmp",
 			"shooting": "../Data/Sprites/B_Units/B_GRENADE_SHOOTING.bmp",
 			"running": "../Data/Sprites/B_Units/B_GRENADE_RUNNING.bmp"
 		}
@@ -41,12 +43,14 @@
 		"spritesRed": {
 			"standingActive": "../Data/Sprites/R_Units/R_GUNNER_STANDING_ACTIVE.bmp",
 			"standingNeutral": "../Data/Sprites/R_Units/R_GUNNER_STANDING_NEUTRAL.bmp",
+			"standingDark": "../Data/Sprites/R_Units/R_GUNNER_STANDING_DARK.bmp",
 			"shooting": "../Data/Sprites/R_Units/R_GUNNER_SHOOTING.bmp",
 			"running": "../Data/Sprites/R_Units/R_GUNNER_RUNNING.bmp"
 		},
 		"spritesBlue": {
 			"standingActive": "../Data/Sprites/B_Units/B_GUNNER_STANDING_ACTIVE.bmp",
 			"standingNeutral": "../Data/Sprites/B_Units/B_GUNNER_STANDING_NEUTRAL.bmp",
+			"standingDark": "../Data/Sprites/B_Units/B_GUNNER_STANDING_DARK.bmp",
 			"shooting": "../Data/Sprites/B_Units/B_GUNNER_SHOOTING.bmp",
 			"running": "../Data/Sprites/B_Units/B_GUNNER_RUNNING.bmp"
 		}
@@ -67,12 +71,14 @@
 		"spritesRed": {
 			"standingActive": "../Data/Sprites/R_Units/R_CC_STANDING_ACTIVE.bmp",
 			"standingNeutral": "../Data/Sprites/R_Units/R_CC_STANDING_NEUTRAL.bmp",
+			"standingDark": "../Data/Sprites/R_Units/R_CC_STANDING_DARK.bmp",
 			"shooting": "../Data/Sprites/R_Units/R_CC_SHOOTING.bmp",
 			"running": "../Data/Sprites/R_Units/R_CC_RUNNING.bmp"
 		},
 		"spritesBlue": {
 			"standingActive": "../Data/Sprites/B_Units/B_CC_STANDING_ACTIVE.bmp",
 			"standingNeutral": "../Data/Sprites/B_Units/B_CC_STANDING_NEUTRAL.bmp",
+			"standingDark": "../Data/Sprites/B_Units/B_CC_STANDING_DARK.bmp",
 			"shooting": "../Data/Sprites/B_Units/B_CC_SHOOTING.bmp",
 			"running": "../Data/Sprites/B_Units/B_CC_RUNNING.bmp"
 		}

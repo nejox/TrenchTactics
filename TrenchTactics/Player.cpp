@@ -80,6 +80,7 @@ void Player::copyUnitsToQueue() {
 					|| (this->unitArray[j]->getCurrentAP() >= this->unitArray[j]->getApCostTrench()
 						&& !Gamefield::instance().findTileByUnit(this->unitArray[j])->hasTrench())) {
 					this->unitQueue.push(this->unitArray[j]);
+
 				}
 			}
 			else {

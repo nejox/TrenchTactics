@@ -25,11 +25,13 @@ private:
 
 	std::string spriteFilePathStandingActiveRed;
 	std::string spriteFilePathStandingNeutralRed;
+	std::string spriteFilePathStandingDarkRed;
 	std::string spriteFilePathShootingRed;
 	std::string spriteFilePathRunningRed;
 
 	std::string spriteFilePathStandingActiveBlue;
 	std::string spriteFilePathStandingNeutralBlue;
+	std::string spriteFilePathStandingDarkBlue;
 	std::string spriteFilePathShootingBlue;
 	std::string spriteFilePathRunningBlue;
 
@@ -124,6 +126,12 @@ public:
 	std::string getSpriteFilePathStandingNeutralRed() {
 		return this->spriteFilePathStandingNeutralRed;
 	}
+	void setSpriteFilePathStandingDarkRed(std::string spriteFilePathStandingDarkRed) {
+		this->spriteFilePathStandingDarkRed = spriteFilePathStandingDarkRed;
+	}
+	std::string getSpriteFilePathStandingDarkRed() {
+		return this->spriteFilePathStandingDarkRed;
+	}
 	void setSpriteFilePathShootingRed(std::string spriteFilePathShootingRed) {
 		this->spriteFilePathShootingRed = spriteFilePathShootingRed;
 	}
@@ -147,6 +155,12 @@ public:
 	}
 	std::string getSpriteFilePathStandingNeutralBlue() {
 		return this->spriteFilePathStandingNeutralBlue;
+	}
+	void setSpriteFilePathStandingDarkBlue(std::string spriteFilePathStandingDarkBlue) {
+		this->spriteFilePathStandingDarkBlue = spriteFilePathStandingDarkBlue;
+	}
+	std::string getSpriteFilePathStandingDarkBlue() {
+		return this->spriteFilePathStandingDarkBlue;
 	}
 	void setSpriteFilePathShootingBlue(std::string spriteFilePathShootingBlue) {
 		this->spriteFilePathShootingBlue = spriteFilePathShootingBlue;

@@ -33,6 +33,15 @@ SpriteUnit::SpriteUnit(bool colourRed, TYPES::UnitType type)
 				animations.insert(std::pair<STATES::UNITSTATE, string>(state, unitConf->getSpriteFilePathStandingNeutralBlue()));
 			}
 			break;
+		case STATES::STANDING_DARK:
+			if (colourRed) {
+				animations.insert(std::pair<STATES::UNITSTATE, string>(state, unitConf->getSpriteFilePathStandingDarkRed()));
+			}
+			else
+			{
+				animations.insert(std::pair<STATES::UNITSTATE, string>(state, unitConf->getSpriteFilePathStandingDarkBlue()));
+			}
+			break;
 		case STATES::STANDING:
 			if (colourRed) {
 				animations.insert(std::pair<STATES::UNITSTATE, string>(state, unitConf->getSpriteFilePathStandingActiveRed()));
