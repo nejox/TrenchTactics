@@ -116,9 +116,9 @@ void Game::startPlayerPhase() {
 			this->startMovePhase();
 		}
 		else if (phase == GAMEPHASES::ATTACK) {
-			if (ctrTurns > 2) {
+			
 				this->startAttackPhase();
-			}
+			
 		}
 
 		// update game while in phase, buy phase as long as player buys, attack and move as long as there are units to move and stuff

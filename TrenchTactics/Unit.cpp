@@ -137,6 +137,6 @@ void Unit::move()
 {
 	//this->setState(RUNNING);
 	//TO DO
-	updateAP(m_apCostMove);
+	updateAP(1);
 }
 

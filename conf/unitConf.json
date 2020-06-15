@@ -1,9 +1,10 @@
 [
 	{
-		"ap": 4,
-		"apCostAttack": 3,
+		"ap": 2,
+		"apCostAttack": 1,
+		"movementRange": 1,
+		"apCostTrench": 1,
 		"apCostMove": 1,
-		"apCostTrench": 3,
 		"cost": 60,
 		"dmg": 40,
 		"hp": 80,
@@ -25,10 +26,11 @@
 		}
 	},
 	{
-		"ap": 7,
-		"apCostAttack": 3,
+		"ap": 2,
+		"apCostAttack": 1,
+		"movementRange": 4,
+		"apCostTrench": 1,
 		"apCostMove": 1,
-		"apCostTrench": 4,
 		"cost": 50,
 		"dmg": 50,
 		"hp": 100,
@@ -50,10 +52,11 @@
 		}
 	},
 	{
-		"ap": 9,
-		"apCostAttack": 3,
+		"ap": 2,
+		"apCostAttack": 1,
+		"movementRange": 6,
+		"apCostTrench": 1,
 		"apCostMove": 1,
-		"apCostTrench": 3,
 		"cost": 60,
 		"dmg": 65,
 		"hp": 130,
