@@ -7,14 +7,24 @@
  *
  * \param target unit that will be attacked
  */
-void Unit::attack(std::shared_ptr<Unit> target)
+void Unit::attack(std::shared_ptr<Unit> target, bool cover)
 {
 	this->m_state = STATES::UNITSTATE::SHOOTING;
 
-    if (target->changeHP(m_dmg))
+    if (cover)
     {
-        this->levelUp();
+        if (target->changeHP((m_dmg * 0.9f)))
+        {
+            this->levelUp();
+        }
     }
+
+    else {
+        if (target->changeHP(m_dmg)) {
+            this->levelUp();
+        }
+    }
+
 
 	updateAP(m_apCostAttack);
 
@@ -127,6 +137,6 @@ void Unit::move()
 {
 	//this->setState(RUNNING);
 	//TO DO
-	updateAP(m_apCostMove);
+	updateAP(1);
 }
 

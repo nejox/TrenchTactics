@@ -62,7 +62,7 @@ private:
 
 	bool checkRange(shared_ptr<Tile> targetTile);
 
-	int computeApCost(shared_ptr<Tile> start, shared_ptr<Tile> end);
+	int computeApCost(shared_ptr<Unit> unitToBeMoved, shared_ptr<Tile> end);
 
 	bool checkEventOnHQ(MouseClickEvent* event);
 

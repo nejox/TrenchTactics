@@ -342,8 +342,8 @@ void Gamefield::selectAndMarkeTilesByUnit(shared_ptr<Unit> pUnit, GAMEPHASES::GA
 	int rangeMoveAndAttack = 0;
 	//set range according to phase
 	if (gamephase == GAMEPHASES::MOVE) {
-		range = pUnit.get()->getCurrentAP();
-		rangeMoveAndAttack = range - pUnit.get()->getApCostAttack();
+		range = pUnit.get()->getMovementRange() + sprintRange;
+		rangeMoveAndAttack = pUnit.get()->getMovementRange();
 	}
 	else if (gamephase == GAMEPHASES::ATTACK) {
 		range = pUnit.get()->getRange();

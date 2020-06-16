@@ -72,10 +72,13 @@ void Player::updatePlayer() {
  */
 void Player::copyUnitsToQueue() {
 	if (this->unitArray.size() > 0) {
-		int i = this->unitArray.size() - 1;
+		int i = this->unitArray.size() - 1; 
 		for (int j = i; j >= 0; j--) {
 			if (this->getCurrentPhase() == GAMEPHASES::GAMEPHASE::ATTACK) {
-				if (this->unitArray[j]->getCurrentAP() >= this->unitArray[j]->getApCostAttack() && Gamefield::instance().checkUnitHasEnemysAround(this->unitArray[j],this->getColor())) {
+				if ((this->unitArray[j]->getCurrentAP() >= this->unitArray[j]->getApCostAttack()
+					&& Gamefield::instance().checkUnitHasEnemysAround(this->unitArray[j],this->getColor())) 
+					|| (this->unitArray[j]->getCurrentAP() >= this->unitArray[j]->getApCostTrench()
+						&& !Gamefield::instance().findTileByUnit(this->unitArray[j])->hasTrench())) {
 					this->unitQueue.push(this->unitArray[j]);
 				}
 			}

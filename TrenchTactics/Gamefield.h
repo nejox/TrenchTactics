@@ -20,6 +20,7 @@ class Gamefield {
 private:
 	static const int defaultXSizeField = 18;
 	static const int defaultYSizeField = 12;
+	static const int sprintRange = 3;
 
 	std::shared_ptr<PlayerTile> headquarterTilePlayerBlue;
 	std::shared_ptr<PlayerTile> headquarterTilePlayerRed;
