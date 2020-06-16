@@ -49,6 +49,23 @@ void FieldTile::refreshTile() {
 }
 
 /**
+ * function to reset the fieldtile back to initial state
+ *
+ */
+void FieldTile::resetTile()
+{
+	if (this->corpse != nullptr) {
+		this->corpse = nullptr;
+	}
+	if (this->trench) {
+		this->trench = false;
+		this->trenchSprites->clear();
+	}
+	refreshTile();
+
+}
+
+/**
  * function to attach a unit to fieldtile
  * updates the sprite position with the position of the field tile and renders it
  *

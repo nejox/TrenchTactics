@@ -11,6 +11,7 @@ Game::Game() {
 	playerRed = NULL;
 	playerBlue = NULL;
 	gameRunning = NULL;
+	isTutorial = NULL;
 	activePlayer = NULL;
 	ctrTurns = 0;
 	endTurn = false;
@@ -44,12 +45,19 @@ void Game::initGame() {
 	EventBus::instance().subscribe(this, &Game::handleEndTurn);
 	EventBus::instance().subscribe(this, &Game::quit);
 	EventBus::instance().subscribe(this, &Game::handleStartGame);
+	EventBus::instance().subscribe(this, &Game::handleStartTutorial);
+	EventBus::instance().subscribe(this, &Game::handleEndTutorial);
+	EventBus::instance().subscribe(this, &Game::handleIngameMenu);
+	EventBus::instance().subscribe(this, &Game::handleReturnToMenu);
 
 	Logger::instance().log(LOGLEVEL::INFO, "Initializing Renderer");
 	this->renderer.init(ConfigReader::instance().getTechnicalConf()->getWindowSizeX(), ConfigReader::instance().getTechnicalConf()->getWindowSizeY(), 16, false);
 
-	Logger::instance().log(LOGLEVEL::INFO, "Initializing Main Menu");
-	this->mainMenu.initMenu();
+	Logger::instance().log(LOGLEVEL::INFO, "Initializing Menu");
+	this->menu.initMenu(true);
+
+	Logger::instance().log(LOGLEVEL::INFO, "Initializing Tutorial");
+	this->tutorial.initTutorial();
 
 	Logger::instance().log(LOGLEVEL::INFO, "Initializing Gateway");
 	this->gateway.init();
@@ -60,24 +68,22 @@ void Game::initGame() {
 	Logger::instance().log(LOGLEVEL::INFO, "Initializing MenuBar");
 	this->menuBar.init();
 
-	startMenu();
-	
-	this->activePlayer = playerBlue;
-	this->gateway.setActivePlayer(playerBlue);
-
-	this->gameRunning = true;
-
-	this->renderer.updateTimer();
-
-	startGame();
 }
 
 void Game::startMenu()
 {
-	this->mainMenu.showMenu();
+	this->menu.showMenu();
 
-	while (!gameRunning) {
+	while (this->menu.IsShowingMenu()) {
 		this->updateGame();
+	}
+}
+
+void Game::startTutorial()
+{
+	tutorial.showTutorial();
+	while (isTutorial) {
+		updateGame();
 	}
 }
 
@@ -89,11 +95,16 @@ void Game::startMenu()
  *
  */
 void Game::startGame() {
+
+	this->activePlayer = playerBlue;
+	this->gateway.setActivePlayer(playerBlue);
+	this->gameRunning = true;
 	Logger::instance().log(LOGLEVEL::INFO, "Game Running");
-	// start a player phase and switch player afterwards
+
 	this->field.init(ConfigReader::instance().getMapConf()->getSizeX(), ConfigReader::instance().getMapConf()->getSizeY(), ConfigReader::instance().getMapConf()->getSeed());
 	this->menuBar.init();
 
+	// start a player phase and switch player afterwards
 	while (gameRunning) {
 		this->ctrTurns++;
 
@@ -144,12 +155,14 @@ void Game::startPlayerPhase() {
 			}
 		}
 
+		if (isTutorial) {
+			startTutorial();
+		}
+
 		// update game while in phase, buy phase as long as player buys, attack and move as long as there are units to move and stuff
 		while (!this->activePlayer->getUnitQueue().empty() || this->activePlayer->getBuying()) {
 			updateGame();
 		}
-
-
 	}
 }
 
@@ -162,22 +175,24 @@ void Game::updateGame() {
 	std::vector<std::shared_ptr<Unit>> unitsBlue = this->playerBlue->getUnitArray();
 	std::vector<std::shared_ptr<Unit>> unitsRed = this->playerRed->getUnitArray();
 
-	for (std::shared_ptr<Unit>& unit : unitsBlue)
-	{
-		if (Gamefield::instance().findTileByUnit(unit).get() != nullptr) {
-			Gamefield::instance().findTileByUnit(unit).get()->refreshTile();
+	if (!menu.IsShowingMenu()) {
+		for (std::shared_ptr<Unit>& unit : unitsBlue)
+		{
+			if (Gamefield::instance().findTileByUnit(unit).get() != nullptr) {
+				Gamefield::instance().findTileByUnit(unit).get()->refreshTile();
+			}
+
+			unit->update();
 		}
 
-		unit->update();
-	}
+		for (std::shared_ptr<Unit>& unit : unitsRed)
+		{
+			if (Gamefield::instance().findTileByUnit(unit).get() != nullptr) {
+				Gamefield::instance().findTileByUnit(unit).get()->refreshTile();
+			}
 
-	for (std::shared_ptr<Unit>& unit : unitsRed)
-	{
-		if (Gamefield::instance().findTileByUnit(unit).get() != nullptr) {
-			Gamefield::instance().findTileByUnit(unit).get()->refreshTile();
+			unit->update();
 		}
-
-		unit->update();
 	}
 
 	renderer.updateTimer();
@@ -200,9 +215,60 @@ void Game::handleEndTurn(EndTurnEvent* event)
  */
 void Game::handleStartGame(StartGameEvent* event)
 {
-	this->gameRunning = true;
-
+	startGame();
 }
+
+/**
+ * handles the start of the tutorial
+ *
+ */
+void Game::handleStartTutorial(StartTutorialEvent* event)
+{
+	this->isTutorial = true;
+	this->gateway.setTutorial(true);
+	startGame();
+}
+
+/**
+ * handles the end of the tutorial
+ *
+ */
+void Game::handleEndTutorial(EndTutorialEvent* event)
+{
+	this->isTutorial = false;
+	this->gateway.setTutorial(false);
+
+	this->field.refreshGamefieldFromXYtoXY(event->getStartX(), event->getEndX(), event->getStartY(), event->getEndY());
+}
+
+/**
+ * handles the call of the ingame menu
+ *
+ */
+void Game::handleIngameMenu(IngameMenuEvent* event)
+{
+	if (gameRunning) {
+		this->menu.initMenu(false);
+		this->menu.showMenu();
+
+		while (menu.IsShowingMenu()) {
+			updateGame();
+		}
+	}
+}
+
+/**
+ * returns to the main menu
+ *
+ */
+void Game::handleReturnToMenu(ReturnToMenuEvent* event)
+{
+	resetGame();
+
+	this->menu.initMenu(true);
+	menu.showMenu();
+}
+
 
 /**
  * quits the game
@@ -220,18 +286,24 @@ void Game::quit(EndGameEvent* event) {
  *
  */
 void Game::switchActivePlayer() {
-	this->activePlayer->demarkActiveUnit();
-	this->endTurn = false;
-	if (this->activePlayer->getColor()) {
-		this->activePlayer = playerBlue;
-		this->gateway.setActivePlayer(playerBlue);
-	}
-	else {
-		this->activePlayer = playerRed;
-		this->gateway.setActivePlayer(playerRed);
-	}
 
-	this->activePlayer->resetApForAllUnits();
+	if (this->activePlayer != NULL) {
+		this->activePlayer->demarkActiveUnit();
+
+
+		this->endTurn = false;
+
+		if (this->activePlayer->getColor()) {
+			this->activePlayer = playerBlue;
+			this->gateway.setActivePlayer(playerBlue);
+		}
+		else {
+			this->activePlayer = playerRed;
+			this->gateway.setActivePlayer(playerRed);
+		}
+
+		this->activePlayer->resetApForAllUnits();
+	}
 }
 
 /**
@@ -249,6 +321,20 @@ void Game::startAttackPhase() {
 
 	this->activePlayer->markActiveUnit();
 
+}
+
+/**
+ * reset the Game
+ * -> reset Gamefield
+ * -> reset Players
+ *
+ */
+void Game::resetGame()
+{
+	field.resetGamefield();
+	this->playerBlue->resetPlayer();
+	this->playerRed->resetPlayer();
+	this->menuBar.init();
 }
 
 /**

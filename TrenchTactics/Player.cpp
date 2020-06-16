@@ -106,6 +106,19 @@ void Player::markActiveUnit()
 	}
 }
 
+/**
+ * resets the whole player to inital state
+ *
+ */
+void Player::resetPlayer()
+{
+	this->money = ConfigReader::instance().getBalanceConf()->getStartingGold();
+	this->unitArray.clear();
+	this->buying = false;
+	//the c++ way to clear the queue...
+	std::queue<std::shared_ptr<Unit>>().swap(unitQueue);
+}
+
 bool Player::checkPlayerCanBuyUnits()
 {
 	for (int i = 0; i < 3; i++) {

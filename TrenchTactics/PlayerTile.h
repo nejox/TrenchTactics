@@ -9,6 +9,7 @@ class PlayerTile : public Tile {
 private:
 	std::shared_ptr<Headquarter> headquarter;
 public:
+
 	void setHeadquarter(std::shared_ptr<Headquarter> headquarter) {
 		this->headquarter = headquarter;
 	}

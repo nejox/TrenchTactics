@@ -96,6 +96,8 @@ void Button::loadSpriteFromType(int type)
 	case 40:
 	case 41:
 	case 42:
+	case 43:
+	case 45:
 		this->sprite->load(buttonConf->getMainMenuButtonSprite());
 		break;
 	default:

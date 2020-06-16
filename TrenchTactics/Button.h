@@ -28,7 +28,9 @@ public:
 
 		STARTGAME = 40,
 		TUTORIAL = 41,
-		EXIT  = 42
+		CONTINUE = 42,
+		BACKTOMAIN = 43,
+		EXIT  = 45
 	};
 
 	Button(BUTTONTYPE type) {

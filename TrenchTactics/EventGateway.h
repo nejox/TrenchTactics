@@ -42,18 +42,24 @@ public:
 		this->activePlayer = player;
 	}
 
+	void setTutorial(bool flag) {
+		isTutorial = flag;
+	}
+
 private:
 	EventGateway();
 	~EventGateway();
 	GAMEPHASES::GAMEPHASE currentPhase;
 	std::shared_ptr<Player> activePlayer;
+	bool isTutorial = false;
 
 	void handleNextUnit();
 	void handlePrevUnit();
 	void handleEndTurn();
 	void handleNextPhase();
 	void handleTrench();
-	void handleMainMenuEvent(MouseClickEvent* event);
+	void handleMenuEvent(MouseClickEvent* event);
+	void handleTutorialEvent(MouseClickEvent* event);
 	
 	void handleAttackEvent(MouseClickEvent* event);
 	void handleMoveEvent(MouseClickEvent* event);

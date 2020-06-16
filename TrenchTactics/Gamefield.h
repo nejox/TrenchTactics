@@ -27,7 +27,6 @@ private:
 	std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> spawnBlue;
 	std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> spawnRed;
 	
-
 	Gamefield();
 
 	void setAllFieldSizes();
@@ -113,6 +112,9 @@ public:
 
 	void deselectAndUnmarkAllTiles();
 
-
 	bool checkUnitHasEnemysAround(shared_ptr<Unit> pUnit, bool colorRed);
+
+	void refreshGamefieldFromXYtoXY(int sX, int eX, int sY, int eY);
+
+	void resetGamefield();
 };
