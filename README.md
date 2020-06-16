@@ -52,7 +52,11 @@ Derzeit wird TrenchTactics als Console Application compiled, um eine reine Execu
 ## Gesamtuebersicht
 
 ### Framework
-
+Das Framework das im Projekt TrenchTactics ist [SDL2](https://www.libsdl.org/). SDL2 stellt hauptsaechlich Grundfunktionalitaeten zur Verfuegung, in unserem Projekt speziell:
+- Laden der einzelnen Sprites die im Spiel verwendet werden
+- Darstellen der Sprites
+- Animation der Sprites
+- Annahme des UserInput per Maus (bisher ist kein Keyboard-Input moeglich)
 
 ### Architektur
 ![Architecture Big Picture](Doku/ArchitectureBigPicture.jpg "Architecture Big Picture")
@@ -61,4 +65,61 @@ In Oben zu sehenden Bild gibt es einen kurzen Ueberblick ueber die Architektur i
 
 Die Architektur kann grundsaetzlich grob in die fuenf deutlich zu sehenden Elemente unterteilt werden. 
 
-Grundsaetzlich wird User Input entegegen genommen, dann in der grossen Komponente "Game", unter zuhilfenahme der Datenbasis, verarbeitet und dann dem User entsprechend wieder angezeigt. All diese Komponenten bauen auf verschiedenen Low-Level Funktionen von SDL2 auf
+User Input wird durch die erste Komponente entegegen genommen, dann in der grossen Komponente "Game", unter zuhilfenahme der Datenbasis, verarbeitet und dann dem User entsprechend wieder angezeigt. All diese Komponenten bauen auf verschiedenen Low-Level Funktionen von SDL2 auf und werden jetzt, Baustein fuer Baustein, erklaert.
+
+Im gesamten Projekt wurde darauf geachtet die Verbindung zu SDL2 nicht zu starr zu implementieren. Nahezu jede SDL Funktion wurde hinter Interfaces "versteckt". Am besten zu sehen am Beispiel des EventManagers der den UserInput behandelt. (genauer zu sehen im spezifischen Kapitel)
+
+#### Timer
+TrenchTactics ist ein Timer bzw Tick based Spiel. Dies bedeutet das Aktionen jeweils pro Tick abgearbeitet werden.
+Angenommen ein der User betaetigt einen Knopf wird diese Aktion (in diesem Fall von SDl2) gespeichert und nach jedem Tick durch die jeweilig zustaendigen Funktionen verarbeitet. (zu sehen im Kapitel EventManager: processEvents()) 
+Dies hat den eindeutigen Vorteil das dadurch kein Gedanke an Threading verschwendet werden muss. Die Nachteile die sich dadurch ergeben wuerden, wie etwa Latenz, sind jedoch fuer TrenchTactics nicht allzu ausschlaggebend und werden somit gekonnt ignoriert.
+
+In der Timer Klasse wird die letzte Zeit (Tick), bereits vergangene Zeit und jetztige Zeit gespeichert und durch aufrufen der Funktion Update aktualisiert.
+Diese Funktion wird bei jedem GameTick aufgerufen, und in Folge dessen das komplette Spiel aktualisiert.
+Ebenfalls ist hier zu sehen das die SDL Funktion GetTicks aufgerufen wird,die die Anzahl der bereits vergangenen Ticks zurueckgibt.
+```c++
+/**
+ * updates timer data to the next tick.
+ *
+ */
+void CTimer::Update()
+{
+	m_fCurTime = SDL_GetTicks() / 1000.0f;
+	m_fElapsed = m_fCurTime - m_fLastTime;
+	m_fLastTime = m_fCurTime;
+}
+```
+
+#### UserInput
+UserInput wurde komplett abstrakt auf die SDL2 Funktionen aufgebau. Das dazu definiert Interface wurde unter Verwendung des SingeltonPatterns implementiert und stellt lediglich die Funktion processEvents zur Verfuegung:
+```c++
+#pragma once
+#include "IEventManager.h"
+
+/**
+ * EventManagerImpl class based on singelton pattern
+ * for implementing the EventManager and handling events
+ */
+class EventManagerImpl :
+	public IEventManager
+{
+public:
+	EventManagerImpl(const EventManagerImpl&) = delete;
+	EventManagerImpl& operator=(const EventManagerImpl&) = delete;
+	EventManagerImpl(EventManagerImpl&&) = delete;
+	EventManagerImpl& operator=(EventManagerImpl&&) = delete;
+
+	~EventManagerImpl() {};
+	void processEvents();
+
+	static auto& instance() {
+		static EventManagerImpl eventManager;
+		return eventManager;
+	}
+
+private:
+	EventManagerImpl() {};
+};
+```
+
+Insgesamt ist das Spiel Timer bzw Tick basiert. Dies bedeutet das
