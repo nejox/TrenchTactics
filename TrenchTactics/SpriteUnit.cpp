@@ -13,7 +13,7 @@
 SpriteUnit::SpriteUnit(bool colourRed, TYPES::UnitType type)
 {
 	m_colourRed = colourRed;
-	m_defaultState = STATES::UNITSTATE::STANDING_NEUTRAL;
+	m_defaultState = STATES::UNITSTATE::STANDING_DARK;
 	m_currentState = m_defaultState;
 	m_fcurrentPhase = 0;
 

@@ -43,26 +43,41 @@ public:
 	 */
 	void emptyQueue() {
 		while (!this->unitQueue.empty()) {
-			this->unitQueue.pop();
+			this->popUnit();
 		}
+	}
+
+	void requeueUnit() {
+		shared_ptr<Unit> tmp = this->unitQueue.front();
+		//no new state here
+		this->unitQueue.pop();
+		//but here, so we stay in standing neutral,bright and shiny
+		this->queueUnit(tmp);
+		
 	}
 
 	/**
 	 * wrapper function to pop a unit in the queue.
 	 * don't ask me why we need this but we do
-	 *
+	 * Sets defaultState for units
+	 * updates unit to show the new state immediately
 	 */
 	void popUnit() {
+		this->unitQueue.front()->setLastingState(STATES::STANDING_DARK);
+		this->unitQueue.front()->update(this->unitQueue.front()->getLastingState());
 		this->unitQueue.pop();
 	}
 
 	/**
 	 * Add unit to the queue.
-	 *
+	 * sets defaulltState for units
 	 * \param unit that will be added
 	 */
 	void queueUnit(std::shared_ptr<Unit> unit) {
 		this->unitQueue.push(unit);
+		unit->setLastingState(STATES::STANDING_NEUTRAL);
+		this->unitQueue.front()->update(this->unitQueue.front()->getLastingState()); //TO DO: why does this shit takes another animation phase to change colors
+		
 	}
 
 	/**

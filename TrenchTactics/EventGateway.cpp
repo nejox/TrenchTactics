@@ -40,11 +40,9 @@ void EventGateway::handleEvent(MouseClickEvent* event) {
  */
 void EventGateway::handleNextUnit()
 {
-	const std::shared_ptr<Unit> unit = this->activePlayer->getUnitQueue().front();
 	this->activePlayer->demarkActiveUnit();
 
-	this->activePlayer->popUnit();
-	this->activePlayer->queueUnit(unit);
+	this->activePlayer->requeueUnit();
 
 	this->activePlayer->markActiveUnit();
 
@@ -63,8 +61,7 @@ void EventGateway::handlePrevUnit()
 	std::shared_ptr<Unit> tmp = nullptr;
 	tmp = this->activePlayer->getUnitQueue().front();
 	while (tmp != unit) {
-		this->activePlayer->popUnit();
-		this->activePlayer->queueUnit(tmp);
+		this->activePlayer->requeueUnit();
 		tmp = this->activePlayer->getUnitQueue().front();
 	}
 
@@ -214,6 +211,7 @@ void EventGateway::handleAttackEvent(MouseClickEvent* event) {
 
 			if (checkRange(Gamefield::instance().findTileByUnit(unitToBeAttacked)) && unitAttacking->getCurrentAP() >= unitAttacking->getApCostAttack()) {
 				unitAttacking->attack(unitToBeAttacked, Gamefield::instance().findTileByUnit(unitToBeAttacked)->hasTrench());
+				this->activePlayer->demarkActiveUnit();
 				this->activePlayer->popUnit();
 
 				this->activePlayer->markActiveUnit();
@@ -235,7 +233,7 @@ void EventGateway::handleAttackEvent(MouseClickEvent* event) {
 		if (checkRange(tile) && unitAttacking->getCurrentAP() >= unitAttacking->getApCostAttack()) {
 			std::shared_ptr < Headquarter> hq = tile->getHeadquarter();
 			unitAttacking->attack(hq);
-
+			this->activePlayer->demarkActiveUnit();
 			this->activePlayer->popUnit();
 			this->activePlayer->markActiveUnit();
 		}
@@ -306,7 +304,6 @@ void EventGateway::handleMoveEvent(MouseClickEvent* event) {
 			// delete the moved unit from the queue
 			this->activePlayer->demarkActiveUnit();
 			this->activePlayer->popUnit();
-			unitToBeMoved->setState(STATES::UNITSTATE::STANDING_NEUTRAL);
 			this->activePlayer->markActiveUnit();
 		}
 	}

@@ -79,12 +79,11 @@ void Player::copyUnitsToQueue() {
 					&& Gamefield::instance().checkUnitHasEnemysAround(this->unitArray[j],this->getColor())) 
 					|| (this->unitArray[j]->getCurrentAP() >= this->unitArray[j]->getApCostTrench()
 						&& !Gamefield::instance().findTileByUnit(this->unitArray[j])->hasTrench())) {
-					this->unitQueue.push(this->unitArray[j]);
-
+					this->queueUnit(this->unitArray[j]);
 				}
 			}
 			else {
-				this->unitQueue.push(this->unitArray[j]);
+				this->queueUnit(this->unitArray[j]);
 			}
 
 		}
@@ -130,7 +129,7 @@ void Player::demarkActiveUnit()
 {
 	//mark the first unit to be moved as neutral
 	if (!unitQueue.empty()) {
-		this->unitQueue.front()->setState(STATES::UNITSTATE::STANDING_NEUTRAL);
+		this->unitQueue.front()->setState(this->unitQueue.front()->getLastingState());
 		MenuBar::instance().resetUnitStats();
 	}
 	Gamefield::instance().deselectAndUnmarkAllTiles();
