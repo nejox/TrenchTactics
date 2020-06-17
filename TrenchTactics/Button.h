@@ -24,7 +24,13 @@ public:
 		ADDUNIT = 23,
 
 		ENDTURN = 30,
-		NEXTPHASE = 31
+		NEXTPHASE = 31,
+
+		STARTGAME = 40,
+		TUTORIAL = 41,
+		CONTINUE = 42,
+		BACKTOMAIN = 43,
+		EXIT  = 45
 	};
 
 	Button(BUTTONTYPE type) {
@@ -34,7 +40,6 @@ public:
 		this->costText = make_shared<SpriteText>(20);
 		this->loadSpriteFromType(type);
 		this->loadCostFromType(type);
-
 	}
 	~Button() {};
 
@@ -53,6 +58,10 @@ public:
 		this->sprite = sprite;
 	}
 
+	SpriteButton* getSprite() {
+		return this->sprite;
+	}
+
 	BUTTONTYPE getType() {
 		return this->type;
 	}
@@ -60,12 +69,13 @@ public:
 	void setType(BUTTONTYPE type);
 	void setPos(int x, int y);
 	void push();
-	void loadSpriteFromType(int type);
-	void loadCostFromType(int type);
 
 	void update();
 
 private:
+	void loadSpriteFromType(int type);
+	void loadCostFromType(int type);
+
 	SpriteButton* sprite;
 	int cost;
 	std::shared_ptr<SpriteText> costText;

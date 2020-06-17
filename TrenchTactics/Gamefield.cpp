@@ -456,6 +456,9 @@ void Gamefield::deselectAndUnmarkAllTiles()
 /**
 *
 * Function to scan the tiles around which are in range for enemy units who can be attacked
+
+*\param pUnit the respective Unit to check
+*\param colorRed the faction of the unit
 */
 bool Gamefield::checkUnitHasEnemysAround(shared_ptr<Unit> pUnit, bool colorRed)
 {
@@ -493,10 +496,65 @@ bool Gamefield::checkUnitHasEnemysAround(shared_ptr<Unit> pUnit, bool colorRed)
 	return false;
 }
 
+/**
+*
+* Function to scan the tiles around which are in range for enemy units who can be attacked
+*\param sX the starting x-coordinate
+*\param eX the ending x-coordinate
+*\param sY the starting y-coordinate
+*\param eY the ending y-coordinate
+*/
+void Gamefield::refreshGamefieldFromXYtoXY(int sX, int eX, int sY, int eY)
+{
+
+	int tileX = sX / 64 - 2;
+	int tileY = sY / 64;
+	int tileEndX = eX / 64 - 2;
+	int tileEndY = eY / 64;
+
+	for (size_t i = tileX; i <= tileEndX; i++)
+	{
+		for (size_t j = tileY; j <= tileEndY; j++)
+		{
+			playingfield->at(i).at(j)->refreshTile();
+		}
+	}
+}
+
+/**
+*
+* Function to reset the Gamefield completely
+*/
+void Gamefield::resetGamefield()
+{
+
+	//set headquarters to full health
+	this->headquarterTilePlayerBlue->getHeadquarter()->resetHQ();
+	this->headquarterTilePlayerRed->getHeadquarter()->resetHQ();
+
+	for (vector<std::shared_ptr<FieldTile>>& spawnTiles : *spawnBlue) {
+		
+		for (std::shared_ptr<FieldTile>& spawnTile : spawnTiles) {
+			spawnTile->resetTile();
+		}
+	}
+	for (vector<std::shared_ptr<FieldTile>>& spawnTiles : *spawnRed) {
+
+		for (std::shared_ptr<FieldTile>& spawnTile : spawnTiles) {
+			spawnTile->resetTile();
+		}
+	}
+	for (vector<std::shared_ptr<FieldTile>>& fieldTiles : *playingfield) {
+
+		for (std::shared_ptr<FieldTile>& fieldTile : fieldTiles) {
+			fieldTile->resetTile();
+		}
+	}
+	
+}
+
 
 // ------------ Setupfunctions for gamestart -------------------------
-
-
 
 /**
  * Creates a complete field tile based on position and terraintype

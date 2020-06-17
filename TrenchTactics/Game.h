@@ -14,6 +14,12 @@
 #include "MenuBar.h"
 #include "EndTurnEvent.h"
 #include "EndGameEvent.h"
+#include "Menu.h"
+#include "StartGameEvent.h"
+#include "Tutorial.h"
+#include "EndTutorialEvent.h"
+#include "IngameMenuEvent.h"
+#include "ReturnToMenuEvent.h"
 
 /**
  * Main class to start the game
@@ -33,20 +39,33 @@ private:
 	Gamefield& field = Gamefield::instance();
 	EventGateway& gateway = EventGateway::instance();
 	MenuBar& menuBar = MenuBar::instance();
-
+	Menu& menu =  Menu::instance();
+	Tutorial& tutorial = Tutorial::instance();
 
 	bool gameRunning;
+	bool isTutorial;
 	void switchActivePlayer();
 	void startBuyPhase();
 	void startMovePhase();
 	void startAttackPhase();
+	void resetGame();
 public:
 	Game();
+
+	bool isRunning();
 	void initGame();
+	void startMenu();
+	void startTutorial();
 	void startPlayerPhase();
 	void startGame();
 	void quit(EndGameEvent* event);
 	void updateGame();
 	void handleEndTurn(EndTurnEvent* event);
+	void handleStartGame(StartGameEvent* event);
+	void handleStartTutorial(StartTutorialEvent* event);
+	void handleEndTutorial(EndTutorialEvent* event);
+	void handleIngameMenu(IngameMenuEvent* event);
+	void handleReturnToMenu(ReturnToMenuEvent* event);
+
 
 };

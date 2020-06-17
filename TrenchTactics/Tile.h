@@ -45,8 +45,7 @@ public:
 	int getPosX() {
 		return this->posX;
 	}
-	int startAnimation() {};
-	int update() {};
+
 	Tile() {
 		this->marked = false;
 		this->selected = false;

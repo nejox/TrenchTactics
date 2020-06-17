@@ -24,9 +24,6 @@ public:
 	void clearScreen();
 	void destroy();
 	void updateTimer();
-	void renderTile(); //TODO: Rect tileRect as parameter
-	void renderHQ();
-	void startAnimation(); //TODO: Unit* unit as parameter
 
 	void render();
 	SDL_Renderer* GetRenderer();

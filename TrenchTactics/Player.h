@@ -34,7 +34,7 @@ public:
 	void copyUnitsToQueue();
 	void demarkActiveUnit();
 	void markActiveUnit();
-
+	void resetPlayer();
 	bool checkPlayerCanBuyUnits();
 
 	/**

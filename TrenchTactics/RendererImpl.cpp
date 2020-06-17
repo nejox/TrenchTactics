@@ -136,18 +136,6 @@ void RendererImpl::updateTimer()
 
 }
 
-void RendererImpl::renderTile()
-{
-}
-
-void RendererImpl::renderHQ()
-{
-}
-
-void RendererImpl::startAnimation()
-{
-}
-
 void RendererImpl::render()
 {
 	SDL_RenderPresent(m_pRenderer);
