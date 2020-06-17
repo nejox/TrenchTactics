@@ -76,6 +76,10 @@ void Sprite::load(const string sFilename)
 	m_Rect.w = pTemp->w;
 	m_Rect.h = pTemp->h;
 
+	//only needed for buttons
+	quadX = pTemp->w / 2;
+	quadY = pTemp->h;
+
 	SDL_FreeSurface(pTemp);
 }
 

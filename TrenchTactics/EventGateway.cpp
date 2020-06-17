@@ -1,6 +1,11 @@
 #include "EventGateway.h"
 #include "EndTurnEvent.h"
-
+#include "Menu.h"
+#include "StartGameEvent.h"
+#include "EndGameEvent.h"
+#include "StartTutorialEvent.h"
+#include "Tutorial.h"
+#include "ReturnToMenuEvent.h"
 
 EventGateway::EventGateway() {
 }
@@ -23,6 +28,15 @@ void EventGateway::init() {
  * \param event mouseclickevent with position of the event
  */
 void EventGateway::handleEvent(MouseClickEvent* event) {
+	//showing Main Menu or Ingame Menu
+	if (Menu::instance().IsShowingMenu()) {
+		handleMenuEvent(event);
+	}
+	//Tutorial Mode? - seperate Click Handling
+	if (isTutorial) {
+		handleTutorialEvent(event);
+	}
+
 	if (this->currentPhase == GAMEPHASES::BUY) {
 		this->handleBuyEvent(event);
 	}
@@ -164,6 +178,62 @@ void EventGateway::handleTrench()
 		this->activePlayer->markActiveUnit();
 	}
 
+}
+
+/**
+ * Function that handles Main menu events
+ * \param event provided event from eventbus, in this case mouseclickevent
+ */
+void EventGateway::handleMenuEvent(MouseClickEvent* event)
+{
+	int btntype = Menu::instance().getButtonTypeFromXY(event->getX(), event->getY());
+
+	switch (btntype)
+	{
+	//start game
+	case Button::BUTTONTYPE::STARTGAME:
+		EventBus::instance().publish(new StartGameEvent());
+		break;
+
+	//start tutorial
+	case Button::BUTTONTYPE::TUTORIAL:
+		EventBus::instance().publish(new StartTutorialEvent());
+		break;
+
+	//exit game
+	case Button::BUTTONTYPE::EXIT:
+		EventBus::instance().publish(new EndGameEvent());
+		break;
+	// continue game
+	case Button::BUTTONTYPE::CONTINUE:
+	{
+		int posX = Menu::instance().getPosX();
+		int posY = Menu::instance().getPosY();
+		Gamefield::instance().refreshGamefieldFromXYtoXY(posX, (posX + Menu::instance().getEndX()), posY,(posY + Menu::instance().getEndY()));
+		break;
+	}
+	// back to main menu
+	case Button::BUTTONTYPE::BACKTOMAIN:
+	{
+		int posX = Menu::instance().getPosX();
+		int posY = Menu::instance().getPosY();
+		Gamefield::instance().refreshGamefieldFromXYtoXY(posX, (posX + Menu::instance().getEndX()), posY, (posY + Menu::instance().getEndY()));
+
+		EventBus::instance().publish(new ReturnToMenuEvent());
+		break;
+	}
+	default:
+		break;
+	}
+}
+
+/**
+ * Function that handles Mouse Click Events in the Tutorial
+ * \param event provided event from eventbus, in this case mouseclickevent
+ */
+void EventGateway::handleTutorialEvent(MouseClickEvent* event)
+{
+	Tutorial::instance().handleMouseClick(event->getX(),event->getY());
 }
 
 /**
@@ -319,6 +389,7 @@ void EventGateway::handleMoveEvent(MouseClickEvent* event) {
  * \param event provided event from eventbus, in this case mouseclickevent
  */
 void EventGateway::handleBuyEvent(MouseClickEvent* event) {
+
 	// check wether a player is even allowed to buy a unit based on their supply and money  TO DO: vielleicht woanders hin die condition, wenn sie hier steht muss man erst klicken dass die buyphase geskippt wird
 	if ((this->activePlayer->getUnitArray().size() + 1) > ConfigReader::instance().getBalanceConf()->getMaxAmountUnits() ||
 		(

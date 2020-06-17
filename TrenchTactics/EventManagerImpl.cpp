@@ -4,7 +4,8 @@
 #include "MouseClickEvent.h"
 #include "EndGameEvent.h"
 #include <iostream>
-
+#include "Sprite.hpp"
+#include "IngameMenuEvent.h"
 
 /**
  * EventmanagerImpl based on sdl functionality
@@ -35,6 +36,20 @@ void EventManagerImpl::processEvents()
 		case(SDL_QUIT): {
 			bus.publish(new EndGameEvent());
 			break;
+		}
+
+		case(SDL_KEYDOWN) : {
+			switch (Event.key.keysym.sym)
+			{
+			case (SDLK_ESCAPE):
+			{
+				bus.publish(new IngameMenuEvent());
+
+			} break;
+
+			default:
+				break;
+			}
 		}
 
 		default:

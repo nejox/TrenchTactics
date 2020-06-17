@@ -90,5 +90,5 @@ public:
 		return m_spriteHealthBar;
 	}
 
-
+	void resetHQ();
 };

@@ -47,6 +47,7 @@ public:
 
 	void removeUnit();
 	void refreshTile();
+	void resetTile();
 
 	void setUnit(std::shared_ptr<Unit> unit);
 
