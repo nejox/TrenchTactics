@@ -12,13 +12,14 @@ namespace STATES
 {
 	enum UNITSTATE {
 		STANDING_NEUTRAL,
+		STANDING_DARK,
 		STANDING,
 		SHOOTING,
 		RUNNING
 	};
-	static const UNITSTATE All[] = { STANDING_NEUTRAL, STANDING, SHOOTING, RUNNING };
+	static const UNITSTATE All[] = { STANDING_NEUTRAL, STANDING_DARK, STANDING, SHOOTING, RUNNING };
 
-	enum BUTTONSTATE {
+	enum BUTTONSTATE { //TO DO: Woanders hin
 		NEUTRAL,
 		PRESSED
 	};
@@ -36,6 +37,14 @@ public:
 	SpriteUnit(bool colourRed, TYPES::UnitType type);
 	void render();
 	STATES::UNITSTATE render(STATES::UNITSTATE changedState);
+
+	STATES::UNITSTATE getDefaultState() {
+		return this->m_defaultState;
+	}
+
+	void setDefaultState(STATES::UNITSTATE defaultstate){
+		this->m_defaultState = defaultstate;
+	}
 
 
 

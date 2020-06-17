@@ -99,6 +99,16 @@ void Unit::setState(STATES::UNITSTATE state)
 	this->m_state = state;
 }
 
+void Unit::setLastingState(STATES::UNITSTATE state)
+{
+    this->getSprite()->setDefaultState(state);
+}
+
+STATES::UNITSTATE Unit::getLastingState()
+{
+    return this->getSprite()->getDefaultState();
+}
+
 STATES::UNITSTATE Unit::getState()
 {
 	return this->m_state;
@@ -137,6 +147,6 @@ void Unit::move()
 {
 	//this->setState(RUNNING);
 	//TO DO
-	updateAP(1);
+	updateAP(this->getApCostMove());
 }
 

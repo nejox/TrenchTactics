@@ -177,10 +177,12 @@ std::map<int, std::shared_ptr<UnitConf>> ConfigReader::createUnitConfMap()
 		unitConf->setSpawnProbability(rootElem["spawnProbability"].asInt());
 		unitConf->setSpriteFilePathStandingActiveRed(rootElem["spritesRed"]["standingActive"].asString());
 		unitConf->setSpriteFilePathStandingNeutralRed(rootElem["spritesRed"]["standingNeutral"].asString());
+		unitConf->setSpriteFilePathStandingDarkRed(rootElem["spritesRed"]["standingDark"].asString());
 		unitConf->setSpriteFilePathShootingRed(rootElem["spritesRed"]["shooting"].asString());
 		unitConf->setSpriteFilePathRunningRed(rootElem["spritesRed"]["running"].asString());
 		unitConf->setSpriteFilePathStandingActiveBlue(rootElem["spritesBlue"]["standingActive"].asString());
 		unitConf->setSpriteFilePathStandingNeutralBlue(rootElem["spritesBlue"]["standingNeutral"].asString());
+		unitConf->setSpriteFilePathStandingDarkBlue(rootElem["spritesBlue"]["standingDark"].asString());
 		unitConf->setSpriteFilePathShootingBlue(rootElem["spritesBlue"]["shooting"].asString());
 		unitConf->setSpriteFilePathRunningBlue(rootElem["spritesBlue"]["running"].asString());
 		unitConf->setName(rootElem["name"].asString());

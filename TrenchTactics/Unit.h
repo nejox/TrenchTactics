@@ -114,6 +114,14 @@ public:
 	}
 
 	void setState(STATES::UNITSTATE state);
+
+	/*
+	* set state until it gets changed
+	*/
+	void setLastingState(STATES::UNITSTATE state);
+
+	STATES::UNITSTATE Unit::getLastingState();
+
 	STATES::UNITSTATE getState();
 
 	int getCurrentHP()
