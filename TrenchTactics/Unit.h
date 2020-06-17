@@ -120,7 +120,7 @@ public:
 	*/
 	void setLastingState(STATES::UNITSTATE state);
 
-	STATES::UNITSTATE Unit::getLastingState();
+	STATES::UNITSTATE getLastingState();
 
 	STATES::UNITSTATE getState();
 
