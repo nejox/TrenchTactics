@@ -17,8 +17,6 @@ SpriteUnit::SpriteUnit(bool colourRed, TYPES::UnitType type)
 	m_currentState = m_defaultState;
 	m_fcurrentPhase = 0;
 
-	std::shared_ptr<UnitConf> unitConf = ConfigReader::instance().getUnitConf(type);
-
 	// Setting the respective Paths to Animation Files
 	for (STATES::UNITSTATE state : STATES::All) {
 
@@ -26,45 +24,45 @@ SpriteUnit::SpriteUnit(bool colourRed, TYPES::UnitType type)
 		{
 		case STATES::STANDING_NEUTRAL:
 			if (colourRed) {
-				animations.insert(std::pair<STATES::UNITSTATE, string>(state, unitConf->getSpriteFilePathStandingNeutralRed()));
+				animations.insert(std::pair<STATES::UNITSTATE, string>(state, ConfigReader::instance().getUnitConf(type)->getSpriteFilePathStandingNeutralRed()));
 			}
 			else
 			{
-				animations.insert(std::pair<STATES::UNITSTATE, string>(state, unitConf->getSpriteFilePathStandingNeutralBlue()));
+				animations.insert(std::pair<STATES::UNITSTATE, string>(state, ConfigReader::instance().getUnitConf(type)->getSpriteFilePathStandingNeutralBlue()));
 			}
 			break;
 		case STATES::STANDING_DARK:
 			if (colourRed) {
-				animations.insert(std::pair<STATES::UNITSTATE, string>(state, unitConf->getSpriteFilePathStandingDarkRed()));
+				animations.insert(std::pair<STATES::UNITSTATE, string>(state, ConfigReader::instance().getUnitConf(type)->getSpriteFilePathStandingDarkRed()));
 			}
 			else
 			{
-				animations.insert(std::pair<STATES::UNITSTATE, string>(state, unitConf->getSpriteFilePathStandingDarkBlue()));
+				animations.insert(std::pair<STATES::UNITSTATE, string>(state, ConfigReader::instance().getUnitConf(type)->getSpriteFilePathStandingDarkBlue()));
 			}
 			break;
 		case STATES::STANDING:
 			if (colourRed) {
-				animations.insert(std::pair<STATES::UNITSTATE, string>(state, unitConf->getSpriteFilePathStandingActiveRed()));
+				animations.insert(std::pair<STATES::UNITSTATE, string>(state, ConfigReader::instance().getUnitConf(type)->getSpriteFilePathStandingActiveRed()));
 			}
 			else
 			{
-				animations.insert(std::pair<STATES::UNITSTATE, string>(state, unitConf->getSpriteFilePathStandingActiveBlue()));
+				animations.insert(std::pair<STATES::UNITSTATE, string>(state, ConfigReader::instance().getUnitConf(type)->getSpriteFilePathStandingActiveBlue()));
 			}
 			break;
 		case STATES::SHOOTING:
 			if (colourRed) {
-				animations.insert(std::pair<STATES::UNITSTATE, string>(state, unitConf->getSpriteFilePathShootingRed()));
+				animations.insert(std::pair<STATES::UNITSTATE, string>(state, ConfigReader::instance().getUnitConf(type)->getSpriteFilePathShootingRed()));
 			}
 			else {
-				animations.insert(std::pair<STATES::UNITSTATE, string>(state, unitConf->getSpriteFilePathShootingBlue()));
+				animations.insert(std::pair<STATES::UNITSTATE, string>(state, ConfigReader::instance().getUnitConf(type)->getSpriteFilePathShootingBlue()));
 			}
 			break;
 		case STATES::RUNNING:
 			if (colourRed) {
-				animations.insert(std::pair<STATES::UNITSTATE, string>(state, unitConf->getSpriteFilePathRunningRed()));
+				animations.insert(std::pair<STATES::UNITSTATE, string>(state, ConfigReader::instance().getUnitConf(type)->getSpriteFilePathRunningRed()));
 			}
 			else {
-				animations.insert(std::pair<STATES::UNITSTATE, string>(state, unitConf->getSpriteFilePathRunningBlue()));
+				animations.insert(std::pair<STATES::UNITSTATE, string>(state, ConfigReader::instance().getUnitConf(type)->getSpriteFilePathRunningBlue()));
 			}
 			break;
 		default:

@@ -64,7 +64,7 @@ public:
 	 */
 	void popUnit() {
 		this->unitQueue.front()->setLastingState(STATES::STANDING_DARK);
-		this->unitQueue.front()->update(this->unitQueue.front()->getLastingState());
+		this->unitQueue.front()->update(STATES::STANDING_DARK);
 		this->unitQueue.pop();
 	}
 
@@ -76,7 +76,7 @@ public:
 	void queueUnit(std::shared_ptr<Unit> unit) {
 		this->unitQueue.push(unit);
 		unit->setLastingState(STATES::STANDING_NEUTRAL);
-		this->unitQueue.front()->update(this->unitQueue.front()->getLastingState()); //TO DO: why does this shit takes another animation phase to change colors
+		this->unitQueue.front()->update(STATES::STANDING_NEUTRAL); //TO DO: why does this shit takes another animation phase to change colors
 		
 	}
 
