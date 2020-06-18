@@ -38,16 +38,6 @@ public:
 	void render();
 	STATES::UNITSTATE render(STATES::UNITSTATE changedState);
 
-	STATES::UNITSTATE getDefaultState() {
-		return this->m_defaultState;
-	}
-
-	void setDefaultState(STATES::UNITSTATE defaultstate){
-		this->m_defaultState = defaultstate;
-	}
-
-
-
 private:
 	//SpriteUnit() {};
 	bool m_colourRed;

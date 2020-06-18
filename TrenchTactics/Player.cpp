@@ -134,6 +134,29 @@ bool Player::checkPlayerCanBuyUnits()
 	return false;
 }
 
+void Player::requeueUnit()
+{
+	shared_ptr<Unit> tmp = this->unitQueue.front();
+	//no new state here
+	this->unitQueue.pop();
+	//but here, so we stay in standing neutral,bright and shiny
+	this->queueUnit(tmp);
+}
+
+void Player::popUnit()
+{
+	this->unitQueue.front()->setState(STATES::STANDING_DARK);
+	this->unitQueue.front()->update(STATES::STANDING_DARK);
+	this->unitQueue.pop();
+}
+
+void Player::queueUnit(std::shared_ptr<Unit> unit)
+{
+	this->unitQueue.push(unit);
+	unit->setState(STATES::STANDING_NEUTRAL);
+	this->unitQueue.front()->update(STATES::STANDING_NEUTRAL);
+}
+
 /**
  * demarks the active Unit = the first one in the queue
  *
@@ -142,7 +165,7 @@ void Player::demarkActiveUnit()
 {
 	//mark the first unit to be moved as neutral
 	if (!unitQueue.empty()) {
-		this->unitQueue.front()->setState(this->unitQueue.front()->getLastingState());
+		this->unitQueue.front()->setState(STATES::STANDING_DARK);
 		MenuBar::instance().resetUnitStats();
 	}
 	Gamefield::instance().deselectAndUnmarkAllTiles();
@@ -153,6 +176,16 @@ void Player::demarkActiveUnit()
  * Searching the player list to find the corresponding unit
  * \param deathEvent event holding unit to be deleted
  */
+void Player::updateMoney(int amount){
+	this->money += amount;
+	if (this->money > 9999)
+	{
+		this->money = 9999;
+	}
+	else if (this->money < 0) {
+		this->money = 0;
+	}
+}
 void Player::deleteUnit(DeathEvent* deathEvent) {
 
 
