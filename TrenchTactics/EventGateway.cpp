@@ -592,12 +592,15 @@ bool EventGateway::checkRange(shared_ptr<Tile> targetTile) {
 * computes the amount of tiles a unit has to pass to get from start to end, order of end and start does not matter
 * \param start from which tile
 * \param end to which tile
-* \return integer value of the added differences of the X and Y positions of start and end
+* \return integer value dependent if added differences of the X and Y positions of start and end are smaller/equal or bigger than the movementrange of the unit
 */
 int EventGateway::computeApCost(shared_ptr<Unit> unitToBeMoved, shared_ptr<Tile> end)
 {
 	shared_ptr<FieldTile> start = Gamefield::instance().findTileByUnit(unitToBeMoved);
 	int distance = abs((end->getPosX() - start->getPosX()) / 64) + abs((end->getPosY() - start->getPosY()) / 64);
-	if (distance <= unitToBeMoved->getMovementRange()) return 1;
-	else return 2;
+	if (distance <= unitToBeMoved->getMovementRange()) return unitToBeMoved->getApCostMove();
+	
+	else return 2*(unitToBeMoved->getApCostMove());
+
+	
 }

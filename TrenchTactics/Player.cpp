@@ -142,9 +142,9 @@ void Player::popUnit() {
  */
 void Player::queueUnit(std::shared_ptr<Unit> unit) {
 	this->unitQueue.push(unit);
-	if (this->unitQueue.front()->getState() != STATES::RUNNING) {
-		this->unitQueue.front()->setState(STATES::STANDING_NEUTRAL); 
-		this->unitQueue.front()->update();
+	if (unit->getState() != STATES::RUNNING) {
+		unit->setState(STATES::STANDING_NEUTRAL); 
+		unit->update();
 	}
 }
 

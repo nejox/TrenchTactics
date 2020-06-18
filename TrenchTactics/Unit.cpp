@@ -23,7 +23,7 @@ Unit::Unit(TYPES::UnitType unittype, bool colorRed)
 	m_currentAP = ConfigReader::instance().getUnitConf(unittype)->getAp();
 	m_dmg = ConfigReader::instance().getUnitConf(unittype)->getDmg();
 	m_apCostAttack = ConfigReader::instance().getUnitConf(unittype)->getApCostAttack();
-	m_apCostAttack = ConfigReader::instance().getUnitConf(unittype)->getApCostMove();
+	m_apCostMove = ConfigReader::instance().getUnitConf(unittype)->getApCostMove();
 	m_movementRange = ConfigReader::instance().getUnitConf(unittype)->getMovementRange();
 	m_apCostTrench = ConfigReader::instance().getUnitConf(unittype)->getApCostTrench();
 	m_spawnProbability = ConfigReader::instance().getUnitConf(unittype)->getSpawnProbability();
