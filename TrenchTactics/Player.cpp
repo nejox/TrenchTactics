@@ -113,6 +113,29 @@ void Player::markActiveUnit()
 }
 
 /**
+ * wrapper function to pop a unit in the queue.
+ * don't ask me why we need this but we do
+ * Sets defaultState for units
+ * updates unit to show the new state immediately
+ */
+void Player::popUnit() {
+	this->unitQueue.front()->setState(STATES::STANDING_DARK);
+	this->unitQueue.pop();
+}
+
+/**
+ * Add unit to the queue.
+ * sets defaulltState for units
+ * \param unit that will be added
+ */
+void Player::queueUnit(std::shared_ptr<Unit> unit) {
+	this->unitQueue.push(unit);
+	if (this->unitQueue.front()->getState() != STATES::RUNNING) {
+		this->unitQueue.front()->setState(STATES::STANDING_NEUTRAL); //TO DO: why does this shit takes another animation phase to change colors
+	}
+}
+
+/**
  * resets the whole player to inital state
  *
  */
@@ -168,7 +191,7 @@ void Player::demarkActiveUnit()
 	if (!unitQueue.empty()) {
 		
 		if (this->unitQueue.front()->getState() != STATES::RUNNING) {
-			this->unitQueue.front()->setState(this->unitQueue.front()->getLastingState());
+			this->unitQueue.front()->setState(STATES::STANDING_DARK);
 		}
 		MenuBar::instance().resetUnitStats();
 	}

@@ -64,25 +64,14 @@ public:
 	 * Sets defaultState for units
 	 * updates unit to show the new state immediately
 	 */
-	void popUnit() {
-		this->unitQueue.front()->setLastingState(STATES::STANDING_DARK);
-		//TODO
-		//this->unitQueue.front()->setState(STATES::STANDING_DARK);
-		this->unitQueue.pop();
-	}
+	void popUnit(); 
 
 	/**
 	 * Add unit to the queue.
 	 * sets defaulltState for units
 	 * \param unit that will be added
 	 */
-	void queueUnit(std::shared_ptr<Unit> unit) {
-		this->unitQueue.push(unit);
-		unit->setLastingState(STATES::STANDING_NEUTRAL);
-		if (this->unitQueue.front()->getState() != STATES::RUNNING) {
-			this->unitQueue.front()->setState(STATES::STANDING_NEUTRAL); //TO DO: why does this shit takes another animation phase to change colors
-		}
-	}
+	void queueUnit(std::shared_ptr<Unit> unit); 
 
 	/**
 	 * add unit to the list of units of a player.

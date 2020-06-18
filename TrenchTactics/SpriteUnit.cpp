@@ -86,7 +86,8 @@ void SpriteUnit::render()
 	// Ausschnitt der aktuellen Animationsphase berechnen
 	if (m_currentState == m_defaultState ||
 		m_currentState == STATES::STANDING ||
-		m_currentState == STATES::RUNNING) {
+		m_currentState == STATES::RUNNING || 
+		m_currentState == STATES::STANDING_NEUTRAL) {
 
 		actFrame = actFrame % m_numFrames;
 	}
