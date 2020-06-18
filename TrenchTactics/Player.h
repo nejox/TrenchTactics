@@ -93,14 +93,7 @@ public:
 	 *
 	 * \param amount the amount of money you want to add to the players bank
 	 */
-	void updateMoney(int amount)
-	{
-		this->money += amount;
-		if (this->money > 9999)
-		{
-			this->money = 9999;
-		}
-	}
+	void updateMoney(int amount);
 
 	bool getColor() {
 		return this->colorRed;

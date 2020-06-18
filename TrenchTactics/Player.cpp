@@ -211,6 +211,20 @@ void Player::demarkActiveUnit()
 	Gamefield::instance().deselectAndUnmarkAllTiles();
 }
 
+void Player::updateMoney(int amount)
+
+{
+	this->money += amount;
+	if (this->money > 9999)
+	{
+		this->money = 9999;
+	}
+
+	else if (this->money < 0) {
+		this->money = 0;
+	}
+}
+
 /**
  * Delete unit from player after its death
  * Searching the player list to find the corresponding unit
