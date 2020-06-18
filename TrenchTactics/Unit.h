@@ -46,7 +46,9 @@ public:
 		m_spriteHealthBar = make_shared<SpriteHealthBar>(colorRed);
 		m_state = STATES::UNITSTATE::STANDING_NEUTRAL;
 		m_level = 1;
-
+		m_targetX = 0;
+		m_targetY = 0;
+		m_speed = 1.1f;
 	}
 
 private:
@@ -67,6 +69,11 @@ private:
 	int m_apCostMove;
 	int m_spawnProbability;
 	int m_level;
+
+	int m_targetX;
+	int m_targetY;
+	float m_speed;
+
 	std::string m_name;
 	std::shared_ptr<SpriteUnit>m_sprite;
 	std::shared_ptr<SpriteHealthBar>m_spriteHealthBar;
@@ -87,6 +94,7 @@ public:
 	bool changeHP(int damage);
 	void attack(std::shared_ptr<Unit> target, bool cover);
 	void attack(std::shared_ptr< Headquarter> target);
+	void setTargetCoordinates(int x, int y);
 	void move();
 	void updateAP(int cost);
 	void resetAP();
@@ -120,7 +128,7 @@ public:
 	*/
 	void setLastingState(STATES::UNITSTATE state);
 
-	STATES::UNITSTATE Unit::getLastingState();
+	STATES::UNITSTATE getLastingState();
 
 	STATES::UNITSTATE getState();
 

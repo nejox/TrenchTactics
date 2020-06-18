@@ -8,6 +8,7 @@
 #include <vector>
 #include <queue>
 #include <algorithm>
+#include "UnitMovementFinishedEvent.h"
 
 /**
  * Player main class - holds most of the informations
@@ -36,6 +37,7 @@ public:
 	void markActiveUnit();
 	void resetPlayer();
 	bool checkPlayerCanBuyUnits();
+	void handleUnitMovement(UnitMovementFinishedEvent* event);
 
 	/**
 	 * empties the unitQueue of the player.
@@ -53,7 +55,7 @@ public:
 		this->unitQueue.pop();
 		//but here, so we stay in standing neutral,bright and shiny
 		this->queueUnit(tmp);
-		
+
 	}
 
 	/**
@@ -64,7 +66,8 @@ public:
 	 */
 	void popUnit() {
 		this->unitQueue.front()->setLastingState(STATES::STANDING_DARK);
-		this->unitQueue.front()->update(STATES::STANDING_DARK);
+		//TODO
+		//this->unitQueue.front()->setState(STATES::STANDING_DARK);
 		this->unitQueue.pop();
 	}
 
@@ -76,8 +79,9 @@ public:
 	void queueUnit(std::shared_ptr<Unit> unit) {
 		this->unitQueue.push(unit);
 		unit->setLastingState(STATES::STANDING_NEUTRAL);
-		this->unitQueue.front()->update(STATES::STANDING_NEUTRAL); //TO DO: why does this shit takes another animation phase to change colors
-		
+		if (this->unitQueue.front()->getState() != STATES::RUNNING) {
+			this->unitQueue.front()->setState(STATES::STANDING_NEUTRAL); //TO DO: why does this shit takes another animation phase to change colors
+		}
 	}
 
 	/**

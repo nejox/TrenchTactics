@@ -314,6 +314,7 @@ void Game::switchActivePlayer() {
  */
 void Game::startAttackPhase() {
 
+	Gamefield::instance().deselectAndUnmarkAllTiles();
 	menuBar.resetUnitStats();
 	menuBar.updateMenuBar(GAMEPHASES::ATTACK, activePlayer);
 	this->gateway.setCurrentPhase(GAMEPHASES::ATTACK);

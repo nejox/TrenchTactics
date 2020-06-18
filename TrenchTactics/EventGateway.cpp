@@ -31,10 +31,12 @@ void EventGateway::handleEvent(MouseClickEvent* event) {
 	//showing Main Menu or Ingame Menu
 	if (Menu::instance().IsShowingMenu()) {
 		handleMenuEvent(event);
+		return;
 	}
 	//Tutorial Mode? - seperate Click Handling
 	if (isTutorial) {
 		handleTutorialEvent(event);
+		return;
 	}
 
 	if (this->currentPhase == GAMEPHASES::BUY) {
@@ -115,7 +117,7 @@ void EventGateway::handleNextPhase() {
 
 /**
 *Handles the Trench build event
-*changes the tile of the current unit to having a trench, if so removes all other trenchsprites from this tile 
+*changes the tile of the current unit to having a trench, if so removes all other trenchsprites from this tile
 *every tile around which has no trench gets its trenchsprite
 */
 void EventGateway::handleTrench()
@@ -146,7 +148,7 @@ void EventGateway::handleTrench()
 
 				//if tile does not already has a trench and is nothing other than a fieldtile 
 				//NOTE: condition-order is important, if change first check if nullptr, getFieldTileFromXY returns nullptr for everything other than fieldtiles, otherwise game crashes
-				if ((tmp != nullptr) && !(tmp->hasTrench()) )
+				if ((tmp != nullptr) && !(tmp->hasTrench()))
 				{
 					//temporary sprite to pass to the tile
 					Sprite* trenchsprite = new Sprite();
@@ -172,7 +174,7 @@ void EventGateway::handleTrench()
 		}
 
 		trenchcenter->setTrench(true);
-		this->activePlayer->getUnitQueue().front()->updateAP(this->activePlayer->getUnitQueue().front()->getApCostTrench()); 
+		this->activePlayer->getUnitQueue().front()->updateAP(this->activePlayer->getUnitQueue().front()->getApCostTrench());
 		this->activePlayer->demarkActiveUnit();
 		this->activePlayer->popUnit();
 		this->activePlayer->markActiveUnit();
@@ -190,26 +192,26 @@ void EventGateway::handleMenuEvent(MouseClickEvent* event)
 
 	switch (btntype)
 	{
-	//start game
+		//start game
 	case Button::BUTTONTYPE::STARTGAME:
 		EventBus::instance().publish(new StartGameEvent());
 		break;
 
-	//start tutorial
+		//start tutorial
 	case Button::BUTTONTYPE::TUTORIAL:
 		EventBus::instance().publish(new StartTutorialEvent());
 		break;
 
-	//exit game
+		//exit game
 	case Button::BUTTONTYPE::EXIT:
 		EventBus::instance().publish(new EndGameEvent());
 		break;
-	// continue game
+		// continue game
 	case Button::BUTTONTYPE::CONTINUE:
 	{
 		int posX = Menu::instance().getPosX();
 		int posY = Menu::instance().getPosY();
-		Gamefield::instance().refreshGamefieldFromXYtoXY(posX, (posX + Menu::instance().getEndX()), posY,(posY + Menu::instance().getEndY()));
+		Gamefield::instance().refreshGamefieldFromXYtoXY(posX, (posX + Menu::instance().getEndX()), posY, (posY + Menu::instance().getEndY()));
 		break;
 	}
 	// back to main menu
@@ -233,7 +235,7 @@ void EventGateway::handleMenuEvent(MouseClickEvent* event)
  */
 void EventGateway::handleTutorialEvent(MouseClickEvent* event)
 {
-	Tutorial::instance().handleMouseClick(event->getX(),event->getY());
+	Tutorial::instance().handleMouseClick(event->getX(), event->getY());
 }
 
 /**
@@ -269,7 +271,7 @@ void EventGateway::handleAttackEvent(MouseClickEvent* event) {
 		}
 		//handle dig button
 		else if (type == 12) {
-				handleTrench();
+			handleTrench();
 		}
 		return;
 	}
@@ -278,14 +280,15 @@ void EventGateway::handleAttackEvent(MouseClickEvent* event) {
 		if (Gamefield::instance().getFieldTileFromXY(event->getX(), event->getY())->getUnit()) {
 			std::shared_ptr<Unit>  unitToBeAttacked = Gamefield::instance().getFieldTileFromXY(event->getX(), event->getY())->getUnit();
 			std::shared_ptr<Unit> unitAttacking = this->activePlayer->getUnitQueue().front();
+			if (unitToBeAttacked->getColorRed() != unitAttacking->getColorRed()) {
+				if (checkRange(Gamefield::instance().findTileByUnit(unitToBeAttacked)) && unitAttacking->getCurrentAP() >= unitAttacking->getApCostAttack()) {
+					unitAttacking->attack(unitToBeAttacked, Gamefield::instance().findTileByUnit(unitToBeAttacked)->hasTrench());
+					this->activePlayer->demarkActiveUnit();
+					this->activePlayer->popUnit();
 
-			if (checkRange(Gamefield::instance().findTileByUnit(unitToBeAttacked)) && unitAttacking->getCurrentAP() >= unitAttacking->getApCostAttack()) {
-				unitAttacking->attack(unitToBeAttacked, Gamefield::instance().findTileByUnit(unitToBeAttacked)->hasTrench());
-				this->activePlayer->demarkActiveUnit();
-				this->activePlayer->popUnit();
+					this->activePlayer->markActiveUnit();
 
-				this->activePlayer->markActiveUnit();
-
+				}
 			}
 		}
 	}
@@ -353,33 +356,32 @@ void EventGateway::handleMoveEvent(MouseClickEvent* event) {
 		std::shared_ptr<FieldTile> tileToMoveTo = Gamefield::instance().getFieldTileFromXY(event->getX(), event->getY());
 
 		if (!tileToMoveTo->getUnit() && checkRange(tileToMoveTo)) {
-			
+
 			//subtract the cost from the unit ap
 			unitToBeMoved->reduceAp(computeApCost(unitToBeMoved, tileToMoveTo));
-			
 
 			//if copse is on tile to move to, add reward
 			if (tileToMoveTo->hasCopse())
 			{
-				tileToMoveTo->removeCorpse();
+				//tileToMoveTo->removeCorpse(); moved to the movement logic for the unit
 				this->activePlayer->updateMoney(10); //TO DO: Reward from config
 				MenuBar::instance().refreshMenuBar(this->activePlayer);
 			}
 
+			unitToBeMoved->setTargetCoordinates(tileToMoveTo->getPosX(), tileToMoveTo->getPosY());
+			
 			// find current tile of the unit to overwrite the sprite and remove the unit
 			Gamefield::instance().findTileByUnit(unitToBeMoved).get()->removeUnit();
-
 			// attach unit to new tile 
 			tileToMoveTo.get()->setUnit(unitToBeMoved);
+
 			// delete the moved unit from the queue
 			this->activePlayer->demarkActiveUnit();
 			this->activePlayer->popUnit();
 			this->activePlayer->markActiveUnit();
+			
 		}
 	}
-	/*Gamefield::instance().deselectAndUnmarkAllTiles();
-	if(!this->activePlayer->getUnitQueue().empty())
-		Gamefield::instance().selectAndMarkeTilesByUnit(this->activePlayer->getUnitQueue().front(), GAMEPHASES::MOVE, this->activePlayer->getColor());*/
 }
 
 /**
@@ -501,9 +503,9 @@ void EventGateway::handleBuyEvent(MouseClickEvent* event) {
 		//cancel purchase of unit
 		else if (type == 21)
 		{
-			
-				MenuBar::instance().resetAllButtonsToNeutral();
-			
+
+			MenuBar::instance().resetAllButtonsToNeutral();
+
 		}
 		// react to next phase
 		else if (type == 31) {
@@ -588,7 +590,7 @@ bool EventGateway::checkRange(shared_ptr<Tile> targetTile) {
 
 /**
 * computes the amount of tiles a unit has to pass to get from start to end, order of end and start does not matter
-* \param start from which tile 
+* \param start from which tile
 * \param end to which tile
 * \return integer value of the added differences of the X and Y positions of start and end
 */

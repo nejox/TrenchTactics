@@ -90,6 +90,9 @@ void SpriteUnit::render()
 	else if (m_currentState == STATES::STANDING) {
 		actFrame = actFrame % m_numFrames;
 	}
+	else if (m_currentState == STATES::RUNNING) {
+		actFrame = actFrame % m_numFrames;
+	}
 	else
 	{
 		if (actFrame >= m_numFrames) {

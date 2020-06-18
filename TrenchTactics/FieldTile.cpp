@@ -23,21 +23,26 @@ void FieldTile::refreshTile() {
 		int x = (this->getPosX() / 64) % 2 * 64;
 		int y = (this->getPosY() / 64) % 2 * 64;
 		this->getSprite()->render(x, y);
+		if (this->getMarked()) {
+			this->getMarker()->render();
+		}
 	}
 	else {
 		this->getSprite()->render();
-
+		if (this->getMarked()) {
+			this->getMarker()->render();
+		}
 		//if it has a trenchsprite
 		if (!(this->trenchSprites->empty()))
 		{
 
 			//iterate over map
 			std::map<int, Sprite*>::iterator itr = trenchSprites->begin();
-			while(itr != trenchSprites->end()) {
+			while (itr != trenchSprites->end()) {
 				//itr second is the sprite, itr first is the framenumber to render
 				itr->second->render((itr->first * 64), 0);
 				itr++;
-			
+
 			}
 		}
 
@@ -74,8 +79,11 @@ void FieldTile::resetTile()
 void FieldTile::setUnit(std::shared_ptr<Unit> unit)
 {
 	if (unit) {
-		unit.get()->getSprite().get()->setPos(this->getPosX(), this->getPosY());
-		unit.get()->getSpriteHealthBar().get()->setPos(this->getPosX(), this->getPosY());
+		//TODO
+		if (unit->getState() != STATES::UNITSTATE::RUNNING) {
+			unit.get()->getSprite().get()->setPos(this->getPosX(), this->getPosY());
+			unit.get()->getSpriteHealthBar().get()->setPos(this->getPosX(), this->getPosY());
+		}
 
 		this->unit = unit;
 	}
