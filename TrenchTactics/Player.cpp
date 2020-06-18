@@ -186,9 +186,17 @@ void Player::handleUnitMovement(UnitMovementFinishedEvent* event)
 	if (!this->unitQueue.empty()) {
 		if (this->unitQueue.front() == event->getMovingUnit()) {
 			event->getMovingUnit()->setState(STATES::STANDING);
+			cout << "standing" << endl;
+		}
+		//the next 2 conditions check in which state to set the unit, because queueUnit keeps skipping them
+		else if (event->getMovingUnit()->getCurrentAP() >= event->getMovingUnit()->getApCostAttack()
+			|| event->getMovingUnit()->getCurrentAP() >= event->getMovingUnit()->getApCostTrench()) {
+			event->getMovingUnit()->setState(STATES::STANDING_NEUTRAL); 
+			cout << "neutral" << endl;
 		}
 		else {
 			event->getMovingUnit()->setState(STATES::STANDING_DARK);
+			cout << "dark" << endl;
 		}
 	}
 
