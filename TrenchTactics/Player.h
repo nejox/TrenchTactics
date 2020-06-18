@@ -47,14 +47,7 @@ public:
 		}
 	}
 
-	void requeueUnit() {
-		shared_ptr<Unit> tmp = this->unitQueue.front();
-		//no new state here
-		this->unitQueue.pop();
-		//but here, so we stay in standing neutral,bright and shiny
-		this->queueUnit(tmp);
-		
-	}
+	void requeueUnit();
 
 	/**
 	 * wrapper function to pop a unit in the queue.
@@ -62,23 +55,14 @@ public:
 	 * Sets defaultState for units
 	 * updates unit to show the new state immediately
 	 */
-	void popUnit() {
-		this->unitQueue.front()->setLastingState(STATES::STANDING_DARK);
-		this->unitQueue.front()->update(STATES::STANDING_DARK);
-		this->unitQueue.pop();
-	}
+	void popUnit();
 
 	/**
 	 * Add unit to the queue.
 	 * sets defaulltState for units
 	 * \param unit that will be added
 	 */
-	void queueUnit(std::shared_ptr<Unit> unit) {
-		this->unitQueue.push(unit);
-		unit->setLastingState(STATES::STANDING_NEUTRAL);
-		this->unitQueue.front()->update(STATES::STANDING_NEUTRAL); //TO DO: why does this shit takes another animation phase to change colors
-		
-	}
+	void queueUnit(std::shared_ptr<Unit> unit);
 
 	/**
 	 * add unit to the list of units of a player.
@@ -107,14 +91,7 @@ public:
 	 *
 	 * \param amount the amount of money you want to add to the players bank
 	 */
-	void updateMoney(int amount)
-	{
-		this->money += amount;
-		if (this->money > 9999)
-		{
-			this->money = 9999;
-		}
-	}
+	void updateMoney(int amount);
 
 	bool getColor() {
 		return this->colorRed;

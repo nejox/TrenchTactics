@@ -24,30 +24,7 @@ public:
 	 * \param unittype the type of unit that will be created
 	 * \param colorRed specifies which player is the owner of the new unit and selects the right sprites based on this bool
 	 */
-	Unit(TYPES::UnitType unittype, bool colorRed) {
-
-		m_colorRed = colorRed;
-
-		m_ID = ConfigReader::instance().getUnitConf(unittype)->getId();
-		m_hp = ConfigReader::instance().getUnitConf(unittype)->getHp();
-		m_currentHP = ConfigReader::instance().getUnitConf(unittype)->getHp();
-		m_range = ConfigReader::instance().getUnitConf(unittype)->getRange();
-		m_cost = ConfigReader::instance().getUnitConf(unittype)->getCost();
-		m_ap = ConfigReader::instance().getUnitConf(unittype)->getAp();
-		m_currentAP = ConfigReader::instance().getUnitConf(unittype)->getAp();
-		m_dmg = ConfigReader::instance().getUnitConf(unittype)->getDmg();
-		m_apCostAttack = ConfigReader::instance().getUnitConf(unittype)->getApCostAttack();
-		m_apCostAttack = ConfigReader::instance().getUnitConf(unittype)->getApCostMove();
-		m_movementRange = ConfigReader::instance().getUnitConf(unittype)->getMovementRange();
-		m_apCostTrench = ConfigReader::instance().getUnitConf(unittype)->getApCostTrench();
-		m_spawnProbability = ConfigReader::instance().getUnitConf(unittype)->getSpawnProbability();
-		m_name = ConfigReader::instance().getUnitConf(unittype)->getName();
-		m_sprite = make_shared<SpriteUnit>(colorRed, unittype);
-		m_spriteHealthBar = make_shared<SpriteHealthBar>(colorRed);
-		m_state = STATES::UNITSTATE::STANDING_NEUTRAL;
-		m_level = 1;
-
-	}
+	Unit(TYPES::UnitType unittype, bool colorRed);
 
 private:
 	Unit() = delete;
@@ -76,13 +53,7 @@ public:
 
 
 	~Unit() {};
-	/*
-	TO DO: checken ob ich den kram brauch wenn ich nur auf ein singleton zeige
-	Unit(const Unit&);
-	Unit& operator=(const Unit&);
-	Unit(Unit&&);
-	Unit& operator=(Unit&&);
-	*/
+
 
 	bool changeHP(int damage);
 	void attack(std::shared_ptr<Unit> target, bool cover);
@@ -115,12 +86,6 @@ public:
 
 	void setState(STATES::UNITSTATE state);
 
-	/*
-	* set state until it gets changed
-	*/
-	void setLastingState(STATES::UNITSTATE state);
-
-	STATES::UNITSTATE getLastingState();
 
 	STATES::UNITSTATE getState();
 
