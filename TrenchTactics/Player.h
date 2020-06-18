@@ -49,14 +49,7 @@ public:
 		}
 	}
 
-	void requeueUnit() {
-		shared_ptr<Unit> tmp = this->unitQueue.front();
-		//no new state here
-		this->unitQueue.pop();
-		//but here, so we stay in standing neutral,bright and shiny
-		this->queueUnit(tmp);
-
-	}
+	void requeueUnit();
 
 	/**
 	 * wrapper function to pop a unit in the queue.

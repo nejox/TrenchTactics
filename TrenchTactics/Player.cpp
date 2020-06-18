@@ -112,6 +112,15 @@ void Player::markActiveUnit()
 	}
 }
 
+void Player::requeueUnit() {
+	shared_ptr<Unit> tmp = this->unitQueue.front();
+	//no new state here
+	this->unitQueue.pop();
+	//but here, so we stay in standing neutral,bright and shiny
+	this->queueUnit(tmp);
+
+}
+
 /**
  * wrapper function to pop a unit in the queue.
  * don't ask me why we need this but we do
