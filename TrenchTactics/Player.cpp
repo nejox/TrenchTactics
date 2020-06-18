@@ -130,6 +130,7 @@ void Player::requeueUnit() {
 void Player::popUnit() {
 	if (this->unitQueue.front()->getState() != STATES::RUNNING) {
 		this->unitQueue.front()->setState(STATES::STANDING_DARK);
+		this->unitQueue.front()->update();
 	}
 	this->unitQueue.pop();
 }
@@ -142,7 +143,8 @@ void Player::popUnit() {
 void Player::queueUnit(std::shared_ptr<Unit> unit) {
 	this->unitQueue.push(unit);
 	if (this->unitQueue.front()->getState() != STATES::RUNNING) {
-		this->unitQueue.front()->setState(STATES::STANDING_NEUTRAL); //TO DO: why does this shit takes another animation phase to change colors
+		this->unitQueue.front()->setState(STATES::STANDING_NEUTRAL); 
+		this->unitQueue.front()->update();
 	}
 }
 
@@ -186,7 +188,7 @@ void Player::handleUnitMovement(UnitMovementFinishedEvent* event)
 			event->getMovingUnit()->setState(STATES::STANDING);
 		}
 		else {
-			event->getMovingUnit()->setState(STATES::STANDING_NEUTRAL);
+			event->getMovingUnit()->setState(STATES::STANDING_DARK);
 		}
 	}
 
