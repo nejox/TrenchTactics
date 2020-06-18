@@ -35,12 +35,14 @@ public:
 	FieldTile() {
 		this->trenchSprites = make_shared<std::map<int, Sprite*>>();
 		this->trench = false;
+		this->unit = nullptr;
 	};
 
 	FieldTile(TERRAINTYPE terrain) {
 		this->terrain = terrain;
 		this->trenchSprites = make_shared<std::map<int, Sprite*>>();
 		this->trench = false;
+		this->unit = nullptr;
 	}
 
 	~FieldTile() {};
@@ -70,7 +72,6 @@ public:
 			this->trench = trench;
 		}
 	}
-
 
 	bool hasTrench(){
 		return this->trench;

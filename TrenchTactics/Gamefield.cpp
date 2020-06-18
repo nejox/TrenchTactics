@@ -28,7 +28,7 @@ std::shared_ptr<FieldTile> Gamefield::getSpawnFieldRed(int posX, int posY) {
 	posY = posY / 64;
 	posX = posX / 64;
 	//checking if horizontal position is out of red spawn
-	if (posX >= 20 || posX < 18) {
+	if (posX >= 22 || posX < 20) {
 		return nullptr;
 	}
 	//checking if vertical position is out of 
@@ -41,7 +41,7 @@ std::shared_ptr<FieldTile> Gamefield::getSpawnFieldRed(int posX, int posY) {
 	}
 	//checking if position is in upper half of red spawn, if yes returns the tile
 	else if (posY < 5) {
-		return this->getSpawnRed().get()->at(posX - -20).at(posY);
+		return this->getSpawnRed().get()->at(posX - 20).at(posY);
 	}
 	//position can only be in bottom half of red spawn and returns rhe tile
 	else {
@@ -361,7 +361,7 @@ void Gamefield::selectAndMarkeTilesByUnit(shared_ptr<Unit> pUnit, GAMEPHASES::GA
 			if ((2 <= (xPos + i)) && ((xPos + i) <= 19) && (0 <= (yPos + j)) && ((yPos + j) <= 11)) {
 
 				Gamefield::playingfield.get()->at(xPos - 2 + i).at(yPos + j)->setMarked(true);
-				SpriteMarker* tmpMarkerSprite = new SpriteMarker();
+				std::shared_ptr<SpriteMarker> tmpMarkerSprite = make_shared<SpriteMarker>();
 				//markes the tiles on which the unit can only move and not shoot in movephase
 				if (gamephase == GAMEPHASES::MOVE && rangeMoveAndAttack < abs(i) + abs(j)) {
 					tmpMarkerSprite->load("../Data/Sprites/Token/ONLY_MOVMENT_MARKER.bmp");
@@ -373,6 +373,7 @@ void Gamefield::selectAndMarkeTilesByUnit(shared_ptr<Unit> pUnit, GAMEPHASES::GA
 				tmpMarkerSprite->makeTransparent();
 				tmpMarkerSprite->setPos((xPos + i) * 64, (yPos + j) * 64);
 				tmpMarkerSprite->render();
+				Gamefield::playingfield.get()->at(xPos - 2 + i).at(yPos + j)->setMarker(tmpMarkerSprite);
 			}
 			//check if blue hq needs to be marked as attackable
 			else if (redPlayerActiv && (xPos + i == 0 || xPos + i == 1) && (yPos + j == 5 || yPos + j == 6)) {
@@ -387,24 +388,26 @@ void Gamefield::selectAndMarkeTilesByUnit(shared_ptr<Unit> pUnit, GAMEPHASES::GA
 	//markes the blue hq as attackable
 	if (blueHqInRange && gamephase == GAMEPHASES::ATTACK) {
 		this->headquarterTilePlayerBlue->setMarked(true);
-		SpriteMarker* tmpHqMarkerSprite = new SpriteMarker();
+		std::shared_ptr<SpriteMarker> tmpHqMarkerSprite = make_shared<SpriteMarker>();
 		tmpHqMarkerSprite->load("../Data/Sprites/Token/REACHABLE_MARKER.bmp");
 		tmpHqMarkerSprite->makeTransparent();
 		for (int i = 0; i < 4; ++i) {
 			tmpHqMarkerSprite->setPos((i % 2) * 64, (i / 2) * 64 + 5 * 64);
 			tmpHqMarkerSprite->render();
 		}
+		this->headquarterTilePlayerBlue->setMarker(tmpHqMarkerSprite);
 	}
 	//markes the red hq as attackable
 	else if (redHqInRange && gamephase == GAMEPHASES::ATTACK) {
 		this->headquarterTilePlayerRed->setMarked(true);
-		SpriteMarker* tmpHqMarkerSprite = new SpriteMarker();
+		std::shared_ptr<SpriteMarker> tmpHqMarkerSprite = make_shared<SpriteMarker>();
 		tmpHqMarkerSprite->load("../Data/Sprites/Token/REACHABLE_MARKER.bmp");
 		tmpHqMarkerSprite->makeTransparent();
 		for (int i = 0; i < 4; ++i) {
 			tmpHqMarkerSprite->setPos((i % 2) * 64 + 20 * 64, (i / 2) * 64 + 5 * 64);
 			tmpHqMarkerSprite->render();
 		}
+		this->headquarterTilePlayerBlue->setMarker(tmpHqMarkerSprite);
 	}
 }
 
@@ -420,8 +423,9 @@ void Gamefield::deselectAndUnmarkAllTiles()
 			yIter->get()->setSelected(false);
 			yIter->get()->setMarked(false);
 			yIter->get()->refreshTile();
-			if (yIter->get()->getUnit().get())
+			/*if (yIter->get()->getUnit().get())
 				yIter->get()->getUnit()->update();
+				*/
 		}
 	}
 	//deselects and unmarks the blue player's spawn

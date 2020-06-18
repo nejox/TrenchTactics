@@ -22,12 +22,13 @@ void Player::init(bool colorRed) {
 	this->money = ConfigReader::instance().getBalanceConf()->getStartingGold();
 	//this->unitArray = std::vector<std::shared_ptr<Unit>>();
 	EventBus::instance().subscribe(this, &Player::deleteUnit);
+	EventBus::instance().subscribe(this, &Player::handleUnitMovement);
 }
 
 /**
- * computes the income from a simple formula 
+ * computes the income from a simple formula
  *  based on the current position of occupied trenches
- *  every occupied trench adds its x distance from the HQ / 100 to the interestfactor 
+ *  every occupied trench adds its x distance from the HQ / 100 to the interestfactor
  *	100 + interestfactor * leftover money is the new income
  */
 int Player::computeIncome() {
@@ -43,11 +44,11 @@ int Player::computeIncome() {
 		if (tmp->hasTrench())
 		{
 			//check which player and add the position of the trench/100 to trenchcount
-			if (this->colorRed){
+			if (this->colorRed) {
 				trenchCount += abs(21.0f - (tmp->getPosX() / 64.0f)) / 100.0f;
 			}
 
-			else{
+			else {
 				trenchCount += ((tmp->getPosX() / 64.0f) / 100.0f);
 			}
 		}
@@ -72,11 +73,11 @@ void Player::updatePlayer() {
  */
 void Player::copyUnitsToQueue() {
 	if (this->unitArray.size() > 0) {
-		int i = this->unitArray.size() - 1; 
+		int i = this->unitArray.size() - 1;
 		for (int j = i; j >= 0; j--) {
 			if (this->getCurrentPhase() == GAMEPHASES::GAMEPHASE::ATTACK) {
 				if ((this->unitArray[j]->getCurrentAP() >= this->unitArray[j]->getApCostAttack()
-					&& Gamefield::instance().checkUnitHasEnemysAround(this->unitArray[j],this->getColor())) 
+					&& Gamefield::instance().checkUnitHasEnemysAround(this->unitArray[j], this->getColor()))
 					|| (this->unitArray[j]->getCurrentAP() >= this->unitArray[j]->getApCostTrench()
 						&& !Gamefield::instance().findTileByUnit(this->unitArray[j])->hasTrench())) {
 					this->queueUnit(this->unitArray[j]);
@@ -103,9 +104,45 @@ void Player::markActiveUnit()
 	Gamefield::instance().deselectAndUnmarkAllTiles();
 	//mark the first unit to be moved as active 
 	if (!unitQueue.empty()) {
-		this->unitQueue.front()->setState(STATES::UNITSTATE::STANDING);
+		if (this->unitQueue.front()->getState() != STATES::RUNNING) {
+			this->unitQueue.front()->setState(STATES::UNITSTATE::STANDING);
+		}
 		MenuBar::instance().updateUnitStats(this->getUnitQueue().front());
 		Gamefield::instance().selectAndMarkeTilesByUnit(this->unitQueue.front(), this->currentPhase, this->getColor());
+	}
+}
+
+void Player::requeueUnit() {
+	shared_ptr<Unit> tmp = this->unitQueue.front();
+	//no new state here
+	this->unitQueue.pop();
+	//but here, so we stay in standing neutral,bright and shiny
+	this->queueUnit(tmp);
+
+}
+
+/**
+ * wrapper function to pop a unit in the queue.
+ * don't ask me why we need this but we do
+ * Sets defaultState for units
+ * updates unit to show the new state immediately
+ */
+void Player::popUnit() {
+	if (this->unitQueue.front()->getState() != STATES::RUNNING) {
+		this->unitQueue.front()->setState(STATES::STANDING_DARK);
+	}
+	this->unitQueue.pop();
+}
+
+/**
+ * Add unit to the queue.
+ * sets defaulltState for units
+ * \param unit that will be added
+ */
+void Player::queueUnit(std::shared_ptr<Unit> unit) {
+	this->unitQueue.push(unit);
+	if (this->unitQueue.front()->getState() != STATES::RUNNING) {
+		this->unitQueue.front()->setState(STATES::STANDING_NEUTRAL); //TO DO: why does this shit takes another animation phase to change colors
 	}
 }
 
@@ -122,6 +159,10 @@ void Player::resetPlayer()
 	std::queue<std::shared_ptr<Unit>>().swap(unitQueue);
 }
 
+/**
+ * retrurns if player can buy units
+ *
+ */
 bool Player::checkPlayerCanBuyUnits()
 {
 	for (int i = 0; i < 3; i++) {
@@ -134,27 +175,21 @@ bool Player::checkPlayerCanBuyUnits()
 	return false;
 }
 
-void Player::requeueUnit()
+/**
+ * handles unit movement
+ *
+ */
+void Player::handleUnitMovement(UnitMovementFinishedEvent* event)
 {
-	shared_ptr<Unit> tmp = this->unitQueue.front();
-	//no new state here
-	this->unitQueue.pop();
-	//but here, so we stay in standing neutral,bright and shiny
-	this->queueUnit(tmp);
-}
+	if (!this->unitQueue.empty()) {
+		if (this->unitQueue.front() == event->getMovingUnit()) {
+			event->getMovingUnit()->setState(STATES::STANDING);
+		}
+		else {
+			event->getMovingUnit()->setState(STATES::STANDING_NEUTRAL);
+		}
+	}
 
-void Player::popUnit()
-{
-	this->unitQueue.front()->setState(STATES::STANDING_DARK);
-	this->unitQueue.front()->update(STATES::STANDING_DARK);
-	this->unitQueue.pop();
-}
-
-void Player::queueUnit(std::shared_ptr<Unit> unit)
-{
-	this->unitQueue.push(unit);
-	unit->setState(STATES::STANDING_NEUTRAL);
-	this->unitQueue.front()->update(STATES::STANDING_NEUTRAL);
 }
 
 /**
@@ -165,7 +200,10 @@ void Player::demarkActiveUnit()
 {
 	//mark the first unit to be moved as neutral
 	if (!unitQueue.empty()) {
-		this->unitQueue.front()->setState(STATES::STANDING_DARK);
+
+		if (this->unitQueue.front()->getState() != STATES::RUNNING) {
+			this->unitQueue.front()->setState(STATES::STANDING_DARK);
+		}
 		MenuBar::instance().resetUnitStats();
 	}
 	Gamefield::instance().deselectAndUnmarkAllTiles();
@@ -176,16 +214,6 @@ void Player::demarkActiveUnit()
  * Searching the player list to find the corresponding unit
  * \param deathEvent event holding unit to be deleted
  */
-void Player::updateMoney(int amount){
-	this->money += amount;
-	if (this->money > 9999)
-	{
-		this->money = 9999;
-	}
-	else if (this->money < 0) {
-		this->money = 0;
-	}
-}
 void Player::deleteUnit(DeathEvent* deathEvent) {
 
 

@@ -8,6 +8,7 @@
 #include <vector>
 #include <queue>
 #include <algorithm>
+#include "UnitMovementFinishedEvent.h"
 
 /**
  * Player main class - holds most of the informations
@@ -36,6 +37,7 @@ public:
 	void markActiveUnit();
 	void resetPlayer();
 	bool checkPlayerCanBuyUnits();
+	void handleUnitMovement(UnitMovementFinishedEvent* event);
 
 	/**
 	 * empties the unitQueue of the player.
@@ -55,14 +57,14 @@ public:
 	 * Sets defaultState for units
 	 * updates unit to show the new state immediately
 	 */
-	void popUnit();
+	void popUnit(); 
 
 	/**
 	 * Add unit to the queue.
 	 * sets defaulltState for units
 	 * \param unit that will be added
 	 */
-	void queueUnit(std::shared_ptr<Unit> unit);
+	void queueUnit(std::shared_ptr<Unit> unit); 
 
 	/**
 	 * add unit to the list of units of a player.
@@ -91,7 +93,14 @@ public:
 	 *
 	 * \param amount the amount of money you want to add to the players bank
 	 */
-	void updateMoney(int amount);
+	void updateMoney(int amount)
+	{
+		this->money += amount;
+		if (this->money > 9999)
+		{
+			this->money = 9999;
+		}
+	}
 
 	bool getColor() {
 		return this->colorRed;

@@ -86,18 +86,16 @@ void SpriteUnit::render()
 	// Ausschnitt der aktuellen Animationsphase berechnen
 	if (m_currentState == m_defaultState ||
 		m_currentState == STATES::STANDING ||
+		m_currentState == STATES::RUNNING || 
 		m_currentState == STATES::STANDING_NEUTRAL) {
+
 		actFrame = actFrame % m_numFrames;
 	}
-
-	else
-	{
-		if (actFrame >= m_numFrames) {
-			//animation over - load default one
-			m_currentState = m_defaultState;
-			load(animations.at(m_currentState), 64, 64);
-			actFrame = 0;
-		}
+	if (actFrame >= m_numFrames) {
+		//animation over - load default one
+		m_currentState = m_defaultState;
+		load(animations.at(m_currentState), 64, 64);
+		actFrame = 0;
 	}
 
 	render(actFrame);
@@ -111,7 +109,7 @@ void SpriteUnit::render()
  */
 STATES::UNITSTATE SpriteUnit::render(STATES::UNITSTATE state)
 {
-	if (m_currentState == state)  {
+	if (m_currentState == state) {
 		render();
 	}
 	else {

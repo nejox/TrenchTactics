@@ -1,5 +1,6 @@
 #pragma once
 #include "Sprite.hpp"
+#include "SpriteMarker.h"
 #include "MouseClickEvent.h"
 
 /**
@@ -10,6 +11,7 @@ private:
 	bool marked = false;
 	bool selected = false;
 	Sprite* sprite;
+	std::shared_ptr<SpriteMarker> spriteMarker;
 	int posX;
 	int posY;
 
@@ -32,6 +34,12 @@ public:
 	}
 	Sprite* getSprite() {
 		return this->sprite;
+	}
+	void setMarker(std::shared_ptr<SpriteMarker> marker) {
+		this->spriteMarker = marker;
+	}
+	std::shared_ptr<SpriteMarker> getMarker() {
+		return this->spriteMarker;
 	}
 	void setPos(int x, int y) {
 		this->posY = y;

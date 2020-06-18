@@ -44,6 +44,11 @@ private:
 	int m_apCostMove;
 	int m_spawnProbability;
 	int m_level;
+
+	int m_targetX;
+	int m_targetY;
+	float m_speed;
+
 	std::string m_name;
 	std::shared_ptr<SpriteUnit>m_sprite;
 	std::shared_ptr<SpriteHealthBar>m_spriteHealthBar;
@@ -53,11 +58,18 @@ public:
 
 
 	~Unit() {};
-
+	/*
+	TO DO: checken ob ich den kram brauch wenn ich nur auf ein singleton zeige
+	Unit(const Unit&);
+	Unit& operator=(const Unit&);
+	Unit(Unit&&);
+	Unit& operator=(Unit&&);
+	*/
 
 	bool changeHP(int damage);
 	void attack(std::shared_ptr<Unit> target, bool cover);
 	void attack(std::shared_ptr< Headquarter> target);
+	void setTargetCoordinates(int x, int y);
 	void move();
 	void updateAP(int cost);
 	void resetAP();
@@ -85,7 +97,6 @@ public:
 	}
 
 	void setState(STATES::UNITSTATE state);
-
 
 	STATES::UNITSTATE getState();
 
