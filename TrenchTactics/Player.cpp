@@ -128,7 +128,9 @@ void Player::requeueUnit() {
  * updates unit to show the new state immediately
  */
 void Player::popUnit() {
-	this->unitQueue.front()->setState(STATES::STANDING_DARK);
+	if (this->unitQueue.front()->getState() != STATES::RUNNING) {
+		this->unitQueue.front()->setState(STATES::STANDING_DARK);
+	}
 	this->unitQueue.pop();
 }
 
@@ -198,7 +200,7 @@ void Player::demarkActiveUnit()
 {
 	//mark the first unit to be moved as neutral
 	if (!unitQueue.empty()) {
-		
+
 		if (this->unitQueue.front()->getState() != STATES::RUNNING) {
 			this->unitQueue.front()->setState(STATES::STANDING_DARK);
 		}
