@@ -64,7 +64,13 @@ public:
 	 * sets defaulltState for units
 	 * \param unit that will be added
 	 */
-	void queueUnit(std::shared_ptr<Unit> unit); 
+	void queueUnit(std::shared_ptr<Unit> unit);
+	/**
+	* checks if unit is in Queue
+	* \param unitToFind unit to find in queue
+	* \return true if the queue contains the unit or false if not
+	*/
+	bool unitInQueue(shared_ptr<Unit> unitToFind);
 
 	/**
 	 * add unit to the list of units of a player.
@@ -93,14 +99,7 @@ public:
 	 *
 	 * \param amount the amount of money you want to add to the players bank
 	 */
-	void updateMoney(int amount)
-	{
-		this->money += amount;
-		if (this->money > 9999)
-		{
-			this->money = 9999;
-		}
-	}
+	void updateMoney(int amount);
 
 	bool getColor() {
 		return this->colorRed;
@@ -119,11 +118,5 @@ public:
 	}
 	void deleteUnit(DeathEvent* deathEvent);
 
-	void resetApForAllUnits()
-	{
-		for (std::shared_ptr<Unit>& unit : unitArray)
-		{
-			unit->resetAP();
-		}
-	}
+	void resetApForAllUnits();
 };

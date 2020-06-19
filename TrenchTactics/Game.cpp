@@ -49,6 +49,7 @@ void Game::initGame() {
 	EventBus::instance().subscribe(this, &Game::handleEndTutorial);
 	EventBus::instance().subscribe(this, &Game::handleIngameMenu);
 	EventBus::instance().subscribe(this, &Game::handleReturnToMenu);
+	EventBus::instance().subscribe(this, &Game::handleGameEnd);
 
 	Logger::instance().log(LOGLEVEL::INFO, "Initializing Renderer");
 	this->renderer.init(ConfigReader::instance().getTechnicalConf()->getWindowSizeX(), ConfigReader::instance().getTechnicalConf()->getWindowSizeY(), 16, false);
@@ -269,6 +270,26 @@ void Game::handleReturnToMenu(ReturnToMenuEvent* event)
 	menu.showMenu();
 }
 
+void Game::handleGameEnd(GameEndEvent* event)
+{
+	std::string winnerColor;
+	if (event->getWinner()) winnerColor = "Red";
+	else winnerColor = "Blue";
+
+	Sprite* winningScreen = new Sprite();
+	winningScreen->load("../Data/Sprites/Token/WIN.bmp");
+	winningScreen->setPos(6 * 64, 64);
+
+	shared_ptr<SpriteText> winningText = make_shared<SpriteText>(40);
+	winningText->load("Player " + winnerColor + " Won!");
+	winningText->setPos(7 * 64, 3 * 64);
+
+	winningScreen->render();
+	winningText->render();
+
+	
+}
+
 
 /**
  * quits the game
@@ -302,7 +323,14 @@ void Game::switchActivePlayer() {
 			this->gateway.setActivePlayer(playerRed);
 		}
 
+		//prevent units to stay in queue if their only target was killed
+		if (!this->activePlayer->getUnitQueue().empty()) {
+			this->activePlayer->emptyQueue();
+		}
+
 		this->activePlayer->resetApForAllUnits();
+
+
 	}
 }
 

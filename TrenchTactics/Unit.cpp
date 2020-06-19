@@ -23,7 +23,7 @@ Unit::Unit(TYPES::UnitType unittype, bool colorRed)
 	m_currentAP = ConfigReader::instance().getUnitConf(unittype)->getAp();
 	m_dmg = ConfigReader::instance().getUnitConf(unittype)->getDmg();
 	m_apCostAttack = ConfigReader::instance().getUnitConf(unittype)->getApCostAttack();
-	m_apCostAttack = ConfigReader::instance().getUnitConf(unittype)->getApCostMove();
+	m_apCostMove = ConfigReader::instance().getUnitConf(unittype)->getApCostMove();
 	m_movementRange = ConfigReader::instance().getUnitConf(unittype)->getMovementRange();
 	m_apCostTrench = ConfigReader::instance().getUnitConf(unittype)->getApCostTrench();
 	m_spawnProbability = ConfigReader::instance().getUnitConf(unittype)->getSpawnProbability();
@@ -161,12 +161,12 @@ void Unit::levelUp()
 	{
 		this->m_level = 3;
 	}
-
-	//adds 10% to each value for every level
-	this->m_hp = m_hp * (1.0f + (((float)m_level - 1) / 10.0f));
-	this->m_currentHP = m_currentHP * (1.0f + (((float)m_level - 1) / 10.0f));
-	this->m_dmg = m_dmg * (1.0f + (((float)m_level - 1) / 10.0f));
-	this->m_range = m_range * (1.0f + (((float)m_level - 1) / 10.0f));
+	else {
+		//adds 10% to each value for every level
+		this->m_hp = m_hp * (1.0f + (((float)m_level - 1) / 10.0f));
+		this->m_currentHP = m_currentHP * (1.0f + (((float)m_level - 1) / 10.0f));
+		this->m_dmg = m_dmg * (1.0f + (((float)m_level - 1) / 10.0f));
+	}
 }
 
 /**

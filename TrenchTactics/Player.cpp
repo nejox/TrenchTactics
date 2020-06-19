@@ -54,7 +54,7 @@ int Player::computeIncome() {
 		}
 	}
 
-	return (100 + (int)(trenchCount * this->money));
+	return  (int) (100 + (trenchCount * (100 + this->money)));
 }
 
 
@@ -130,6 +130,7 @@ void Player::requeueUnit() {
 void Player::popUnit() {
 	if (this->unitQueue.front()->getState() != STATES::RUNNING) {
 		this->unitQueue.front()->setState(STATES::STANDING_DARK);
+		this->unitQueue.front()->update();
 	}
 	this->unitQueue.pop();
 }
@@ -141,9 +142,33 @@ void Player::popUnit() {
  */
 void Player::queueUnit(std::shared_ptr<Unit> unit) {
 	this->unitQueue.push(unit);
-	if (this->unitQueue.front()->getState() != STATES::RUNNING) {
-		this->unitQueue.front()->setState(STATES::STANDING_NEUTRAL); //TO DO: why does this shit takes another animation phase to change colors
+	if (unit->getState() != STATES::RUNNING) {
+		unit->setState(STATES::STANDING_NEUTRAL); 
+		unit->update();
 	}
+}
+/**
+* checks if unit is in Queue
+* \param unitToFind unit to find in queue
+* \return true if the queue contains the unit or false if not
+*/
+bool Player::unitInQueue(shared_ptr<Unit> unitToFind) {
+	
+	bool found = false;
+	//iterate over unitqueue
+	for (int i = this->unitQueue.size(); i > 0; i--) {
+
+		shared_ptr<Unit> tmp = this->unitQueue.front();
+		
+		if ( tmp== unitToFind) {
+			found = true;
+		}
+		//reque the unit without setting new state
+		this->unitQueue.pop();
+		this->unitQueue.push(tmp);
+	}
+
+	return found;
 }
 
 /**
@@ -181,13 +206,26 @@ bool Player::checkPlayerCanBuyUnits()
  */
 void Player::handleUnitMovement(UnitMovementFinishedEvent* event)
 {
+	//if unitqueue isnt empty
 	if (!this->unitQueue.empty()) {
+		//unit ist on the front of the queue
 		if (this->unitQueue.front() == event->getMovingUnit()) {
+			//mark active
 			event->getMovingUnit()->setState(STATES::STANDING);
 		}
-		else {
+		//unit is in the queue
+		else if(this->unitInQueue(event->getMovingUnit())){
+			//mark neutral
 			event->getMovingUnit()->setState(STATES::STANDING_NEUTRAL);
 		}
+		else {
+			event->getMovingUnit()->setState(STATES::STANDING_DARK);
+		}
+
+	}
+	//if queue is empty, make the
+	else {
+		event->getMovingUnit()->setState(STATES::STANDING_DARK);
 	}
 
 }
@@ -207,6 +245,20 @@ void Player::demarkActiveUnit()
 		MenuBar::instance().resetUnitStats();
 	}
 	Gamefield::instance().deselectAndUnmarkAllTiles();
+}
+
+void Player::updateMoney(int amount)
+
+{
+	this->money += amount;
+	if (this->money > 9999)
+	{
+		this->money = 9999;
+	}
+
+	else if (this->money < 0) {
+		this->money = 0;
+	}
 }
 
 /**
@@ -244,4 +296,12 @@ void Player::deleteUnit(DeathEvent* deathEvent) {
 		}
 	}
 
+}
+
+void Player::resetApForAllUnits()
+{
+	for (std::shared_ptr<Unit>& unit : unitArray)
+	{
+		unit->resetAP();
+	}
 }

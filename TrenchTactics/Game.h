@@ -66,6 +66,7 @@ public:
 	void handleEndTutorial(EndTutorialEvent* event);
 	void handleIngameMenu(IngameMenuEvent* event);
 	void handleReturnToMenu(ReturnToMenuEvent* event);
+	void handleGameEnd(GameEndEvent* event);
 
 
 };

@@ -29,9 +29,7 @@ void FieldTile::refreshTile() {
 	}
 	else {
 		this->getSprite()->render();
-		if (this->getMarked()) {
-			this->getMarker()->render();
-		}
+		
 		//if it has a trenchsprite
 		if (!(this->trenchSprites->empty()))
 		{
@@ -44,6 +42,10 @@ void FieldTile::refreshTile() {
 				itr++;
 
 			}
+		}
+
+		if (this->getMarked()) {
+			this->getMarker()->render();
 		}
 
 
