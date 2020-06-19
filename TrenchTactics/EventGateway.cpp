@@ -562,9 +562,12 @@ bool EventGateway::checkEventInField(MouseClickEvent* event) {
  */
 bool EventGateway::checkEventOnHQ(MouseClickEvent* event) {
 	int fieldX = ConfigReader::instance().getMapConf()->getSizeX() * 64;
-	if ((event->getX() <= (fieldX + 2 * 64)) || (event->getX() >= fieldX + 4 * 64)) {
+
+	if (((event->getX() <= (fieldX + 2 * 64)) || (event->getX() >= fieldX + 4 * 64)) 
+		&& (event->getX() < 0 || event->getX() > 2* 64)) {
 		return false;
 	}
+
 	int fieldY = (ConfigReader::instance().getMapConf()->getSizeY() - 2) * 64;
 	if (event->getY() <= (fieldY / 2) || event->getY() >= (fieldY / 2) + 2 * 64) {
 		return false;
