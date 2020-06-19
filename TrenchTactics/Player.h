@@ -64,7 +64,9 @@ public:
 	 * sets defaulltState for units
 	 * \param unit that will be added
 	 */
-	void queueUnit(std::shared_ptr<Unit> unit); 
+	void queueUnit(std::shared_ptr<Unit> unit);
+
+	bool unitInQueue(shared_ptr<Unit> unitToFind);
 
 	/**
 	 * add unit to the list of units of a player.
@@ -112,11 +114,5 @@ public:
 	}
 	void deleteUnit(DeathEvent* deathEvent);
 
-	void resetApForAllUnits()
-	{
-		for (std::shared_ptr<Unit>& unit : unitArray)
-		{
-			unit->resetAP();
-		}
-	}
+	void resetApForAllUnits();
 };

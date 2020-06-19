@@ -148,6 +148,20 @@ void Player::queueUnit(std::shared_ptr<Unit> unit) {
 	}
 }
 
+bool Player::unitInQueue(shared_ptr<Unit> unitToFind) {
+	
+	bool found = false;
+
+	for (int i = this->unitQueue.size(); i > 0; i--) {
+		if (this->unitQueue.front() == unitToFind) {
+			found = true;
+		}
+		this->requeueUnit();
+	}
+
+	return found;
+}
+
 /**
  * resets the whole player to inital state
  *
@@ -183,18 +197,24 @@ bool Player::checkPlayerCanBuyUnits()
  */
 void Player::handleUnitMovement(UnitMovementFinishedEvent* event)
 {
+	//if unitqueue isnt empty
 	if (!this->unitQueue.empty()) {
+		//unit ist on the front of the queue
 		if (this->unitQueue.front() == event->getMovingUnit()) {
+			//mark active
 			event->getMovingUnit()->setState(STATES::STANDING);
+		}
+		//unit is in the queue
+		else if(this->unitInQueue(event->getMovingUnit())){
+			//mark neutral
+			event->getMovingUnit()->setState(STATES::STANDING_NEUTRAL);
+		}
+		else {
+			event->getMovingUnit()->setState(STATES::STANDING_DARK);
 		}
 
 	}
-
-	//the next 2 conditions check in which state to set the unit, because queueUnit keeps skipping them
-	if (event->getMovingUnit()->getCurrentAP() >= event->getMovingUnit()->getApCostAttack()
-		|| event->getMovingUnit()->getCurrentAP() >= event->getMovingUnit()->getApCostTrench()) {
-		event->getMovingUnit()->setState(STATES::STANDING_NEUTRAL);
-	}
+	//if queue is empty, make the
 	else {
 		event->getMovingUnit()->setState(STATES::STANDING_DARK);
 	}
@@ -267,4 +287,12 @@ void Player::deleteUnit(DeathEvent* deathEvent) {
 		}
 	}
 
+}
+
+void Player::resetApForAllUnits()
+{
+	for (std::shared_ptr<Unit>& unit : unitArray)
+	{
+		unit->resetAP();
+	}
 }

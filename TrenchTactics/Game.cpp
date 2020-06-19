@@ -323,12 +323,14 @@ void Game::switchActivePlayer() {
 			this->gateway.setActivePlayer(playerRed);
 		}
 
-		this->activePlayer->resetApForAllUnits();
-
 		//prevent units to stay in queue if their only target was killed
 		if (!this->activePlayer->getUnitQueue().empty()) {
 			this->activePlayer->emptyQueue();
 		}
+
+		this->activePlayer->resetApForAllUnits();
+
+
 	}
 }
 

@@ -161,12 +161,12 @@ void Unit::levelUp()
 	{
 		this->m_level = 3;
 	}
-
-	//adds 10% to each value for every level
-	this->m_hp = m_hp * (1.0f + (((float)m_level - 1) / 10.0f));
-	this->m_currentHP = m_currentHP * (1.0f + (((float)m_level - 1) / 10.0f));
-	this->m_dmg = m_dmg * (1.0f + (((float)m_level - 1) / 10.0f));
-	this->m_range = m_range * (1.0f + (((float)m_level - 1) / 10.0f));
+	else {
+		//adds 10% to each value for every level
+		this->m_hp = m_hp * (1.0f + (((float)m_level - 1) / 10.0f));
+		this->m_currentHP = m_currentHP * (1.0f + (((float)m_level - 1) / 10.0f));
+		this->m_dmg = m_dmg * (1.0f + (((float)m_level - 1) / 10.0f));
+	}
 }
 
 /**
