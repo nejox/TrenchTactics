@@ -65,7 +65,11 @@ public:
 	 * \param unit that will be added
 	 */
 	void queueUnit(std::shared_ptr<Unit> unit);
-
+	/**
+	* checks if unit is in Queue
+	* \param unitToFind unit to find in queue
+	* \return true if the queue contains the unit or false if not
+	*/
 	bool unitInQueue(shared_ptr<Unit> unitToFind);
 
 	/**

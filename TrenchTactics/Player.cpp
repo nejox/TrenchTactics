@@ -147,16 +147,25 @@ void Player::queueUnit(std::shared_ptr<Unit> unit) {
 		unit->update();
 	}
 }
-
+/**
+* checks if unit is in Queue
+* \param unitToFind unit to find in queue
+* \return true if the queue contains the unit or false if not
+*/
 bool Player::unitInQueue(shared_ptr<Unit> unitToFind) {
 	
 	bool found = false;
-
+	//iterate over unitqueue
 	for (int i = this->unitQueue.size(); i > 0; i--) {
-		if (this->unitQueue.front() == unitToFind) {
+
+		shared_ptr<Unit> tmp = this->unitQueue.front();
+		
+		if ( tmp== unitToFind) {
 			found = true;
 		}
-		this->requeueUnit();
+		//reque the unit without setting new state
+		this->unitQueue.pop();
+		this->unitQueue.push(tmp);
 	}
 
 	return found;
