@@ -67,6 +67,7 @@ Im gesamten Projekt wurde darauf geachtet die Verbindung zu SDL2 nicht zu starr 
 
 #### Timer
 ![Timer Klasse](Doku/TimerClass.jpg)
+
 TrenchTactics ist ein Timer bzw Tick based Spiel. Dies bedeutet das Aktionen jeweils pro Tick abgearbeitet werden.
 Angenommen ein der User betaetigt einen Knopf wird diese Aktion (in diesem Fall von SDl2) gespeichert und nach jedem Tick durch die jeweilig zustaendigen Funktionen verarbeitet. (zu sehen im Kapitel EventManager: processEvents()) 
 Dies hat den eindeutigen Vorteil das dadurch kein Gedanke an Threading verschwendet werden muss. Die Nachteile die sich dadurch ergeben wuerden, wie etwa Latenz, sind jedoch fuer TrenchTactics nicht allzu ausschlaggebend und werden somit gekonnt ignoriert.
@@ -96,7 +97,9 @@ void Game::handleStartGame(StartGameEvent* event);
 ```
 In der ersten Zeile sieht man hier die subscribe Mehtode, die als Argumente die Instanz der ausfuehrenden Klasse sowie die Methode der Klasse die sich um das Event kuemmern soll. 
 Die zweite Zeile beschreibt dannn die Methode die das Event behandelt. Hier wird als Parameter das spezialisierte Event angegeben. Uber diesen Parameter wird dann im EventBus auch entschieden ob die Funktion aufgerufen wird oder nicht.
+
 ![Event Klassen Uebersicht](Doku/EventClassesOverview.jpg)
+
 In der Ubersicht sieht man alle moeglichen Events die verwendet werden. Auf das ein oder andere Event wird spaeter noch genauer eingegangen.
 
 Der Publish des Events funktioniert dann aequivalent einfach. Uber eine Instanz des EventBus wird ein Event instance ueber die publish Funktion an alle Abonennten verteilt.
@@ -104,7 +107,9 @@ Der Publish des Events funktioniert dann aequivalent einfach. Uber eine Instanz 
 EventBus::instance().publish(new DeathEvent(this->getptr()));
 ```
 Zusaetzlich zum EventBus gibt is im Event Kontext noch den EventManager an sich:
+
 ![EventManager Klasse](Doku/EventManagerClass.jpg)
+
 In dieser Klasse werden User Eingaben behandelt. Dies bedeutet hier werden Events erzeugt und auf den EventBus gelegt und dann entsprechender Stelle behandelt. 
 Als Abstraktions Ebene wurde hier ein Interface eingezogen hinter dem sich dann die SDL2 spezifischen Aktionen verstecken.
 Die Implementierung basiert hier auf, wie eben erwaehnt, SDL2 Funktionen. Technisch wird hier dann pro Timer Tick ueber die Funktion 
@@ -115,7 +120,9 @@ geprueft ob ein Event innerhalb des letzten Ticks vorgefallen ist und dann wie e
 
 #### Rendering
 Das Rendern der verschiedenen Sprites nutzt hier wieder ein SDL2 interne Funktion
+
 ![Renderer Klasse](Doku/RendererClass.jpg)
+
 Wird genau wie der EventManger hinter einem Interface versteckt - dies gewaehrleistet das, falls noetig, ein Framework wechsel nicht eine komplette Code Aenderung mitsich bringt.
 
 Jede Ressource die gerendert werden soll hat eine Referenz zu einer Instanz der Klasse Sprite:
@@ -123,12 +130,16 @@ Jede Ressource die gerendert werden soll hat eine Referenz zu einer Instanz der 
 m_sprite = make_shared<SpriteUnit>(colorRed, unittype);
 ```
 Hier im Beispiel der Unit Klasse die bei der Erstellung anhand des Unittype die entsprechende Sprite laed. Diese Sprite Klasse:
+
 ![Sprite Klasse](Doku/SpriteClass.jpg)
+
 Wie man erkennen kann beinhaltet die Klasse alle noetigen technischen Mittel um die entsprechende Sprite zu laden.
 Technisch wird ueber einen filepath die Sprite geladen. Dann kann entweder die komplette Sprite oder nur einen Ausschnitt an einer bestimmten Position gerendert werden. Dies laeuft dann uber die Referenz auf den SDL Renderer der ueber die RendererImpl bereitgestellt wird.
 Genauer Ablauf als Aktivitaetsdiagramm:
 HIER BILD EINFUEGEN
 Ausserdem gibt es hier die Moeglichkeit Animationen zu realisieren. Dies funktioniert ueber die eben erwaehnten Ausschnitte:
+
 ![Unit Sample](Doku/UnitSample.jpg)
+
 In diesem Bild sieht man die einzelnen Ausschnitte der Animation, mit Hilfe der verschiedenen Ausschnitte und mit Hilfe des Timers koennen so Animationen angezeigt werden. Nach jedem Tick wird der nachste Ausschnitt geladen.
 Als kleine Side-Note: Hier sieht man die pinke Hintergrundfarbe, diese wird verwendet um die Sprite vom Hintergrund zu trenne. Bedeutet nur die wirklichen Pixel der Unit werden gerendert.
