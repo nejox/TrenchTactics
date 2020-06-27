@@ -1,5 +1,5 @@
 #include "Player.h"
-#include "Gamefield.h"
+
 
 
 
@@ -39,7 +39,7 @@ int Player::computeIncome() {
 	//iterate over unitArray and for every unit check if it is in a trench
 	for (std::shared_ptr<Unit> unit : unitArray)
 	{
-		shared_ptr<FieldTile> tmp = Gamefield::instance().findTileByUnit(unit);
+		std::shared_ptr<FieldTile> tmp = Gamefield::instance().findTileByUnit(unit);
 
 		if (tmp->hasTrench())
 		{
@@ -113,7 +113,7 @@ void Player::markActiveUnit()
 }
 
 void Player::requeueUnit() {
-	shared_ptr<Unit> tmp = this->unitQueue.front();
+	std::shared_ptr<Unit> tmp = this->unitQueue.front();
 	//no new state here
 	this->unitQueue.pop();
 	//but here, so we stay in standing neutral,bright and shiny
@@ -152,13 +152,13 @@ void Player::queueUnit(std::shared_ptr<Unit> unit) {
 * \param unitToFind unit to find in queue
 * \return true if the queue contains the unit or false if not
 */
-bool Player::unitInQueue(shared_ptr<Unit> unitToFind) {
+bool Player::unitInQueue(std::shared_ptr<Unit> unitToFind) {
 	
 	bool found = false;
 	//iterate over unitqueue
 	for (int i = this->unitQueue.size(); i > 0; i--) {
 
-		shared_ptr<Unit> tmp = this->unitQueue.front();
+		std::shared_ptr<Unit> tmp = this->unitQueue.front();
 		
 		if ( tmp== unitToFind) {
 			found = true;

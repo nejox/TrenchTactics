@@ -1,5 +1,4 @@
 
-#include "Framework.hpp"
 #include "Logger.hpp"
 #include "ConfigReader.h"
 #include "RendererImpl.h"

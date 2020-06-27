@@ -5,47 +5,47 @@
 void MenuBar::init()
 {
 
-	menuBar = make_shared<vector<vector<std::shared_ptr<MenuTile>>>>();
+	menuBar = std::make_shared<std::vector<std::vector<std::shared_ptr<MenuTile>>>>();
 	setSizeMenuBar();
 	initiateMenuTiles();
 
-	activePlayerFlag = make_shared<Sprite>();
+	activePlayerFlag = std::make_shared<Sprite>();
 	activePlayerFlag->setPos(19 * pixelToTileFactor + 4, 12 * pixelToTileFactor + 37);
 
-	activePhaseToken = make_shared<Sprite>();
+	activePhaseToken = std::make_shared<Sprite>();
 	activePhaseToken->setPos((pixelToTileFactor * 19 + 3), (13 * pixelToTileFactor + 44));
 
-	activePhaseText = make_shared<SpriteText>(22);
+	activePhaseText = std::make_shared<SpriteText>(22);
 	activePhaseText->setPos((pixelToTileFactor * 20 + 4), (13 * pixelToTileFactor + 52));
 
-	phaseText = make_shared<SpriteText>(22);
+	phaseText = std::make_shared<SpriteText>(22);
 	phaseText->setPos((pixelToTileFactor * 20 + 4), (14 * pixelToTileFactor + 6));
 	phaseText->load("PHASE");
 
-	money = make_shared<SpriteText>(22);
+	money = std::make_shared<SpriteText>(22);
 	money->setPos((pixelToTileFactor + 27), (12 * pixelToTileFactor + 9 + 32));
 
-	income = make_shared<SpriteText>(22);
+	income = std::make_shared<SpriteText>(22);
 	income->setPos((pixelToTileFactor + 27), (13 * pixelToTileFactor + 5));
 
-	unitCount = make_shared<SpriteText>(22);
+	unitCount = std::make_shared<SpriteText>(22);
 	unitCount->setPos((pixelToTileFactor + 27), (13 * pixelToTileFactor + 48));
 
-	unitHP = make_shared<SpriteText>(25);
+	unitHP = std::make_shared<SpriteText>(25);
 	unitHP->setPos((pixelToTileFactor * 9 + 40), (pixelToTileFactor * 12 + 32));
 
-	unitAP = make_shared<SpriteText>(25);
+	unitAP = std::make_shared<SpriteText>(25);
 	unitAP->setPos((pixelToTileFactor * 9 + 40), (pixelToTileFactor * 13));
 
-	unitDMG = make_shared<SpriteText>(25);
+	unitDMG = std::make_shared<SpriteText>(25);
 	unitDMG->setPos((pixelToTileFactor * 9 + 40), (pixelToTileFactor * 13 + 32));
 
-	unitRange = make_shared<SpriteText>(25);
+	unitRange = std::make_shared<SpriteText>(25);
 	unitRange->setPos((pixelToTileFactor * 9 + 40), (pixelToTileFactor * 14));
 }
 
 
-void MenuBar::updateMenuBar(GAMEPHASES::GAMEPHASE phase, shared_ptr<Player> activePlayer)
+void MenuBar::updateMenuBar(GAMEPHASES::GAMEPHASE phase, std::shared_ptr<Player> activePlayer)
 {
 	this->resetMenuBarSidePanels();
 	this->reInitButtons(phase); // hier muss nochmal dran gearbeitet werden
@@ -54,7 +54,7 @@ void MenuBar::updateMenuBar(GAMEPHASES::GAMEPHASE phase, shared_ptr<Player> acti
 }
 
 
-void MenuBar::refreshMenuBar(shared_ptr<Player> activePlayer) {
+void MenuBar::refreshMenuBar(std::shared_ptr<Player> activePlayer) {
 	this->resetMenuBarSidePanels();
 	this->refreshAllButtonDisplays();
 	this->updateTokens(activePlayer);
@@ -81,7 +81,7 @@ void MenuBar::resetMenuBarSidePanels()
 	}
 }
 
-void MenuBar::updatePlayerStats(shared_ptr<Player> activePlayer)
+void MenuBar::updatePlayerStats(std::shared_ptr<Player> activePlayer)
 {
 
 	money->load(std::to_string(activePlayer->getMoney()));
@@ -98,7 +98,7 @@ void MenuBar::updatePlayerStats(shared_ptr<Player> activePlayer)
 
 	else
 	{
-		unitCount->load(to_string((activePlayer->getUnitArray().size())) + slash + (std::to_string(ConfigReader::instance().getBalanceConf()->getMaxAmountUnits())));
+		unitCount->load(std::to_string((activePlayer->getUnitArray().size())) + slash + (std::to_string(ConfigReader::instance().getBalanceConf()->getMaxAmountUnits())));
 		unitCount->render();
 	}
 
@@ -121,7 +121,7 @@ void MenuBar::resetUnitStats()
 
 
 
-void MenuBar::showUnitStats(shared_ptr<Unit> unit)
+void MenuBar::showUnitStats(std::shared_ptr<Unit> unit)
 {
 	unitHP->load(hp + std::to_string(unit->getCurrentHP()) + slash + std::to_string(unit->getHp()));
 	unitHP->render();
@@ -264,9 +264,9 @@ void MenuBar::resetAllButtonsToNeutral()
 
 
 
-void MenuBar::updateTokens(shared_ptr<Player> activePlayer)
+void MenuBar::updateTokens(std::shared_ptr<Player> activePlayer)
 {
-	shared_ptr<MenuBarConf> menuBarConf = ConfigReader::instance().getMenuBarConf();
+	std::shared_ptr<MenuBarConf> menuBarConf = ConfigReader::instance().getMenuBarConf();
 	if (activePlayer->getColor())
 	{
 		activePlayerFlag->load(menuBarConf->getRedPlayerActiveFlagSprite());
@@ -304,8 +304,8 @@ void MenuBar::updateTokens(shared_ptr<Player> activePlayer)
 
 void MenuBar::initiateMenuTiles()
 {
-	for (vector<vector<std::shared_ptr<MenuTile>>>::iterator xIter = this->menuBar->begin(); xIter != this->menuBar->end(); ++xIter) {
-		for (vector<std::shared_ptr<MenuTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
+	for (std::vector<std::vector<std::shared_ptr<MenuTile>>>::iterator xIter = this->menuBar->begin(); xIter != this->menuBar->end(); ++xIter) {
+		for (std::vector<std::shared_ptr<MenuTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
 
 			// create MenuTile as shared pointer 
 			std::shared_ptr<MenuTile> tmpMenuTilePointer = std::make_shared<MenuTile>();
@@ -331,7 +331,7 @@ void MenuBar::setSizeMenuBar()
 {
 	this->menuBar->resize(22);
 
-	for (vector<vector<shared_ptr<MenuTile>>>::iterator menuCol = this->menuBar->begin(); menuCol != this->menuBar->end(); ++menuCol)
+	for (std::vector<std::vector<std::shared_ptr<MenuTile>>>::iterator menuCol = this->menuBar->begin(); menuCol != this->menuBar->end(); ++menuCol)
 	{
 		menuCol->resize(3);
 	}

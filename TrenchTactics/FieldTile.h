@@ -26,21 +26,21 @@ private:
 	std::shared_ptr<Corpse> corpse;
 
 	bool trench;
-	std::shared_ptr<std::map<int, Sprite*>> trenchSprites;
+	std::shared_ptr<std::map<int, std::shared_ptr<Sprite>>> trenchSprites;
 	
 
 
 public:
 
 	FieldTile() {
-		this->trenchSprites = make_shared<std::map<int, Sprite*>>();
+		this->trenchSprites = std::make_shared<std::map<int, std::shared_ptr<Sprite>>>();
 		this->trench = false;
 		this->unit = nullptr;
 	};
 
 	FieldTile(TERRAINTYPE terrain) {
 		this->terrain = terrain;
-		this->trenchSprites = make_shared<std::map<int, Sprite*>>();
+		this->trenchSprites = std::make_shared<std::map<int, std::shared_ptr<Sprite>>>();
 		this->trench = false;
 		this->unit = nullptr;
 	}
@@ -77,15 +77,15 @@ public:
 		return this->trench;
 	}
 
-	std::shared_ptr<std::map<int, Sprite*>> getTrenchSprites()
+	std::shared_ptr<std::map<int, std::shared_ptr<Sprite>>> getTrenchSprites()
 	{
 		return this->trenchSprites;
 	}
 
-	void addTrenchSprite(int rect, Sprite* sprite)
+	void addTrenchSprite(int rect, std::shared_ptr<Sprite> sprite)
 	{
 		if (this->getTerrain() != TERRAINTYPE::SPAWNTERRAIN) {
-			this->trenchSprites->insert(pair<int, Sprite*>(rect, sprite));
+			this->trenchSprites->insert(std::pair<int, std::shared_ptr<Sprite>>(rect, sprite));
 			refreshTile();
 		}
 	}

@@ -1,6 +1,6 @@
 #pragma once
-#include <string>
-#include "Sprite.hpp"
+#include "Sprite.h"
+#include "ConfigReader.h"
 
 /**
  * Sprite extension for the headquarter.
@@ -15,13 +15,13 @@ public:
 private:
 	bool m_colourRed;
 	bool m_damaged;
-	string m_spritePath;
+	std::string m_spritePath;
 
 	int m_frameWidth;		// Breite einer Animationsphase
 	int m_frameHeight;		// Höhe einer Animationsphase
 
 	SpriteHQ();
-	void load(const string sFilename, int frameWidth, int frameHeight);
+	void load(const std::string sFilename, int frameWidth, int frameHeight);
 
 };
 

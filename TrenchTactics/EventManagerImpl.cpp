@@ -1,11 +1,5 @@
 #include "EventManagerImpl.h"
-#include <SDL.h>
-#include "EventBus.h"
-#include "MouseClickEvent.h"
-#include "EndGameEvent.h"
-#include <iostream>
-#include "Sprite.hpp"
-#include "IngameMenuEvent.h"
+
 
 /**
  * EventmanagerImpl based on sdl functionality

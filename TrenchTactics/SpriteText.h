@@ -1,9 +1,7 @@
 #pragma once
 #include "RendererImpl.h"
-#include "Framework.hpp"
 #include "Logger.hpp"
 #include "ConfigReader.h"
-#include <string>
 
 
 //-TTF einbinden nervt ab, ihr müsst das genau so machen wie bei SDL2 (include und lib), 

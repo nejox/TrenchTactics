@@ -1,5 +1,5 @@
 #pragma once
-#include "Timer.hpp"
+#include "Timer.h"
 #include <SDL_ttf.h>
 #include <iostream>
 
@@ -19,6 +19,6 @@ public:
 	virtual ~IRenderer() {}
 
 private:
-	CTimer* timer;
+	std::shared_ptr<Timer> timer;
 
 };

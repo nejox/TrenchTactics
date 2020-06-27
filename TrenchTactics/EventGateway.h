@@ -11,6 +11,13 @@
 #include "MenuTile.h"
 #include "Gamefield.h"
 #include "Logger.hpp"
+#include "EndTurnEvent.h"
+#include "Menu.h"
+#include "StartGameEvent.h"
+#include "EndGameEvent.h"
+#include "StartTutorialEvent.h"
+#include "Tutorial.h"
+#include "ReturnToMenuEvent.h"
 
 
 /**
@@ -72,9 +79,9 @@ private:
 	bool checkButtonClicked(MouseClickEvent* event);
 	bool checkEventInField(MouseClickEvent* event);
 
-	bool checkRange(shared_ptr<Tile> targetTile);
+	bool checkRange(std::shared_ptr<Tile> targetTile);
 
-	int computeApCost(shared_ptr<Unit> unitToBeMoved, shared_ptr<Tile> end);
+	int computeApCost(std::shared_ptr<Unit> unitToBeMoved, std::shared_ptr<Tile> end);
 
 	bool checkEventOnHQ(MouseClickEvent* event);
 

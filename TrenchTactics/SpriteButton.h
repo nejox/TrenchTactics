@@ -1,5 +1,5 @@
 #pragma once
-#include "Sprite.hpp"
+#include "Sprite.h"
 #include "SpriteUnit.h"
 
 /**

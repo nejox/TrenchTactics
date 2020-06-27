@@ -1,4 +1,4 @@
-#include "Sprite.hpp"
+#include "Sprite.h"
 #include "SpriteText.h"
 
 /*
@@ -30,7 +30,7 @@ void showWinningScreen();
 
 private:
 	GameEnd() {};
-	shared_ptr<SpriteText> winningText;
-	Sprite* winningScreen;
+	std::shared_ptr<SpriteText> winningText;
+	std::shared_ptr<Sprite> winningScreen;
 
 };

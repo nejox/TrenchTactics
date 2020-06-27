@@ -1,11 +1,5 @@
 #include "EventGateway.h"
-#include "EndTurnEvent.h"
-#include "Menu.h"
-#include "StartGameEvent.h"
-#include "EndGameEvent.h"
-#include "StartTutorialEvent.h"
-#include "Tutorial.h"
-#include "ReturnToMenuEvent.h"
+
 
 EventGateway::EventGateway() {
 }
@@ -598,7 +592,7 @@ bool EventGateway::checkEventOnHQ(MouseClickEvent* event) {
  * \return
  */
 
-bool EventGateway::checkRange(shared_ptr<Tile> targetTile) {
+bool EventGateway::checkRange(std::shared_ptr<Tile> targetTile) {
 	return targetTile->getMarked();
 }
 
@@ -608,9 +602,9 @@ bool EventGateway::checkRange(shared_ptr<Tile> targetTile) {
 * \param end to which tile
 * \return integer value dependent if added differences of the X and Y positions of start and end are smaller/equal or bigger than the movementrange of the unit
 */
-int EventGateway::computeApCost(shared_ptr<Unit> unitToBeMoved, shared_ptr<Tile> end)
+int EventGateway::computeApCost(std::shared_ptr<Unit> unitToBeMoved, std::shared_ptr<Tile> end)
 {
-	shared_ptr<FieldTile> start = Gamefield::instance().findTileByUnit(unitToBeMoved);
+	std::shared_ptr<FieldTile> start = Gamefield::instance().findTileByUnit(unitToBeMoved);
 	int distance = abs((end->getPosX() - start->getPosX()) / 64) + abs((end->getPosY() - start->getPosY()) / 64);
 	if (distance <= unitToBeMoved->getMovementRange()) return unitToBeMoved->getApCostMove();
 	

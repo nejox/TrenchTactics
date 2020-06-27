@@ -35,7 +35,7 @@ void FieldTile::refreshTile() {
 		{
 
 			//iterate over map
-			std::map<int, Sprite*>::iterator itr = trenchSprites->begin();
+			std::map<int, std::shared_ptr<Sprite>>::iterator itr = trenchSprites->begin();
 			while (itr != trenchSprites->end()) {
 				//itr second is the sprite, itr first is the framenumber to render
 				itr->second->render((itr->first * 64), 0);
@@ -100,7 +100,7 @@ bool FieldTile::hasCopse()
 
 void FieldTile::addCorpse()
 {
-	this->corpse = make_shared<Corpse>(this->getPosX(), this->getPosY());
+	this->corpse = std::make_shared<Corpse>(this->getPosX(), this->getPosY());
 	refreshTile();
 }
 

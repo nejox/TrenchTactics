@@ -1,5 +1,4 @@
 #pragma once
-#include <string>
 
 /**
  * ButtonConf provides all necessary information about all buttons and their sprites

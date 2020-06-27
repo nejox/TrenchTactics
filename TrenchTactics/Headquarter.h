@@ -1,10 +1,10 @@
 #pragma once
-#include <string>
 #include "GameEndEvent.h"
 #include "BalanceConf.h"
 #include "ConfigReader.h"
 #include "SpriteHQ.h"
 #include "SpriteHealthBar.h"
+#include "EventBus.h"
 
 /**
  * Base headquarter class that holds all information concerning the headquarter of a player like health, color or spritefilepath.
@@ -29,9 +29,9 @@ public:
 		m_currentHP = ConfigReader::instance().getBalanceConf()->getHqHP();
 		m_damaged = false;
 
-		m_spriteHQ = make_shared<SpriteHQ>(m_colorRed);
+		m_spriteHQ = std::make_shared<SpriteHQ>(m_colorRed);
 
-		m_spriteHealthBar = make_shared<SpriteHealthBar>();
+		m_spriteHealthBar = std::make_shared<SpriteHealthBar>();
 
 	}
 

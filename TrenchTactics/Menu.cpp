@@ -22,14 +22,14 @@ void Menu::initMenu(bool mainmenu)
 
 	if (isMainmenu) {
 
-		menu = new Sprite();
+		menu = std::make_shared<Sprite>();
 		menu->load("../Data/Sprites/Token/MENUE_MAIN.bmp");
 		menu->setPos(x, y);
 
 		this->endX = 384;
 		this->endY = 448;
 
-		menueText = new SpriteText(50);
+		menueText = std::make_shared<SpriteText>(50);
 		menueText->load("Menu");
 		menueText->setPos((x + 48), (y + 16));
 
@@ -39,7 +39,7 @@ void Menu::initMenu(bool mainmenu)
 	}
 	else {
 
-		menu = new Sprite();
+		menu = std::make_shared<Sprite>();
 		menu->load("../Data/Sprites/Token/MENU_INGAME.bmp");
 		menu->setPos(x, y);
 

@@ -1,5 +1,5 @@
 #pragma once
-#include "Sprite.hpp"
+#include "Sprite.h"
 
 /**
  * SpriteMarker wrapper that helps marking sprites with a specific color.

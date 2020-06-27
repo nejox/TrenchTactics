@@ -1,6 +1,5 @@
 #include "Tutorial.h"
-#include "EndTutorialEvent.h"
-#include "EventBus.h"
+
 
 void Tutorial::initTutorial()
 {

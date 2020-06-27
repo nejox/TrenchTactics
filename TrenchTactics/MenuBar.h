@@ -1,6 +1,6 @@
 #pragma once
 #include "SpriteText.h"
-#include "Sprite.hpp"
+#include "Sprite.h"
 #include "Player.h"
 #include "MenuTile.h"
 
@@ -37,14 +37,14 @@ public:
 	* \param phase current phase
 	* \param activePlayer currently activePlayer
 	*/
-	void updateMenuBar(GAMEPHASES::GAMEPHASE phase, shared_ptr<Player> activePlayer);
+	void updateMenuBar(GAMEPHASES::GAMEPHASE phase, std::shared_ptr<Player> activePlayer);
 
 	/**
 	* Refreshes the MenuBar with current Buttons
  * \param phase the gamephase the game currently resides in
  * \param activePlayer the currently active player - respectively the new active player
 	*/
-	void refreshMenuBar(shared_ptr<Player> activePlayer);
+	void refreshMenuBar(std::shared_ptr<Player> activePlayer);
 	
 	/**
 	* Renders background over the sidePanels of the menubar
@@ -56,13 +56,13 @@ public:
 	/**
 	*renders the active players stats
 	*/
-	void updatePlayerStats(shared_ptr<Player> activePlayer);
+	void updatePlayerStats(std::shared_ptr<Player> activePlayer);
 
 	/** 
 	*renders the currently active Units stats
 	*Overloaded funtion
 	*/
-	void updateUnitStats(shared_ptr<Unit> unit)
+	void updateUnitStats(std::shared_ptr<Unit> unit)
 	{
 		resetUnitStats();
 		showUnitStats(unit);
@@ -79,7 +79,7 @@ public:
 	* Displays units damage
 	* Displays units range
 	*/
-	void showUnitStats(shared_ptr<Unit>unit);
+	void showUnitStats(std::shared_ptr<Unit>unit);
 
 	/**
 	* Sets the size of the menubar at the gamestart.
@@ -107,7 +107,7 @@ public:
 	*  Updates the tokens on the Menubar: CurrentPhase, ActivePlayerFlag 
 	* 
 	*/
-	void updateTokens(shared_ptr<Player> activePlayer);
+	void updateTokens(std::shared_ptr<Player> activePlayer);
 
 	/**
 	* display necessary buttons based on phase.
@@ -146,7 +146,7 @@ public:
 		this->initButtons(phase);
 	}
 
-	std::shared_ptr<vector<vector<std::shared_ptr<MenuTile>>>> getMenuBar()
+	std::shared_ptr<std::vector<std::vector<std::shared_ptr<MenuTile>>>> getMenuBar()
 	{
 		return this->menuBar;
 	}
@@ -161,7 +161,7 @@ private:
 
 	const int pixelToTileFactor = 64;
 
-	std::shared_ptr<vector<vector<std::shared_ptr<MenuTile>>>> menuBar;
+	std::shared_ptr<std::vector<std::vector<std::shared_ptr<MenuTile>>>> menuBar;
 	std::shared_ptr<Sprite> activePlayerFlag;
 	std::shared_ptr<Sprite> activePhaseToken;
 	std::shared_ptr<SpriteText> activePhaseText;

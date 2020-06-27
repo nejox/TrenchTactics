@@ -4,6 +4,7 @@
 #include "DeathEvent.h"
 #include "EventBus.h"
 #include "Gamephases.h"
+#include "Gamefield.h"
 #include "ConfigReader.h"
 #include <vector>
 #include <queue>
@@ -19,7 +20,7 @@ class Player
 private:
 	bool colorRed;
 	bool buying;
-	Headquarter* headquarter;
+	std::shared_ptr<Headquarter> headquarter;
 	// list holds all units of a player 
 	std::vector<std::shared_ptr<Unit>> unitArray;
 	// queue holds all units in a phase to be able to process them one after another
@@ -70,7 +71,7 @@ public:
 	* \param unitToFind unit to find in queue
 	* \return true if the queue contains the unit or false if not
 	*/
-	bool unitInQueue(shared_ptr<Unit> unitToFind);
+	bool unitInQueue(std::shared_ptr<Unit> unitToFind);
 
 	/**
 	 * add unit to the list of units of a player.

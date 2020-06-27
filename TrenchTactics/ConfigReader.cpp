@@ -1,9 +1,6 @@
-#include "jsoncpp/dist/json/json.h"
-#include <fstream>
-#include <iostream>
-#include <string>
+
 #include "ConfigReader.h"
-#include "Logger.hpp"
+
 
 /**
  * standard constructor
