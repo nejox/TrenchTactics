@@ -1,4 +1,3 @@
-#define SDL_MAIN_HANDLED
 
 #include "Framework.hpp"
 #include "Logger.hpp"

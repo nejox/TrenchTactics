@@ -20,6 +20,7 @@
 #include "EndTutorialEvent.h"
 #include "IngameMenuEvent.h"
 #include "ReturnToMenuEvent.h"
+#include "GameEnd.h"
 
 /**
  * Main class to start the game
@@ -44,6 +45,7 @@ private:
 
 	bool gameRunning;
 	bool isTutorial;
+	bool gameOver = false;
 	void switchActivePlayer();
 	void startBuyPhase();
 	void startMovePhase();
