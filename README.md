@@ -119,7 +119,7 @@ SDL_PollEvent(&Event)
 geprueft ob ein Event innerhalb des letzten Ticks vorgefallen ist und dann wie erwaehnt umgewandelt und weitergeleitet.
 
 #### Rendering
-Das Rendern der verschiedenen Sprites nutzt hier wieder ein SDL2 interne Funktion
+Das Rendern der verschiedenen Sprites nutzt hier, wieder, ein SDL2 interne Funktion.
 
 ![Renderer Klasse](Doku/RendererClass.jpg)
 
@@ -129,17 +129,80 @@ Jede Ressource die gerendert werden soll hat eine Referenz zu einer Instanz der 
 ```c++
 m_sprite = make_shared<SpriteUnit>(colorRed, unittype);
 ```
-Hier im Beispiel der Unit Klasse die bei der Erstellung anhand des Unittype die entsprechende Sprite laed. Diese Sprite Klasse:
+Hier im Beispiel der Unit Klasse die bei der Erstellung anhand des Unittype die entsprechenden Sprites laed. 
+Die Sprite Klasse:
 
 ![Sprite Klasse](Doku/SpriteClass.jpg)
 
 Wie man erkennen kann beinhaltet die Klasse alle noetigen technischen Mittel um die entsprechende Sprite zu laden.
 Technisch wird ueber einen filepath die Sprite geladen. Dann kann entweder die komplette Sprite oder nur einen Ausschnitt an einer bestimmten Position gerendert werden. Dies laeuft dann uber die Referenz auf den SDL Renderer der ueber die RendererImpl bereitgestellt wird.
-Genauer Ablauf als Aktivitaetsdiagramm:
-HIER BILD EINFUEGEN
+Genauer Ablauf am Beispiel einer Unit als Aktivitaetsdiagramm (dies beschreibt den Ablauf des renderns einer Unit):
+
+![Unit render Aktivitaetsdiagramm](Doku/RenderUnitActivitydiagram.jpg)
+
+Ab dem Punkt an dem die Funktion SDL_RenderCopy aufgerufen wird, kuemmert sich SDL um die Darstellung. Hier zu sehen als Uebergabe Parameter der Renderer, zwei Rectangles, sowie die Sprite. Ein Rect beschereibt den Ort wo die Sprite hin gerendert werden soll, dass andere den Ausschnitt des kompletten Sprites der gerendert (e.g. erste Phase einer Animationsreihe)
+
 Ausserdem gibt es hier die Moeglichkeit Animationen zu realisieren. Dies funktioniert ueber die eben erwaehnten Ausschnitte:
 
 ![Unit Sample](Doku/UnitSample.jpg)
 
 In diesem Bild sieht man die einzelnen Ausschnitte der Animation, mit Hilfe der verschiedenen Ausschnitte und mit Hilfe des Timers koennen so Animationen angezeigt werden. Nach jedem Tick wird der nachste Ausschnitt geladen.
-Als kleine Side-Note: Hier sieht man die pinke Hintergrundfarbe, diese wird verwendet um die Sprite vom Hintergrund zu trenne. Bedeutet nur die wirklichen Pixel der Unit werden gerendert.
+Als kleine Side-Note: Hier sieht man die pinke Hintergrundfarbe, diese wird verwendet um die Sprite vom Hintergrund zu trennen. Bedeutet nur die wirklichen Pixel der Unit werden gerendert und das pink sozusagen ausgeschlossen.
+
+#### Config Reader
+Um alle noetigen Einstellungen treffen zu koennen wurde ein entsprechendes Config System implementiert.
+Alle wichtigen Informationen wie Balancing, Pfade zu Sprites so wie alle sonstigen Einstellungen die sonst ausserhalb des Spiels getroffen werden koennten. Hierzu werden verschieden JSON Dokumente verwendet.
+Hier als Beispiel ein Ausschnitt aus einer Config einer Einheit.
+
+```json
+{
+  "ap": 2,
+  "apCostAttack": 1,
+  "movementRange": 1,
+  "apCostTrench": 1,
+  "apCostMove": 1,
+  "cost": 60,
+  "dmg": 40,
+  "hp": 80,
+  "id": 0,
+  "name": "Grenadier",
+  "range": 12,
+  "spawnProbability": 30,
+  "spritesRed": {
+    "standingActive": "../Data/Sprites/R_Units/R_GRENADE_STANDING_ACTIVE.bmp",
+    "standingNeutral": "../Data/Sprites/R_Units/R_GRENADE_STANDING_NEUTRAL.bmp",
+    "standingDark": "../Data/Sprites/R_Units/R_GRENADE_STANDING_DARK.bmp",
+    "shooting": "../Data/Sprites/R_Units/R_GRENADE_SHOOTING.bmp",
+    "running": "../Data/Sprites/R_Units/R_GRENADE_RUNNING.bmp"
+  },
+  "spritesBlue": {
+    "standingActive": "../Data/Sprites/B_Units/B_GRENADE_STANDING_ACTIVE.bmp",
+    "standingNeutral": "../Data/Sprites/B_Units/B_GRENADE_STANDING_NEUTRAL.bmp",
+    "standingDark": "../Data/Sprites/B_Units/B_GRENADE_STANDING_DARK.bmp",
+    "shooting": "../Data/Sprites/B_Units/B_GRENADE_SHOOTING.bmp",
+    "running": "../Data/Sprites/B_Units/B_GRENADE_RUNNING.bmp"
+  }
+}
+```
+
+Zum Start des Spiels werden einmalig alle Konfigurationen geladen. Der komplette Config Reader ist ebenfalls mit dem Singelton Pattern gebaut, heisst die eine Instanz die zum Start des Spiels erstellt wird und alle Konfigurationen befuellt bleibt die komplette Laufzeit im Speicher und vermeidet hier unnoetigen IO Traffic.
+Die erstmalige Instanzierung und Initalisierung passiert in der Game Klasse mit folgendem Code:
+```c++
+ConfigReader::instance().initConfigurations();
+```
+
+Im spaetern Verlauf kann man dann ueber die Instanz auf alle Konfigurationen zugreifen ala:
+```c++
+ ConfigReader::instance().getMapConf()->getSeed());
+```
+
+Folgende Konfigurationsobjekte sind verfuegbar:
+- BalanceConf
+- ButtonConf
+- MapConf
+- MenuBarConf
+- TechConf
+- TileConf
+- UnitConf
+
+Teilweise werden Konfigurationen zusammengefasst und in einer gemeinsamen JSON Datei abgelegt und erst dann im Programmcode wieder aufgeteilt.
