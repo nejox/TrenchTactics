@@ -9,9 +9,6 @@
 #include "MenuBarConf.h"
 #include <string>
 #include <map>
-#include "Logger.hpp"
-#include <fstream>
-#include <iostream>
 
 
 /**

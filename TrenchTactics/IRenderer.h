@@ -1,3 +1,6 @@
+#ifndef RENDERER_HEADER
+#define RENDERER_HEADER
+
 #pragma once
 #include "Timer.h"
 #include <SDL_ttf.h>
@@ -22,3 +25,4 @@ private:
 	std::shared_ptr<Timer> timer;
 
 };
+#endif

@@ -11,14 +11,6 @@
 #include "MenuTile.h"
 #include "Gamefield.h"
 #include "Logger.hpp"
-#include "EndTurnEvent.h"
-#include "Menu.h"
-#include "StartGameEvent.h"
-#include "EndGameEvent.h"
-#include "StartTutorialEvent.h"
-#include "Tutorial.h"
-#include "ReturnToMenuEvent.h"
-
 
 /**
  * EventGateway class which does most of the heavy lifting with event forwarding and controlling

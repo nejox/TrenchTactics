@@ -4,7 +4,6 @@
 #include "DeathEvent.h"
 #include "EventBus.h"
 #include "Gamephases.h"
-#include "Gamefield.h"
 #include "ConfigReader.h"
 #include <vector>
 #include <queue>

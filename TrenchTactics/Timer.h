@@ -1,4 +1,6 @@
 #pragma once
+#ifndef TIMER_HEADER
+#define TIMER_HEADER
 #include <SDL.h>
 
 
@@ -29,3 +31,4 @@ private:
 	float m_fLastTime;
 
 };
+#endif

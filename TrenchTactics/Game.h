@@ -14,7 +14,6 @@
 #include "EndTurnEvent.h"
 #include "EndGameEvent.h"
 #include "Menu.h"
-#include "MenuBar.h"
 #include "StartGameEvent.h"
 #include "Tutorial.h"
 #include "EndTutorialEvent.h"

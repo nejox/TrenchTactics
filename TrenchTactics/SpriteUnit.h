@@ -1,4 +1,6 @@
 #pragma once
+#ifndef SPRITE_UNIT
+#define SPRITE_UNIT
 #include <map>
 #include "Sprite.h"
 #include "UnitTypes.h"
@@ -54,4 +56,4 @@ private:
 	void render(int frame);
 
 };
-
+#endif

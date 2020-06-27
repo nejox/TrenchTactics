@@ -8,8 +8,7 @@
 #include "SpriteUnit.h"
 #include "SpriteHealthBar.h"
 #include "UnitTypes.h"
-#include "Gamefield.h"
-#include "UnitMovementFinishedEvent.h"
+
 
 
 

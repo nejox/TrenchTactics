@@ -1,4 +1,12 @@
 #include "EventGateway.h"
+#include "EndTurnEvent.h"
+#include "Menu.h"
+#include "StartGameEvent.h"
+#include "EndGameEvent.h"
+#include "StartTutorialEvent.h"
+#include "Tutorial.h"
+#include "ReturnToMenuEvent.h"
+
 
 
 EventGateway::EventGateway() {
@@ -149,7 +157,7 @@ void EventGateway::handleTrench()
 				if ((tmp != nullptr) && !(tmp->hasTrench()))
 				{
 					//temporary sprite to pass to the tile
-					Sprite* trenchsprite = new Sprite();
+					std::shared_ptr<Sprite> trenchsprite = std::make_shared<Sprite>();
 					trenchsprite->setPos(tmp->getPosX(), tmp->getPosY());
 
 					//check which terrain to load

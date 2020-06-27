@@ -1,4 +1,5 @@
 #include "SpriteHQ.h"
+#include "ConfigReader.h"
 
 
 

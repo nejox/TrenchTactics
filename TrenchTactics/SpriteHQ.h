@@ -1,6 +1,6 @@
 #pragma once
 #include "Sprite.h"
-#include "ConfigReader.h"
+
 
 /**
  * Sprite extension for the headquarter.

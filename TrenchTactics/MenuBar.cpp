@@ -311,7 +311,7 @@ void MenuBar::initiateMenuTiles()
 			std::shared_ptr<MenuTile> tmpMenuTilePointer = std::make_shared<MenuTile>();
 
 			// create Sprite and load menuBar file with all individual sprites
-			Sprite* terrainSprite = new Sprite();
+			std::shared_ptr<Sprite> terrainSprite = std::make_shared<Sprite>();
 			terrainSprite->load(ConfigReader::instance().getMenuBarConf()->getMenuBarBaseSprite());
 
 			// set pos where sprite shall be renderd

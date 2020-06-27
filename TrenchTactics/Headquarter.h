@@ -4,7 +4,6 @@
 #include "ConfigReader.h"
 #include "SpriteHQ.h"
 #include "SpriteHealthBar.h"
-#include "EventBus.h"
 
 /**
  * Base headquarter class that holds all information concerning the headquarter of a player like health, color or spritefilepath.
