@@ -160,6 +160,7 @@ void Game::startPlayerPhase() {
 			startTutorial();
 		}
 
+
 		// update game while in phase, buy phase as long as player buys, attack and move as long as there are units to move and stuff
 		while (!this->activePlayer->getUnitQueue().empty() || this->activePlayer->getBuying()) {
 			updateGame();
@@ -176,7 +177,7 @@ void Game::updateGame() {
 	std::vector<std::shared_ptr<Unit>> unitsBlue = this->playerBlue->getUnitArray();
 	std::vector<std::shared_ptr<Unit>> unitsRed = this->playerRed->getUnitArray();
 
-	if (!menu.IsShowingMenu()) {
+	if (!menu.IsShowingMenu() && !isGameEnd) {
 		for (std::shared_ptr<Unit>& unit : unitsBlue)
 		{
 			if (Gamefield::instance().findTileByUnit(unit).get() != nullptr) {
@@ -270,24 +271,19 @@ void Game::handleReturnToMenu(ReturnToMenuEvent* event)
 	menu.showMenu();
 }
 
+/**
+*handles end of a game, shows winning screen
+*/
 void Game::handleGameEnd(GameEndEvent* event)
 {
-	std::string winnerColor;
-	if (event->getWinner()) winnerColor = "Red";
-	else winnerColor = "Blue";
+	this->isGameEnd = true;
+	this->gateway.setGameEnd(true);
+	this->gameEnd.initWinningScreen(event->getWinner());
+	gameEnd.showWinningScreen();
 
-	Sprite* winningScreen = new Sprite();
-	winningScreen->load("../Data/Sprites/Token/WIN.bmp");
-	winningScreen->setPos(6 * 64, 64);
-
-	shared_ptr<SpriteText> winningText = make_shared<SpriteText>(40);
-	winningText->load("Player " + winnerColor + " Won!");
-	winningText->setPos(7 * 64, 3 * 64);
-
-	winningScreen->render();
-	winningText->render();
-
-	
+	while (isGameEnd) {
+		this->updateGame();
+	}
 }
 
 
@@ -360,6 +356,7 @@ void Game::startAttackPhase() {
  */
 void Game::resetGame()
 {
+	
 	field.resetGamefield();
 	this->playerBlue->resetPlayer();
 	this->playerRed->resetPlayer();

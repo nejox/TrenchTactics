@@ -20,6 +20,7 @@
 #include "EndTutorialEvent.h"
 #include "IngameMenuEvent.h"
 #include "ReturnToMenuEvent.h"
+#include "GameEnd.h"
 
 /**
  * Main class to start the game
@@ -40,10 +41,12 @@ private:
 	EventGateway& gateway = EventGateway::instance();
 	MenuBar& menuBar = MenuBar::instance();
 	Menu& menu =  Menu::instance();
+	GameEnd& gameEnd = GameEnd::instance();
 	Tutorial& tutorial = Tutorial::instance();
 
 	bool gameRunning;
 	bool isTutorial;
+	bool isGameEnd = false;
 	void switchActivePlayer();
 	void startBuyPhase();
 	void startMovePhase();

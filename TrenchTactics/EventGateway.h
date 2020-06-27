@@ -46,12 +46,17 @@ public:
 		isTutorial = flag;
 	}
 
+	void setGameEnd(bool flag) {
+		isGameEnd = flag;
+	}
+
 private:
 	EventGateway();
 	~EventGateway();
 	GAMEPHASES::GAMEPHASE currentPhase;
 	std::shared_ptr<Player> activePlayer;
 	bool isTutorial = false;
+	bool isGameEnd = false;
 
 	void handleNextUnit();
 	void handlePrevUnit();
@@ -60,7 +65,7 @@ private:
 	void handleTrench();
 	void handleMenuEvent(MouseClickEvent* event);
 	void handleTutorialEvent(MouseClickEvent* event);
-	
+	void handleGameEndEvent(MouseClickEvent* event);
 	void handleAttackEvent(MouseClickEvent* event);
 	void handleMoveEvent(MouseClickEvent* event);
 	void handleBuyEvent(MouseClickEvent* event);

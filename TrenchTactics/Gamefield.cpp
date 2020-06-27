@@ -531,7 +531,7 @@ void Gamefield::refreshGamefieldFromXYtoXY(int sX, int eX, int sY, int eY)
 */
 void Gamefield::resetGamefield()
 {
-
+	this->deselectAndUnmarkAllTiles();
 	//set headquarters to full health
 	this->headquarterTilePlayerBlue->getHeadquarter()->resetHQ();
 	this->headquarterTilePlayerRed->getHeadquarter()->resetHQ();

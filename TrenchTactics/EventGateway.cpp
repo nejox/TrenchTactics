@@ -30,13 +30,17 @@ void EventGateway::init() {
 void EventGateway::handleEvent(MouseClickEvent* event) {
 	//showing Main Menu or Ingame Menu
 	if (Menu::instance().IsShowingMenu()) {
-		handleMenuEvent(event);
+		this->handleMenuEvent(event);
 		return;
 	}
 	//Tutorial Mode? - seperate Click Handling
 	if (isTutorial) {
-		handleTutorialEvent(event);
+		this->handleTutorialEvent(event);
 		return;
+	}
+
+	if (isGameEnd) {
+		this->handleGameEndEvent(event);
 	}
 
 	if (this->currentPhase == GAMEPHASES::BUY) {
@@ -236,6 +240,13 @@ void EventGateway::handleMenuEvent(MouseClickEvent* event)
 void EventGateway::handleTutorialEvent(MouseClickEvent* event)
 {
 	Tutorial::instance().handleMouseClick(event->getX(), event->getY());
+}
+
+void EventGateway::handleGameEndEvent(MouseClickEvent* event)
+{
+	this->isGameEnd = false;
+	EventBus::instance().publish(new ReturnToMenuEvent());
+	
 }
 
 /**
