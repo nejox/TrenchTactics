@@ -177,7 +177,7 @@ void Game::updateGame() {
 	std::vector<std::shared_ptr<Unit>> unitsBlue = this->playerBlue->getUnitArray();
 	std::vector<std::shared_ptr<Unit>> unitsRed = this->playerRed->getUnitArray();
 
-	if (!menu.IsShowingMenu() && !isGameEnd) {
+	if (!menu.IsShowingMenu() && !gameOver) {
 		for (std::shared_ptr<Unit>& unit : unitsBlue)
 		{
 			if (Gamefield::instance().findTileByUnit(unit).get() != nullptr) {
@@ -276,12 +276,12 @@ void Game::handleReturnToMenu(ReturnToMenuEvent* event)
 */
 void Game::handleGameEnd(GameEndEvent* event)
 {
-	this->isGameEnd = true;
+	this->gameOver = true;
 	this->gateway.setGameEnd(true);
-	this->gameEnd.initWinningScreen(event->getWinner());
-	gameEnd.showWinningScreen();
+	GameEnd::instance().initWinningScreen(event->getWinner());
+	GameEnd::instance().showWinningScreen();
 
-	while (isGameEnd) {
+	while (gameOver) {
 		this->updateGame();
 	}
 }

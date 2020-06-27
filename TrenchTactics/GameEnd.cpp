@@ -1,6 +1,9 @@
 #include "GameEnd.h"
 
-
+/*
+*initializes winning screen sprites
+*\param winner that will be shown on screen
+*/
 void GameEnd::initWinningScreen(bool winner) {
 	std::string winnerColor;
 	if (winner) winnerColor = "Red";
@@ -17,6 +20,9 @@ void GameEnd::initWinningScreen(bool winner) {
 
 }
 
+/*
+*renders winning screen and text 
+*/
 void GameEnd::showWinningScreen()
 {
 	this->winningScreen->render();

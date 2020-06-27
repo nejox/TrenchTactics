@@ -41,12 +41,11 @@ private:
 	EventGateway& gateway = EventGateway::instance();
 	MenuBar& menuBar = MenuBar::instance();
 	Menu& menu =  Menu::instance();
-	GameEnd& gameEnd = GameEnd::instance();
 	Tutorial& tutorial = Tutorial::instance();
 
 	bool gameRunning;
 	bool isTutorial;
-	bool isGameEnd = false;
+	bool gameOver = false;
 	void switchActivePlayer();
 	void startBuyPhase();
 	void startMovePhase();

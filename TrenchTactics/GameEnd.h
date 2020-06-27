@@ -1,6 +1,9 @@
 #include "Sprite.hpp"
 #include "SpriteText.h"
 
+/*
+* game end class containing all fuctions show winning screen 
+*/
 class GameEnd {
 
 public:
@@ -15,7 +18,14 @@ public:
 		return gameEnd;
 	}
 
+	/*
+*initializes winning screen sprites
+*\param winner that will be shown on screen
+*/
 void initWinningScreen(bool winner);
+/*
+*renders winning screen and text
+*/
 void showWinningScreen();
 
 private:
