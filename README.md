@@ -12,6 +12,8 @@
   - [EventManagement](#eventmanagement)
   - [Rendering](#rendering)
   - [Config Reader](#config)
+  - [Gamefield](#gamefield)
+    - [Tiles](#tiles)
 
 <a name="spielidee-und-ziele"></a>
 ## Spielidee und Ziele
@@ -69,6 +71,7 @@ Die Architektur kann grundsaetzlich grob in die fuenf deutlich zu sehenden Eleme
 User Input wird durch die erste Komponente entegegen genommen, dann in der grossen Komponente "Game", unter zuhilfenahme der Datenbasis, verarbeitet und dann dem User entsprechend wieder angezeigt. All diese Komponenten bauen auf verschiedenen Low-Level Funktionen von SDL2 auf und werden jetzt, Baustein fuer Baustein, erklaert.
 
 Im gesamten Projekt wurde darauf geachtet die Verbindung zu SDL2 nicht zu starr zu implementieren. Nahezu jede SDL Funktion wurde hinter Interfaces "versteckt". Am besten zu sehen am Beispiel des EventManagers der den UserInput behandelt. (genauer zu sehen im spezifischen Kapitel)
+
 
 <a name="timer"></a>
 #### Timer
@@ -215,3 +218,44 @@ Folgende Konfigurationsobjekte sind verfuegbar:
 - UnitConf
 
 Teilweise werden Konfigurationen zusammengefasst und in einer gemeinsamen JSON Datei abgelegt und erst dann im Programmcode wieder aufgeteilt.
+
+<a name="gamefield"></a>
+#### Gamefield
+Als Basis fuer die Erstellung des Gamefields werden so genannte Tiles verwendet. Das sind kleine Ausschnitte des gesamten Spielfelds mit fest gesetzter Pixelgroesse von 64\*64. Aus diesen Tiles wird das komplette Spielfeld erzeugt, jede einzelne Sprite ist auf das 64\*64 Fenster ausgelegt.
+
+![Terrain Mud](Doku/terrainMud.jpg)
+
+Hier als Beispiel eine solche Sprite die zur Erstellung des Spielfeldes genutzt wird. Durch eine festgesetzte Groesse, die zu einem spaeteren Zeitpunkt noch variable einstellbar gemacht werden soll, wird das Spielfeld erzeugt. Dieses Spielfeld sind im Endeffekt nur zwei ineinander geschachtelte Vektoren die Referenzen zu den einzelnen Tiles halten.
+
+```c++
+std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> playingfield;
+```
+
+Die Erstellung des Spielfelds erfolgt dann ueber:
+```c++
+for (vector<vector<std::shared_ptr<FieldTile>>>::iterator xIter = playingfield->begin(); xIter != playingfield->end(); ++xIter) {
+  for (vector<std::shared_ptr<FieldTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
+    int rnd = rand() % 6;
+
+    if (rnd <= 3) {
+
+      *yIter = createFieldTile((xIter - playingfield->begin()) * 64 + 2 * 64, (yIter - xIter->begin()) * 64, FieldTile::TERRAINTYPE::MUD);;
+    }
+
+    if (rnd == 4) {
+      *yIter = createFieldTile((xIter - playingfield->begin()) * 64 + 2 * 64, (yIter - xIter->begin()) * 64, FieldTile::TERRAINTYPE::STONE);
+    }
+
+    if (rnd == 5) {
+      *yIter = createFieldTile((xIter - playingfield->begin()) * 64 + 2 * 64, (yIter - xIter->begin()) * 64, FieldTile::TERRAINTYPE::CLAY);
+    }
+  }
+	}
+```
+Hier sieht man dann bereits das dass Spielfeld zufaellig erzeugt wird. Ausserdem werden hier die Positionen der Tiles mit dem Faktor 64 in Pixelvalues umgerechnet. Der Offset von 2\*64 ist hier eingefuegt um den Spielerbereich des rechten Spielers zu ueberbruecken.
+<a name="tiles"></a>
+##### Tiles
+Die hier eingesetzten Tiles haben nicht nur die Aufgabe der Darstellung der Sprites sondern sind gleichzeitig Datencontainer des Gamefields. In den Tiles werden so zum Beispiel Units abgelegt die auf ihnen residieren. Aber auch alle Buttons, das Headquarter oder Trenches sind hier abgelegt.
+Ueber diese Mapping zwischen Tile und Objekt kann dann sehr einfach zugeordnet werden wo der User hingeclickt hat, bzw. auf welches Objekt er zugreifen wollte.
+Ausserdem vereinfacht das dass Rendering. Wie bereits zuvor erklaert braucht die Sprite immer ein Zielort zum rendern, durch das Ablegen auf der Tile wird einfach die Position der Tile uebernommen. Dadurch wird dann quasei, zum Beispiel, die Unit Sprite einfach ueber das Spielfieldtile drueber gerendert.
+Beim entfernen der Unit wird dann einfach der Hintergrund neu gerendert um die alte UnitSprite zu ueberdecken.
