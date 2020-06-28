@@ -22,6 +22,7 @@ Diese Basis wird dann in Gewissen Aspekten weiterentwickelt. Moderne Element sol
 Das erste Konzept ist die Mechanik das Einheiten, die dem Spieler zum Kaufen zur Verfuegung gestellt werden, per Zufall ausgewaehlt werden. Diese Zufallsauswahl kann dann von dem Spieler erneut ausgefuehrt werden um eine neue Auswahl an Einheiten zu bekommen.
 Hierfuer wird entsprechend eine Waherung benoetigt um einen solchen "ReRoll" zu bezahlen. Deswegen wird hier, wieder aus dem AuoBattler Genre, die naechste Erweiterung geklaut und ein Wirtschaftsystem implementiert. Verschiedene Faktoren haben hier Auswirkung auf das Einkommmen das Runde fuer Runde an die Spieler ausbezahlt wird. Hierzu gibt es noch einen eigenen Abschnitt der das Wirtschaftssystem noch genauer erklaert.
 
+<a name="vorbedingungen"></a>
 ## Vorbedingungen
 Bisher wurde TrenchTactics nur fuer Windows compiled - den Versuch andere Betriebssysteme zu nutzen bitte nur auf eigene Gefahr!
 Um das Projekt zum jetzigen Zeitpunkt benutzen zu koennen und zu debuggen werden folgende Frameworks und Software benoetigt:
@@ -45,8 +46,11 @@ Derzeit wird TrenchTactics als Console Application compiled, um eine reine Execu
 ###### Linker Input Settings
 ![Linker Input Settings Visual Studio](Doku/LinkerInputVisualStudio.jpg)
 
+
+<a name="gesamtuebersicht"></a>
 ## Gesamtuebersicht
 
+<a name="framework"></a>
 ### Framework
 Das Framework das im Projekt TrenchTactics ist [SDL2](https://www.libsdl.org/). SDL2 stellt hauptsaechlich Grundfunktionalitaeten zur Verfuegung, in unserem Projekt speziell:
 - Laden der einzelnen Sprites die im Spiel verwendet werden
@@ -54,10 +58,11 @@ Das Framework das im Projekt TrenchTactics ist [SDL2](https://www.libsdl.org/). 
 - Animation der Sprites
 - Annahme des UserInput per Maus (bisher ist kein Keyboard-Input moeglich)
 
+<a name="architektur"></a>
 ### Architektur
 ![Architecture Big Picture](Doku/ArchitectureBigPicture.jpg)
 
-In Oben zu sehenden Bild gibt es einen kurzen Ueberblick ueber die Architektur im Projekt was im folgenden Schritt fuer Schritt immer genauer erklaert werden soll.
+In Oben zu sehenden Bild gibt es einen kurzen Ueberblick ueber die ganz grobe Architektur im Projekt was im folgenden Schritt fuer Schritt immer genauer erklaert werden soll.
 
 Die Architektur kann grundsaetzlich grob in die fuenf deutlich zu sehenden Elemente unterteilt werden. 
 
@@ -65,6 +70,7 @@ User Input wird durch die erste Komponente entegegen genommen, dann in der gross
 
 Im gesamten Projekt wurde darauf geachtet die Verbindung zu SDL2 nicht zu starr zu implementieren. Nahezu jede SDL Funktion wurde hinter Interfaces "versteckt". Am besten zu sehen am Beispiel des EventManagers der den UserInput behandelt. (genauer zu sehen im spezifischen Kapitel)
 
+<a name="timer"></a>
 #### Timer
 ![Timer Klasse](Doku/TimerClass.jpg)
 
@@ -89,6 +95,7 @@ void CTimer::Update()
 	m_fLastTime = m_fCurTime;
 }
 ```
+<a name="eventmanagement"></a>
 #### EventManagement
 Als Grundkonzept fuer das Eventmanagement wurde ein so gennanter EventBus eingefuehrt. Der uber publish/subscribe Methoden Events an LogikKomponenten ubergibt. Technisch regestriert sich eine Methode aus einer Klasse fuer ein Event und gibt an welche Funktion fuer das entsprechende Event ausgefuehrt werden soll.
 ```c++
@@ -118,6 +125,7 @@ SDL_PollEvent(&Event)
 ```
 geprueft ob ein Event innerhalb des letzten Ticks vorgefallen ist und dann wie erwaehnt umgewandelt und weitergeleitet.
 
+<a name="rendering"></a>
 #### Rendering
 Das Rendern der verschiedenen Sprites nutzt hier, wieder, ein SDL2 interne Funktion.
 
@@ -149,6 +157,7 @@ Ausserdem gibt es hier die Moeglichkeit Animationen zu realisieren. Dies funktio
 In diesem Bild sieht man die einzelnen Ausschnitte der Animation, mit Hilfe der verschiedenen Ausschnitte und mit Hilfe des Timers koennen so Animationen angezeigt werden. Nach jedem Tick wird der nachste Ausschnitt geladen.
 Als kleine Side-Note: Hier sieht man die pinke Hintergrundfarbe, diese wird verwendet um die Sprite vom Hintergrund zu trennen. Bedeutet nur die wirklichen Pixel der Unit werden gerendert und das pink sozusagen ausgeschlossen.
 
+<a name="config"></a>
 #### Config Reader
 Um alle noetigen Einstellungen treffen zu koennen wurde ein entsprechendes Config System implementiert.
 Alle wichtigen Informationen wie Balancing, Pfade zu Sprites so wie alle sonstigen Einstellungen die sonst ausserhalb des Spiels getroffen werden koennten. Hierzu werden verschieden JSON Dokumente verwendet.
