@@ -12,8 +12,14 @@
   - [EventManagement](#eventmanagement)
   - [Rendering](#rendering)
   - [Config Reader](#config)
+  - [Logger](#logger)
   - [Gamefield](#gamefield)
     - [Tiles](#tiles)
+  - [Gamelogic](#gamelogic)
+    - [GameClass](#gameclass)
+    - [Player](#player)
+    - [EventGateway](#eventgateway)
+
 
 <a name="spielidee-und-ziele"></a>
 ## Spielidee und Ziele
@@ -23,6 +29,10 @@ Dieses Konzept wird quasi als Basis fuer TrenchTactics uebernommen. Zwei Spieler
 Diese Basis wird dann in Gewissen Aspekten weiterentwickelt. Moderne Element sollen in das "alte" Spielkonzept mit einfliessen. Das "AutoBattler" Genre ist genau so ein modernes Spielkonzept das erst in den letzten Jahren gross geworden ist, aus eben diesem Genre werden zwei wichtige Konzepte mit in TrenchTactics einfliessen. 
 Das erste Konzept ist die Mechanik das Einheiten, die dem Spieler zum Kaufen zur Verfuegung gestellt werden, per Zufall ausgewaehlt werden. Diese Zufallsauswahl kann dann von dem Spieler erneut ausgefuehrt werden um eine neue Auswahl an Einheiten zu bekommen.
 Hierfuer wird entsprechend eine Waherung benoetigt um einen solchen "ReRoll" zu bezahlen. Deswegen wird hier, wieder aus dem AuoBattler Genre, die naechste Erweiterung geklaut und ein Wirtschaftsystem implementiert. Verschiedene Faktoren haben hier Auswirkung auf das Einkommmen das Runde fuer Runde an die Spieler ausbezahlt wird. Hierzu gibt es noch einen eigenen Abschnitt der das Wirtschaftssystem noch genauer erklaert.
+
+Der Ablauf des Spiels basiert auf drei Phasen, Buy, Move und Attack Phase. Die Aufgabe jeder Phase ist selbsterklaerend.
+Ziel des Spiels ist es das gegnerische Hauptgebaeude zu zerstoeren.
+Als zusaetzliche namensgebende Mechanik wurden noch Graeben eingefuegt die gewisse Boni mit sich bringen, sowohl fuer einzelne Einheiten als auch fuer den Spieler.
 
 <a name="vorbedingungen"></a>
 ## Vorbedingungen
@@ -219,6 +229,16 @@ Folgende Konfigurationsobjekte sind verfuegbar:
 
 Teilweise werden Konfigurationen zusammengefasst und in einer gemeinsamen JSON Datei abgelegt und erst dann im Programmcode wieder aufgeteilt.
 
+<a name="logger"></a>
+#### Logger
+
+Fuer das ganze Spiel wurde ein Logger implementiert.
+Dieser kann verwendet werden ueber:
+```c++
+Logger::instance().log(LOGLEVEL::INFO, "Initializing Tutorial");
+```
+In dem enum LOGLEVEL sind die aus Java bekannten LOGLEVEL hinterlegt. Als zweites Argument wird einfach die Logmessage angegeben.
+
 <a name="gamefield"></a>
 #### Gamefield
 Als Basis fuer die Erstellung des Gamefields werden so genannte Tiles verwendet. Das sind kleine Ausschnitte des gesamten Spielfelds mit fest gesetzter Pixelgroesse von 64\*64. Aus diesen Tiles wird das komplette Spielfeld erzeugt, jede einzelne Sprite ist auf das 64\*64 Fenster ausgelegt.
@@ -259,3 +279,44 @@ Die hier eingesetzten Tiles haben nicht nur die Aufgabe der Darstellung der Spri
 Ueber diese Mapping zwischen Tile und Objekt kann dann sehr einfach zugeordnet werden wo der User hingeclickt hat, bzw. auf welches Objekt er zugreifen wollte.
 Ausserdem vereinfacht das dass Rendering. Wie bereits zuvor erklaert braucht die Sprite immer ein Zielort zum rendern, durch das Ablegen auf der Tile wird einfach die Position der Tile uebernommen. Dadurch wird dann quasei, zum Beispiel, die Unit Sprite einfach ueber das Spielfieldtile drueber gerendert.
 Beim entfernen der Unit wird dann einfach der Hintergrund neu gerendert um die alte UnitSprite zu ueberdecken.
+
+<a name="gamelogic"></a>
+#### Gamelogic
+Die logischen Komponenten sind in drei Teile aufgeteilt, bzw. in zwei logische Komponenten und eine Klasse Player die hauptsaechlich als Datencontainerklasse dient und alle Referenzen zu den Spieler spezifischen Daten haelt.
+
+<a name="gameclass"></a>
+##### GameClass
+Die eigentliche GameClass ist die Hauptkomponente zur Kontrolle des Spiels. Hier werden alle noetigen initalisierungs Aufgaben erledigt so wie die Hauptschleife des Spiels gestartet.
+
+![Game Class](Doku/GameClass.jpg)
+
+Wie im Klassendiagramm zu sehen laufen auch alle Spielentscheidenden Events zusammen.
+Wichtig ist ebenfalls das hier in jedem MainLoop der Timer aktualisiert wird und entsprechend die UI in die naechste Phase schiebt.
+In diesem Loop wird diese UpdateFunktion aufgerufen.
+```c++
+void Game::updateGame() {
+  updateAllUnits();
+  renderer.updateTimer();
+  manager.processEvents();
+}
+```
+Dieses Update wird laufend aufgerufen in jeder Phase des Spiels. Die jeweils naechste Phase eines Spiels wird durch gewisse Bedingungen erreicht die auch in der Game Klasse ueberprueft werden. So wird in der Buy Phase darauf gewartet das der Spieler seinen Einheitenkauf bestaetigt. In der Move- und BuyPhase wird abgewartet ob der Spieler jede Unit die er besitzt auch bewegt bzw falls moeglich mit ihr angreift. Dies funktioniert ueber das Abarbeiten einer Queue in der alle Units des Spielers hinterlegt sind. 
+```c++
+while (!this->activePlayer->getUnitQueue().empty() || this->activePlayer->getBuying()) {
+  updateGame();
+}
+```
+Ausserdem gibt es einen entsprechenden Knopf mit dem man eine Phase oder wahlweise seinen kompletten Zug beenden kann.
+
+<a name="player"></a>
+##### Player
+In der Klasse Player wird sich hauptsaechlich eben um Spieler spezifische Dinge gekuemmert. Geld, Einheiten oder "Suply" zum Beispiel. Technisch ist das nicht sonderlich aufregend und sollte zum Grossteil selbsterklaerend sein und wird deshalb hier eher Stiefmuetterlich behandelt.
+
+<a name="eventgateway"></a>
+##### EventGateway
+Das EventGateway ist mit die wichtigste Komponente im Spiel. Alle Events die von SDL als Aktion aufgenommen werden und an den Eventbus weitergeleitet werden landen in einem ersten Schritt hier.
+Hier wird dann geprueft mit Hilfe der Phase und der Position des MouseClickEvents was der User eigentlich bezwecken wollte, verarbeitet und an entsprechender Stelle ausgefuehrt. Als Basis hierfuer kennt das EventGateway den derzeitig aktiven Spieler sowie die aktuelle Phase des Spiels. Fast alle anderen wichtigen Informationen werden ueber Singeltons abgerufen.
+Beispiel Kauf einer Unit im EventGateway:
+
+HIER SEQUENZDIAGRAMM UNIT BUY IM EVENTGATEWAY
+
