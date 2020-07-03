@@ -68,6 +68,21 @@ void Player::updatePlayer() {
 	//this->supply = this->unitArray.size();
 }
 
+	/*
+	* updates alle units the player currently possesses
+	*/
+void Player::updateAllUnits()
+{
+		for (std::shared_ptr<Unit>& unit : this->getUnitArray())
+		{
+			if (Gamefield::instance().findTileByUnit(unit).get() != nullptr) {
+				Gamefield::instance().findTileByUnit(unit).get()->refreshTile();
+			}
+
+			unit->update();
+		}
+}
+
 /**
  * Initialize player unit queue to cycle through each of them
  *
@@ -306,3 +321,5 @@ void Player::resetApForAllUnits()
 		unit->resetAP();
 	}
 }
+
+

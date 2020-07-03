@@ -119,4 +119,9 @@ public:
 	void deleteUnit(DeathEvent* deathEvent);
 
 	void resetApForAllUnits();
+
+	/*
+	* updates alle units the player currently possesses
+	*/
+	void updateAllUnits();
 };

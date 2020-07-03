@@ -103,6 +103,7 @@ void Game::startGame() {
 	this->gameRunning = true;
 	Logger::instance().log(LOGLEVEL::INFO, "Game Running");
 
+	//cover menu
 	this->field.init(ConfigReader::instance().getMapConf()->getSizeX(), ConfigReader::instance().getMapConf()->getSizeY(), ConfigReader::instance().getMapConf()->getSeed());
 	this->menuBar.init();
 
@@ -116,10 +117,44 @@ void Game::startGame() {
 			this->activePlayer->updatePlayer();
 		}
 
-		startPlayerPhase();
-		switchActivePlayer();
+		//dirty workaround to stop game even if already in this loop
+		if (gameRunning) {
+			startPlayerPhase();
+		}
+		if (gameRunning) {
+			switchActivePlayer();
+		}
+		
 	}
 
+}
+
+/**
+*handles end of a game, shows winning screen
+*/
+void Game::handleGameEnd(GameEndEvent* event)
+{
+	this->gameOver = true;
+	this->gateway.setGameEnd(true);
+	GameEnd::instance().initWinningScreen(event->getWinner());
+	GameEnd::instance().showWinningScreen();
+
+	while (gameOver) {
+		this->updateGame();
+	}
+}
+
+
+/**
+ * quits the game
+ *
+ */
+void Game::quit(EndGameEvent* event) {
+	//TODO gracefull shutdown
+	this->gameRunning = false;
+
+	// dirty work around to change current state of the game to recognize ending
+	this->switchActivePlayer();
 }
 
 /**
@@ -179,23 +214,8 @@ void Game::updateGame() {
 	std::vector<std::shared_ptr<Unit>> unitsRed = this->playerRed->getUnitArray();
 
 	if (!menu.IsShowingMenu() && !gameOver) {
-		for (std::shared_ptr<Unit>& unit : unitsBlue)
-		{
-			if (Gamefield::instance().findTileByUnit(unit).get() != nullptr) {
-				Gamefield::instance().findTileByUnit(unit).get()->refreshTile();
-			}
-
-			unit->update();
-		}
-
-		for (std::shared_ptr<Unit>& unit : unitsRed)
-		{
-			if (Gamefield::instance().findTileByUnit(unit).get() != nullptr) {
-				Gamefield::instance().findTileByUnit(unit).get()->refreshTile();
-			}
-
-			unit->update();
-		}
+		this->playerBlue->updateAllUnits();
+		this->playerRed->updateAllUnits();
 	}
 
 	renderer.updateTimer();
@@ -270,33 +290,6 @@ void Game::handleReturnToMenu(ReturnToMenuEvent* event)
 
 	this->menu.initMenu(true);
 	menu.showMenu();
-}
-
-/**
-*handles end of a game, shows winning screen
-*/
-void Game::handleGameEnd(GameEndEvent* event)
-{
-	this->gameOver = true;
-	this->gateway.setGameEnd(true);
-	GameEnd::instance().initWinningScreen(event->getWinner());
-	GameEnd::instance().showWinningScreen();
-
-	while (gameOver) {
-		this->updateGame();
-	}
-}
-
-
-/**
- * quits the game
- *
- */
-void Game::quit(EndGameEvent* event) {
-	//TODO gracefull shutdown
-	this->gameRunning = false;
-	// dirty work around to change current state of the game to recognize ending
-	this->switchActivePlayer();
 }
 
 /**
