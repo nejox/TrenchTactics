@@ -119,7 +119,7 @@ void Game::startGame() {
 		startPlayerPhase();
 		switchActivePlayer();
 	}
-	quit(new EndGameEvent());
+
 }
 
 /**
