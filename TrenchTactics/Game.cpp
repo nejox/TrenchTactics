@@ -11,20 +11,10 @@ Game::Game() {
 	Logger::instance().log(LOGLEVEL::INFO, "Starting Game Class");
 	playerRed = NULL;
 	playerBlue = NULL;
-	gameRunning = NULL;
 	isTutorial = NULL;
 	activePlayer = NULL;
 	ctrTurns = 0;
 	endTurn = false;
-}
-
-/**
- * Returns if game is running
- *
- */
-bool Game::isRunning()
-{
-	return gameRunning;
 }
 
 /**
@@ -100,7 +90,6 @@ void Game::startGame() {
 
 	this->activePlayer = playerBlue;
 	this->gateway.setActivePlayer(playerBlue);
-	this->gameRunning = true;
 	Logger::instance().log(LOGLEVEL::INFO, "Game Running");
 
 	//cover menu
@@ -108,7 +97,7 @@ void Game::startGame() {
 	this->menuBar.init();
 
 	// start a player phase and switch player afterwards
-	while (gameRunning) {
+	while (true) {
 		this->ctrTurns++;
 
 		if (this->ctrTurns > 2)
@@ -145,10 +134,7 @@ void Game::handleGameEnd(GameEndEvent* event)
  */
 void Game::quit(EndGameEvent* event) {
 	//TODO gracefull shutdown
-	this->gameRunning = false;
-
 	renderer.destroy(); 
-
 	std::exit(0);
 
 }
@@ -266,14 +252,12 @@ void Game::handleEndTutorial(EndTutorialEvent* event)
  */
 void Game::handleIngameMenu(IngameMenuEvent* event)
 {
-	if (gameRunning) {
 		this->menu.initMenu(false);
 		this->menu.showMenu();
 
 		while (menu.IsShowingMenu()) {
 			updateGame();
 		}
-	}
 }
 
 /**

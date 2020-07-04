@@ -42,7 +42,6 @@ private:
 	Menu& menu =  Menu::instance();
 	Tutorial& tutorial = Tutorial::instance();
 
-	bool gameRunning;
 	bool isTutorial;
 	bool gameOver = false;
 	void switchActivePlayer();
