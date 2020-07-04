@@ -406,7 +406,7 @@ void EventGateway::handleMoveEvent(MouseClickEvent* event) {
 void EventGateway::handleBuyEvent(MouseClickEvent* event) {
 
 	// check wether a player is even allowed to buy a unit based on their supply and money  TO DO: vielleicht woanders hin die condition, wenn sie hier steht muss man erst klicken dass die buyphase geskippt wird
-	if ((this->activePlayer->getUnitArray().size() + 1) > ConfigReader::instance().getBalanceConf()->getMaxAmountUnits() ||
+	if ((this->activePlayer->getUnitArray().size() + 1) > this->activePlayer->getSupply() ||
 		(
 			this->activePlayer->getMoney() < ConfigReader::instance().getUnitConf(0)->getCost() &&
 			this->activePlayer->getMoney() < ConfigReader::instance().getUnitConf(1)->getCost() &&

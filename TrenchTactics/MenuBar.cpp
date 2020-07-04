@@ -92,13 +92,13 @@ void MenuBar::updatePlayerStats(std::shared_ptr<Player> activePlayer)
 
 	if (activePlayer->getUnitArray().empty())
 	{
-		unitCount->load((std::to_string(0)) + slash + (std::to_string(ConfigReader::instance().getBalanceConf()->getMaxAmountUnits())));
+		unitCount->load((std::to_string(0)) + slash + (std::to_string(activePlayer->getSupply())));
 		unitCount->render();
 	}
 
 	else
 	{
-		unitCount->load(std::to_string((activePlayer->getUnitArray().size())) + slash + (std::to_string(ConfigReader::instance().getBalanceConf()->getMaxAmountUnits())));
+		unitCount->load(std::to_string((activePlayer->getUnitArray().size())) + slash + (std::to_string(activePlayer->getSupply())));
 		unitCount->render();
 	}
 

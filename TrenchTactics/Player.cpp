@@ -21,6 +21,7 @@ Player::Player() {
 void Player::init(bool colorRed) {
 	this->colorRed = colorRed;
 	this->money = ConfigReader::instance().getBalanceConf()->getStartingGold();
+	this->supply = ConfigReader::instance().getBalanceConf()->getMaxAmountUnits();
 	//this->unitArray = std::vector<std::shared_ptr<Unit>>();
 	EventBus::instance().subscribe(this, &Player::deleteUnit);
 	EventBus::instance().subscribe(this, &Player::handleUnitMovement);

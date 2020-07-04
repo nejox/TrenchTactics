@@ -117,14 +117,8 @@ void Game::startGame() {
 			this->activePlayer->updatePlayer();
 		}
 
-		//dirty workaround to stop game even if already in this loop
-		if (gameRunning) {
-			startPlayerPhase();
-		}
-		if (gameRunning) {
-			switchActivePlayer();
-		}
-		
+		startPlayerPhase();
+		switchActivePlayer();
 	}
 
 }
@@ -153,8 +147,10 @@ void Game::quit(EndGameEvent* event) {
 	//TODO gracefull shutdown
 	this->gameRunning = false;
 
-	// dirty work around to change current state of the game to recognize ending
-	this->switchActivePlayer();
+	renderer.destroy(); 
+
+	std::exit(0);
+
 }
 
 /**
