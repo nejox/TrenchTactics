@@ -36,12 +36,12 @@ private:
 	void setSizeSpawnBlue();
 	void setSizeSpawnRed();
 
-	void initiatePlayerTilesBlue();
-	void initiatePlayerTilesRed();
+	void initializePlayerTilesBlue();
+	void initializePlayerTilesRed();
 	
-	void initiateSpawnTilesBlue();
-	void initiateSpawnTilesRed();
-	void initiatePlayingFieldTiles();
+	void initializeSpawnTilesBlue();
+	void initializeSpawnTilesRed();
+	void initializePlayingFieldTiles();
 
 	std::shared_ptr<FieldTile> getSpawnFieldRed(int posX, int posY);
 	std::shared_ptr<FieldTile> getSpawnFieldBlue(int posX, int posY);

@@ -484,7 +484,7 @@ void EventGateway::handleBuyEvent(MouseClickEvent* event) {
 						if (MenuBar::instance().getMenuBar().get()->at(i).at(1).get()->getButton()->getState() == true)
 						{
 							// create new unit that will be purchased
-							purchasedUnit = std::make_shared<Unit>(static_cast<TYPES::UnitType>(MenuBar::instance().getMenuBar().get()->at(i).at(1).get()->getButton()->getType()), this->activePlayer->getColor());
+							purchasedUnit = std::make_shared<Unit>(static_cast<TYPES::UNITTYPE>(MenuBar::instance().getMenuBar().get()->at(i).at(1).get()->getButton()->getType()), this->activePlayer->getColor());
 							// spawn unit
 							Gamefield::instance().spawnUnitInSpawn(purchasedUnit, this->activePlayer->getColor());
 							// add unit to vector of the player

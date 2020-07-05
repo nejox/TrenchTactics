@@ -9,7 +9,7 @@
  * \param colourRed decide which sprite will be used
  * \param type enum value of which unit type will be used
  */
-SpriteUnit::SpriteUnit(bool colourRed, TYPES::UnitType type)
+SpriteUnit::SpriteUnit(bool colourRed, TYPES::UNITTYPE type)
 {
 	m_colourRed = colourRed;
 	m_defaultState = STATES::UNITSTATE::STANDING_DARK;

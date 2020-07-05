@@ -43,10 +43,10 @@ public:
 	int getId() {
 		return this->id;
 	}
-	void setHp(int hp) {
+	void setHP(int hp) {
 		this->hp = hp;
 	}
-	int getHp() {
+	int getHP() {
 		return this->hp;
 	}
 	void setRange(int range) {
@@ -61,10 +61,10 @@ public:
 	int getCost() {
 		return this->cost;
 	}
-	void setAp(int ap) {
+	void setAP(int ap) {
 		this->ap = ap;
 	}
-	int getAp() {
+	int getAP() {
 		return this->ap;
 	}
 	void setDmg(int dmg) {
@@ -73,11 +73,11 @@ public:
 	int getDmg() {
 		return this->dmg;
 	}
-	void setApCostAttack(int apCostAttack)
+	void setAPCostAttack(int apCostAttack)
 	{
 		this->apCostAttack = apCostAttack;
 	}
-	int getApCostAttack() {
+	int getAPCostAttack() {
 		return this->apCostAttack;
 	}
 	void setMovementRange(int movementRange)
@@ -91,14 +91,14 @@ public:
 	{
 		this->apCostTrench = apCostTrench;
 	}
-	int getApCostTrench() {
+	int getAPCostTrench() {
 		return this->apCostTrench;
 	}
-	void setApCostMove(int apCostMove)
+	void setAPCostMove(int apCostMove)
 	{
 		this->apCostMove = apCostMove;
 	}
-	int getApCostMove() {
+	int getAPCostMove() {
 		return this->apCostMove;
 	}
 

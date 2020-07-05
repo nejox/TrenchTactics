@@ -25,7 +25,7 @@ public:
 	 * \param unittype the type of unit that will be created
 	 * \param colorRed specifies which player is the owner of the new unit and selects the right sprites based on this bool
 	 */
-	Unit(TYPES::UnitType unittype, bool colorRed);
+	Unit(TYPES::UNITTYPE unittype, bool colorRed);
 
 private:
 	Unit() = delete;

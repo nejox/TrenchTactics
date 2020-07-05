@@ -595,7 +595,7 @@ std::shared_ptr<FieldTile> Gamefield::createFieldTile(int posX, int posY, FieldT
  * Function to set up the fieldtiles in playingfield at gamestart.
  *
  */
-void Gamefield::initiatePlayingFieldTiles()
+void Gamefield::initializePlayingFieldTiles()
 {
 	for (std::vector<std::vector<std::shared_ptr<FieldTile>>>::iterator xIter = playingfield->begin(); xIter != playingfield->end(); ++xIter) {
 		for (std::vector<std::shared_ptr<FieldTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
@@ -655,7 +655,7 @@ std::shared_ptr<Sprite> Gamefield::getRandomSpawnTileSprite(int rndNumber, bool 
  * Function to set up the fieldtiles in blue player's spawn at gamestart.
  *
  */
-void Gamefield::initiateSpawnTilesBlue()
+void Gamefield::initializeSpawnTilesBlue()
 {
 	int cnt = 0;
 	//iterates over the blue spawn from top left 
@@ -690,7 +690,7 @@ void Gamefield::initiateSpawnTilesBlue()
  * Function to set up the fieldtiles in red player's spawn at gamestart.
  *
  */
-void Gamefield::initiateSpawnTilesRed()
+void Gamefield::initializeSpawnTilesRed()
 {
 	int cnt = 0;
 
@@ -729,7 +729,7 @@ void Gamefield::initiateSpawnTilesRed()
  * Function to set up the PlayerTiles for blue player at gamestart.
  *
  */
-void Gamefield::initiatePlayerTilesBlue()
+void Gamefield::initializePlayerTilesBlue()
 {
 	std::shared_ptr<Headquarter> hq = std::make_shared<Headquarter>(false);
 
@@ -756,7 +756,7 @@ void Gamefield::initiatePlayerTilesBlue()
  * Function to set up the PlayerTiles for red player at gamestart.
 *
  */
-void Gamefield::initiatePlayerTilesRed()
+void Gamefield::initializePlayerTilesRed()
 {
 	std::shared_ptr<Headquarter> hq = std::make_shared<Headquarter>(true);
 
@@ -846,10 +846,10 @@ void Gamefield::init(int FieldWidth, int FieldHeight, int Seed) {
 	headquarterTilePlayerBlue = std::make_shared<PlayerTile>();
 	headquarterTilePlayerRed = std::make_shared<PlayerTile>();
 	Gamefield::setAllFieldSizes();
-	Gamefield::initiatePlayerTilesBlue();
-	Gamefield::initiatePlayerTilesRed();
-	Gamefield::initiateSpawnTilesBlue();
-	Gamefield::initiateSpawnTilesRed();
-	Gamefield::initiatePlayingFieldTiles();
+	Gamefield::initializePlayerTilesBlue();
+	Gamefield::initializePlayerTilesRed();
+	Gamefield::initializeSpawnTilesBlue();
+	Gamefield::initializeSpawnTilesRed();
+	Gamefield::initializePlayingFieldTiles();
 
 }

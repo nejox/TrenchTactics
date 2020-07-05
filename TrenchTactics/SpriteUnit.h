@@ -34,7 +34,7 @@ class SpriteUnit :
 {
 public:
 
-	SpriteUnit(bool colourRed, TYPES::UnitType type);
+	SpriteUnit(bool colourRed, TYPES::UNITTYPE type);
 	void render();
 	STATES::UNITSTATE render(STATES::UNITSTATE changedState);
 

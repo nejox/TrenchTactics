@@ -165,14 +165,14 @@ std::map<int, std::shared_ptr<UnitConf>> ConfigReader::createUnitConfMap()
 	{
 		Json::Value rootElem = root[i];
 		std::shared_ptr<UnitConf> unitConf = std::make_shared<UnitConf>();
-		unitConf->setAp(rootElem["ap"].asInt());
-		unitConf->setApCostAttack(rootElem["apCostAttack"].asInt());
+		unitConf->setAP(rootElem["ap"].asInt());
+		unitConf->setAPCostAttack(rootElem["apCostAttack"].asInt());
 		unitConf->setMovementRange(rootElem["movementRange"].asInt());
 		unitConf->setApCostTrench(rootElem["apCostTrench"].asInt());
-		unitConf->setApCostMove(rootElem["apCostMove"].asInt());
+		unitConf->setAPCostMove(rootElem["apCostMove"].asInt());
 		unitConf->setCost(rootElem["cost"].asInt());
 		unitConf->setDmg(rootElem["dmg"].asInt());
-		unitConf->setHp(rootElem["hp"].asInt());
+		unitConf->setHP(rootElem["hp"].asInt());
 		unitConf->setRange(rootElem["range"].asInt());
 		unitConf->setSpawnProbability(rootElem["spawnProbability"].asInt());
 		unitConf->setSpriteFilePathStandingActiveRed(rootElem["spritesRed"]["standingActive"].asString());
