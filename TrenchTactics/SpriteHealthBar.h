@@ -1,5 +1,5 @@
 #pragma once
-#include "Sprite.hpp"
+#include "Sprite.h"
 
 /**
  * Sprite extension to add healthbars to a unit or hq.

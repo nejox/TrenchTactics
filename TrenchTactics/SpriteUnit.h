@@ -2,7 +2,7 @@
 #ifndef SPRITE_UNIT
 #define SPRITE_UNIT
 #include <map>
-#include "Sprite.hpp"
+#include "Sprite.h"
 #include "UnitTypes.h"
 
 /**
@@ -34,7 +34,7 @@ class SpriteUnit :
 {
 public:
 
-	SpriteUnit(bool colourRed, TYPES::UnitType type);
+	SpriteUnit(bool colourRed, TYPES::UNITTYPE type);
 	void render();
 	STATES::UNITSTATE render(STATES::UNITSTATE changedState);
 
@@ -50,12 +50,10 @@ private:
 	int m_frameWidth;		// Breite einer Animationsphase
 	int m_frameHeight;		// Höhe einer Animationsphase
 
-	std::map<STATES::UNITSTATE, string> animations;
+	std::map<STATES::UNITSTATE, std::string> animations;
 
-	void load(const string sFilename, int frameWidth, int frameHeight);
+	void load(const std::string sFilename, int frameWidth, int frameHeight);
 	void render(int frame);
 
 };
-
-
 #endif

@@ -7,6 +7,8 @@
 #include "Tutorial.h"
 #include "ReturnToMenuEvent.h"
 
+
+
 EventGateway::EventGateway() {
 }
 
@@ -155,7 +157,7 @@ void EventGateway::handleTrench()
 				if ((tmp != nullptr) && !(tmp->hasTrench()))
 				{
 					//temporary sprite to pass to the tile
-					Sprite* trenchsprite = new Sprite();
+					std::shared_ptr<Sprite> trenchsprite = std::make_shared<Sprite>();
 					trenchsprite->setPos(tmp->getPosX(), tmp->getPosY());
 
 					//check which terrain to load
@@ -404,7 +406,7 @@ void EventGateway::handleMoveEvent(MouseClickEvent* event) {
 void EventGateway::handleBuyEvent(MouseClickEvent* event) {
 
 	// check wether a player is even allowed to buy a unit based on their supply and money  TO DO: vielleicht woanders hin die condition, wenn sie hier steht muss man erst klicken dass die buyphase geskippt wird
-	if ((this->activePlayer->getUnitArray().size() + 1) > ConfigReader::instance().getBalanceConf()->getMaxAmountUnits() ||
+	if ((this->activePlayer->getUnitArray().size() + 1) > this->activePlayer->getSupply() ||
 		(
 			this->activePlayer->getMoney() < ConfigReader::instance().getUnitConf(0)->getCost() &&
 			this->activePlayer->getMoney() < ConfigReader::instance().getUnitConf(1)->getCost() &&
@@ -482,7 +484,7 @@ void EventGateway::handleBuyEvent(MouseClickEvent* event) {
 						if (MenuBar::instance().getMenuBar().get()->at(i).at(1).get()->getButton()->getState() == true)
 						{
 							// create new unit that will be purchased
-							purchasedUnit = std::make_shared<Unit>(static_cast<TYPES::UnitType>(MenuBar::instance().getMenuBar().get()->at(i).at(1).get()->getButton()->getType()), this->activePlayer->getColor());
+							purchasedUnit = std::make_shared<Unit>(static_cast<TYPES::UNITTYPE>(MenuBar::instance().getMenuBar().get()->at(i).at(1).get()->getButton()->getType()), this->activePlayer->getColor());
 							// spawn unit
 							Gamefield::instance().spawnUnitInSpawn(purchasedUnit, this->activePlayer->getColor());
 							// add unit to vector of the player
@@ -598,7 +600,7 @@ bool EventGateway::checkEventOnHQ(MouseClickEvent* event) {
  * \return
  */
 
-bool EventGateway::checkRange(shared_ptr<Tile> targetTile) {
+bool EventGateway::checkRange(std::shared_ptr<Tile> targetTile) {
 	return targetTile->getMarked();
 }
 
@@ -608,9 +610,9 @@ bool EventGateway::checkRange(shared_ptr<Tile> targetTile) {
 * \param end to which tile
 * \return integer value dependent if added differences of the X and Y positions of start and end are smaller/equal or bigger than the movementrange of the unit
 */
-int EventGateway::computeApCost(shared_ptr<Unit> unitToBeMoved, shared_ptr<Tile> end)
+int EventGateway::computeApCost(std::shared_ptr<Unit> unitToBeMoved, std::shared_ptr<Tile> end)
 {
-	shared_ptr<FieldTile> start = Gamefield::instance().findTileByUnit(unitToBeMoved);
+	std::shared_ptr<FieldTile> start = Gamefield::instance().findTileByUnit(unitToBeMoved);
 	int distance = abs((end->getPosX() - start->getPosX()) / 64) + abs((end->getPosY() - start->getPosY()) / 64);
 	if (distance <= unitToBeMoved->getMovementRange()) return unitToBeMoved->getApCostMove();
 	

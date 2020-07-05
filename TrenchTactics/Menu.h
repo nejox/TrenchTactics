@@ -51,8 +51,8 @@ private:
 
 	bool isMainmenu;
 	bool showingMenu = false;;
-	Sprite* menu = nullptr;
-	SpriteText* menueText = nullptr;
+	std::shared_ptr<Sprite> menu = nullptr;
+	std::shared_ptr<SpriteText> menueText = nullptr;
 	std::vector<std::shared_ptr<Button>> buttons;
 	std::vector<std::shared_ptr<SpriteText>> texts;
 

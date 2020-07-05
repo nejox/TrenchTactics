@@ -12,7 +12,6 @@
 #include "Gamefield.h"
 #include "Logger.hpp"
 
-
 /**
  * EventGateway class which does most of the heavy lifting with event forwarding and controlling
  * Takes all events, makes logic checks and forwards the action to the specific handler
@@ -72,9 +71,9 @@ private:
 	bool checkButtonClicked(MouseClickEvent* event);
 	bool checkEventInField(MouseClickEvent* event);
 
-	bool checkRange(shared_ptr<Tile> targetTile);
+	bool checkRange(std::shared_ptr<Tile> targetTile);
 
-	int computeApCost(shared_ptr<Unit> unitToBeMoved, shared_ptr<Tile> end);
+	int computeApCost(std::shared_ptr<Unit> unitToBeMoved, std::shared_ptr<Tile> end);
 
 	bool checkEventOnHQ(MouseClickEvent* event);
 

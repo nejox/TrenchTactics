@@ -5,7 +5,7 @@
  * has the UnitTypes enum 
  */
 namespace TYPES {
-	enum UnitType {
+	enum UNITTYPE {
 		GRENADE,
 		GUNNER,
 		CC,

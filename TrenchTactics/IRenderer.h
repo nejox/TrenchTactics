@@ -1,5 +1,8 @@
+#ifndef RENDERER_HEADER
+#define RENDERER_HEADER
+
 #pragma once
-#include "Timer.hpp"
+#include "Timer.h"
 #include <SDL_ttf.h>
 #include <iostream>
 
@@ -19,6 +22,7 @@ public:
 	virtual ~IRenderer() {}
 
 private:
-	CTimer* timer;
+	std::shared_ptr<Timer> timer;
 
 };
+#endif

@@ -1,15 +1,16 @@
 ﻿#include "Gamefield.h"
 #include "SpriteButton.h"
 
+
 Gamefield::Gamefield() {
 	//setting up the randomnumbergenerator
 	srand(time(NULL));
 	//making all parts of the map into shared pointers 
 	this->headquarterTilePlayerBlue = std::make_shared<PlayerTile>();
 	this->headquarterTilePlayerRed = std::make_shared<PlayerTile>();
-	this->playingfield = std::make_shared<vector<vector<std::shared_ptr<FieldTile>>>>();
-	this->spawnBlue = std::make_shared<vector<vector<std::shared_ptr<FieldTile>>>>();
-	this->spawnRed = std::make_shared<vector<vector<std::shared_ptr<FieldTile>>>>();
+	this->playingfield = std::make_shared<std::vector<std::vector<std::shared_ptr<FieldTile>>>>();
+	this->spawnBlue = std::make_shared<std::vector<std::vector<std::shared_ptr<FieldTile>>>>();
+	this->spawnRed = std::make_shared<std::vector<std::vector<std::shared_ptr<FieldTile>>>>();
 }
 
 Gamefield::~Gamefield() {
@@ -166,7 +167,7 @@ std::shared_ptr<FieldTile> Gamefield::getSpawnTileFromXY(bool colorRed, int posX
  */
 int Gamefield::spawnUnitInSpawn(std::shared_ptr<Unit> pUnit, bool redPlayerActive)
 {
-	std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> activeSpawn;
+	std::shared_ptr<std::vector<std::vector<std::shared_ptr<FieldTile>>>> activeSpawn;
 
 	//spawn unit for red player
 	if (redPlayerActive) {
@@ -228,7 +229,7 @@ int Gamefield::spawnUnitInSpawn(std::shared_ptr<Unit> pUnit, bool redPlayerActiv
  * \param field Part of the field that contains the tile
  * \return
  */
-bool Gamefield::fieldTileIsFree(int x, int y, std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> field)
+bool Gamefield::fieldTileIsFree(int x, int y, std::shared_ptr<std::vector<std::vector<std::shared_ptr<FieldTile>>>> field)
 {
 	//checks for a unit at the given position in the field and returns false, if there is a unit in tile
 	if (field->at(x).at(y).get()->getUnit().get()) {
@@ -250,9 +251,9 @@ std::shared_ptr<FieldTile> Gamefield::findTileByUnit(std::shared_ptr<Unit> pUnit
 	std::shared_ptr<FieldTile> pTileToTest = nullptr;
 
 	//Iterates over columns of playingfield from left to right
-	for (vector<vector<std::shared_ptr<FieldTile>>>::iterator xIter = playingfield->begin(); xIter != playingfield->end(); ++xIter) {
+	for (std::vector<std::vector<std::shared_ptr<FieldTile>>>::iterator xIter = playingfield->begin(); xIter != playingfield->end(); ++xIter) {
 		//Iterates over the tiles in the column from top to bottom
-		for (vector< std::shared_ptr<FieldTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
+		for (std::vector< std::shared_ptr<FieldTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
 			//checks the current tile for the unit and returns the a pointer ti the tile, if the unit is found
 			pTileToTest = *yIter;
 			if (pTileToTest->getUnit() == pUnit) return pTileToTest;
@@ -260,9 +261,9 @@ std::shared_ptr<FieldTile> Gamefield::findTileByUnit(std::shared_ptr<Unit> pUnit
 	}
 
 	//Iterates over columns of blue spawn from left to right
-	for (vector<vector<std::shared_ptr<FieldTile>>>::iterator xIter = spawnBlue->begin(); xIter != spawnBlue->end(); ++xIter) {
+	for (std::vector<std::vector<std::shared_ptr<FieldTile>>>::iterator xIter = spawnBlue->begin(); xIter != spawnBlue->end(); ++xIter) {
 		//Iterates over the tiles in the column from top to bottom
-		for (vector<std::shared_ptr<FieldTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
+		for (std::vector<std::shared_ptr<FieldTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
 			//checks the current tile for the unit and returns the a pointer ti the tile, if the unit is found
 			pTileToTest = *yIter;
 			if (pTileToTest->getUnit() == pUnit) return pTileToTest;
@@ -270,9 +271,9 @@ std::shared_ptr<FieldTile> Gamefield::findTileByUnit(std::shared_ptr<Unit> pUnit
 	}
 
 	//Iterates over the columns of red spawn from left to right
-	for (vector<vector<std::shared_ptr<FieldTile>>>::iterator xIter = spawnRed->begin(); xIter != spawnRed->end(); ++xIter) {
+	for (std::vector<std::vector<std::shared_ptr<FieldTile>>>::iterator xIter = spawnRed->begin(); xIter != spawnRed->end(); ++xIter) {
 		//Iterates over the tiles in the column from top to bottom
-		for (vector<std::shared_ptr<FieldTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
+		for (std::vector<std::shared_ptr<FieldTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
 			//checks the current tile for the unit and returns the a pointer ti the tile, if the unit is found
 			pTileToTest = *yIter;
 			if (pTileToTest->getUnit() == pUnit) return pTileToTest;
@@ -332,7 +333,7 @@ std::shared_ptr<Tile> Gamefield::getTilePointerAt(int xPos, int yPos)
 *\param xPos Horizontal position of the pixel
 *\param yPos Vertical position of the pixel
 */
-void Gamefield::selectAndMarkeTilesByUnit(shared_ptr<Unit> pUnit, GAMEPHASES::GAMEPHASE gamephase, bool redPlayerActiv)
+void Gamefield::selectAndMarkeTilesByUnit(std::shared_ptr<Unit> pUnit, GAMEPHASES::GAMEPHASE gamephase, bool redPlayerActiv)
 {
 	//change position from pixels to tiles
 	int xPos = findTileByUnit(pUnit).get()->getPosX() / 64;
@@ -361,7 +362,7 @@ void Gamefield::selectAndMarkeTilesByUnit(shared_ptr<Unit> pUnit, GAMEPHASES::GA
 			if ((2 <= (xPos + i)) && ((xPos + i) <= 19) && (0 <= (yPos + j)) && ((yPos + j) <= 11)) {
 
 				Gamefield::playingfield.get()->at(xPos - 2 + i).at(yPos + j)->setMarked(true);
-				std::shared_ptr<SpriteMarker> tmpMarkerSprite = make_shared<SpriteMarker>();
+				std::shared_ptr<SpriteMarker> tmpMarkerSprite = std::make_shared<SpriteMarker>();
 				//markes the tiles on which the unit can only move and not shoot in movephase
 				if (gamephase == GAMEPHASES::MOVE && rangeMoveAndAttack < abs(i) + abs(j)) {
 					tmpMarkerSprite->load("../Data/Sprites/Token/ONLY_MOVMENT_MARKER.bmp");
@@ -388,7 +389,7 @@ void Gamefield::selectAndMarkeTilesByUnit(shared_ptr<Unit> pUnit, GAMEPHASES::GA
 	//markes the blue hq as attackable
 	if (blueHqInRange && gamephase == GAMEPHASES::ATTACK) {
 		this->headquarterTilePlayerBlue->setMarked(true);
-		std::shared_ptr<SpriteMarker> tmpHqMarkerSprite = make_shared<SpriteMarker>();
+		std::shared_ptr<SpriteMarker> tmpHqMarkerSprite = std::make_shared<SpriteMarker>();
 		tmpHqMarkerSprite->load("../Data/Sprites/Token/REACHABLE_MARKER.bmp");
 		tmpHqMarkerSprite->makeTransparent();
 		for (int i = 0; i < 4; ++i) {
@@ -400,7 +401,7 @@ void Gamefield::selectAndMarkeTilesByUnit(shared_ptr<Unit> pUnit, GAMEPHASES::GA
 	//markes the red hq as attackable
 	else if (redHqInRange && gamephase == GAMEPHASES::ATTACK) {
 		this->headquarterTilePlayerRed->setMarked(true);
-		std::shared_ptr<SpriteMarker> tmpHqMarkerSprite = make_shared<SpriteMarker>();
+		std::shared_ptr<SpriteMarker> tmpHqMarkerSprite = std::make_shared<SpriteMarker>();
 		tmpHqMarkerSprite->load("../Data/Sprites/Token/REACHABLE_MARKER.bmp");
 		tmpHqMarkerSprite->makeTransparent();
 		for (int i = 0; i < 4; ++i) {
@@ -418,8 +419,8 @@ void Gamefield::selectAndMarkeTilesByUnit(shared_ptr<Unit> pUnit, GAMEPHASES::GA
 void Gamefield::deselectAndUnmarkAllTiles()
 {
 	//deselects and unmarks the playingfield
-	for (vector<vector<std::shared_ptr<FieldTile>>>::iterator xIter = playingfield->begin(); xIter != playingfield->end(); ++xIter) {
-		for (vector<std::shared_ptr<FieldTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
+	for (std::vector<std::vector<std::shared_ptr<FieldTile>>>::iterator xIter = playingfield->begin(); xIter != playingfield->end(); ++xIter) {
+		for (std::vector<std::shared_ptr<FieldTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
 			yIter->get()->setSelected(false);
 			yIter->get()->setMarked(false);
 			yIter->get()->refreshTile();
@@ -429,14 +430,14 @@ void Gamefield::deselectAndUnmarkAllTiles()
 		}
 	}
 	//deselects and unmarks the blue player's spawn
-	for (vector<vector<std::shared_ptr<FieldTile>>>::iterator xIter1 = spawnBlue->begin(); xIter1 != spawnBlue->end(); ++xIter1) {
-		for (vector<std::shared_ptr<FieldTile>>::iterator yIter1 = xIter1->begin(); yIter1 != xIter1->end(); ++yIter1) {
+	for (std::vector<std::vector<std::shared_ptr<FieldTile>>>::iterator xIter1 = spawnBlue->begin(); xIter1 != spawnBlue->end(); ++xIter1) {
+		for (std::vector<std::shared_ptr<FieldTile>>::iterator yIter1 = xIter1->begin(); yIter1 != xIter1->end(); ++yIter1) {
 			yIter1->get()->setSelected(false);
 		}
 	}
 	//deselects and unmarks the red player's spawn
-	for (vector<vector<std::shared_ptr<FieldTile>>>::iterator xIter2 = spawnRed->begin(); xIter2 != spawnRed->end(); ++xIter2) {
-		for (vector<std::shared_ptr<FieldTile>>::iterator yIter2 = xIter2->begin(); yIter2 != xIter2->end(); ++yIter2) {
+	for (std::vector<std::vector<std::shared_ptr<FieldTile>>>::iterator xIter2 = spawnRed->begin(); xIter2 != spawnRed->end(); ++xIter2) {
+		for (std::vector<std::shared_ptr<FieldTile>>::iterator yIter2 = xIter2->begin(); yIter2 != xIter2->end(); ++yIter2) {
 			yIter2->get()->setSelected(false);
 		}
 	}
@@ -464,7 +465,7 @@ void Gamefield::deselectAndUnmarkAllTiles()
 *\param pUnit the respective Unit to check
 *\param colorRed the faction of the unit
 */
-bool Gamefield::checkUnitHasEnemysAround(shared_ptr<Unit> pUnit, bool colorRed)
+bool Gamefield::checkUnitHasEnemysAround(std::shared_ptr<Unit> pUnit, bool colorRed)
 {
 	//change position from pixels to tiles
 	int xPos = findTileByUnit(pUnit).get()->getPosX() / 64;
@@ -536,19 +537,19 @@ void Gamefield::resetGamefield()
 	this->headquarterTilePlayerBlue->getHeadquarter()->resetHQ();
 	this->headquarterTilePlayerRed->getHeadquarter()->resetHQ();
 
-	for (vector<std::shared_ptr<FieldTile>>& spawnTiles : *spawnBlue) {
+	for (std::vector<std::shared_ptr<FieldTile>>& spawnTiles : *spawnBlue) {
 		
 		for (std::shared_ptr<FieldTile>& spawnTile : spawnTiles) {
 			spawnTile->resetTile();
 		}
 	}
-	for (vector<std::shared_ptr<FieldTile>>& spawnTiles : *spawnRed) {
+	for (std::vector<std::shared_ptr<FieldTile>>& spawnTiles : *spawnRed) {
 
 		for (std::shared_ptr<FieldTile>& spawnTile : spawnTiles) {
 			spawnTile->resetTile();
 		}
 	}
-	for (vector<std::shared_ptr<FieldTile>>& fieldTiles : *playingfield) {
+	for (std::vector<std::shared_ptr<FieldTile>>& fieldTiles : *playingfield) {
 
 		for (std::shared_ptr<FieldTile>& fieldTile : fieldTiles) {
 			fieldTile->resetTile();
@@ -570,7 +571,7 @@ void Gamefield::resetGamefield()
  */
 std::shared_ptr<FieldTile> Gamefield::createFieldTile(int posX, int posY, FieldTile::TERRAINTYPE type) {
 	std::shared_ptr<FieldTile> tmpFieldTilePointer = std::make_shared<FieldTile>();
-	Sprite* terrainSprite = new Sprite();
+	std::shared_ptr<Sprite> terrainSprite = std::make_shared<Sprite>();
 	if (type == FieldTile::TERRAINTYPE::MUD) {
 		tmpFieldTilePointer.get()->setTerrain(FieldTile::TERRAINTYPE::MUD);
 		terrainSprite->load("../Data/Sprites/Terrain/TERRAIN_MUD_1.bmp");
@@ -594,10 +595,10 @@ std::shared_ptr<FieldTile> Gamefield::createFieldTile(int posX, int posY, FieldT
  * Function to set up the fieldtiles in playingfield at gamestart.
  *
  */
-void Gamefield::initiatePlayingFieldTiles()
+void Gamefield::initializePlayingFieldTiles()
 {
-	for (vector<vector<std::shared_ptr<FieldTile>>>::iterator xIter = playingfield->begin(); xIter != playingfield->end(); ++xIter) {
-		for (vector<std::shared_ptr<FieldTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
+	for (std::vector<std::vector<std::shared_ptr<FieldTile>>>::iterator xIter = playingfield->begin(); xIter != playingfield->end(); ++xIter) {
+		for (std::vector<std::shared_ptr<FieldTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
 			int rnd = rand() % 6;
 
 			if (rnd <= 3) {
@@ -624,8 +625,8 @@ void Gamefield::initiatePlayingFieldTiles()
  * \param colorRed tile for red player or not
  * \return
  */
-Sprite* Gamefield::getRandomSpawnTileSprite(int rndNumber, bool colorRed) {
-	Sprite* terrainSprite = new Sprite();
+std::shared_ptr<Sprite> Gamefield::getRandomSpawnTileSprite(int rndNumber, bool colorRed) {
+	std::shared_ptr<Sprite> terrainSprite = std::make_shared<Sprite>();
 	std::string path = "../Data/Sprites/Terrain/SPAWNTILE_";
 	if (colorRed) {
 		path = path + "RED_";
@@ -654,13 +655,13 @@ Sprite* Gamefield::getRandomSpawnTileSprite(int rndNumber, bool colorRed) {
  * Function to set up the fieldtiles in blue player's spawn at gamestart.
  *
  */
-void Gamefield::initiateSpawnTilesBlue()
+void Gamefield::initializeSpawnTilesBlue()
 {
 	int cnt = 0;
 	//iterates over the blue spawn from top left 
-	for (vector<vector<std::shared_ptr<FieldTile>>>::iterator xIter = spawnBlue->begin(); xIter != spawnBlue->end(); ++xIter) {
-		for (vector<std::shared_ptr<FieldTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
-			Sprite* terrain = getRandomSpawnTileSprite(rand() % 4, false);
+	for (std::vector<std::vector<std::shared_ptr<FieldTile>>>::iterator xIter = spawnBlue->begin(); xIter != spawnBlue->end(); ++xIter) {
+		for (std::vector<std::shared_ptr<FieldTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
+			std::shared_ptr<Sprite> terrain = getRandomSpawnTileSprite(rand() % 4, false);
 			//gets a new sprite, when entering a new row
 			if (cnt == 2) {
 				cnt = 0;
@@ -689,14 +690,14 @@ void Gamefield::initiateSpawnTilesBlue()
  * Function to set up the fieldtiles in red player's spawn at gamestart.
  *
  */
-void Gamefield::initiateSpawnTilesRed()
+void Gamefield::initializeSpawnTilesRed()
 {
 	int cnt = 0;
 
 	//iterates over the red spawn from top left 
-	for (vector<vector<std::shared_ptr<FieldTile>>>::iterator xIter = spawnRed->begin(); xIter != spawnRed->end(); ++xIter) {
-		for (vector<std::shared_ptr<FieldTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
-			Sprite* terrain = getRandomSpawnTileSprite(rand() % 4, true);
+	for (std::vector<std::vector<std::shared_ptr<FieldTile>>>::iterator xIter = spawnRed->begin(); xIter != spawnRed->end(); ++xIter) {
+		for (std::vector<std::shared_ptr<FieldTile>>::iterator yIter = xIter->begin(); yIter != xIter->end(); ++yIter) {
+			std::shared_ptr<Sprite> terrain = getRandomSpawnTileSprite(rand() % 4, true);
 			//gets a new sprite, when entering a new row
 			if (cnt == 2) {
 				cnt = 0;
@@ -728,9 +729,9 @@ void Gamefield::initiateSpawnTilesRed()
  * Function to set up the PlayerTiles for blue player at gamestart.
  *
  */
-void Gamefield::initiatePlayerTilesBlue()
+void Gamefield::initializePlayerTilesBlue()
 {
-	std::shared_ptr<Headquarter> hq = make_shared<Headquarter>(false);
+	std::shared_ptr<Headquarter> hq = std::make_shared<Headquarter>(false);
 
 	// create PlayerTile as shared pointer 
 	std::shared_ptr<PlayerTile> tmpPlayerTilePointer = std::make_shared<PlayerTile>();
@@ -755,9 +756,9 @@ void Gamefield::initiatePlayerTilesBlue()
  * Function to set up the PlayerTiles for red player at gamestart.
 *
  */
-void Gamefield::initiatePlayerTilesRed()
+void Gamefield::initializePlayerTilesRed()
 {
-	std::shared_ptr<Headquarter> hq = make_shared<Headquarter>(true);
+	std::shared_ptr<Headquarter> hq = std::make_shared<Headquarter>(true);
 
 
 	// create PlayerTile as shared pointer 
@@ -797,7 +798,7 @@ void Gamefield::setSizePlayingField()
 {
 	playingfield->resize(18);
 
-	for (vector<vector<shared_ptr<FieldTile>>>::iterator fieldCol = playingfield->begin(); fieldCol != playingfield->end(); ++fieldCol)
+	for (std::vector<std::vector<std::shared_ptr<FieldTile>>>::iterator fieldCol = playingfield->begin(); fieldCol != playingfield->end(); ++fieldCol)
 	{
 		fieldCol->resize(12);
 	}
@@ -810,7 +811,7 @@ void Gamefield::setSizePlayingField()
 void Gamefield::setSizeSpawnBlue()
 {
 	spawnBlue->resize(2);
-	for (vector<vector<shared_ptr<FieldTile>>>::iterator spawnCol = spawnBlue->begin(); spawnCol != spawnBlue->end(); ++spawnCol)
+	for (std::vector<std::vector<std::shared_ptr<FieldTile>>>::iterator spawnCol = spawnBlue->begin(); spawnCol != spawnBlue->end(); ++spawnCol)
 	{
 		spawnCol->resize(10);
 	}
@@ -823,7 +824,7 @@ void Gamefield::setSizeSpawnBlue()
 void Gamefield::setSizeSpawnRed()
 {
 	spawnRed->resize(2);
-	for (vector<vector<shared_ptr<FieldTile>>>::iterator spawnCol = spawnRed->begin(); spawnCol != spawnRed->end(); ++spawnCol)
+	for (std::vector<std::vector<std::shared_ptr<FieldTile>>>::iterator spawnCol = spawnRed->begin(); spawnCol != spawnRed->end(); ++spawnCol)
 	{
 		spawnCol->resize(10);
 	}
@@ -839,16 +840,16 @@ void Gamefield::setSizeSpawnRed()
  */
 void Gamefield::init(int FieldWidth, int FieldHeight, int Seed) {
 	//initiates all parts of the map als shared pointers
-	playingfield = std::make_shared<vector<vector<std::shared_ptr<FieldTile>>>>();
-	spawnBlue = std::make_shared<vector<vector<std::shared_ptr<FieldTile>>>>();
-	spawnRed = std::make_shared<vector<vector<std::shared_ptr<FieldTile>>>>();
+	playingfield = std::make_shared<std::vector<std::vector<std::shared_ptr<FieldTile>>>>();
+	spawnBlue = std::make_shared<std::vector<std::vector<std::shared_ptr<FieldTile>>>>();
+	spawnRed = std::make_shared<std::vector<std::vector<std::shared_ptr<FieldTile>>>>();
 	headquarterTilePlayerBlue = std::make_shared<PlayerTile>();
 	headquarterTilePlayerRed = std::make_shared<PlayerTile>();
 	Gamefield::setAllFieldSizes();
-	Gamefield::initiatePlayerTilesBlue();
-	Gamefield::initiatePlayerTilesRed();
-	Gamefield::initiateSpawnTilesBlue();
-	Gamefield::initiateSpawnTilesRed();
-	Gamefield::initiatePlayingFieldTiles();
+	Gamefield::initializePlayerTilesBlue();
+	Gamefield::initializePlayerTilesRed();
+	Gamefield::initializeSpawnTilesBlue();
+	Gamefield::initializeSpawnTilesRed();
+	Gamefield::initializePlayingFieldTiles();
 
 }

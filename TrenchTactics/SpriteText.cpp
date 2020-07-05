@@ -25,7 +25,6 @@ SpriteText::SpriteText(int size)
 
 SpriteText::~SpriteText()
 {
-	TTF_CloseFont(m_font);
 	SDL_DestroyTexture(m_pText);
 }
 

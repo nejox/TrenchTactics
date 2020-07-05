@@ -8,7 +8,8 @@ TrenchTactics.vcxproj.filters
 TrenchTactics.vcxproj.user
 *.log
 TrenchTactics/.vs/
-
+Release/ObjectFiles/
+Release/*.log
 TrenchTactics_Test.sln
 TrenchTactics_Test.vcxproj
 TrenchTactics_Test.vcxproj.filters

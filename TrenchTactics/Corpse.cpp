@@ -3,8 +3,8 @@
 Corpse::Corpse(int x, int y)
 {
 	reward = 10; //TO DO: ConfigReader::instance().get ...
-	corpseSprite = new Sprite();
-	corpseSprite->load(ConfigReader::instance().getMapConf()->getCorpseSprite()); // TO DO: same
+	corpseSprite = std::make_shared<Sprite>();
+	corpseSprite->load(ConfigReader::instance().getMapConf()->getCorpseSprite());
 	this->corpseSprite->setPos(x, y);
 }
 

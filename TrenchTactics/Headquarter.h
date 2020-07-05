@@ -1,5 +1,4 @@
 #pragma once
-#include <string>
 #include "GameEndEvent.h"
 #include "BalanceConf.h"
 #include "ConfigReader.h"
@@ -29,9 +28,9 @@ public:
 		m_currentHP = ConfigReader::instance().getBalanceConf()->getHqHP();
 		m_damaged = false;
 
-		m_spriteHQ = make_shared<SpriteHQ>(m_colorRed);
+		m_spriteHQ = std::make_shared<SpriteHQ>(m_colorRed);
 
-		m_spriteHealthBar = make_shared<SpriteHealthBar>();
+		m_spriteHealthBar = std::make_shared<SpriteHealthBar>();
 
 	}
 

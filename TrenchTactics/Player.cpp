@@ -4,6 +4,7 @@
 
 
 
+
 Player::Player() {
 	this->supply = 0;
 	this->money = 0;
@@ -20,6 +21,7 @@ Player::Player() {
 void Player::init(bool colorRed) {
 	this->colorRed = colorRed;
 	this->money = ConfigReader::instance().getBalanceConf()->getStartingGold();
+	this->supply = ConfigReader::instance().getBalanceConf()->getMaxAmountUnits();
 	//this->unitArray = std::vector<std::shared_ptr<Unit>>();
 	EventBus::instance().subscribe(this, &Player::deleteUnit);
 	EventBus::instance().subscribe(this, &Player::handleUnitMovement);
@@ -39,7 +41,7 @@ int Player::computeIncome() {
 	//iterate over unitArray and for every unit check if it is in a trench
 	for (std::shared_ptr<Unit> unit : unitArray)
 	{
-		shared_ptr<FieldTile> tmp = Gamefield::instance().findTileByUnit(unit);
+		std::shared_ptr<FieldTile> tmp = Gamefield::instance().findTileByUnit(unit);
 
 		if (tmp->hasTrench())
 		{
@@ -65,6 +67,21 @@ int Player::computeIncome() {
 void Player::updatePlayer() {
 	this->updateMoney(computeIncome());
 	//this->supply = this->unitArray.size();
+}
+
+	/*
+	* updates alle units the player currently possesses
+	*/
+void Player::updateAllUnits()
+{
+		for (std::shared_ptr<Unit>& unit : this->getUnitArray())
+		{
+			if (Gamefield::instance().findTileByUnit(unit).get() != nullptr) {
+				Gamefield::instance().findTileByUnit(unit).get()->refreshTile();
+			}
+
+			unit->update();
+		}
 }
 
 /**
@@ -113,7 +130,7 @@ void Player::markActiveUnit()
 }
 
 void Player::requeueUnit() {
-	shared_ptr<Unit> tmp = this->unitQueue.front();
+	std::shared_ptr<Unit> tmp = this->unitQueue.front();
 	//no new state here
 	this->unitQueue.pop();
 	//but here, so we stay in standing neutral,bright and shiny
@@ -152,13 +169,13 @@ void Player::queueUnit(std::shared_ptr<Unit> unit) {
 * \param unitToFind unit to find in queue
 * \return true if the queue contains the unit or false if not
 */
-bool Player::unitInQueue(shared_ptr<Unit> unitToFind) {
+bool Player::unitInQueue(std::shared_ptr<Unit> unitToFind) {
 	
 	bool found = false;
 	//iterate over unitqueue
 	for (int i = this->unitQueue.size(); i > 0; i--) {
 
-		shared_ptr<Unit> tmp = this->unitQueue.front();
+		std::shared_ptr<Unit> tmp = this->unitQueue.front();
 		
 		if ( tmp== unitToFind) {
 			found = true;
@@ -305,3 +322,5 @@ void Player::resetApForAllUnits()
 		unit->resetAP();
 	}
 }
+
+

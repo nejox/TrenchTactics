@@ -1,5 +1,5 @@
 #pragma once
-#include "Sprite.hpp"
+#include "Sprite.h"
 #include "ConfigReader.h"
 
 class Corpse {
@@ -14,6 +14,6 @@ public:
 
 private:
 	int reward;
-	Sprite* corpseSprite;
+	std::shared_ptr<Sprite> corpseSprite;
 	Corpse();
 };

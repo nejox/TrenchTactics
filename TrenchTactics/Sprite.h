@@ -1,7 +1,7 @@
-#ifndef SPRITE_HPP
-#define SPRITE_HPP
+#ifndef SPRITE_HEADER
+#define SPRITE_HEADER
+#include "IRenderer.h"
 
-#include "Framework.hpp"
 
 /**
  * Base sprite class with sdl backend.
@@ -15,7 +15,7 @@ public:
 	void setPos(int x, int y);
 	int getX();
 	int getY();
-	void load(const string sFilename);
+	void load(const std::string sFilename);
 	void render(int locX, int locY);
 	void render();
 	//virtual void render(int frameNumber);
@@ -31,5 +31,5 @@ protected:
 	int quadX;
 	int quadY;
 };
-
 #endif
+

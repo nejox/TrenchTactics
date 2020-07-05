@@ -1,11 +1,10 @@
 #pragma once
 #include "Player.h"
-#include "Timer.hpp"
 #include "Gamefield.h"
 #include "Logger.hpp"
 #include "IRenderer.h"
 #include "RendererImpl.h"
-#include "Timer.hpp"
+#include "Timer.h"
 #include "ConfigReader.h"
 #include "Unit.h"
 #include "EventGateway.h"
@@ -43,7 +42,6 @@ private:
 	Menu& menu =  Menu::instance();
 	Tutorial& tutorial = Tutorial::instance();
 
-	bool gameRunning;
 	bool isTutorial;
 	bool gameOver = false;
 	void switchActivePlayer();

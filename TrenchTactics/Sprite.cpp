@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Sprite.hpp"
+#include "Sprite.h"
 #include "RendererImpl.h"
 #include "Logger.hpp"
 
@@ -51,7 +51,7 @@ int Sprite::getY()
  *
  * \param sFilename path to the img which will be loaded
  */
-void Sprite::load(const string sFilename)
+void Sprite::load(const std::string sFilename)
 {
 	SDL_Surface* pTemp = SDL_LoadBMP(sFilename.c_str());
 

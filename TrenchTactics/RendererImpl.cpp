@@ -106,7 +106,7 @@ void RendererImpl::clearScreen()
 
 /**
  * Function to quit the renderer class in a controlled way
- * Destroys the window as well as the renderer initialized by the framework beforehand
+ * Destroys the window as well as the renderer initialized by the renderer beforehand
  *
  */
 void RendererImpl::destroy()
@@ -131,7 +131,7 @@ void RendererImpl::destroy()
  */
 void RendererImpl::updateTimer()
 {
-	CTimer::Get()->Update();
+	Timer::instance().Update();
 	this->render();
 
 }

@@ -10,26 +10,26 @@
  * \param unittype the type of unit that will be created
  * \param colorRed specifies which player is the owner of the new unit and selects the right sprites based on this bool
  */
-Unit::Unit(TYPES::UnitType unittype, bool colorRed)
+Unit::Unit(TYPES::UNITTYPE unittype, bool colorRed)
 {
 	m_colorRed = colorRed;
 
 	m_ID = ConfigReader::instance().getUnitConf(unittype)->getId();
-	m_hp = ConfigReader::instance().getUnitConf(unittype)->getHp();
-	m_currentHP = ConfigReader::instance().getUnitConf(unittype)->getHp();
+	m_hp = ConfigReader::instance().getUnitConf(unittype)->getHP();
+	m_currentHP = ConfigReader::instance().getUnitConf(unittype)->getHP();
 	m_range = ConfigReader::instance().getUnitConf(unittype)->getRange();
 	m_cost = ConfigReader::instance().getUnitConf(unittype)->getCost();
-	m_ap = ConfigReader::instance().getUnitConf(unittype)->getAp();
-	m_currentAP = ConfigReader::instance().getUnitConf(unittype)->getAp();
+	m_ap = ConfigReader::instance().getUnitConf(unittype)->getAP();
+	m_currentAP = ConfigReader::instance().getUnitConf(unittype)->getAP();
 	m_dmg = ConfigReader::instance().getUnitConf(unittype)->getDmg();
-	m_apCostAttack = ConfigReader::instance().getUnitConf(unittype)->getApCostAttack();
-	m_apCostMove = ConfigReader::instance().getUnitConf(unittype)->getApCostMove();
+	m_apCostAttack = ConfigReader::instance().getUnitConf(unittype)->getAPCostAttack();
+	m_apCostMove = ConfigReader::instance().getUnitConf(unittype)->getAPCostMove();
 	m_movementRange = ConfigReader::instance().getUnitConf(unittype)->getMovementRange();
-	m_apCostTrench = ConfigReader::instance().getUnitConf(unittype)->getApCostTrench();
+	m_apCostTrench = ConfigReader::instance().getUnitConf(unittype)->getAPCostTrench();
 	m_spawnProbability = ConfigReader::instance().getUnitConf(unittype)->getSpawnProbability();
 	m_name = ConfigReader::instance().getUnitConf(unittype)->getName();
-	m_sprite = make_shared<SpriteUnit>(colorRed, unittype);
-	m_spriteHealthBar = make_shared<SpriteHealthBar>(colorRed);
+	m_sprite = std::make_shared<SpriteUnit>(colorRed, unittype);
+	m_spriteHealthBar = std::make_shared<SpriteHealthBar>(colorRed);
 	m_state = STATES::UNITSTATE::STANDING_NEUTRAL;
 	m_level = 1;
 	m_targetX = 0;
@@ -92,7 +92,7 @@ bool Unit::changeHP(int damage)
 
 	if (m_currentHP <= 0)
 	{
-		EventBus::instance().publish(new DeathEvent(this->getptr()));
+		EventBus::instance().publish(new DeathEvent(shared_from_this()));
 		return true;
 	}
 	else
@@ -212,23 +212,23 @@ void Unit::move()
 
 	//walk x-axis
 	if (distanceX > 0) {
-		newX = currentX + m_speed + CTimer::Get()->GetElapsed();
+		newX = currentX + m_speed + Timer::instance().GetElapsed();
 	}
 	else if (distanceX < 0) {
-		newX = currentX + (m_speed + CTimer::Get()->GetElapsed()) * -1;
+		newX = currentX + (m_speed + Timer::instance().GetElapsed()) * -1;
 	}
 	//walk y-axis
 	else if (distanceY > 0) {
-		newY = currentY + m_speed + CTimer::Get()->GetElapsed();
+		newY = currentY + m_speed + Timer::instance().GetElapsed();
 	}
 	else if (distanceY < 0) {
-		newY = currentY + (m_speed + CTimer::Get()->GetElapsed()) * -1;
+		newY = currentY + (m_speed + Timer::instance().GetElapsed()) * -1;
 	}
 	else {
 		//Ziel erreicht
-		EventBus::instance().publish(new UnitMovementFinishedEvent(this->getptr()));
+		EventBus::instance().publish(new UnitMovementFinishedEvent(shared_from_this()));
 
-		std::shared_ptr<FieldTile> tmp = Gamefield::instance().findTileByUnit(this->getptr());
+		std::shared_ptr<FieldTile> tmp = Gamefield::instance().findTileByUnit(shared_from_this());
 		if (tmp->hasCopse()) {
 			tmp->removeCorpse();
 		}

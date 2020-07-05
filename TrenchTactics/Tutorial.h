@@ -1,9 +1,11 @@
 #pragma once
 #include <iostream>
 #include <vector>
-#include "Sprite.hpp"
+#include "Sprite.h"
 #include "Gamephases.h"
 #include "StartTutorialEvent.h"
+#include "EndTutorialEvent.h"
+#include "EventBus.h"
 
 class Tutorial
 {

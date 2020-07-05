@@ -36,8 +36,8 @@ public:
 	Button(BUTTONTYPE type) {
 		this->type = type;
 		this->pressed = false;
-		this->sprite = new SpriteButton();
-		this->costText = make_shared<SpriteText>(20);
+		this->sprite = std::make_shared<SpriteButton>();
+		this->costText = std::make_shared<SpriteText>(20);
 		this->loadSpriteFromType(type);
 		this->loadCostFromType(type);
 	}
@@ -54,11 +54,11 @@ public:
 		return this->pressed;
 	}
 
-	void setSprite(SpriteButton* sprite) {
+	void setSprite(std::shared_ptr<SpriteButton> sprite) {
 		this->sprite = sprite;
 	}
 
-	SpriteButton* getSprite() {
+	std::shared_ptr<SpriteButton> getSprite() {
 		return this->sprite;
 	}
 
@@ -76,7 +76,7 @@ private:
 	void loadSpriteFromType(int type);
 	void loadCostFromType(int type);
 
-	SpriteButton* sprite;
+	std::shared_ptr < SpriteButton> sprite;
 	int cost;
 	std::shared_ptr<SpriteText> costText;
 	Button::BUTTONTYPE type;

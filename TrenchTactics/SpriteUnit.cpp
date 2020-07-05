@@ -1,8 +1,7 @@
 #pragma once
 #include "SpriteUnit.h"
-#include "Sprite.hpp"
 #include "ConfigReader.h"
-#include "Timer.hpp"
+#include "Timer.h"
 
 /**
  * constructor that creates the sprite of unit based on color and unittype.
@@ -10,7 +9,7 @@
  * \param colourRed decide which sprite will be used
  * \param type enum value of which unit type will be used
  */
-SpriteUnit::SpriteUnit(bool colourRed, TYPES::UnitType type)
+SpriteUnit::SpriteUnit(bool colourRed, TYPES::UNITTYPE type)
 {
 	m_colourRed = colourRed;
 	m_defaultState = STATES::UNITSTATE::STANDING_DARK;
@@ -24,45 +23,45 @@ SpriteUnit::SpriteUnit(bool colourRed, TYPES::UnitType type)
 		{
 		case STATES::STANDING_NEUTRAL:
 			if (colourRed) {
-				animations.insert(std::pair<STATES::UNITSTATE, string>(state, ConfigReader::instance().getUnitConf(type)->getSpriteFilePathStandingNeutralRed()));
+				animations.insert(std::pair<STATES::UNITSTATE, std::string>(state, ConfigReader::instance().getUnitConf(type)->getSpriteFilePathStandingNeutralRed()));
 			}
 			else
 			{
-				animations.insert(std::pair<STATES::UNITSTATE, string>(state, ConfigReader::instance().getUnitConf(type)->getSpriteFilePathStandingNeutralBlue()));
+				animations.insert(std::pair<STATES::UNITSTATE, std::string>(state, ConfigReader::instance().getUnitConf(type)->getSpriteFilePathStandingNeutralBlue()));
 			}
 			break;
 		case STATES::STANDING_DARK:
 			if (colourRed) {
-				animations.insert(std::pair<STATES::UNITSTATE, string>(state, ConfigReader::instance().getUnitConf(type)->getSpriteFilePathStandingDarkRed()));
+				animations.insert(std::pair<STATES::UNITSTATE, std::string>(state, ConfigReader::instance().getUnitConf(type)->getSpriteFilePathStandingDarkRed()));
 			}
 			else
 			{
-				animations.insert(std::pair<STATES::UNITSTATE, string>(state, ConfigReader::instance().getUnitConf(type)->getSpriteFilePathStandingDarkBlue()));
+				animations.insert(std::pair<STATES::UNITSTATE, std::string>(state, ConfigReader::instance().getUnitConf(type)->getSpriteFilePathStandingDarkBlue()));
 			}
 			break;
 		case STATES::STANDING:
 			if (colourRed) {
-				animations.insert(std::pair<STATES::UNITSTATE, string>(state, ConfigReader::instance().getUnitConf(type)->getSpriteFilePathStandingActiveRed()));
+				animations.insert(std::pair<STATES::UNITSTATE, std::string>(state, ConfigReader::instance().getUnitConf(type)->getSpriteFilePathStandingActiveRed()));
 			}
 			else
 			{
-				animations.insert(std::pair<STATES::UNITSTATE, string>(state, ConfigReader::instance().getUnitConf(type)->getSpriteFilePathStandingActiveBlue()));
+				animations.insert(std::pair<STATES::UNITSTATE, std::string>(state, ConfigReader::instance().getUnitConf(type)->getSpriteFilePathStandingActiveBlue()));
 			}
 			break;
 		case STATES::SHOOTING:
 			if (colourRed) {
-				animations.insert(std::pair<STATES::UNITSTATE, string>(state, ConfigReader::instance().getUnitConf(type)->getSpriteFilePathShootingRed()));
+				animations.insert(std::pair<STATES::UNITSTATE, std::string>(state, ConfigReader::instance().getUnitConf(type)->getSpriteFilePathShootingRed()));
 			}
 			else {
-				animations.insert(std::pair<STATES::UNITSTATE, string>(state, ConfigReader::instance().getUnitConf(type)->getSpriteFilePathShootingBlue()));
+				animations.insert(std::pair<STATES::UNITSTATE, std::string>(state, ConfigReader::instance().getUnitConf(type)->getSpriteFilePathShootingBlue()));
 			}
 			break;
 		case STATES::RUNNING:
 			if (colourRed) {
-				animations.insert(std::pair<STATES::UNITSTATE, string>(state, ConfigReader::instance().getUnitConf(type)->getSpriteFilePathRunningRed()));
+				animations.insert(std::pair<STATES::UNITSTATE, std::string>(state, ConfigReader::instance().getUnitConf(type)->getSpriteFilePathRunningRed()));
 			}
 			else {
-				animations.insert(std::pair<STATES::UNITSTATE, string>(state, ConfigReader::instance().getUnitConf(type)->getSpriteFilePathRunningBlue()));
+				animations.insert(std::pair<STATES::UNITSTATE, std::string>(state, ConfigReader::instance().getUnitConf(type)->getSpriteFilePathRunningBlue()));
 			}
 			break;
 		default:
@@ -80,7 +79,7 @@ SpriteUnit::SpriteUnit(bool colourRed, TYPES::UnitType type)
 void SpriteUnit::render()
 {
 	//calculate currentPhase
-	m_fcurrentPhase += 1.5f * CTimer::Get()->GetElapsed();
+	m_fcurrentPhase += 1.5f * Timer::instance().GetElapsed();
 
 	int actFrame = static_cast<int>(m_fcurrentPhase);
 	// Ausschnitt der aktuellen Animationsphase berechnen

@@ -54,7 +54,7 @@ void Button::update() {
  */
 void Button::loadSpriteFromType(int type)
 {
-	shared_ptr<ButtonConf> buttonConf = ConfigReader::instance().getButtonConf();
+	std::shared_ptr<ButtonConf> buttonConf = ConfigReader::instance().getButtonConf();
 	switch (type)
 	{
 	case 0:

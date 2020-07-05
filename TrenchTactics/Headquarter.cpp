@@ -2,6 +2,7 @@
 #include "EventBus.h"
 
 
+
 /**
  * change hp of the headquarter and update its current state based on the current health.
  * If health at or below zero raises GameEndEvent.

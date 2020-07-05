@@ -2,6 +2,7 @@
 #include "MenuBar.h"
 
 
+
 /**
  * Constructor for game class
  *
@@ -10,20 +11,10 @@ Game::Game() {
 	Logger::instance().log(LOGLEVEL::INFO, "Starting Game Class");
 	playerRed = NULL;
 	playerBlue = NULL;
-	gameRunning = NULL;
 	isTutorial = NULL;
 	activePlayer = NULL;
 	ctrTurns = 0;
 	endTurn = false;
-}
-
-/**
- * Returns if game is running
- *
- */
-bool Game::isRunning()
-{
-	return gameRunning;
 }
 
 /**
@@ -99,14 +90,14 @@ void Game::startGame() {
 
 	this->activePlayer = playerBlue;
 	this->gateway.setActivePlayer(playerBlue);
-	this->gameRunning = true;
 	Logger::instance().log(LOGLEVEL::INFO, "Game Running");
 
+	//cover menu
 	this->field.init(ConfigReader::instance().getMapConf()->getSizeX(), ConfigReader::instance().getMapConf()->getSizeY(), ConfigReader::instance().getMapConf()->getSeed());
 	this->menuBar.init();
 
 	// start a player phase and switch player afterwards
-	while (gameRunning) {
+	while (true) {
 		this->ctrTurns++;
 
 		if (this->ctrTurns > 2)
@@ -118,7 +109,34 @@ void Game::startGame() {
 		startPlayerPhase();
 		switchActivePlayer();
 	}
-	quit(new EndGameEvent());
+
+}
+
+/**
+*handles end of a game, shows winning screen
+*/
+void Game::handleGameEnd(GameEndEvent* event)
+{
+	this->gameOver = true;
+	this->gateway.setGameEnd(true);
+	GameEnd::instance().initWinningScreen(event->getWinner());
+	GameEnd::instance().showWinningScreen();
+
+	while (gameOver) {
+		this->updateGame();
+	}
+}
+
+
+/**
+ * quits the game
+ *
+ */
+void Game::quit(EndGameEvent* event) {
+	//TODO gracefull shutdown
+	renderer.destroy(); 
+	std::exit(0);
+
 }
 
 /**
@@ -178,23 +196,8 @@ void Game::updateGame() {
 	std::vector<std::shared_ptr<Unit>> unitsRed = this->playerRed->getUnitArray();
 
 	if (!menu.IsShowingMenu() && !gameOver) {
-		for (std::shared_ptr<Unit>& unit : unitsBlue)
-		{
-			if (Gamefield::instance().findTileByUnit(unit).get() != nullptr) {
-				Gamefield::instance().findTileByUnit(unit).get()->refreshTile();
-			}
-
-			unit->update();
-		}
-
-		for (std::shared_ptr<Unit>& unit : unitsRed)
-		{
-			if (Gamefield::instance().findTileByUnit(unit).get() != nullptr) {
-				Gamefield::instance().findTileByUnit(unit).get()->refreshTile();
-			}
-
-			unit->update();
-		}
+		this->playerBlue->updateAllUnits();
+		this->playerRed->updateAllUnits();
 	}
 
 	renderer.updateTimer();
@@ -249,14 +252,12 @@ void Game::handleEndTutorial(EndTutorialEvent* event)
  */
 void Game::handleIngameMenu(IngameMenuEvent* event)
 {
-	if (gameRunning) {
 		this->menu.initMenu(false);
 		this->menu.showMenu();
 
 		while (menu.IsShowingMenu()) {
 			updateGame();
 		}
-	}
 }
 
 /**
@@ -269,33 +270,6 @@ void Game::handleReturnToMenu(ReturnToMenuEvent* event)
 
 	this->menu.initMenu(true);
 	menu.showMenu();
-}
-
-/**
-*handles end of a game, shows winning screen
-*/
-void Game::handleGameEnd(GameEndEvent* event)
-{
-	this->gameOver = true;
-	this->gateway.setGameEnd(true);
-	GameEnd::instance().initWinningScreen(event->getWinner());
-	GameEnd::instance().showWinningScreen();
-
-	while (gameOver) {
-		this->updateGame();
-	}
-}
-
-
-/**
- * quits the game
- *
- */
-void Game::quit(EndGameEvent* event) {
-	//TODO gracefull shutdown
-	this->gameRunning = false;
-	// dirty work around to change current state of the game to recognize ending
-	this->switchActivePlayer();
 }
 
 /**

@@ -2,6 +2,7 @@
 #include "ConfigReader.h"
 
 
+
 /**
  * constructor for sprite hq.
  *
@@ -55,7 +56,7 @@ void SpriteHQ::render() {
  * \param FrameWidth width of the sprite
  * \param FrameHeight height of the sprite
  */
-void SpriteHQ::load(const string sFilename, int frameWidth, int frameHeight)
+void SpriteHQ::load(const std::string sFilename, int frameWidth, int frameHeight)
 {
 	// Bitmap laden
 	Sprite::load(sFilename);

@@ -1,5 +1,5 @@
 #pragma once
-#include "Sprite.hpp"
+#include "Sprite.h"
 #include "SpriteMarker.h"
 #include "MouseClickEvent.h"
 
@@ -10,7 +10,7 @@ class Tile {
 private:
 	bool marked = false;
 	bool selected = false;
-	Sprite* sprite;
+	std::shared_ptr<Sprite> sprite;
 	std::shared_ptr<SpriteMarker> spriteMarker;
 	int posX;
 	int posY;
@@ -29,10 +29,10 @@ public:
 	bool getSelected() {
 		return this->selected;
 	}
-	void setSprite(Sprite* sprite) {
+	void setSprite(std::shared_ptr < Sprite> sprite) {
 		this->sprite = sprite;
 	}
-	Sprite* getSprite() {
+	std::shared_ptr<Sprite> getSprite() {
 		return this->sprite;
 	}
 	void setMarker(std::shared_ptr<SpriteMarker> marker) {
