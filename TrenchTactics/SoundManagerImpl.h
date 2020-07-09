@@ -26,16 +26,10 @@ public:
 	}
 
 private:
-	SDL_AudioSpec wavSpec;
-	Uint32 wavLength;
-	Uint8* wavBuffer;
-	SDL_AudioDeviceID deviceId;
+	Mix_Music* music;
 
 	SoundManagerImpl() {
-		this->wavBuffer = NULL;
-		this->wavLength = NULL;
-		this->wavSpec = { NULL };
-		this->deviceId = NULL;
+		this->music = NULL;
 	};
 };
 
