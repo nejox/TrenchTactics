@@ -21,7 +21,7 @@ void SoundManagerImpl::startMusic()
 	std::string filePath =  ConfigReader::instance().getTechnicalConf()->getaudioFilePath();
 
 	Mix_OpenAudio(42050, AUDIO_S16SYS, 1, 640);
-	Mix_Music* music = Mix_LoadMUS(filePath.c_str());
+	music = Mix_LoadMUS(filePath.c_str());
 	Mix_PlayMusic(music, -1);
 
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include "ISoundManager.h"
 #include <SDL_audio.h>
+#include <SDL_mixer.h>
 
 /**
  * SoundManagerImpl class based on singelton pattern
