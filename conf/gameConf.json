@@ -17,6 +17,7 @@
 		"fps": 30,
 		"windowSizeX": 1408,
 		"windowSizeY": 960,
-		"textFont" : "../Data/Fonts/BOO_REG.ttf"
+		"textFont" : "../Data/Fonts/BOO_REG.ttf",
+		"audioFilePath" : "../Data/Sound/Battle For Glory.wav"
 	}
 }

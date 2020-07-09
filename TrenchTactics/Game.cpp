@@ -60,6 +60,9 @@ void Game::initGame() {
 	Logger::instance().log(LOGLEVEL::INFO, "Initializing MenuBar");
 	this->menuBar.init();
 
+	Logger::instance().log(LOGLEVEL::INFO, "Initializing Sound");
+	this->soundManager.startMusic();
+
 }
 
 void Game::startMenu()

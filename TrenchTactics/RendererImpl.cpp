@@ -28,7 +28,7 @@ RendererImpl::RendererImpl() {
 bool RendererImpl::init(int ScreenWidth, int ScreenHeight,
 	int ColorDepth, bool bFullscreen)
 {
-	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) == -1)
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_AUDIO) == -1)
 	{
 		std::string msg = "SDL konnte nicht initialisiert werden!\n Fehlermeldung: ";
 		msg.append(SDL_GetError());

@@ -129,6 +129,7 @@ std::shared_ptr<TechConf> ConfigReader::createTechConf()
 	techConf->setWindowSizeX(root["windowSizeX"].asInt());
 	techConf->setWindowSizeY(root["windowSizeY"].asInt());
 	techConf->setTextFont(root["textFont"].asString());
+	techConf->setaudioFilePath(root["audioFilePath"].asString());
 	return techConf;
 }
 

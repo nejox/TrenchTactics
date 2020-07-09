@@ -9,6 +9,7 @@ private:
 	int windowSizeX;
 	int windowSizeY;
 	std::string textFont;
+	std::string audioFilePath;
 public:
 	void setFPS(int fps) {
 		this->fps = fps;
@@ -33,5 +34,13 @@ public:
 	}
 	std::string getTextFont() {
 		return this->textFont;
+	}
+
+	void setaudioFilePath(std::string filePath) {
+		this->audioFilePath = filePath;
+	}
+
+	std::string getaudioFilePath() {
+		return this->audioFilePath;
 	}
 };
