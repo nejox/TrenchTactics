@@ -45,7 +45,7 @@ Unit::Unit(TYPES::UNITTYPE unittype, bool colorRed)
  */
 void Unit::attack(std::shared_ptr<Unit> target, bool cover)
 {
-	this->m_state = STATES::UNITSTATE::SHOOTING;
+	this->setState(STATES::SHOOTING);
 
 	if (cover)
 	{
@@ -74,7 +74,7 @@ void Unit::attack(std::shared_ptr<Unit> target, bool cover)
  */
 void Unit::attack(std::shared_ptr<Headquarter> target)
 {
-	this->m_state = STATES::UNITSTATE::SHOOTING;
+	this->setState(STATES::SHOOTING);
 	target->changeHP(m_dmg);
 	updateAP(m_apCostAttack);
 }
