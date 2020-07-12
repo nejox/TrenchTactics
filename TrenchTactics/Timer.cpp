@@ -20,4 +20,8 @@ void Timer::Update()
 	m_fCurTime = SDL_GetTicks() / 1000.0f;
 	m_fElapsed = m_fCurTime - m_fLastTime;
 	m_fLastTime = m_fCurTime;
+	
+	if(m_fElapsed < 0.001f){
+		SDL_Delay(1);
+	}
 }
