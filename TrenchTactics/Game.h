@@ -3,6 +3,7 @@
 #include "Gamefield.h"
 #include "Logger.hpp"
 #include "IRenderer.h"
+#include "ISoundManager.h"
 #include "RendererImpl.h"
 #include "Timer.h"
 #include "ConfigReader.h"
@@ -20,6 +21,7 @@
 #include "IngameMenuEvent.h"
 #include "ReturnToMenuEvent.h"
 #include "GameEnd.h"
+#include "SoundManagerImpl.h"
 
 /**
  * Main class to start the game
@@ -36,6 +38,7 @@ private:
 	std::shared_ptr<Player>  activePlayer;
 	IEventManager& manager = EventManagerImpl::instance();
 	IRenderer& renderer = RendererImpl::instance();
+	ISoundManager& soundManager = SoundManagerImpl::instance();
 	Gamefield& field = Gamefield::instance();
 	EventGateway& gateway = EventGateway::instance();
 	MenuBar& menuBar = MenuBar::instance();
@@ -52,7 +55,6 @@ private:
 public:
 	Game();
 
-	bool isRunning();
 	void initGame();
 	void startMenu();
 	void startTutorial();
