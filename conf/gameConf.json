@@ -18,6 +18,6 @@
 		"windowSizeX": 1408,
 		"windowSizeY": 960,
 		"textFont" : "../Data/Fonts/BOO_REG.ttf",
-		"audioFilePath" : "../Data/Sound/Battle For Glory.wav"
+		"audioFilePath" : "../Data/Sound/BattleForGlory.wav"
 	}
 }
