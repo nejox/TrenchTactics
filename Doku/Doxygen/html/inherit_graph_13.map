@@ -1,4 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$class_i_renderer.html" title=" " alt="" coords="5,5,83,32"/>
-<area shape="rect" id="node2" href="$class_renderer_impl.html" title=" " alt="" coords="131,5,229,32"/>
+<area shape="rect" id="node1" href="$class_i_event_manager.html" title=" " alt="" coords="5,5,112,32"/>
+<area shape="rect" id="node2" href="$class_event_manager_impl.html" title=" " alt="" coords="160,5,288,32"/>
 </map>

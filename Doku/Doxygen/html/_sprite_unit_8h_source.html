@@ -74,7 +74,7 @@ $(function() {
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#ifndef SPRITE_UNIT</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#define SPRITE_UNIT</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;map&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;Sprite.hpp&quot;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;Sprite.h&quot;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;UnitTypes.h&quot;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
 <div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="namespace_s_t_a_t_e_s.html">   11</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_s_t_a_t_e_s.html">STATES</a></div>
@@ -100,7 +100,7 @@ $(function() {
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;{</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">public</span>:</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <a class="code" href="class_sprite_unit.html#a360fd4a185c321515b0d9d8b67ee2b29">SpriteUnit</a>(<span class="keywordtype">bool</span> colourRed, TYPES::UnitType type);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <a class="code" href="class_sprite_unit.html#a6e3ee406a0ba14525e28a6b59b33da1b">SpriteUnit</a>(<span class="keywordtype">bool</span> colourRed, TYPES::UNITTYPE type);</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_sprite_unit.html#a6d1195b283771a33af30c3bcc67dd9ff">render</a>();</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    STATES::UNITSTATE <a class="code" href="class_sprite_unit.html#a6d1195b283771a33af30c3bcc67dd9ff">render</a>(STATES::UNITSTATE changedState);</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
@@ -116,21 +116,19 @@ $(function() {
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">int</span> m_frameWidth;       <span class="comment">// Breite einer Animationsphase</span></div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">int</span> m_frameHeight;      <span class="comment">// Höhe einer Animationsphase</span></div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    std::map&lt;STATES::UNITSTATE, string&gt; animations;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    std::map&lt;STATES::UNITSTATE, std::string&gt; animations;</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">void</span> load(<span class="keyword">const</span> <span class="keywordtype">string</span> sFilename, <span class="keywordtype">int</span> frameWidth, <span class="keywordtype">int</span> frameHeight);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">void</span> load(<span class="keyword">const</span> std::string sFilename, <span class="keywordtype">int</span> frameWidth, <span class="keywordtype">int</span> frameHeight);</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_sprite_unit.html#a6d1195b283771a33af30c3bcc67dd9ff">render</a>(<span class="keywordtype">int</span> frame);</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;};</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclass_sprite_unit_html_a6d1195b283771a33af30c3bcc67dd9ff"><div class="ttname"><a href="class_sprite_unit.html#a6d1195b283771a33af30c3bcc67dd9ff">SpriteUnit::render</a></div><div class="ttdeci">void render()</div><div class="ttdef"><b>Definition:</b> SpriteUnit.cpp:80</div></div>
-<div class="ttc" id="aclass_sprite_html"><div class="ttname"><a href="class_sprite.html">Sprite</a></div><div class="ttdef"><b>Definition:</b> Sprite.hpp:10</div></div>
+<div class="ttc" id="aclass_sprite_unit_html_a6d1195b283771a33af30c3bcc67dd9ff"><div class="ttname"><a href="class_sprite_unit.html#a6d1195b283771a33af30c3bcc67dd9ff">SpriteUnit::render</a></div><div class="ttdeci">void render()</div><div class="ttdef"><b>Definition:</b> SpriteUnit.cpp:79</div></div>
+<div class="ttc" id="aclass_sprite_unit_html_a6e3ee406a0ba14525e28a6b59b33da1b"><div class="ttname"><a href="class_sprite_unit.html#a6e3ee406a0ba14525e28a6b59b33da1b">SpriteUnit::SpriteUnit</a></div><div class="ttdeci">SpriteUnit(bool colourRed, TYPES::UNITTYPE type)</div><div class="ttdef"><b>Definition:</b> SpriteUnit.cpp:12</div></div>
+<div class="ttc" id="aclass_sprite_html"><div class="ttname"><a href="class_sprite.html">Sprite</a></div><div class="ttdef"><b>Definition:</b> Sprite.h:10</div></div>
 <div class="ttc" id="aclass_sprite_unit_html"><div class="ttname"><a href="class_sprite_unit.html">SpriteUnit</a></div><div class="ttdef"><b>Definition:</b> SpriteUnit.h:34</div></div>
 <div class="ttc" id="anamespace_s_t_a_t_e_s_html"><div class="ttname"><a href="namespace_s_t_a_t_e_s.html">STATES</a></div><div class="ttdef"><b>Definition:</b> SpriteUnit.h:12</div></div>
-<div class="ttc" id="aclass_sprite_unit_html_a360fd4a185c321515b0d9d8b67ee2b29"><div class="ttname"><a href="class_sprite_unit.html#a360fd4a185c321515b0d9d8b67ee2b29">SpriteUnit::SpriteUnit</a></div><div class="ttdeci">SpriteUnit(bool colourRed, TYPES::UnitType type)</div><div class="ttdef"><b>Definition:</b> SpriteUnit.cpp:13</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

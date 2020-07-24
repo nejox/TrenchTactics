@@ -72,7 +72,7 @@ $(function() {
 <div class="contents">
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;SpriteText.h&quot;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;Sprite.hpp&quot;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;Sprite.h&quot;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;Player.h&quot;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;MenuTile.h&quot;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
@@ -94,25 +94,25 @@ $(function() {
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_menu_bar.html#a41e133caf8e490518faa15ab3cfa22a1">init</a>();</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_menu_bar.html#a0fe6d0af884db6d43dd9ddb60e7b2748">updateMenuBar</a>(GAMEPHASES::GAMEPHASE phase, shared_ptr&lt;Player&gt; activePlayer);</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_menu_bar.html#aa6626f08008c3ff197232f85de1a914f">updateMenuBar</a>(GAMEPHASES::GAMEPHASE phase, std::shared_ptr&lt;Player&gt; activePlayer);</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_menu_bar.html#aa751cc7d83dcd47420fbb4c61bfc4926">refreshMenuBar</a>(shared_ptr&lt;Player&gt; activePlayer);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_menu_bar.html#aff732910690788ab1f47dfa24076f023">refreshMenuBar</a>(std::shared_ptr&lt;Player&gt; activePlayer);</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    </div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_menu_bar.html#ae35ce4b0cee08c298f6fb526a8cca1fc">resetMenuBarSidePanels</a>();</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_menu_bar.html#a60ee252bbf35175b6ee26a26d50d4550">updatePlayerStats</a>(shared_ptr&lt;Player&gt; activePlayer);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_menu_bar.html#abd7ea9a3e5213448f9c64f9e33c152b9">updatePlayerStats</a>(std::shared_ptr&lt;Player&gt; activePlayer);</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="class_menu_bar.html#a74e0a3830e2b8b8f3b7e2d6c78008824">   65</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_menu_bar.html#a74e0a3830e2b8b8f3b7e2d6c78008824">updateUnitStats</a>(shared_ptr&lt;Unit&gt; unit)</div>
+<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="class_menu_bar.html#a7833e294410cd50bfc22306633153148">   65</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_menu_bar.html#a7833e294410cd50bfc22306633153148">updateUnitStats</a>(std::shared_ptr&lt;Unit&gt; unit)</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    {</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <a class="code" href="class_menu_bar.html#a6cc06c36495d4f77dfc080a4bb682403">resetUnitStats</a>();</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <a class="code" href="class_menu_bar.html#af8eeeaa3a9295e53b4bd96683f215bc8">showUnitStats</a>(unit);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <a class="code" href="class_menu_bar.html#ae0c287c6139725343b177ac2376645fc">showUnitStats</a>(unit);</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    }</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_menu_bar.html#a6cc06c36495d4f77dfc080a4bb682403">resetUnitStats</a>();</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_menu_bar.html#af8eeeaa3a9295e53b4bd96683f215bc8">showUnitStats</a>(shared_ptr&lt;Unit&gt;unit);</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_menu_bar.html#ae0c287c6139725343b177ac2376645fc">showUnitStats</a>(std::shared_ptr&lt;Unit&gt;unit);</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_menu_bar.html#a96bf2338750a18912f32d9ad54781574">setSizeMenuBar</a>();</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
@@ -120,7 +120,7 @@ $(function() {
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    std::shared_ptr&lt;MenuTile&gt; <a class="code" href="class_menu_bar.html#a69f80989cd7d68f45cd2e21efc9a95a4">getMenuTileFromXY</a>(<span class="keywordtype">int</span> posX, <span class="keywordtype">int</span> posY);</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_menu_bar.html#a1e5ad10b3c8071035bd2108556dc1210">updateTokens</a>(shared_ptr&lt;Player&gt; activePlayer);</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_menu_bar.html#accf1d985350aa2947ec417aaf05029dd">updateTokens</a>(std::shared_ptr&lt;Player&gt; activePlayer);</div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_menu_bar.html#adf18ef820ab26aaeca0057f054e1ea9b">initButtons</a>(GAMEPHASES::GAMEPHASE phase);</div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
@@ -138,7 +138,7 @@ $(function() {
 <div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        this-&gt;<a class="code" href="class_menu_bar.html#adf18ef820ab26aaeca0057f054e1ea9b">initButtons</a>(phase);</div>
 <div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    }</div>
 <div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160; </div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    std::shared_ptr&lt;vector&lt;vector&lt;std::shared_ptr&lt;MenuTile&gt;&gt;&gt;&gt; getMenuBar()</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    std::shared_ptr&lt;std::vector&lt;std::vector&lt;std::shared_ptr&lt;MenuTile&gt;&gt;&gt;&gt; getMenuBar()</div>
 <div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    {</div>
 <div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        <span class="keywordflow">return</span> this-&gt;menuBar;</div>
 <div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    }</div>
@@ -153,7 +153,7 @@ $(function() {
 <div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160; </div>
 <div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span> pixelToTileFactor = 64;</div>
 <div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160; </div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    std::shared_ptr&lt;vector&lt;vector&lt;std::shared_ptr&lt;MenuTile&gt;&gt;&gt;&gt; menuBar;</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    std::shared_ptr&lt;std::vector&lt;std::vector&lt;std::shared_ptr&lt;MenuTile&gt;&gt;&gt;&gt; menuBar;</div>
 <div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    std::shared_ptr&lt;Sprite&gt; activePlayerFlag;</div>
 <div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    std::shared_ptr&lt;Sprite&gt; activePhaseToken;</div>
 <div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    std::shared_ptr&lt;SpriteText&gt; activePhaseText;</div>
@@ -169,25 +169,25 @@ $(function() {
 <div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    <a class="code" href="class_menu_bar.html">MenuBar</a>() {};</div>
 <div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;};</div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclass_menu_bar_html_a0fe6d0af884db6d43dd9ddb60e7b2748"><div class="ttname"><a href="class_menu_bar.html#a0fe6d0af884db6d43dd9ddb60e7b2748">MenuBar::updateMenuBar</a></div><div class="ttdeci">void updateMenuBar(GAMEPHASES::GAMEPHASE phase, shared_ptr&lt; Player &gt; activePlayer)</div><div class="ttdef"><b>Definition:</b> MenuBar.cpp:48</div></div>
+<div class="ttc" id="aclass_menu_bar_html_aa6626f08008c3ff197232f85de1a914f"><div class="ttname"><a href="class_menu_bar.html#aa6626f08008c3ff197232f85de1a914f">MenuBar::updateMenuBar</a></div><div class="ttdeci">void updateMenuBar(GAMEPHASES::GAMEPHASE phase, std::shared_ptr&lt; Player &gt; activePlayer)</div><div class="ttdef"><b>Definition:</b> MenuBar.cpp:48</div></div>
+<div class="ttc" id="aclass_menu_bar_html_ae0c287c6139725343b177ac2376645fc"><div class="ttname"><a href="class_menu_bar.html#ae0c287c6139725343b177ac2376645fc">MenuBar::showUnitStats</a></div><div class="ttdeci">void showUnitStats(std::shared_ptr&lt; Unit &gt;unit)</div><div class="ttdef"><b>Definition:</b> MenuBar.cpp:124</div></div>
 <div class="ttc" id="aclass_menu_bar_html_a1b8f8b58b1598aebe0640d3fdc525eee"><div class="ttname"><a href="class_menu_bar.html#a1b8f8b58b1598aebe0640d3fdc525eee">MenuBar::initiateMenuTiles</a></div><div class="ttdeci">void initiateMenuTiles()</div><div class="ttdef"><b>Definition:</b> MenuBar.cpp:305</div></div>
 <div class="ttc" id="aclass_menu_bar_html_a41e133caf8e490518faa15ab3cfa22a1"><div class="ttname"><a href="class_menu_bar.html#a41e133caf8e490518faa15ab3cfa22a1">MenuBar::init</a></div><div class="ttdeci">void init()</div><div class="ttdef"><b>Definition:</b> MenuBar.cpp:5</div></div>
-<div class="ttc" id="aclass_menu_bar_html_aa751cc7d83dcd47420fbb4c61bfc4926"><div class="ttname"><a href="class_menu_bar.html#aa751cc7d83dcd47420fbb4c61bfc4926">MenuBar::refreshMenuBar</a></div><div class="ttdeci">void refreshMenuBar(shared_ptr&lt; Player &gt; activePlayer)</div><div class="ttdef"><b>Definition:</b> MenuBar.cpp:57</div></div>
 <div class="ttc" id="aclass_menu_bar_html_aaf054be2c5e06531744f0ffcc3d4ff22"><div class="ttname"><a href="class_menu_bar.html#aaf054be2c5e06531744f0ffcc3d4ff22">MenuBar::deleteAllButtonDisplays</a></div><div class="ttdeci">void deleteAllButtonDisplays()</div><div class="ttdef"><b>Definition:</b> MenuBar.cpp:233</div></div>
+<div class="ttc" id="aclass_menu_bar_html_accf1d985350aa2947ec417aaf05029dd"><div class="ttname"><a href="class_menu_bar.html#accf1d985350aa2947ec417aaf05029dd">MenuBar::updateTokens</a></div><div class="ttdeci">void updateTokens(std::shared_ptr&lt; Player &gt; activePlayer)</div><div class="ttdef"><b>Definition:</b> MenuBar.cpp:267</div></div>
+<div class="ttc" id="aclass_menu_bar_html_abd7ea9a3e5213448f9c64f9e33c152b9"><div class="ttname"><a href="class_menu_bar.html#abd7ea9a3e5213448f9c64f9e33c152b9">MenuBar::updatePlayerStats</a></div><div class="ttdeci">void updatePlayerStats(std::shared_ptr&lt; Player &gt; activePlayer)</div><div class="ttdef"><b>Definition:</b> MenuBar.cpp:84</div></div>
 <div class="ttc" id="aclass_menu_bar_html_a96bf2338750a18912f32d9ad54781574"><div class="ttname"><a href="class_menu_bar.html#a96bf2338750a18912f32d9ad54781574">MenuBar::setSizeMenuBar</a></div><div class="ttdeci">void setSizeMenuBar()</div><div class="ttdef"><b>Definition:</b> MenuBar.cpp:330</div></div>
 <div class="ttc" id="aclass_menu_bar_html_a69f80989cd7d68f45cd2e21efc9a95a4"><div class="ttname"><a href="class_menu_bar.html#a69f80989cd7d68f45cd2e21efc9a95a4">MenuBar::getMenuTileFromXY</a></div><div class="ttdeci">std::shared_ptr&lt; MenuTile &gt; getMenuTileFromXY(int posX, int posY)</div><div class="ttdef"><b>Definition:</b> MenuBar.cpp:142</div></div>
-<div class="ttc" id="aclass_menu_bar_html_a1e5ad10b3c8071035bd2108556dc1210"><div class="ttname"><a href="class_menu_bar.html#a1e5ad10b3c8071035bd2108556dc1210">MenuBar::updateTokens</a></div><div class="ttdeci">void updateTokens(shared_ptr&lt; Player &gt; activePlayer)</div><div class="ttdef"><b>Definition:</b> MenuBar.cpp:267</div></div>
 <div class="ttc" id="aclass_menu_bar_html_a6cc06c36495d4f77dfc080a4bb682403"><div class="ttname"><a href="class_menu_bar.html#a6cc06c36495d4f77dfc080a4bb682403">MenuBar::resetUnitStats</a></div><div class="ttdeci">void resetUnitStats()</div><div class="ttdef"><b>Definition:</b> MenuBar.cpp:109</div></div>
 <div class="ttc" id="aclass_menu_bar_html_ab47731cbfd7f7275214b176c10f337b6"><div class="ttname"><a href="class_menu_bar.html#ab47731cbfd7f7275214b176c10f337b6">MenuBar::refreshAllButtonDisplays</a></div><div class="ttdeci">void refreshAllButtonDisplays()</div><div class="ttdef"><b>Definition:</b> MenuBar.cpp:242</div></div>
-<div class="ttc" id="aclass_menu_bar_html_a74e0a3830e2b8b8f3b7e2d6c78008824"><div class="ttname"><a href="class_menu_bar.html#a74e0a3830e2b8b8f3b7e2d6c78008824">MenuBar::updateUnitStats</a></div><div class="ttdeci">void updateUnitStats(shared_ptr&lt; Unit &gt; unit)</div><div class="ttdef"><b>Definition:</b> MenuBar.h:65</div></div>
 <div class="ttc" id="aclass_menu_bar_html_ad2a4a59cdb87baf10cd9dd3677b58984"><div class="ttname"><a href="class_menu_bar.html#ad2a4a59cdb87baf10cd9dd3677b58984">MenuBar::deleteAllButtons</a></div><div class="ttdeci">void deleteAllButtons()</div><div class="ttdef"><b>Definition:</b> MenuBar.cpp:225</div></div>
 <div class="ttc" id="aclass_menu_bar_html"><div class="ttname"><a href="class_menu_bar.html">MenuBar</a></div><div class="ttdef"><b>Definition:</b> MenuBar.h:12</div></div>
+<div class="ttc" id="aclass_menu_bar_html_a7833e294410cd50bfc22306633153148"><div class="ttname"><a href="class_menu_bar.html#a7833e294410cd50bfc22306633153148">MenuBar::updateUnitStats</a></div><div class="ttdeci">void updateUnitStats(std::shared_ptr&lt; Unit &gt; unit)</div><div class="ttdef"><b>Definition:</b> MenuBar.h:65</div></div>
 <div class="ttc" id="aclass_menu_bar_html_adf18ef820ab26aaeca0057f054e1ea9b"><div class="ttname"><a href="class_menu_bar.html#adf18ef820ab26aaeca0057f054e1ea9b">MenuBar::initButtons</a></div><div class="ttdeci">void initButtons(GAMEPHASES::GAMEPHASE phase)</div><div class="ttdef"><b>Definition:</b> MenuBar.cpp:161</div></div>
 <div class="ttc" id="aclass_menu_bar_html_ae35ce4b0cee08c298f6fb526a8cca1fc"><div class="ttname"><a href="class_menu_bar.html#ae35ce4b0cee08c298f6fb526a8cca1fc">MenuBar::resetMenuBarSidePanels</a></div><div class="ttdeci">void resetMenuBarSidePanels()</div><div class="ttdef"><b>Definition:</b> MenuBar.cpp:65</div></div>
-<div class="ttc" id="aclass_menu_bar_html_af8eeeaa3a9295e53b4bd96683f215bc8"><div class="ttname"><a href="class_menu_bar.html#af8eeeaa3a9295e53b4bd96683f215bc8">MenuBar::showUnitStats</a></div><div class="ttdeci">void showUnitStats(shared_ptr&lt; Unit &gt;unit)</div><div class="ttdef"><b>Definition:</b> MenuBar.cpp:124</div></div>
 <div class="ttc" id="aclass_menu_bar_html_afd1a9db7786893ff4c9eadbb34b31255"><div class="ttname"><a href="class_menu_bar.html#afd1a9db7786893ff4c9eadbb34b31255">MenuBar::resetAllButtonsToNeutral</a></div><div class="ttdeci">void resetAllButtonsToNeutral()</div><div class="ttdef"><b>Definition:</b> MenuBar.cpp:253</div></div>
 <div class="ttc" id="aclass_menu_bar_html_aff94755d5d156eb3f802e379cee9a5e5"><div class="ttname"><a href="class_menu_bar.html#aff94755d5d156eb3f802e379cee9a5e5">MenuBar::reInitButtons</a></div><div class="ttdeci">void reInitButtons(GAMEPHASES::GAMEPHASE phase)</div><div class="ttdef"><b>Definition:</b> MenuBar.h:143</div></div>
-<div class="ttc" id="aclass_menu_bar_html_a60ee252bbf35175b6ee26a26d50d4550"><div class="ttname"><a href="class_menu_bar.html#a60ee252bbf35175b6ee26a26d50d4550">MenuBar::updatePlayerStats</a></div><div class="ttdeci">void updatePlayerStats(shared_ptr&lt; Player &gt; activePlayer)</div><div class="ttdef"><b>Definition:</b> MenuBar.cpp:84</div></div>
+<div class="ttc" id="aclass_menu_bar_html_aff732910690788ab1f47dfa24076f023"><div class="ttname"><a href="class_menu_bar.html#aff732910690788ab1f47dfa24076f023">MenuBar::refreshMenuBar</a></div><div class="ttdeci">void refreshMenuBar(std::shared_ptr&lt; Player &gt; activePlayer)</div><div class="ttdef"><b>Definition:</b> MenuBar.cpp:57</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

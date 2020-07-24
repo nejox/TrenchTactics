@@ -108,8 +108,8 @@ $(function() {
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <a class="code" href="class_button.html">Button</a>(BUTTONTYPE type) {</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        this-&gt;type = type;</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        this-&gt;pressed = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        this-&gt;sprite = <span class="keyword">new</span> <a class="code" href="class_sprite_button.html">SpriteButton</a>();</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        this-&gt;costText = make_shared&lt;SpriteText&gt;(20);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        this-&gt;sprite = std::make_shared&lt;SpriteButton&gt;();</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        this-&gt;costText = std::make_shared&lt;SpriteText&gt;(20);</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        this-&gt;loadSpriteFromType(type);</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        this-&gt;loadCostFromType(type);</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    }</div>
@@ -126,11 +126,11 @@ $(function() {
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordflow">return</span> this-&gt;pressed;</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    }</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">void</span> setSprite(<a class="code" href="class_sprite_button.html">SpriteButton</a>* sprite) {</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">void</span> setSprite(std::shared_ptr&lt;SpriteButton&gt; sprite) {</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        this-&gt;sprite = sprite;</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    }</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <a class="code" href="class_sprite_button.html">SpriteButton</a>* getSprite() {</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    std::shared_ptr&lt;SpriteButton&gt; getSprite() {</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keywordflow">return</span> this-&gt;sprite;</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    }</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
@@ -148,7 +148,7 @@ $(function() {
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordtype">void</span> loadSpriteFromType(<span class="keywordtype">int</span> type);</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordtype">void</span> loadCostFromType(<span class="keywordtype">int</span> type);</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <a class="code" href="class_sprite_button.html">SpriteButton</a>* sprite;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    std::shared_ptr &lt; SpriteButton&gt; sprite;</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordtype">int</span> cost;</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    std::shared_ptr&lt;SpriteText&gt; costText;</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    Button::BUTTONTYPE type;</div>
@@ -160,7 +160,6 @@ $(function() {
 <div class="ttc" id="aclass_button_html_af32822c1f133593c83768cc083ae293b"><div class="ttname"><a href="class_button.html#af32822c1f133593c83768cc083ae293b">Button::setType</a></div><div class="ttdeci">void setType(BUTTONTYPE type)</div><div class="ttdef"><b>Definition:</b> Button.cpp:9</div></div>
 <div class="ttc" id="aclass_button_html"><div class="ttname"><a href="class_button.html">Button</a></div><div class="ttdef"><b>Definition:</b> Button.h:7</div></div>
 <div class="ttc" id="aclass_button_html_ac5972bff24827699156710d89602a58f"><div class="ttname"><a href="class_button.html#ac5972bff24827699156710d89602a58f">Button::push</a></div><div class="ttdeci">void push()</div><div class="ttdef"><b>Definition:</b> Button.cpp:35</div></div>
-<div class="ttc" id="aclass_sprite_button_html"><div class="ttname"><a href="class_sprite_button.html">SpriteButton</a></div><div class="ttdef"><b>Definition:</b> SpriteButton.h:10</div></div>
 <div class="ttc" id="aclass_button_html_a25f2e0e0253468bd45cb370d49d5c899"><div class="ttname"><a href="class_button.html#a25f2e0e0253468bd45cb370d49d5c899">Button::setPos</a></div><div class="ttdeci">void setPos(int x, int y)</div><div class="ttdef"><b>Definition:</b> Button.cpp:21</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

@@ -91,8 +91,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a191b9d5852288bfae1ad20e064cfde92"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a391902c66fa40c28accb17853e69fe94"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_gamefield.html#a391902c66fa40c28accb17853e69fe94">spawnUnitInSpawn</a> (std::shared_ptr&lt; <a class="el" href="class_unit.html">Unit</a> &gt; unit, bool redPlayerActive)</td></tr>
 <tr class="separator:a391902c66fa40c28accb17853e69fe94"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a09218a3da971d45297fa94e1275c120a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_gamefield.html#a09218a3da971d45297fa94e1275c120a">fieldTileIsFree</a> (int x, int y, std::shared_ptr&lt; vector&lt; vector&lt; std::shared_ptr&lt; <a class="el" href="class_field_tile.html">FieldTile</a> &gt;&gt;&gt;&gt; activeSpawn)</td></tr>
-<tr class="separator:a09218a3da971d45297fa94e1275c120a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0eb02df3a877b3e6783aae9f1debc50b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_gamefield.html#a0eb02df3a877b3e6783aae9f1debc50b">fieldTileIsFree</a> (int x, int y, std::shared_ptr&lt; std::vector&lt; std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_field_tile.html">FieldTile</a> &gt;&gt;&gt;&gt; activeSpawn)</td></tr>
+<tr class="separator:a0eb02df3a877b3e6783aae9f1debc50b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a361d282d1279d6883636f9c52b64bf8a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_gamefield.html#a361d282d1279d6883636f9c52b64bf8a">init</a> (int FieldWidth, int FieldHeight, int Seed)</td></tr>
 <tr class="separator:a361d282d1279d6883636f9c52b64bf8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac0691f9cc7a3b121b9cd99954d62c8f9"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="class_field_tile.html">FieldTile</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_gamefield.html#ac0691f9cc7a3b121b9cd99954d62c8f9">findTileByUnit</a> (std::shared_ptr&lt; <a class="el" href="class_unit.html">Unit</a> &gt; pUnit)</td></tr>
@@ -115,30 +115,30 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setHqTilePlayerRed</b
 <tr class="memitem:a1b5f226fa29339864349225cddb27863"><td class="memItemLeft" align="right" valign="top"><a id="a1b5f226fa29339864349225cddb27863"></a>
 std::shared_ptr&lt; <a class="el" href="class_player_tile.html">PlayerTile</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getHqTilePlayerRed</b> ()</td></tr>
 <tr class="separator:a1b5f226fa29339864349225cddb27863"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad8bc7a6867882ee9ab98917d504aa8d1"><td class="memItemLeft" align="right" valign="top"><a id="ad8bc7a6867882ee9ab98917d504aa8d1"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setPlayingfield</b> (std::shared_ptr&lt; vector&lt; vector&lt; std::shared_ptr&lt; <a class="el" href="class_field_tile.html">FieldTile</a> &gt;&gt;&gt;&gt; field)</td></tr>
-<tr class="separator:ad8bc7a6867882ee9ab98917d504aa8d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a089bb554ed48db09fcffa70ea2980adf"><td class="memItemLeft" align="right" valign="top"><a id="a089bb554ed48db09fcffa70ea2980adf"></a>
-std::shared_ptr&lt; vector&lt; vector&lt; std::shared_ptr&lt; <a class="el" href="class_field_tile.html">FieldTile</a> &gt; &gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getPlayingfield</b> ()</td></tr>
-<tr class="separator:a089bb554ed48db09fcffa70ea2980adf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a19be13e0c8f2e57b641be0402194274b"><td class="memItemLeft" align="right" valign="top"><a id="a19be13e0c8f2e57b641be0402194274b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setSpawnBlue</b> (std::shared_ptr&lt; vector&lt; vector&lt; std::shared_ptr&lt; <a class="el" href="class_field_tile.html">FieldTile</a> &gt;&gt;&gt;&gt; spawnBlue)</td></tr>
-<tr class="separator:a19be13e0c8f2e57b641be0402194274b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a25883b50317a616919878a86e06381ad"><td class="memItemLeft" align="right" valign="top"><a id="a25883b50317a616919878a86e06381ad"></a>
-std::shared_ptr&lt; vector&lt; vector&lt; std::shared_ptr&lt; <a class="el" href="class_field_tile.html">FieldTile</a> &gt; &gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getSpawnBlue</b> ()</td></tr>
-<tr class="separator:a25883b50317a616919878a86e06381ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3c45e5b83189938970ae01e121c469fc"><td class="memItemLeft" align="right" valign="top"><a id="a3c45e5b83189938970ae01e121c469fc"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setSpawnRed</b> (std::shared_ptr&lt; vector&lt; vector&lt; std::shared_ptr&lt; <a class="el" href="class_field_tile.html">FieldTile</a> &gt;&gt;&gt;&gt; spawnRed)</td></tr>
-<tr class="separator:a3c45e5b83189938970ae01e121c469fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a53750181382bab4eefdd41b32257fb53"><td class="memItemLeft" align="right" valign="top"><a id="a53750181382bab4eefdd41b32257fb53"></a>
-std::shared_ptr&lt; vector&lt; vector&lt; std::shared_ptr&lt; <a class="el" href="class_field_tile.html">FieldTile</a> &gt; &gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getSpawnRed</b> ()</td></tr>
-<tr class="separator:a53750181382bab4eefdd41b32257fb53"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a910a8bd5792e5eb1092756d78026a3d5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_gamefield.html#a910a8bd5792e5eb1092756d78026a3d5">selectAndMarkeTilesByUnit</a> (shared_ptr&lt; <a class="el" href="class_unit.html">Unit</a> &gt; pUnit, GAMEPHASES::GAMEPHASE gamephase, bool redPlayerActiv)</td></tr>
-<tr class="separator:a910a8bd5792e5eb1092756d78026a3d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2228f3b24264f03845cada49d6aee22"><td class="memItemLeft" align="right" valign="top"><a id="ae2228f3b24264f03845cada49d6aee22"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setPlayingfield</b> (std::shared_ptr&lt; std::vector&lt; std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_field_tile.html">FieldTile</a> &gt;&gt;&gt;&gt; field)</td></tr>
+<tr class="separator:ae2228f3b24264f03845cada49d6aee22"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54badfd68425b4f6ffccd7bc5a1890f8"><td class="memItemLeft" align="right" valign="top"><a id="a54badfd68425b4f6ffccd7bc5a1890f8"></a>
+std::shared_ptr&lt; std::vector&lt; std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_field_tile.html">FieldTile</a> &gt; &gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getPlayingfield</b> ()</td></tr>
+<tr class="separator:a54badfd68425b4f6ffccd7bc5a1890f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49776f230ca6848ed5af5c7c477b03d9"><td class="memItemLeft" align="right" valign="top"><a id="a49776f230ca6848ed5af5c7c477b03d9"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setSpawnBlue</b> (std::shared_ptr&lt; std::vector&lt; std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_field_tile.html">FieldTile</a> &gt;&gt;&gt;&gt; spawnBlue)</td></tr>
+<tr class="separator:a49776f230ca6848ed5af5c7c477b03d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf1f019a2c63ec699c6f24266e3d915a"><td class="memItemLeft" align="right" valign="top"><a id="adf1f019a2c63ec699c6f24266e3d915a"></a>
+std::shared_ptr&lt; std::vector&lt; std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_field_tile.html">FieldTile</a> &gt; &gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getSpawnBlue</b> ()</td></tr>
+<tr class="separator:adf1f019a2c63ec699c6f24266e3d915a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc741f3aff11e0073b7b56024cd43049"><td class="memItemLeft" align="right" valign="top"><a id="abc741f3aff11e0073b7b56024cd43049"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setSpawnRed</b> (std::shared_ptr&lt; std::vector&lt; std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_field_tile.html">FieldTile</a> &gt;&gt;&gt;&gt; spawnRed)</td></tr>
+<tr class="separator:abc741f3aff11e0073b7b56024cd43049"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bcb1de28f7f69d6bb2b073f0cac295e"><td class="memItemLeft" align="right" valign="top"><a id="a0bcb1de28f7f69d6bb2b073f0cac295e"></a>
+std::shared_ptr&lt; std::vector&lt; std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_field_tile.html">FieldTile</a> &gt; &gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getSpawnRed</b> ()</td></tr>
+<tr class="separator:a0bcb1de28f7f69d6bb2b073f0cac295e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada9c7ac5b41860979c71c2651428255a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_gamefield.html#ada9c7ac5b41860979c71c2651428255a">selectAndMarkeTilesByUnit</a> (std::shared_ptr&lt; <a class="el" href="class_unit.html">Unit</a> &gt; pUnit, GAMEPHASES::GAMEPHASE gamephase, bool redPlayerActiv)</td></tr>
+<tr class="separator:ada9c7ac5b41860979c71c2651428255a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a75d800eb70e568b6c2e7223a0650a5e2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_gamefield.html#a75d800eb70e568b6c2e7223a0650a5e2">deselectAndUnmarkAllTiles</a> ()</td></tr>
 <tr class="separator:a75d800eb70e568b6c2e7223a0650a5e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8440782d53d6d9f5ccf337f1c6c65259"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_gamefield.html#a8440782d53d6d9f5ccf337f1c6c65259">checkUnitHasEnemysAround</a> (shared_ptr&lt; <a class="el" href="class_unit.html">Unit</a> &gt; pUnit, bool colorRed)</td></tr>
-<tr class="separator:a8440782d53d6d9f5ccf337f1c6c65259"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9366e4383a5f17ac18811fb3c1703b3c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_gamefield.html#a9366e4383a5f17ac18811fb3c1703b3c">checkUnitHasEnemysAround</a> (std::shared_ptr&lt; <a class="el" href="class_unit.html">Unit</a> &gt; pUnit, bool colorRed)</td></tr>
+<tr class="separator:a9366e4383a5f17ac18811fb3c1703b3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aca4ff1cfc781f7076853ef0a4e56569d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_gamefield.html#aca4ff1cfc781f7076853ef0a4e56569d">refreshGamefieldFromXYtoXY</a> (int sX, int eX, int sY, int eY)</td></tr>
 <tr class="separator:aca4ff1cfc781f7076853ef0a4e56569d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a32c98f0b7fb182e22a3d6032a2a9968c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_gamefield.html#a32c98f0b7fb182e22a3d6032a2a9968c">resetGamefield</a> ()</td></tr>
@@ -153,8 +153,8 @@ static auto &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>instance
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="class_gamefield.html">Gamefield</a> class for generating and holding the playingfield </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a8440782d53d6d9f5ccf337f1c6c65259"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8440782d53d6d9f5ccf337f1c6c65259">&#9670;&nbsp;</a></span>checkUnitHasEnemysAround()</h2>
+<a id="a9366e4383a5f17ac18811fb3c1703b3c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9366e4383a5f17ac18811fb3c1703b3c">&#9670;&nbsp;</a></span>checkUnitHasEnemysAround()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -162,7 +162,7 @@ static auto &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>instance
         <tr>
           <td class="memname">bool Gamefield::checkUnitHasEnemysAround </td>
           <td>(</td>
-          <td class="paramtype">shared_ptr&lt; <a class="el" href="class_unit.html">Unit</a> &gt;&#160;</td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="class_unit.html">Unit</a> &gt;&#160;</td>
           <td class="paramname"><em>pUnit</em>, </td>
         </tr>
         <tr>
@@ -207,8 +207,8 @@ static auto &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>instance
 
 </div>
 </div>
-<a id="a09218a3da971d45297fa94e1275c120a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a09218a3da971d45297fa94e1275c120a">&#9670;&nbsp;</a></span>fieldTileIsFree()</h2>
+<a id="a0eb02df3a877b3e6783aae9f1debc50b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0eb02df3a877b3e6783aae9f1debc50b">&#9670;&nbsp;</a></span>fieldTileIsFree()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -228,7 +228,7 @@ static auto &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>instance
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::shared_ptr&lt; vector&lt; vector&lt; std::shared_ptr&lt; <a class="el" href="class_field_tile.html">FieldTile</a> &gt;&gt;&gt;&gt;&#160;</td>
+          <td class="paramtype">std::shared_ptr&lt; std::vector&lt; std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_field_tile.html">FieldTile</a> &gt;&gt;&gt;&gt;&#160;</td>
           <td class="paramname"><em>field</em>&#160;</td>
         </tr>
         <tr>
@@ -541,8 +541,8 @@ static auto &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>instance
 
 </div>
 </div>
-<a id="a910a8bd5792e5eb1092756d78026a3d5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a910a8bd5792e5eb1092756d78026a3d5">&#9670;&nbsp;</a></span>selectAndMarkeTilesByUnit()</h2>
+<a id="ada9c7ac5b41860979c71c2651428255a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada9c7ac5b41860979c71c2651428255a">&#9670;&nbsp;</a></span>selectAndMarkeTilesByUnit()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -550,7 +550,7 @@ static auto &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>instance
         <tr>
           <td class="memname">void Gamefield::selectAndMarkeTilesByUnit </td>
           <td>(</td>
-          <td class="paramtype">shared_ptr&lt; <a class="el" href="class_unit.html">Unit</a> &gt;&#160;</td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="class_unit.html">Unit</a> &gt;&#160;</td>
           <td class="paramname"><em>pUnit</em>, </td>
         </tr>
         <tr>

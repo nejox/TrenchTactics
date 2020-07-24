@@ -101,8 +101,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>requeueUnit</b> ()</t
 <tr class="separator:a59e30df822d88bb95d810f760a4906dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8b3c019b8ebf269d709d2e12abeeb222"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_player.html#a8b3c019b8ebf269d709d2e12abeeb222">queueUnit</a> (std::shared_ptr&lt; <a class="el" href="class_unit.html">Unit</a> &gt; unit)</td></tr>
 <tr class="separator:a8b3c019b8ebf269d709d2e12abeeb222"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad1f1fe86762a48375521fe08c09bd1dc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_player.html#ad1f1fe86762a48375521fe08c09bd1dc">unitInQueue</a> (shared_ptr&lt; <a class="el" href="class_unit.html">Unit</a> &gt; unitToFind)</td></tr>
-<tr class="separator:ad1f1fe86762a48375521fe08c09bd1dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99fe9bfee6700f9ff9cdc9e60d39583f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_player.html#a99fe9bfee6700f9ff9cdc9e60d39583f">unitInQueue</a> (std::shared_ptr&lt; <a class="el" href="class_unit.html">Unit</a> &gt; unitToFind)</td></tr>
+<tr class="separator:a99fe9bfee6700f9ff9cdc9e60d39583f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae12f9b8ac07d74f86fe49afa9da97a5f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_player.html#ae12f9b8ac07d74f86fe49afa9da97a5f">addUnit</a> (std::shared_ptr&lt; <a class="el" href="class_unit.html">Unit</a> &gt; unit)</td></tr>
 <tr class="separator:ae12f9b8ac07d74f86fe49afa9da97a5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8e315b787a4a1bb1a7b537750387141a"><td class="memItemLeft" align="right" valign="top"><a id="a8e315b787a4a1bb1a7b537750387141a"></a>
@@ -139,6 +139,9 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>getBuying</b> ()</td>
 <tr class="memitem:ac5d9cbba6a6d4151e2adac214db5a286"><td class="memItemLeft" align="right" valign="top"><a id="ac5d9cbba6a6d4151e2adac214db5a286"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>resetApForAllUnits</b> ()</td></tr>
 <tr class="separator:ac5d9cbba6a6d4151e2adac214db5a286"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad43744e0da092cf516abb35f8d2b8691"><td class="memItemLeft" align="right" valign="top"><a id="ad43744e0da092cf516abb35f8d2b8691"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>updateAllUnits</b> ()</td></tr>
+<tr class="separator:ad43744e0da092cf516abb35f8d2b8691"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="class_player.html">Player</a> main class - holds most of the informations controlls units of player as well as money and supply of a player </p>
@@ -374,7 +377,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>resetApForAllUnits</b
         </tr>
       </table>
 </div><div class="memdoc">
-<p>wrapper function to pop a unit in the queue. don't ask me why we need this but we do Sets defaultState for units updates unit to show the new state immediately </p>
+<p>wrapper function to pop a unit in the queue. don't ask me why we need this but we do Sets defaultState for units updates unit to show the new state immediately</p>
+<p>wrapper function to pop a unit in the queue. don't ask me why we need this but we do Sets State for units updates unit to show the new state immediately </p>
 
 </div>
 </div>
@@ -394,6 +398,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>resetApForAllUnits</b
       </table>
 </div><div class="memdoc">
 <p>Add unit to the queue. sets defaulltState for units </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">unit</td><td>that will be added</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Add unit to the queue. sets State for units </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">unit</td><td>that will be added </td></tr>
   </table>
@@ -420,8 +430,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>resetApForAllUnits</b
 
 </div>
 </div>
-<a id="ad1f1fe86762a48375521fe08c09bd1dc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad1f1fe86762a48375521fe08c09bd1dc">&#9670;&nbsp;</a></span>unitInQueue()</h2>
+<a id="a99fe9bfee6700f9ff9cdc9e60d39583f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99fe9bfee6700f9ff9cdc9e60d39583f">&#9670;&nbsp;</a></span>unitInQueue()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -429,7 +439,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>resetApForAllUnits</b
         <tr>
           <td class="memname">bool Player::unitInQueue </td>
           <td>(</td>
-          <td class="paramtype">shared_ptr&lt; <a class="el" href="class_unit.html">Unit</a> &gt;&#160;</td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="class_unit.html">Unit</a> &gt;&#160;</td>
           <td class="paramname"><em>unitToFind</em></td><td>)</td>
           <td></td>
         </tr>

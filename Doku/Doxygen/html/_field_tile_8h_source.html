@@ -92,21 +92,21 @@ $(function() {
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    std::shared_ptr&lt;Corpse&gt; corpse;</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordtype">bool</span> trench;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    std::shared_ptr&lt;std::map&lt;int, Sprite*&gt;&gt; trenchSprites;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    std::shared_ptr&lt;std::map&lt;int, std::shared_ptr&lt;Sprite&gt;&gt;&gt; trenchSprites;</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    </div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keyword">public</span>:</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <a class="code" href="class_field_tile.html">FieldTile</a>() {</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        this-&gt;trenchSprites = make_shared&lt;std::map&lt;int, Sprite*&gt;&gt;();</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        this-&gt;trenchSprites = std::make_shared&lt;std::map&lt;int, std::shared_ptr&lt;Sprite&gt;&gt;&gt;();</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        this-&gt;trench = <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        this-&gt;unit = <span class="keyword">nullptr</span>;</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    };</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <a class="code" href="class_field_tile.html">FieldTile</a>(<a class="code" href="class_field_tile.html#a0b04cff5188ed689f199326f27b7a313">TERRAINTYPE</a> terrain) {</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        this-&gt;terrain = terrain;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        this-&gt;trenchSprites = make_shared&lt;std::map&lt;int, Sprite*&gt;&gt;();</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        this-&gt;trenchSprites = std::make_shared&lt;std::map&lt;int, std::shared_ptr&lt;Sprite&gt;&gt;&gt;();</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        this-&gt;trench = <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        this-&gt;unit = <span class="keyword">nullptr</span>;</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    }</div>
@@ -143,15 +143,15 @@ $(function() {
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="keywordflow">return</span> this-&gt;trench;</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    }</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    std::shared_ptr&lt;std::map&lt;int, Sprite*&gt;&gt; getTrenchSprites()</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    std::shared_ptr&lt;std::map&lt;int, std::shared_ptr&lt;Sprite&gt;&gt;&gt; getTrenchSprites()</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    {</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <span class="keywordflow">return</span> this-&gt;trenchSprites;</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    }</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordtype">void</span> addTrenchSprite(<span class="keywordtype">int</span> rect, <a class="code" href="class_sprite.html">Sprite</a>* sprite)</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordtype">void</span> addTrenchSprite(<span class="keywordtype">int</span> rect, std::shared_ptr&lt;Sprite&gt; sprite)</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    {</div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        <span class="keywordflow">if</span> (this-&gt;getTerrain() != TERRAINTYPE::SPAWNTERRAIN) {</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            this-&gt;trenchSprites-&gt;insert(pair&lt;int, Sprite*&gt;(rect, sprite));</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            this-&gt;trenchSprites-&gt;insert(std::pair&lt;<span class="keywordtype">int</span>, std::shared_ptr&lt;Sprite&gt;&gt;(rect, sprite));</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            <a class="code" href="class_field_tile.html#a3e1354cc45370a6f5885ee4f17a39a0c">refreshTile</a>();</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        }</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    }</div>
@@ -165,7 +165,6 @@ $(function() {
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;};</div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclass_field_tile_html_a0b04cff5188ed689f199326f27b7a313"><div class="ttname"><a href="class_field_tile.html#a0b04cff5188ed689f199326f27b7a313">FieldTile::TERRAINTYPE</a></div><div class="ttdeci">TERRAINTYPE</div><div class="ttdef"><b>Definition:</b> FieldTile.h:16</div></div>
-<div class="ttc" id="aclass_sprite_html"><div class="ttname"><a href="class_sprite.html">Sprite</a></div><div class="ttdef"><b>Definition:</b> Sprite.hpp:10</div></div>
 <div class="ttc" id="aclass_field_tile_html_a222edc3149d5af3a924a4cea27348e4e"><div class="ttname"><a href="class_field_tile.html#a222edc3149d5af3a924a4cea27348e4e">FieldTile::setUnit</a></div><div class="ttdeci">void setUnit(std::shared_ptr&lt; Unit &gt; unit)</div><div class="ttdef"><b>Definition:</b> FieldTile.cpp:81</div></div>
 <div class="ttc" id="aclass_field_tile_html_a3e1354cc45370a6f5885ee4f17a39a0c"><div class="ttname"><a href="class_field_tile.html#a3e1354cc45370a6f5885ee4f17a39a0c">FieldTile::refreshTile</a></div><div class="ttdeci">void refreshTile()</div><div class="ttdef"><b>Definition:</b> FieldTile.cpp:20</div></div>
 <div class="ttc" id="aclass_field_tile_html"><div class="ttname"><a href="class_field_tile.html">FieldTile</a></div><div class="ttdef"><b>Definition:</b> FieldTile.h:10</div></div>

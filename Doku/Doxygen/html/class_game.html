@@ -76,8 +76,6 @@ $(function() {
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ad59df6562a58a614fda24622d3715b65"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game.html#ad59df6562a58a614fda24622d3715b65">Game</a> ()</td></tr>
 <tr class="separator:ad59df6562a58a614fda24622d3715b65"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84a979ffa2ce4f8b0df1951a9ce76ecb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game.html#a84a979ffa2ce4f8b0df1951a9ce76ecb">isRunning</a> ()</td></tr>
-<tr class="separator:a84a979ffa2ce4f8b0df1951a9ce76ecb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab684b380c7d3f3577e2fb80006415297"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game.html#ab684b380c7d3f3577e2fb80006415297">initGame</a> ()</td></tr>
 <tr class="separator:ab684b380c7d3f3577e2fb80006415297"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aee9d460c00d3f3a1f498201b924f6a80"><td class="memItemLeft" align="right" valign="top"><a id="aee9d460c00d3f3a1f498201b924f6a80"></a>
@@ -106,8 +104,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>startTutorial</b> ()<
 <tr class="separator:a9337b0f7019dd6697fe2b6c9591b5491"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9dbb0d4130ac2663f1caf33e324d18c7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game.html#a9dbb0d4130ac2663f1caf33e324d18c7">handleReturnToMenu</a> (<a class="el" href="class_return_to_menu_event.html">ReturnToMenuEvent</a> *event)</td></tr>
 <tr class="separator:a9dbb0d4130ac2663f1caf33e324d18c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a747f389c33921de57e41bd807cdf2fbc"><td class="memItemLeft" align="right" valign="top"><a id="a747f389c33921de57e41bd807cdf2fbc"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>handleGameEnd</b> (<a class="el" href="class_game_end_event.html">GameEndEvent</a> *event)</td></tr>
+<tr class="memitem:a747f389c33921de57e41bd807cdf2fbc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game.html#a747f389c33921de57e41bd807cdf2fbc">handleGameEnd</a> (<a class="el" href="class_game_end_event.html">GameEndEvent</a> *event)</td></tr>
 <tr class="separator:a747f389c33921de57e41bd807cdf2fbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -167,6 +164,25 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>handleGameEnd</b> (<a
       </table>
 </div><div class="memdoc">
 <p>handles the end of the tutorial </p>
+
+</div>
+</div>
+<a id="a747f389c33921de57e41bd807cdf2fbc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a747f389c33921de57e41bd807cdf2fbc">&#9670;&nbsp;</a></span>handleGameEnd()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Game::handleGameEnd </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_game_end_event.html">GameEndEvent</a> *&#160;</td>
+          <td class="paramname"><em>event</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>handles end of a game, shows winning screen </p>
 
 </div>
 </div>
@@ -261,24 +277,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>handleGameEnd</b> (<a
       </table>
 </div><div class="memdoc">
 <p>Function to init the game Inits: Renderer, <a class="el" href="class_config_reader.html">ConfigReader</a>, both players, gamefield, eventgateway Sets the active player and starts game loop </p>
-
-</div>
-</div>
-<a id="a84a979ffa2ce4f8b0df1951a9ce76ecb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a84a979ffa2ce4f8b0df1951a9ce76ecb">&#9670;&nbsp;</a></span>isRunning()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Game::isRunning </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Returns if game is running </p>
 
 </div>
 </div>

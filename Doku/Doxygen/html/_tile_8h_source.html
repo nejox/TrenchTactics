@@ -71,7 +71,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;Sprite.hpp&quot;</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;Sprite.h&quot;</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;SpriteMarker.h&quot;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;MouseClickEvent.h&quot;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
@@ -79,7 +79,7 @@ $(function() {
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">private</span>:</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <span class="keywordtype">bool</span> marked = <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keywordtype">bool</span> selected = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <a class="code" href="class_sprite.html">Sprite</a>* sprite;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    std::shared_ptr&lt;Sprite&gt; sprite;</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    std::shared_ptr&lt;SpriteMarker&gt; spriteMarker;</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keywordtype">int</span> posX;</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keywordtype">int</span> posY;</div>
@@ -98,10 +98,10 @@ $(function() {
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordtype">bool</span> getSelected() {</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keywordflow">return</span> this-&gt;selected;</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    }</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordtype">void</span> setSprite(<a class="code" href="class_sprite.html">Sprite</a>* sprite) {</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordtype">void</span> setSprite(std::shared_ptr &lt; Sprite&gt; sprite) {</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        this-&gt;sprite = sprite;</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    }</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <a class="code" href="class_sprite.html">Sprite</a>* getSprite() {</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    std::shared_ptr&lt;Sprite&gt; getSprite() {</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keywordflow">return</span> this-&gt;sprite;</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    }</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordtype">void</span> setMarker(std::shared_ptr&lt;SpriteMarker&gt; marker) {</div>
@@ -130,7 +130,6 @@ $(function() {
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    }</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;};</div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclass_sprite_html"><div class="ttname"><a href="class_sprite.html">Sprite</a></div><div class="ttdef"><b>Definition:</b> Sprite.hpp:10</div></div>
 <div class="ttc" id="aclass_tile_html"><div class="ttname"><a href="class_tile.html">Tile</a></div><div class="ttdef"><b>Definition:</b> Tile.h:9</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

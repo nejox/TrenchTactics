@@ -72,73 +72,71 @@ $(function() {
 <div class="contents">
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;RendererImpl.h&quot;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;Framework.hpp&quot;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;Logger.hpp&quot;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;ConfigReader.h&quot;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">//-TTF einbinden nervt ab, ihr müsst das genau so machen wie bei SDL2 (include und lib), </span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">//beim linker schreibt ihr den kompletten pfad zur lib datei rein -&gt; quasi &quot;C:/bla/blabla/SDL_TTF/blablabla/lib</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">//bei mir gings nur so und ihr müsst alle .dll files in den debug ordner ziehen, falls nicht automatisch beim pull passiert</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="class_sprite_text.html">   16</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_sprite_text.html">SpriteText</a></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <a class="code" href="class_sprite_text.html#adde6887b80ebf91acb125e871706065f">SpriteText</a>(<span class="keywordtype">int</span> size);</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="class_sprite_text.html#a5c37a766aab52889c7aef559619c0edc">   31</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_sprite_text.html#a5c37a766aab52889c7aef559619c0edc">setPosGrid</a>(<span class="keywordtype">int</span> tileX, <span class="keywordtype">int</span> tileY)</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    {</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        this-&gt;m_posX = tileX * 64;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        this-&gt;m_posY = tileY * 64;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        this-&gt;m_Rect.x = tileX * 64;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        this-&gt;m_Rect.y = tileY * 64;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    }</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="class_sprite_text.html#a7aa21be629eae292659fe73eee8a5eff">   41</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_sprite_text.html#a7aa21be629eae292659fe73eee8a5eff">setPos</a>(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y)</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    {</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        this-&gt;m_posX = x;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        this-&gt;m_posY = y;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        this-&gt;m_Rect.x = x;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        this-&gt;m_Rect.y = y;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    }</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordtype">int</span> getX()</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    {</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordflow">return</span> m_posX;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    }</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordtype">int</span> getY()</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    {</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keywordflow">return</span> m_posY;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    }</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <a class="code" href="class_sprite_text.html#a10e23338e9823c4158ee21e6fbca043c">~SpriteText</a>();</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_sprite_text.html#a5514fe67699bb8b886fd6af56baae654">load</a>(std::string text);</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_sprite_text.html#afe3ad09542359928a154c77aa30ee0af">render</a>();</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    TTF_Font* m_font;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    SDL_Renderer* m_pRenderer;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    SDL_Texture* m_pText;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    SDL_Rect m_Rect;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordtype">int</span> m_posX;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordtype">int</span> m_posY;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;};</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;Logger.hpp&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;ConfigReader.h&quot;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">//-TTF einbinden nervt ab, ihr müsst das genau so machen wie bei SDL2 (include und lib), </span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">//beim linker schreibt ihr den kompletten pfad zur lib datei rein -&gt; quasi &quot;C:/bla/blabla/SDL_TTF/blablabla/lib</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">//bei mir gings nur so und ihr müsst alle .dll files in den debug ordner ziehen, falls nicht automatisch beim pull passiert</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="class_sprite_text.html">   14</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_sprite_text.html">SpriteText</a></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <a class="code" href="class_sprite_text.html#adde6887b80ebf91acb125e871706065f">SpriteText</a>(<span class="keywordtype">int</span> size);</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="class_sprite_text.html#a5c37a766aab52889c7aef559619c0edc">   29</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_sprite_text.html#a5c37a766aab52889c7aef559619c0edc">setPosGrid</a>(<span class="keywordtype">int</span> tileX, <span class="keywordtype">int</span> tileY)</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    {</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        this-&gt;m_posX = tileX * 64;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        this-&gt;m_posY = tileY * 64;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        this-&gt;m_Rect.x = tileX * 64;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        this-&gt;m_Rect.y = tileY * 64;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    }</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="class_sprite_text.html#a7aa21be629eae292659fe73eee8a5eff">   39</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_sprite_text.html#a7aa21be629eae292659fe73eee8a5eff">setPos</a>(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y)</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    {</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        this-&gt;m_posX = x;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        this-&gt;m_posY = y;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        this-&gt;m_Rect.x = x;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        this-&gt;m_Rect.y = y;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    }</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">int</span> getX()</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    {</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordflow">return</span> m_posX;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    }</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">int</span> getY()</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    {</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordflow">return</span> m_posY;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    }</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <a class="code" href="class_sprite_text.html#a10e23338e9823c4158ee21e6fbca043c">~SpriteText</a>();</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_sprite_text.html#a5514fe67699bb8b886fd6af56baae654">load</a>(std::string text);</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_sprite_text.html#afe3ad09542359928a154c77aa30ee0af">render</a>();</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    TTF_Font* m_font;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    SDL_Renderer* m_pRenderer;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    SDL_Texture* m_pText;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    SDL_Rect m_Rect;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordtype">int</span> m_posX;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">int</span> m_posY;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;};</div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclass_sprite_text_html_afe3ad09542359928a154c77aa30ee0af"><div class="ttname"><a href="class_sprite_text.html#afe3ad09542359928a154c77aa30ee0af">SpriteText::render</a></div><div class="ttdeci">void render()</div><div class="ttdef"><b>Definition:</b> SpriteText.cpp:74</div></div>
+<div class="ttc" id="aclass_sprite_text_html_afe3ad09542359928a154c77aa30ee0af"><div class="ttname"><a href="class_sprite_text.html#afe3ad09542359928a154c77aa30ee0af">SpriteText::render</a></div><div class="ttdeci">void render()</div><div class="ttdef"><b>Definition:</b> SpriteText.cpp:73</div></div>
 <div class="ttc" id="aclass_sprite_text_html_a10e23338e9823c4158ee21e6fbca043c"><div class="ttname"><a href="class_sprite_text.html#a10e23338e9823c4158ee21e6fbca043c">SpriteText::~SpriteText</a></div><div class="ttdeci">~SpriteText()</div><div class="ttdef"><b>Definition:</b> SpriteText.cpp:26</div></div>
 <div class="ttc" id="aclass_sprite_text_html_adde6887b80ebf91acb125e871706065f"><div class="ttname"><a href="class_sprite_text.html#adde6887b80ebf91acb125e871706065f">SpriteText::SpriteText</a></div><div class="ttdeci">SpriteText(int size)</div><div class="ttdef"><b>Definition:</b> SpriteText.cpp:4</div></div>
-<div class="ttc" id="aclass_sprite_text_html_a7aa21be629eae292659fe73eee8a5eff"><div class="ttname"><a href="class_sprite_text.html#a7aa21be629eae292659fe73eee8a5eff">SpriteText::setPos</a></div><div class="ttdeci">void setPos(int x, int y)</div><div class="ttdef"><b>Definition:</b> SpriteText.h:41</div></div>
-<div class="ttc" id="aclass_sprite_text_html"><div class="ttname"><a href="class_sprite_text.html">SpriteText</a></div><div class="ttdef"><b>Definition:</b> SpriteText.h:17</div></div>
-<div class="ttc" id="aclass_sprite_text_html_a5514fe67699bb8b886fd6af56baae654"><div class="ttname"><a href="class_sprite_text.html#a5514fe67699bb8b886fd6af56baae654">SpriteText::load</a></div><div class="ttdeci">void load(std::string text)</div><div class="ttdef"><b>Definition:</b> SpriteText.cpp:37</div></div>
-<div class="ttc" id="aclass_sprite_text_html_a5c37a766aab52889c7aef559619c0edc"><div class="ttname"><a href="class_sprite_text.html#a5c37a766aab52889c7aef559619c0edc">SpriteText::setPosGrid</a></div><div class="ttdeci">void setPosGrid(int tileX, int tileY)</div><div class="ttdef"><b>Definition:</b> SpriteText.h:31</div></div>
+<div class="ttc" id="aclass_sprite_text_html_a7aa21be629eae292659fe73eee8a5eff"><div class="ttname"><a href="class_sprite_text.html#a7aa21be629eae292659fe73eee8a5eff">SpriteText::setPos</a></div><div class="ttdeci">void setPos(int x, int y)</div><div class="ttdef"><b>Definition:</b> SpriteText.h:39</div></div>
+<div class="ttc" id="aclass_sprite_text_html"><div class="ttname"><a href="class_sprite_text.html">SpriteText</a></div><div class="ttdef"><b>Definition:</b> SpriteText.h:15</div></div>
+<div class="ttc" id="aclass_sprite_text_html_a5514fe67699bb8b886fd6af56baae654"><div class="ttname"><a href="class_sprite_text.html#a5514fe67699bb8b886fd6af56baae654">SpriteText::load</a></div><div class="ttdeci">void load(std::string text)</div><div class="ttdef"><b>Definition:</b> SpriteText.cpp:36</div></div>
+<div class="ttc" id="aclass_sprite_text_html_a5c37a766aab52889c7aef559619c0edc"><div class="ttname"><a href="class_sprite_text.html#a5c37a766aab52889c7aef559619c0edc">SpriteText::setPosGrid</a></div><div class="ttdeci">void setPosGrid(int tileX, int tileY)</div><div class="ttdef"><b>Definition:</b> SpriteText.h:29</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

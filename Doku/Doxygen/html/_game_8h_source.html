@@ -72,12 +72,12 @@ $(function() {
 <div class="contents">
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;Player.h&quot;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;Timer.hpp&quot;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;Gamefield.h&quot;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;Logger.hpp&quot;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;IRenderer.h&quot;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;Gamefield.h&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;Logger.hpp&quot;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;IRenderer.h&quot;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;ISoundManager.h&quot;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;RendererImpl.h&quot;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;Timer.hpp&quot;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;Timer.h&quot;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;ConfigReader.h&quot;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;Unit.h&quot;</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;EventGateway.h&quot;</span></div>
@@ -92,81 +92,84 @@ $(function() {
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &quot;EndTutorialEvent.h&quot;</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &quot;IngameMenuEvent.h&quot;</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &quot;ReturnToMenuEvent.h&quot;</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="class_game.html">   29</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_game.html">Game</a></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;{</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordtype">int</span> ctrTurns;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">bool</span> endTurn;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    std::shared_ptr&lt;Player&gt; playerRed;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    std::shared_ptr&lt;Player&gt;  playerBlue;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    std::shared_ptr&lt;Player&gt;  activePlayer;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <a class="code" href="class_i_event_manager.html">IEventManager</a>&amp; manager = EventManagerImpl::instance();</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <a class="code" href="class_i_renderer.html">IRenderer</a>&amp; renderer = RendererImpl::instance();</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <a class="code" href="class_gamefield.html">Gamefield</a>&amp; field = Gamefield::instance();</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <a class="code" href="class_event_gateway.html">EventGateway</a>&amp; gateway = EventGateway::instance();</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <a class="code" href="class_menu_bar.html">MenuBar</a>&amp; menuBar = MenuBar::instance();</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <a class="code" href="class_menu.html">Menu</a>&amp; menu =  Menu::instance();</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <a class="code" href="class_tutorial.html">Tutorial</a>&amp; tutorial = Tutorial::instance();</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordtype">bool</span> gameRunning;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">bool</span> isTutorial;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">void</span> switchActivePlayer();</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordtype">void</span> startBuyPhase();</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordtype">void</span> startMovePhase();</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">void</span> startAttackPhase();</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">void</span> resetGame();</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <a class="code" href="class_game.html#ad59df6562a58a614fda24622d3715b65">Game</a>();</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_game.html#a84a979ffa2ce4f8b0df1951a9ce76ecb">isRunning</a>();</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_game.html#ab684b380c7d3f3577e2fb80006415297">initGame</a>();</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">void</span> startMenu();</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordtype">void</span> startTutorial();</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_game.html#a22afe0713ff6f26064bc5da517040a7f">startPlayerPhase</a>();</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_game.html#ae8638ccdb0ef3bf39a6affa30aa1258f">startGame</a>();</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_game.html#a339a615cbe785164cafd1cf7fe55be8a">quit</a>(<a class="code" href="class_end_game_event.html">EndGameEvent</a>* event);</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_game.html#a67a8c5c0356c9ad33fac1abc435a3746">updateGame</a>();</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_game.html#a58e77bd9ab82790d00da9233949c4bc2">handleEndTurn</a>(<a class="code" href="class_end_turn_event.html">EndTurnEvent</a>* event);</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_game.html#ab5ab5dcc61a85353e0ba66d700d4f4b6">handleStartGame</a>(<a class="code" href="class_start_game_event.html">StartGameEvent</a>* event);</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_game.html#a73594924ceea956d3b63b73999948e04">handleStartTutorial</a>(<a class="code" href="class_start_tutorial_event.html">StartTutorialEvent</a>* event);</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_game.html#acb496b303a169b8c9842932be86727fd">handleEndTutorial</a>(<a class="code" href="class_end_tutorial_event.html">EndTutorialEvent</a>* event);</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_game.html#a9337b0f7019dd6697fe2b6c9591b5491">handleIngameMenu</a>(<a class="code" href="class_ingame_menu_event.html">IngameMenuEvent</a>* event);</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_game.html#a9dbb0d4130ac2663f1caf33e324d18c7">handleReturnToMenu</a>(<a class="code" href="class_return_to_menu_event.html">ReturnToMenuEvent</a>* event);</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordtype">void</span> handleGameEnd(<a class="code" href="class_game_end_event.html">GameEndEvent</a>* event);</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;};</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &quot;GameEnd.h&quot;</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &quot;SoundManagerImpl.h&quot;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="class_game.html">   31</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_game.html">Game</a></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;{</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordtype">int</span> ctrTurns;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordtype">bool</span> endTurn;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    std::shared_ptr&lt;Player&gt; playerRed;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    std::shared_ptr&lt;Player&gt;  playerBlue;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    std::shared_ptr&lt;Player&gt;  activePlayer;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <a class="code" href="class_i_event_manager.html">IEventManager</a>&amp; manager = EventManagerImpl::instance();</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <a class="code" href="class_i_renderer.html">IRenderer</a>&amp; renderer = RendererImpl::instance();</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <a class="code" href="class_i_sound_manager.html">ISoundManager</a>&amp; soundManager = SoundManagerImpl::instance();</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <a class="code" href="class_gamefield.html">Gamefield</a>&amp; field = Gamefield::instance();</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <a class="code" href="class_event_gateway.html">EventGateway</a>&amp; gateway = EventGateway::instance();</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <a class="code" href="class_menu_bar.html">MenuBar</a>&amp; menuBar = MenuBar::instance();</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <a class="code" href="class_menu.html">Menu</a>&amp; menu =  Menu::instance();</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <a class="code" href="class_tutorial.html">Tutorial</a>&amp; tutorial = Tutorial::instance();</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordtype">bool</span> isTutorial;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordtype">bool</span> gameOver = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">void</span> switchActivePlayer();</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">void</span> startBuyPhase();</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">void</span> startMovePhase();</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordtype">void</span> startAttackPhase();</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordtype">void</span> resetGame();</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <a class="code" href="class_game.html#ad59df6562a58a614fda24622d3715b65">Game</a>();</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_game.html#ab684b380c7d3f3577e2fb80006415297">initGame</a>();</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">void</span> startMenu();</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordtype">void</span> startTutorial();</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_game.html#a22afe0713ff6f26064bc5da517040a7f">startPlayerPhase</a>();</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_game.html#ae8638ccdb0ef3bf39a6affa30aa1258f">startGame</a>();</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_game.html#a339a615cbe785164cafd1cf7fe55be8a">quit</a>(<a class="code" href="class_end_game_event.html">EndGameEvent</a>* event);</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_game.html#a67a8c5c0356c9ad33fac1abc435a3746">updateGame</a>();</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_game.html#a58e77bd9ab82790d00da9233949c4bc2">handleEndTurn</a>(<a class="code" href="class_end_turn_event.html">EndTurnEvent</a>* event);</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_game.html#ab5ab5dcc61a85353e0ba66d700d4f4b6">handleStartGame</a>(<a class="code" href="class_start_game_event.html">StartGameEvent</a>* event);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_game.html#a73594924ceea956d3b63b73999948e04">handleStartTutorial</a>(<a class="code" href="class_start_tutorial_event.html">StartTutorialEvent</a>* event);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_game.html#acb496b303a169b8c9842932be86727fd">handleEndTutorial</a>(<a class="code" href="class_end_tutorial_event.html">EndTutorialEvent</a>* event);</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_game.html#a9337b0f7019dd6697fe2b6c9591b5491">handleIngameMenu</a>(<a class="code" href="class_ingame_menu_event.html">IngameMenuEvent</a>* event);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_game.html#a9dbb0d4130ac2663f1caf33e324d18c7">handleReturnToMenu</a>(<a class="code" href="class_return_to_menu_event.html">ReturnToMenuEvent</a>* event);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_game.html#a747f389c33921de57e41bd807cdf2fbc">handleGameEnd</a>(<a class="code" href="class_game_end_event.html">GameEndEvent</a>* event);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;};</div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclass_game_html_a58e77bd9ab82790d00da9233949c4bc2"><div class="ttname"><a href="class_game.html#a58e77bd9ab82790d00da9233949c4bc2">Game::handleEndTurn</a></div><div class="ttdeci">void handleEndTurn(EndTurnEvent *event)</div><div class="ttdef"><b>Definition:</b> Game.cpp:208</div></div>
-<div class="ttc" id="aclass_game_html_ab684b380c7d3f3577e2fb80006415297"><div class="ttname"><a href="class_game.html#ab684b380c7d3f3577e2fb80006415297">Game::initGame</a></div><div class="ttdeci">void initGame()</div><div class="ttdef"><b>Definition:</b> Game.cpp:35</div></div>
-<div class="ttc" id="aclass_event_gateway_html"><div class="ttname"><a href="class_event_gateway.html">EventGateway</a></div><div class="ttdef"><b>Definition:</b> EventGateway.h:22</div></div>
+<div class="ttc" id="aclass_game_html_a58e77bd9ab82790d00da9233949c4bc2"><div class="ttname"><a href="class_game.html#a58e77bd9ab82790d00da9233949c4bc2">Game::handleEndTurn</a></div><div class="ttdeci">void handleEndTurn(EndTurnEvent *event)</div><div class="ttdef"><b>Definition:</b> Game.cpp:215</div></div>
+<div class="ttc" id="aclass_i_sound_manager_html"><div class="ttname"><a href="class_i_sound_manager.html">ISoundManager</a></div><div class="ttdef"><b>Definition:</b> ISoundManager.h:7</div></div>
+<div class="ttc" id="aclass_game_html_ab684b380c7d3f3577e2fb80006415297"><div class="ttname"><a href="class_game.html#ab684b380c7d3f3577e2fb80006415297">Game::initGame</a></div><div class="ttdeci">void initGame()</div><div class="ttdef"><b>Definition:</b> Game.cpp:26</div></div>
+<div class="ttc" id="aclass_event_gateway_html"><div class="ttname"><a href="class_event_gateway.html">EventGateway</a></div><div class="ttdef"><b>Definition:</b> EventGateway.h:21</div></div>
 <div class="ttc" id="aclass_end_game_event_html"><div class="ttname"><a href="class_end_game_event.html">EndGameEvent</a></div><div class="ttdef"><b>Definition:</b> EndGameEvent.h:11</div></div>
-<div class="ttc" id="aclass_tutorial_html"><div class="ttname"><a href="class_tutorial.html">Tutorial</a></div><div class="ttdef"><b>Definition:</b> Tutorial.h:9</div></div>
+<div class="ttc" id="aclass_tutorial_html"><div class="ttname"><a href="class_tutorial.html">Tutorial</a></div><div class="ttdef"><b>Definition:</b> Tutorial.h:11</div></div>
 <div class="ttc" id="aclass_return_to_menu_event_html"><div class="ttname"><a href="class_return_to_menu_event.html">ReturnToMenuEvent</a></div><div class="ttdef"><b>Definition:</b> ReturnToMenuEvent.h:11</div></div>
-<div class="ttc" id="aclass_game_html_ad59df6562a58a614fda24622d3715b65"><div class="ttname"><a href="class_game.html#ad59df6562a58a614fda24622d3715b65">Game::Game</a></div><div class="ttdeci">Game()</div><div class="ttdef"><b>Definition:</b> Game.cpp:9</div></div>
+<div class="ttc" id="aclass_game_html_ad59df6562a58a614fda24622d3715b65"><div class="ttname"><a href="class_game.html#ad59df6562a58a614fda24622d3715b65">Game::Game</a></div><div class="ttdeci">Game()</div><div class="ttdef"><b>Definition:</b> Game.cpp:10</div></div>
 <div class="ttc" id="aclass_ingame_menu_event_html"><div class="ttname"><a href="class_ingame_menu_event.html">IngameMenuEvent</a></div><div class="ttdef"><b>Definition:</b> IngameMenuEvent.h:11</div></div>
 <div class="ttc" id="aclass_end_tutorial_event_html"><div class="ttname"><a href="class_end_tutorial_event.html">EndTutorialEvent</a></div><div class="ttdef"><b>Definition:</b> EndTutorialEvent.h:8</div></div>
-<div class="ttc" id="aclass_game_html_a9dbb0d4130ac2663f1caf33e324d18c7"><div class="ttname"><a href="class_game.html#a9dbb0d4130ac2663f1caf33e324d18c7">Game::handleReturnToMenu</a></div><div class="ttdeci">void handleReturnToMenu(ReturnToMenuEvent *event)</div><div class="ttdef"><b>Definition:</b> Game.cpp:265</div></div>
+<div class="ttc" id="aclass_game_html_a9dbb0d4130ac2663f1caf33e324d18c7"><div class="ttname"><a href="class_game.html#a9dbb0d4130ac2663f1caf33e324d18c7">Game::handleReturnToMenu</a></div><div class="ttdeci">void handleReturnToMenu(ReturnToMenuEvent *event)</div><div class="ttdef"><b>Definition:</b> Game.cpp:270</div></div>
 <div class="ttc" id="aclass_start_game_event_html"><div class="ttname"><a href="class_start_game_event.html">StartGameEvent</a></div><div class="ttdef"><b>Definition:</b> StartGameEvent.h:9</div></div>
 <div class="ttc" id="aclass_menu_html"><div class="ttname"><a href="class_menu.html">Menu</a></div><div class="ttdef"><b>Definition:</b> Menu.h:6</div></div>
-<div class="ttc" id="aclass_game_html_a339a615cbe785164cafd1cf7fe55be8a"><div class="ttname"><a href="class_game.html#a339a615cbe785164cafd1cf7fe55be8a">Game::quit</a></div><div class="ttdeci">void quit(EndGameEvent *event)</div><div class="ttdef"><b>Definition:</b> Game.cpp:298</div></div>
-<div class="ttc" id="aclass_game_html_ae8638ccdb0ef3bf39a6affa30aa1258f"><div class="ttname"><a href="class_game.html#ae8638ccdb0ef3bf39a6affa30aa1258f">Game::startGame</a></div><div class="ttdeci">void startGame()</div><div class="ttdef"><b>Definition:</b> Game.cpp:98</div></div>
+<div class="ttc" id="aclass_game_html_a339a615cbe785164cafd1cf7fe55be8a"><div class="ttname"><a href="class_game.html#a339a615cbe785164cafd1cf7fe55be8a">Game::quit</a></div><div class="ttdeci">void quit(EndGameEvent *event)</div><div class="ttdef"><b>Definition:</b> Game.cpp:138</div></div>
+<div class="ttc" id="aclass_game_html_ae8638ccdb0ef3bf39a6affa30aa1258f"><div class="ttname"><a href="class_game.html#ae8638ccdb0ef3bf39a6affa30aa1258f">Game::startGame</a></div><div class="ttdeci">void startGame()</div><div class="ttdef"><b>Definition:</b> Game.cpp:92</div></div>
 <div class="ttc" id="aclass_end_turn_event_html"><div class="ttname"><a href="class_end_turn_event.html">EndTurnEvent</a></div><div class="ttdef"><b>Definition:</b> EndTurnEvent.h:11</div></div>
 <div class="ttc" id="aclass_game_end_event_html"><div class="ttname"><a href="class_game_end_event.html">GameEndEvent</a></div><div class="ttdef"><b>Definition:</b> GameEndEvent.h:10</div></div>
-<div class="ttc" id="aclass_game_html_acb496b303a169b8c9842932be86727fd"><div class="ttname"><a href="class_game.html#acb496b303a169b8c9842932be86727fd">Game::handleEndTutorial</a></div><div class="ttdeci">void handleEndTutorial(EndTutorialEvent *event)</div><div class="ttdef"><b>Definition:</b> Game.cpp:237</div></div>
+<div class="ttc" id="aclass_game_html_acb496b303a169b8c9842932be86727fd"><div class="ttname"><a href="class_game.html#acb496b303a169b8c9842932be86727fd">Game::handleEndTutorial</a></div><div class="ttdeci">void handleEndTutorial(EndTutorialEvent *event)</div><div class="ttdef"><b>Definition:</b> Game.cpp:244</div></div>
 <div class="ttc" id="aclass_menu_bar_html"><div class="ttname"><a href="class_menu_bar.html">MenuBar</a></div><div class="ttdef"><b>Definition:</b> MenuBar.h:12</div></div>
 <div class="ttc" id="aclass_start_tutorial_event_html"><div class="ttname"><a href="class_start_tutorial_event.html">StartTutorialEvent</a></div><div class="ttdef"><b>Definition:</b> StartTutorialEvent.h:9</div></div>
-<div class="ttc" id="aclass_game_html_ab5ab5dcc61a85353e0ba66d700d4f4b6"><div class="ttname"><a href="class_game.html#ab5ab5dcc61a85353e0ba66d700d4f4b6">Game::handleStartGame</a></div><div class="ttdeci">void handleStartGame(StartGameEvent *event)</div><div class="ttdef"><b>Definition:</b> Game.cpp:217</div></div>
-<div class="ttc" id="aclass_game_html_a22afe0713ff6f26064bc5da517040a7f"><div class="ttname"><a href="class_game.html#a22afe0713ff6f26064bc5da517040a7f">Game::startPlayerPhase</a></div><div class="ttdeci">void startPlayerPhase()</div><div class="ttdef"><b>Definition:</b> Game.cpp:133</div></div>
-<div class="ttc" id="aclass_game_html_a67a8c5c0356c9ad33fac1abc435a3746"><div class="ttname"><a href="class_game.html#a67a8c5c0356c9ad33fac1abc435a3746">Game::updateGame</a></div><div class="ttdeci">void updateGame()</div><div class="ttdef"><b>Definition:</b> Game.cpp:175</div></div>
-<div class="ttc" id="aclass_game_html_a9337b0f7019dd6697fe2b6c9591b5491"><div class="ttname"><a href="class_game.html#a9337b0f7019dd6697fe2b6c9591b5491">Game::handleIngameMenu</a></div><div class="ttdeci">void handleIngameMenu(IngameMenuEvent *event)</div><div class="ttdef"><b>Definition:</b> Game.cpp:249</div></div>
-<div class="ttc" id="aclass_game_html_a84a979ffa2ce4f8b0df1951a9ce76ecb"><div class="ttname"><a href="class_game.html#a84a979ffa2ce4f8b0df1951a9ce76ecb">Game::isRunning</a></div><div class="ttdeci">bool isRunning()</div><div class="ttdef"><b>Definition:</b> Game.cpp:24</div></div>
-<div class="ttc" id="aclass_i_event_manager_html"><div class="ttname"><a href="class_i_event_manager.html">IEventManager</a></div><div class="ttdef"><b>Definition:</b> IEventManager.h:7</div></div>
+<div class="ttc" id="aclass_game_html_ab5ab5dcc61a85353e0ba66d700d4f4b6"><div class="ttname"><a href="class_game.html#ab5ab5dcc61a85353e0ba66d700d4f4b6">Game::handleStartGame</a></div><div class="ttdeci">void handleStartGame(StartGameEvent *event)</div><div class="ttdef"><b>Definition:</b> Game.cpp:224</div></div>
+<div class="ttc" id="aclass_game_html_a22afe0713ff6f26064bc5da517040a7f"><div class="ttname"><a href="class_game.html#a22afe0713ff6f26064bc5da517040a7f">Game::startPlayerPhase</a></div><div class="ttdeci">void startPlayerPhase()</div><div class="ttdef"><b>Definition:</b> Game.cpp:154</div></div>
+<div class="ttc" id="aclass_game_html_a67a8c5c0356c9ad33fac1abc435a3746"><div class="ttname"><a href="class_game.html#a67a8c5c0356c9ad33fac1abc435a3746">Game::updateGame</a></div><div class="ttdeci">void updateGame()</div><div class="ttdef"><b>Definition:</b> Game.cpp:197</div></div>
+<div class="ttc" id="aclass_game_html_a9337b0f7019dd6697fe2b6c9591b5491"><div class="ttname"><a href="class_game.html#a9337b0f7019dd6697fe2b6c9591b5491">Game::handleIngameMenu</a></div><div class="ttdeci">void handleIngameMenu(IngameMenuEvent *event)</div><div class="ttdef"><b>Definition:</b> Game.cpp:256</div></div>
+<div class="ttc" id="aclass_game_html_a747f389c33921de57e41bd807cdf2fbc"><div class="ttname"><a href="class_game.html#a747f389c33921de57e41bd807cdf2fbc">Game::handleGameEnd</a></div><div class="ttdeci">void handleGameEnd(GameEndEvent *event)</div><div class="ttdef"><b>Definition:</b> Game.cpp:121</div></div>
+<div class="ttc" id="aclass_i_event_manager_html"><div class="ttname"><a href="class_i_event_manager.html">IEventManager</a></div><div class="ttdef"><b>Definition:</b> IEventManager.h:8</div></div>
 <div class="ttc" id="aclass_gamefield_html"><div class="ttname"><a href="class_gamefield.html">Gamefield</a></div><div class="ttdef"><b>Definition:</b> Gamefield.h:19</div></div>
-<div class="ttc" id="aclass_game_html_a73594924ceea956d3b63b73999948e04"><div class="ttname"><a href="class_game.html#a73594924ceea956d3b63b73999948e04">Game::handleStartTutorial</a></div><div class="ttdeci">void handleStartTutorial(StartTutorialEvent *event)</div><div class="ttdef"><b>Definition:</b> Game.cpp:226</div></div>
-<div class="ttc" id="aclass_i_renderer_html"><div class="ttname"><a href="class_i_renderer.html">IRenderer</a></div><div class="ttdef"><b>Definition:</b> IRenderer.h:10</div></div>
-<div class="ttc" id="aclass_game_html"><div class="ttname"><a href="class_game.html">Game</a></div><div class="ttdef"><b>Definition:</b> Game.h:30</div></div>
+<div class="ttc" id="aclass_game_html_a73594924ceea956d3b63b73999948e04"><div class="ttname"><a href="class_game.html#a73594924ceea956d3b63b73999948e04">Game::handleStartTutorial</a></div><div class="ttdeci">void handleStartTutorial(StartTutorialEvent *event)</div><div class="ttdef"><b>Definition:</b> Game.cpp:233</div></div>
+<div class="ttc" id="aclass_i_renderer_html"><div class="ttname"><a href="class_i_renderer.html">IRenderer</a></div><div class="ttdef"><b>Definition:</b> IRenderer.h:13</div></div>
+<div class="ttc" id="aclass_game_html"><div class="ttname"><a href="class_game.html">Game</a></div><div class="ttdef"><b>Definition:</b> Game.h:32</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">
