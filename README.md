@@ -57,10 +57,12 @@ Die rot unterstrichene Zeile muss hinzugefügt werden:
 
 ###### General Settings
 ![General Settings Visual Studio](Doku/GeneralSettingsVisualStudio.jpg)
-###### VC++ Settings
-![VC++ Visual Studio](Doku/VC++VisualStudio.jpg)
+###### Include Directories
+![Includeverzeichnisse](Doku/Includeverzeichnisse.png)
+###### Library Directories
+![Bibliothecksverzeichnisse](Doku/Bibliothecksverzeichnisse.png)
 ###### Linker Input Settings
-![Linker Input Settings Visual Studio](Doku/LinkerInputVisualStudio.jpg)
+![Linker Input Settings Visual Studio](Doku/LinkerInputSettings.png)
 
 
 <a name="komponentenuebersicht"></a>
