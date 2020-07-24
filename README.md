@@ -22,18 +22,27 @@
 - [Pattern](#pattern)
 
 
-<a name="Spielidee/Motivation und Ziele"></a>
+<a name="spielidee-und-ziele"></a>
 ## Spielidee und Ziele
 In der Gamingindustrie geht der Trend hinzu Reboots/Remakes alter und vor allem erfolgreicher Spiele. Fast alle grossen Publisher sind auf diesen Zug augesprungen. Kuerzlich wurde Warcraft 3 Reforged veroeffentlicht, ein Reboot des von Blizzard gepublishtem RTS im Warcraft Universum.
 Im Zuge der Suche nach einem geeigneten Thema fuer ein Programmierprojekt hat sich unsere Gruppe dazu entschieden in eine aehnlich Richtung aufzubrechen. Als Basis wurde AdvanceWars ausgewaehlt, ein Nintendo GameBoy Advance Spiel. AdvanceWars ist ein rundenbasiertes Strategiespiel in dem der Spieler verschiedene Militaerische Einheiten kontrollieren und diese taktisch klug bewegen um den Gegner zu besiegen.
 Dieses Konzept wird quasi als Basis fuer TrenchTactics uebernommen. Zwei Spieler die auf einer Karte aggieren und Einheiten kaufen, bewegen und mit ihnen kaempfen koennen. Ziel des Spiels ist das gegnerische Hauptgebaeude zu zerstoeren. In unserer Version wird das Spiel als Hot-Seat Spiel entwickelt, dies bedeutet das die beiden Spieler abwecheselnd and einem Client spielen und ihre Aktionen durchfuehren.
 Diese Basis wird dann in Gewissen Aspekten weiterentwickelt. Moderne Element sollen in das "alte" Spielkonzept mit einfliessen. Das "AutoBattler" Genre ist genau so ein modernes Spielkonzept das erst in den letzten Jahren gross geworden ist, aus eben diesem Genre werden zwei wichtige Konzepte mit in TrenchTactics einfliessen. 
 Das erste Konzept ist die Mechanik das Einheiten, die dem Spieler zum Kaufen zur Verfuegung gestellt werden, per Zufall ausgewaehlt werden. Diese Zufallsauswahl kann dann von dem Spieler erneut ausgefuehrt werden um eine neue Auswahl an Einheiten zu bekommen.
-Hierfuer wird entsprechend eine Waherung benoetigt um einen solchen "ReRoll" zu bezahlen. Deswegen wird hier, wieder aus dem AuoBattler Genre, die naechste Erweiterung geklaut und ein Wirtschaftsystem implementiert. Verschiedene Faktoren haben hier Auswirkung auf das Einkommmen das Runde fuer Runde an die Spieler ausbezahlt wird. Hierzu gibt es noch einen eigenen Abschnitt der das Wirtschaftssystem noch genauer erklaert.
+Hierfuer wird entsprechend eine Waehrung benoetigt um einen solchen "ReRoll" zu bezahlen. Deswegen wird hier, wieder aus dem AuoBattler Genre, die naechste Erweiterung geklaut und ein Wirtschaftsystem implementiert. Verschiedene Faktoren haben hier Auswirkung auf das Einkommmen das Runde fuer Runde an die Spieler ausbezahlt wird.
 
-Der Ablauf des Spiels basiert auf drei Phasen, Buy, Move und Attack Phase. Die Aufgabe jeder Phase ist selbsterklaerend.
 Ziel des Spiels ist es das gegnerische Hauptgebaeude zu zerstoeren.
-Als zusaetzliche namensgebende Mechanik wurden noch Graeben eingefuegt die gewisse Boni mit sich bringen, sowohl fuer einzelne Einheiten als auch fuer den Spieler.
+Als zusaetzliche namensgebende Mechanik wurden noch Schützengräben eingefuegt.
+Diese geben Einheiten einen defensiv Bonus und für den Spieler eine höhere Einkommensrate.
+
+Ablauf des Spiels:
+
+![Game Statediagram](Doku/StateDiagram Game.png)
+
+Nachdem man das Tutorial durchlaufen hat, oder direkt ein Match startet, werden die drei grundlegenden Phasen, Buy, Move und Attack, durchlaufen.
+	- Buy Phase: Kaufen neuer Einheiten oder einen "ReRoll" durchführen
+	- Move Phase: Bewegen der Einheiten und Schützengräben ausheben
+	- Attack Phase: gegnerische Einheiten bzw. Hauptgebaeude angreifen und weitere Schützengräben ausheben
 
 <a name="vorbedingungen"></a>
 ## Vorbedingungen
