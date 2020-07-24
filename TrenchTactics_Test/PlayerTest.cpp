@@ -2,6 +2,8 @@
 #include "../TrenchTactics/Player.h"
 #include "../TrenchTactics/Gamefield.h"
 
+using namespace std;
+
 TEST_CASE("Player Creation") {
 	shared_ptr<Player> player = make_shared<Player>();
 	ConfigReader::instance().initConfigurations();
@@ -18,8 +20,8 @@ TEST_CASE("Player Creation") {
 TEST_CASE("Add and delete Unit from Player Test") {
 	ConfigReader::instance().initConfigurations();
 	shared_ptr<Player> player = make_shared<Player>();
-	shared_ptr<Unit> gunnerUnit = make_shared<Unit>(TYPES::UnitType::GUNNER, true);
-	shared_ptr<Unit> ccUnit = make_shared<Unit>(TYPES::UnitType::CC, true);
+	shared_ptr<Unit> gunnerUnit = make_shared<Unit>(TYPES::UNITTYPE::GUNNER, true);
+	shared_ptr<Unit> ccUnit = make_shared<Unit>(TYPES::UNITTYPE::CC, true);
 	Gamefield::instance().init(ConfigReader::instance().getMapConf()->getSizeX(), ConfigReader::instance().getMapConf()->getSizeY(), ConfigReader::instance().getMapConf()->getSeed());;
 
 	//Test that player has no unit
@@ -59,8 +61,8 @@ TEST_CASE("Add and delete Unit from Player Test") {
 TEST_CASE("Update money and compute income") {
 	ConfigReader::instance().initConfigurations();
 	shared_ptr<Player> player = make_shared<Player>();
-	shared_ptr<Unit> gunnerUnit = make_shared<Unit>(TYPES::UnitType::GUNNER, true);
-	shared_ptr<Unit> ccUnit = make_shared<Unit>(TYPES::UnitType::CC, true);
+	shared_ptr<Unit> gunnerUnit = make_shared<Unit>(TYPES::UNITTYPE::GUNNER, true);
+	shared_ptr<Unit> ccUnit = make_shared<Unit>(TYPES::UNITTYPE::CC, true);
 	Gamefield::instance().init(ConfigReader::instance().getMapConf()->getSizeX(), ConfigReader::instance().getMapConf()->getSizeY(), ConfigReader::instance().getMapConf()->getSeed());
 	player->init(true);
 
@@ -96,8 +98,8 @@ TEST_CASE("Update money and compute income") {
 TEST_CASE("Compute supply") {
 	ConfigReader::instance().initConfigurations();
 	shared_ptr<Player> player = make_shared<Player>();
-	shared_ptr<Unit> gunnerUnit = make_shared<Unit>(TYPES::UnitType::GUNNER, true);
-	shared_ptr<Unit> ccUnit = make_shared<Unit>(TYPES::UnitType::CC, true);
+	shared_ptr<Unit> gunnerUnit = make_shared<Unit>(TYPES::UNITTYPE::GUNNER, true);
+	shared_ptr<Unit> ccUnit = make_shared<Unit>(TYPES::UNITTYPE::CC, true);
 	player->addUnit(gunnerUnit);
 	REQUIRE(player->getSupply() == 1);
 	player->addUnit(ccUnit);
@@ -107,8 +109,8 @@ TEST_CASE("Compute supply") {
 TEST_CASE("AP reset of units") {
 	ConfigReader::instance().initConfigurations();
 	shared_ptr<Player> player = make_shared<Player>();
-	shared_ptr<Unit> gunnerUnit = make_shared<Unit>(TYPES::UnitType::GUNNER, true);
-	shared_ptr<Unit> ccUnit = make_shared<Unit>(TYPES::UnitType::CC, true);
+	shared_ptr<Unit> gunnerUnit = make_shared<Unit>(TYPES::UNITTYPE::GUNNER, true);
+	shared_ptr<Unit> ccUnit = make_shared<Unit>(TYPES::UNITTYPE::CC, true);
 	player->addUnit(gunnerUnit);
 	player->addUnit(ccUnit);
 
