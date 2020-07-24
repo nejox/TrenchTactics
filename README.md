@@ -396,7 +396,7 @@ Um eine Methode für ein Event zu registrieren wird in der Klasseninitialisierun
 ```c++
 EventBus::instance().subscribe(this, &Game::handleGameEnd);
 ```
-Der EventBus ermittelt die registrierten Methoden zu einem Event anhand der Referenz eines spezifischen Events als Parameter.
+Der EventBus ermittelt die registrierten Methoden anhand der Referenz des spezifischen Events als Parameter.
 ```c++
 void handleGameEnd(GameEndEvent* event);
 ```
