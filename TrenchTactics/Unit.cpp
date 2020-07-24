@@ -252,16 +252,63 @@ void Unit::move()
 
 	if (currentX > (2 * 64 - 1) && currentX < (20 * 64)) {
 
+
 		std::shared_ptr<FieldTile> tmp = Gamefield::instance().getFieldTileFromXY(currentX, currentY);
 
 		if (tmp) {
 			tmp->refreshTile();
 		}
+
+		//manage tile refreshing, the next tile needs refreshing too -> blurring
+		//different calculation for blue & red units (+/- 64px)
+		int tileX = currentX / 64;
+		int nextTileX = 0;
+		//if unit blue
+		if (!this->getColorRed()) {
+			nextTileX = currentX + 64;
+		}
+		// if red
+		else {
+			nextTileX = currentX - 64;
+		}
+
+		if (tileX != nextTileX / 64) {
+			tmp = Gamefield::instance().getFieldTileFromXY(nextTileX, currentY);
+
+			if (tmp) {
+				tmp->refreshTile();
+			}
+		}
 	}
+
 	else {
 		std::shared_ptr<FieldTile> tmp = Gamefield::instance().getSpawnTileFromXY(this->getColorRed(), currentX, currentY);
 		if (tmp) {
 			tmp->refreshTile();
+		}
+
+		int tileX = currentX / 64;
+		int nextTileX = 0;
+		//if unit blue
+		if (!this->getColorRed()) {
+			nextTileX = currentX + 64;
+		}
+		// if red
+		else {
+			nextTileX = currentX - 64;
+		}
+
+		if (tileX != nextTileX / 64) {
+			if(nextTileX > (2 * 64 - 1) && nextTileX < (20 * 64)){
+				tmp = Gamefield::instance().getFieldTileFromXY(nextTileX, currentY);
+			}
+			else {
+				tmp = Gamefield::instance().getSpawnTileFromXY(this->getColorRed(), nextTileX, currentY);
+			}
+
+			if (tmp) {
+				tmp->refreshTile();
+			}
 		}
 	}
 }
