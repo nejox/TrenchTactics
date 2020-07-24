@@ -41,22 +41,26 @@ Um das Projekt zum jetzigen Zeitpunkt benutzen zu koennen und zu debuggen werden
 - Visual Studio 2019
 - SDL2.dll
 - SDL2_tff.dll
+- SDL2_mixer.dll
 - zlib1.dll
 - libfreetype-6.dll
 
 Alle dlls sind jedoch mit im Repository hinterlegt und muessen somit nicht manuell mit eingebunden werden, wenn die precompiled Version genutzt wird.
 
-Derzeit wird TrenchTactics als Windows Application compiled, um eine Application mit Console zum Zwecke des Debuggings zu compilen muss eine kleine Codeveraenderung vorgenommen werden. Die rot unterstrichene Zeile muss hinzugefügt werden:
+Derzeit wird TrenchTactics als Windows Application compiled, um eine Application mit Console zum Zwecke des Debuggings zu compilen muss eine kleine Codeveraenderung vorgenommen werden. 
+Die rot unterstrichene Zeile muss hinzugefügt werden:
 ![SDL Main Handled](Doku/SDL_Main_Handled.jpg)
 
 #### Folgende Einstellungen unter Project Properties muessen getroffen werden um TrenchTactics mit VisualStudio 2019 kompilieren zu koennen:
 
 ###### General Settings
 ![General Settings Visual Studio](Doku/GeneralSettingsVisualStudio.jpg)
-###### VC++ Settings
-![VC++ Visual Studio](Doku/VC++VisualStudio.jpg)
+###### Include Directories
+![Includeverzeichnisse](Doku/Includeverzeichnisse.png)
+###### Library Directories
+![Bibliothecksverzeichnisse](Doku/Bibliothecksverzeichnisse.png)
 ###### Linker Input Settings
-![Linker Input Settings Visual Studio](Doku/LinkerInputVisualStudio.jpg)
+![Linker Input Settings Visual Studio](Doku/LinkerInputSettings.png)
 
 
 <a name="komponentenuebersicht"></a>
@@ -65,7 +69,7 @@ Im folgenden werden die einzelnen Komponenten beschrieben die zusammen eine Basi
 
 <a name="framework"></a>
 ### Framework
-Das Framework das im Projekt TrenchTactics ist [SDL2](https://www.libsdl.org/). SDL2 stellt hauptsaechlich Grundfunktionalitaeten zur Verfuegung, in unserem Projekt speziell:
+Das Framework im Projekt TrenchTactics ist [SDL2](https://www.libsdl.org/). SDL2 stellt hauptsaechlich Grundfunktionalitaeten zur Verfuegung, in unserem Projekt speziell:
 - Laden der einzelnen Sprites die im Spiel verwendet werden
 - Darstellen der Sprites
 - Animation der Sprites
