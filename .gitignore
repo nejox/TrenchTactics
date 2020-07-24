@@ -17,4 +17,4 @@ TrenchTactics_Test.vcxproj.user
 TrenchTactics_Test/.vs/
 TrenchTactics_Test/Debug/
 TrenchTactics_Test/x64/
-
+*.DS_Store
