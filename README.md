@@ -80,6 +80,7 @@ Die rot unterstrichene Zeile muss hinzugefügt werden:
 <a name="komponentenuebersicht"></a>
 ## Komponentenuebersicht
 Im folgenden werden die einzelnen Komponenten beschrieben die zusammen eine Basis schaffen um die logische Funktionalitaet von TrenchTactics zu bewerkstelligen.
+Alle Komponenten sind auch noch mit Code Kommentaren in Doxygen hinterlegt.
 
 <a name="framework"></a>
 ### Framework
@@ -93,6 +94,7 @@ SDL2 passt fuer unsere Anforderungen am Besten, da wirklich nur Basis Funktionen
 
 <a name="timer"></a>
 ### Timer
+Link zu DoxygenFile: [TimerClass](Doku/Doxygen/html/class_timer.html)
 ![Timer Klasse](Doku/TimerClass.jpg)
 
 TrenchTactics ist ein Timer bzw Tick based Spiel. Dies bedeutet das Aktionen jeweils pro Tick abgearbeitet werden.
@@ -118,6 +120,7 @@ void CTimer::Update()
 ```
 <a name="eventmanagement"></a>
 ### EventManagement
+
 Als Grundkonzept fuer das Eventmanagement wurde ein so gennanter EventBus eingefuehrt. Der uber publish/subscribe Methoden Events an LogikKomponenten ubergibt. Technisch regestriert sich eine Methode aus einer Klasse fuer ein Event und gibt an welche Funktion fuer das entsprechende Event ausgefuehrt werden soll.
 ```c++
 EventBus::instance().subscribe(this, &Game::handleStartGame);
@@ -148,6 +151,7 @@ geprueft ob ein Event innerhalb des letzten Ticks vorgefallen ist und dann wie e
 
 <a name="rendering"></a>
 ### Rendering
+Link zu DoxygenFile: [RendererImpl](Doku/Doxygen/html/class_renderer_impl.html)
 Das Rendern der verschiedenen Sprites nutzt hier, wieder, ein SDL2 interne Funktion.
 
 ![Renderer Klasse](Doku/RendererClass.jpg)
@@ -180,6 +184,7 @@ Als kleine Side-Note: Hier sieht man die pinke Hintergrundfarbe, diese wird verw
 
 <a name="config"></a>
 ### Config Reader
+Link zu DoxygenFile: [ConfigReaderClass](Doku/Doxygen/html/class_config_reader.html)
 Um alle noetigen Einstellungen treffen zu koennen wurde ein entsprechendes Config System implementiert.
 Alle wichtigen Informationen wie Balancing, Pfade zu Sprites so wie alle sonstigen Einstellungen die sonst ausserhalb des Spiels getroffen werden koennten. Hierzu werden verschieden JSON Dokumente verwendet.
 Hier als Beispiel ein Ausschnitt aus einer Config einer Einheit.
@@ -239,7 +244,7 @@ Teilweise werden Konfigurationen zusammengefasst und in einer gemeinsamen JSON D
 
 <a name="logger"></a>
 ### Logger
-
+Link zu DoxygenFile: [LoggerClass](Doku/Doxygen/html/class_logger.html)
 Fuer das ganze Spiel wurde ein Logger implementiert.
 Dieser kann verwendet werden ueber:
 ```c++
@@ -249,6 +254,7 @@ In dem enum LOGLEVEL sind die aus Java bekannten LOGLEVEL hinterlegt. Als zweite
 
 <a name="gamefield"></a>
 ### Gamefield
+Link zu DoxygenFile: [GamefieldClass](Doku/Doxygen/html/class_gamefield.html)
 Als Basis fuer die Erstellung des Gamefields werden so genannte Tiles verwendet. Das sind kleine Ausschnitte des gesamten Spielfelds mit fest gesetzter Pixelgroesse von 64\*64. Aus diesen Tiles wird das komplette Spielfeld erzeugt, jede einzelne Sprite ist auf das 64\*64 Fenster ausgelegt.
 
 ![Terrain Mud](Doku/terrainMud.jpg)
@@ -287,6 +293,7 @@ Die Klasse Gamefield ist deswegen auch mit die komplexeste Klasse des kompletten
 
 <a name="tiles"></a>
 #### Tiles
+Link zu DoxygenFile: [TileClass](Doku/Doxygen/html/class_tile.html)
 Die hier eingesetzten Tiles haben nicht nur die Aufgabe der Darstellung der Sprites sondern sind gleichzeitig Datencontainer des Gamefields. In den Tiles werden so zum Beispiel Units abgelegt die auf ihnen residieren. Aber auch alle Buttons, das Headquarter oder Trenches sind hier abgelegt.
 Ueber diese Mapping zwischen Tile und Objekt kann dann sehr einfach zugeordnet werden wo der User hingeclickt hat, bzw. auf welches Objekt er zugreifen wollte.
 Ausserdem vereinfacht das dass Rendering. Wie bereits zuvor erklaert braucht die Sprite immer ein Zielort zum rendern, durch das Ablegen auf der Tile wird einfach die Position der Tile uebernommen. Dadurch wird dann quasei, zum Beispiel, die Unit Sprite einfach ueber das Spielfieldtile drueber gerendert.
@@ -298,6 +305,7 @@ Die logischen Komponenten sind in drei Teile aufgeteilt, bzw. in zwei logische K
 
 <a name="gameclass"></a>
 ### GameClass
+Link zu DoxygenFile: [GameClass](Doku/Doxygen/html/class_games.html)
 Die eigentliche GameClass ist die Hauptkomponente zur Kontrolle des Spiels. Hier werden alle noetigen initalisierungs Aufgaben erledigt so wie die Hauptschleife des Spiels gestartet.
 
 ![Game Class](Doku/GameClass.jpg)
@@ -332,10 +340,12 @@ Hier ist nun auch erkennbar wie eine einzelne Phase uebersprungen werden kann. B
 
 <a name="player"></a>
 ### Player
+Link zu DoxygenFile: [PlayerClass](Doku/Doxygen/html/class_player.html)
 In der Klasse Player wird sich hauptsaechlich eben um Spieler spezifische Dinge gekuemmert. Geld, Einheiten oder "Supply" zum Beispiel. Technisch ist das nicht sonderlich aufregend und sollte zum Grossteil selbsterklaerend sein und wird deshalb hier eher Stiefmuetterlich behandelt.
 
 <a name="eventgateway"></a>
 ### EventGateway
+Link zu DoxygenFile: [EventManager](Doku/Doxygen/html/class_event_gateway.html)
 Das EventGateway ist mit die wichtigste Komponente im Spiel. Alle Events die von SDL als Aktion aufgenommen werden und an den Eventbus weitergeleitet werden, landen in einem ersten Schritt hier.
 Hier wird dann geprueft mit Hilfe der Phase und der Position des MouseClickEvents was der User eigentlich bezwecken wollte, verarbeitet und an entsprechender Stelle ausgefuehrt. Als Basis hierfuer kennt das EventGateway den derzeitig aktiven Spieler sowie die aktuelle Phase des Spiels. Fast alle anderen wichtigen Informationen werden ueber Singeltons abgerufen.
 Beispiel Kauf einer Unit im EventGateway:
