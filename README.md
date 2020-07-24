@@ -442,6 +442,6 @@ Fuer die Tests wurde die Header only Library "catch" verwendet.
 Die Tests wurden als eigenes Projekt aufgesetzt.
 Hier muss, wie bei TrenchTactics selbst, die gleichen Dependencies hinterlegt werden.
 Ausserdem muss eine Library des Hauptspiel hinterlegt werden. 
-Zu beachten ist dass das Solution Configuration identisch sein muss. Ergo wenn eine Release Library gebaut wird muessen die Tests ebenfalls als Realease gestartet werden.
+Zu beachten ist, dass das Solution Configuration identisch sein muss. Ergo wenn eine Release Library gebaut wird muessen die Tests ebenfalls als Realease gestartet werden.
 Im Ordner ist bereits eine TrenchTactics.lib hinterlegt. Diese ist eine Release Version.
 	
