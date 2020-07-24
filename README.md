@@ -28,7 +28,7 @@
 In der Gamingindustrie geht der Trend hinzu Reboots/Remakes alter und vor allem erfolgreicher Spiele. Fast alle großen Publisher sind auf diesen Zug aufgesprungen. Kürzlich wurde Warcraft 3 Reforged veroeffentlicht, ein Reboot des von Blizzard gepublishtem RTS im Warcraft Universum.
 Im Zuge der Suche nach einem geeigneten Thema für ein Programmierprojekt hat sich unsere Gruppe dazu entschieden in eine ähnliche Richtung aufzubrechen. Als Basis wurde Advance Wars ausgewaehlt, ein Nintendo GameBoy Advance Spiel. Advance Wars ist ein rundenbasiertes Strategiespiel, in dem der Spieler verschiedene Militärische Einheiten kontrollieren und diese taktisch klug bewegen, um den Gegner zu besiegen.
 Dieses Konzept wird als Basis fuer TrenchTactics uebernommen. Zwei Spieler, die auf einer Karte agieren und Einheiten kaufen, bewegen und mit ihnen kämpfen koennen. Ziel des Spiels ist das gegnerische Hauptgebäude zu zerstoeren. In unserer Version wird das Spiel als Hot-Seat Spiel entwickelt, dies bedeutet das die beiden Spieler abwechselnd an einem Client spielen und ihre Aktionen durchfuehren.
-Diese Basis wird dann in Gewissen Aspekten weiterentwickelt. Moderne Element sollen in das "alte" Spielkonzept mit einfließen. Das "AutoBattler" Genre ist genauso ein modernes Spielkonzept, das erst in den letzten Jahren groß geworden ist, aus eben diesem Genre werden zwei wichtige Konzepte mit in TrenchTactics einfließen. 
+Diese Basis wird dann in Gewissen Aspekten weiterentwickelt. Moderne Element sollen in das "alte" Spielkonzept mit einfließen. Das "AutoBattler" Genre ist genau so ein modernes Spielkonzept, das erst in den letzten Jahren groß geworden ist, aus eben diesem Genre werden zwei wichtige Konzepte mit in TrenchTactics einfließen. 
 Das erste Konzept ist die Mechanik das Einheiten, die dem Spieler zum Kaufen zur Verfügung gestellt werden, per Zufall ausgewaehlt werden. Diese Zufallsauswahl kann dann von dem Spieler erneut ausgeführt werden, um eine neue Auswahl an Einheiten zu bekommen.
 Hierfür wird eine Währung benötigt, um einen solchen "ReRoll" zu bezahlen. Deswegen wird hier, wieder aus dem AutoBattler Genre, die naechste Erweiterung gestohlen und ein Wirtschaftssystem implementiert. Verschiedene Faktoren haben hier Auswirkung auf das Einkommen das Runde fuer Runde an die Spieler ausbezahlt wird.
 
@@ -123,6 +123,9 @@ void CTimer::Update()
 	m_fCurTime = SDL_GetTicks() / 1000.0f;
 	m_fElapsed = m_fCurTime - m_fLastTime;
 	m_fLastTime = m_fCurTime;
+	if(m_fElapsed < 0.001f){
+		SDL_Delay(1);
+	}
 }
 ```
 <a name="eventmanagement"></a>
