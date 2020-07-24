@@ -365,7 +365,7 @@ Im gesamten Projekt wurde darauf geachtet die Verbindung zu SDL2 nicht zu starr 
 
 #### Singelton
 In mehreren verschiedenen Klassen, wie zum Beispiel dem Logger oder ConfigReader, wurde das Singelton Pattern verwendet.
-Am Beispiel der Konfigurationen bedeutet dies das die einzlenen Konfigurationen nur ein einzieges Mal geladen werden muessen.
+Am Beispiel der Konfigurationen bedeutet dies das die einzelnen Konfigurationen nur ein einziges Mal geladen werden muessen.
 Hier zu Beispiel Code aus dem ConfigReader:
 ```c++
 	~ConfigReader();
@@ -385,3 +385,21 @@ Folgend kann der ConfigReader dann ueber
 ConfigReader::instance()
 ```
 genutzt werden.
+
+#### EventBus
+Der EventBus ist zwar kein klassisches Pattern aber dennoch erwähnenswert, da er für uns zur Kommunikation zwischen den Komponenten dient.
+Dieser ist auf dem Singleton Pattern aufgebaut.
+
+Hier ein Beispiel Code zum Ablauf aus der Game Klasse:
+
+Um eine Methode für ein Event zu registrieren wird in der Klasseninitialisierung folgender Code ausgeführt:
+```c++
+EventBus::instance().subscribe(this, &Game::handleGameEnd);
+```
+Der EventBus ermittelt die registrierten Methoden zu einem Event anhand der Referenz eines spezifischen Events als Parameter.
+```c++
+void handleGameEnd(GameEndEvent* event);
+```
+
+
+	
