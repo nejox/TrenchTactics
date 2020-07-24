@@ -84,7 +84,8 @@ Alle Komponenten sind auch noch mit Code Kommentaren in Doxygen hinterlegt.
 
 <a name="framework"></a>
 ### Framework
-Das Framework das im Projekt TrenchTactics ist [SDL2](https://www.libsdl.org/). 
+Das Framework das im Projekt TrenchTactics ist [SDL2](https://www.libsdl.org/).
+ 
 Link zu komplettem Klassendiagramm: [Klassendiagramm](Doku/ClassDiagram.jpg)
 
 SDL2 stellt hauptsaechlich Grundfunktionalitaeten zur Verfuegung, in unserem Projekt speziell:
