@@ -35,14 +35,15 @@ Ziel des Spiels ist es das gegnerische Hauptgebaeude zu zerstoeren.
 Als zusaetzliche namensgebende Mechanik wurden noch Schützengräben eingefuegt.
 Diese geben Einheiten einen defensiv Bonus und für den Spieler eine höhere Einkommensrate.
 
-Ablauf des Spiels:
+### Ablauf des Spiels:
 
-![Game Statediagram](Doku/StateDiagram Game.png)
+![Game Statediagram](Doku/StateDiagramGame.png)
 
 Nachdem man das Tutorial durchlaufen hat, oder direkt ein Match startet, werden die drei grundlegenden Phasen, Buy, Move und Attack, durchlaufen.
-	- Buy Phase: Kaufen neuer Einheiten oder einen "ReRoll" durchführen
-	- Move Phase: Bewegen der Einheiten und Schützengräben ausheben
-	- Attack Phase: gegnerische Einheiten bzw. Hauptgebaeude angreifen und weitere Schützengräben ausheben
+
+- Buy Phase: Kaufen neuer Einheiten oder einen "ReRoll" durchführen
+- Move Phase: Bewegen der Einheiten und Schützengräben ausheben
+- Attack Phase: gegnerische Einheiten bzw. Hauptgebaeude angreifen und weitere Schützengräben ausheben
 
 <a name="vorbedingungen"></a>
 ## Vorbedingungen
