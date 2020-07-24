@@ -141,27 +141,25 @@ void Player::requeueUnit() {
 /**
  * wrapper function to pop a unit in the queue.
  * don't ask me why we need this but we do
- * Sets defaultState for units
+ * Sets State for units
  * updates unit to show the new state immediately
  */
 void Player::popUnit() {
-	if (this->unitQueue.front()->getState() != STATES::RUNNING) {
+	if (this->unitQueue.front()->getState() != STATES::RUNNING && this->unitQueue.front()->getState() != STATES::SHOOTING) {
 		this->unitQueue.front()->setState(STATES::STANDING_DARK);
-		this->unitQueue.front()->update();
 	}
 	this->unitQueue.pop();
 }
 
 /**
  * Add unit to the queue.
- * sets defaulltState for units
+ * sets State for units
  * \param unit that will be added
  */
 void Player::queueUnit(std::shared_ptr<Unit> unit) {
 	this->unitQueue.push(unit);
 	if (unit->getState() != STATES::RUNNING) {
 		unit->setState(STATES::STANDING_NEUTRAL); 
-		unit->update();
 	}
 }
 /**
@@ -256,7 +254,7 @@ void Player::demarkActiveUnit()
 	//mark the first unit to be moved as neutral
 	if (!unitQueue.empty()) {
 
-		if (this->unitQueue.front()->getState() != STATES::RUNNING) {
+		if (this->unitQueue.front()->getState() != STATES::RUNNING && this->unitQueue.front()->getState() != STATES::SHOOTING) {
 			this->unitQueue.front()->setState(STATES::STANDING_DARK);
 		}
 		MenuBar::instance().resetUnitStats();
