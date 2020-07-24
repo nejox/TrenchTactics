@@ -90,7 +90,7 @@ TEST_CASE("Update money and compute income") {
 		shared_ptr<FieldTile> testFieldTile = Gamefield::instance().getFieldTileFromXY(600, 600);
 		testFieldTile->setUnit(gunnerUnit);
 		testFieldTile->setTrench(true);
-		REQUIRE(player->computeIncome() == 136);
+		REQUIRE(player->computeIncome() == 148);
 
 	}
 }
@@ -101,9 +101,9 @@ TEST_CASE("Compute supply") {
 	shared_ptr<Unit> gunnerUnit = make_shared<Unit>(TYPES::UNITTYPE::GUNNER, true);
 	shared_ptr<Unit> ccUnit = make_shared<Unit>(TYPES::UNITTYPE::CC, true);
 	player->addUnit(gunnerUnit);
-	REQUIRE(player->getSupply() == 1);
+	REQUIRE(player->getUnitArray().size() == 1);
 	player->addUnit(ccUnit);
-	REQUIRE(player->getSupply() == 2);
+	REQUIRE(player->getUnitArray().size() == 2);
 }
 
 TEST_CASE("AP reset of units") {
