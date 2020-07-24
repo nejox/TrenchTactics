@@ -1,15 +1,19 @@
 #pragma once
-#include "Sprite.hpp"
+#include "Sprite.h"
+#include "SpriteMarker.h"
 #include "MouseClickEvent.h"
 
-/// <summary>
-/// Tileclass with relevant information, setters and getters
-/// </summary>
+/**
+ * Tileclass with relevant information, setters and getters.
+ */
 class Tile {
 private:
-	bool marked;
-	bool selected;
-	Sprite* sprite;
+	bool marked = false;
+	bool selected = false;
+	std::shared_ptr<Sprite> sprite;
+	std::shared_ptr<SpriteMarker> spriteMarker;
+	int posX;
+	int posY;
 
 
 public:
@@ -25,13 +29,34 @@ public:
 	bool getSelected() {
 		return this->selected;
 	}
-	void setSprite(Sprite* sprite) {
+	void setSprite(std::shared_ptr < Sprite> sprite) {
 		this->sprite = sprite;
 	}
-	Sprite* getSprite() {
+	std::shared_ptr<Sprite> getSprite() {
 		return this->sprite;
 	}
-	int startAnimation() {};
-	int update() {};
-	Tile() {};
+	void setMarker(std::shared_ptr<SpriteMarker> marker) {
+		this->spriteMarker = marker;
+	}
+	std::shared_ptr<SpriteMarker> getMarker() {
+		return this->spriteMarker;
+	}
+	void setPos(int x, int y) {
+		this->posY = y;
+		this->posX = x;
+		this->sprite->setPos(x, y);
+
+	}
+	int getPosY() {
+		return this->posY;
+	}
+	int getPosX() {
+		return this->posX;
+	}
+
+	Tile() {
+		this->marked = false;
+		this->selected = false;
+		this->sprite = NULL;
+	}
 };

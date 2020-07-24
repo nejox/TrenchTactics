@@ -1,0 +1,6 @@
+<map id="Tile" name="Tile">
+<area shape="rect" id="node1" title=" " alt="" coords="117,5,159,32"/>
+<area shape="rect" id="node2" href="$class_field_tile.html" title=" " alt="" coords="5,80,76,107"/>
+<area shape="rect" id="node3" href="$class_menu_tile.html" title=" " alt="" coords="101,80,175,107"/>
+<area shape="rect" id="node4" href="$class_player_tile.html" title=" " alt="" coords="200,80,279,107"/>
+</map>

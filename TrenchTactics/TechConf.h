@@ -1,13 +1,15 @@
 #pragma once
 
-/// <summary>
-/// Tech configeration data container with all getters and setters
-/// </summary>
+/**
+ * Tech configuration data container with all getters and setters
+ */
 class TechConf {
 private:
 	int fps;
 	int windowSizeX;
 	int windowSizeY;
+	std::string textFont;
+	std::string audioFilePath;
 public:
 	void setFPS(int fps) {
 		this->fps = fps;
@@ -26,5 +28,19 @@ public:
 	}
 	int getWindowSizeY() {
 		return this->windowSizeY;
+	}
+	void setTextFont(std::string textFont) {
+		this->textFont = textFont;
+	}
+	std::string getTextFont() {
+		return this->textFont;
+	}
+
+	void setaudioFilePath(std::string filePath) {
+		this->audioFilePath = filePath;
+	}
+
+	std::string getaudioFilePath() {
+		return this->audioFilePath;
 	}
 };

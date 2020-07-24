@@ -4,31 +4,46 @@
 #include "Logger.hpp"
 #include <string>
 
-/// <summary>
-/// Render constructor which sets both pointers to null pointers
-/// </summary>
+
+/**
+ * Render constructor which sets both pointers to null pointers
+ *
+ */
 RendererImpl::RendererImpl() {
 	m_pWindow = NULL;
 	m_pRenderer = NULL;
 }
 
-/// <summary>
-/// Init function which wraps the init of SDL
-/// Also creates a sdl window as well as the renderer
-/// On the way checks wether creation of all those things was succesfull
-/// </summary>
-/// <param name="ScreenWidth">int value to specifiy screen width</param>
-/// <param name="ScreenHeight">int value to specifiy screen height</param>
-/// <param name="ColorDepth">int specify colordepth standard value should be 16</param>
-/// <param name="bFullscreen">fullscreen or not</param>
-/// <returns></returns>
+/**
+ * Init function which wraps the init of SDL
+ * Also creates a sdl window as well as the renderer
+ * On the way checks wether creation of all those things was succesfull
+ *
+ * \param ScreenWidth int value to specifiy screen width
+ * \param ScreenHeight int value to specifiy screen height
+ * \param ColorDepth int specify colordepth standard value should be 16
+ * \param bFullscreen fullscreen or not
+ * \return
+ */
 bool RendererImpl::init(int ScreenWidth, int ScreenHeight,
 	int ColorDepth, bool bFullscreen)
 {
-	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) == -1)
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_AUDIO) == -1)
 	{
 		std::string msg = "SDL konnte nicht initialisiert werden!\n Fehlermeldung: ";
 		msg.append(SDL_GetError());
+
+		Logger::instance().log(LOGLEVEL::FATAL, msg);
+
+		destroy();
+
+		return (false);
+	}
+
+	if (TTF_Init() == -1)
+	{
+		std::string msg = "SDL_TTF konnte nicht initialisiert werden!\n Fehlermeldung: ";
+		msg.append(TTF_GetError());
 
 		Logger::instance().log(LOGLEVEL::FATAL, msg);
 
@@ -44,7 +59,7 @@ bool RendererImpl::init(int ScreenWidth, int ScreenHeight,
 	else
 		WindowFlags = SDL_WINDOW_SHOWN;
 
-	m_pWindow = SDL_CreateWindow("SDL_Game",
+	m_pWindow = SDL_CreateWindow("Trench Tactics",
 		SDL_WINDOWPOS_UNDEFINED,
 		SDL_WINDOWPOS_UNDEFINED,
 		ScreenWidth,
@@ -79,19 +94,21 @@ bool RendererImpl::init(int ScreenWidth, int ScreenHeight,
 	return (true);
 }
 
-/// <summary>
-/// Function to clear the screen from previously rendered objects
-/// </summary>
+/**
+ * Function to clear the screen from previously rendered objects
+ *
+ */
 void RendererImpl::clearScreen()
 {
 	SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 255);
 	SDL_RenderClear(m_pRenderer);
 }
 
-/// <summary>
-/// Function to quit the renderer class in a controlled way
-/// Destroys the window as well as the renderer initialized by the framework beforehand
-/// </summary>
+/**
+ * Function to quit the renderer class in a controlled way
+ * Destroys the window as well as the renderer initialized by the renderer beforehand
+ *
+ */
 void RendererImpl::destroy()
 {
 	if (m_pRenderer != NULL)
@@ -103,27 +120,20 @@ void RendererImpl::destroy()
 	{
 		SDL_DestroyWindow(m_pWindow);
 	}
+
+	TTF_Quit();
 	SDL_Quit();
 }
 
-/// <summary>
-/// Update function only used to update the timer though
-/// </summary>
+/**
+ * Update function only used to update the timer though
+ *
+ */
 void RendererImpl::updateTimer()
 {
-	CTimer::Get()->Update();
-}
+	Timer::instance().Update();
+	this->render();
 
-void RendererImpl::renderTile()
-{
-}
-
-void RendererImpl::renderHQ()
-{
-}
-
-void RendererImpl::startAnimation()
-{
 }
 
 void RendererImpl::render()

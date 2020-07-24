@@ -8,6 +8,7 @@
 #include <vector>
 #include <queue>
 #include <algorithm>
+#include "UnitMovementFinishedEvent.h"
 
 /**
  * Player main class - holds most of the informations
@@ -18,18 +19,64 @@ class Player
 private:
 	bool colorRed;
 	bool buying;
-	Headquarter* headquarter;
+	std::shared_ptr<Headquarter> headquarter;
+	// list holds all units of a player 
 	std::vector<std::shared_ptr<Unit>> unitArray;
+	// queue holds all units in a phase to be able to process them one after another
 	std::queue<std::shared_ptr<Unit>> unitQueue;
 	int money;
-	int interest;
 	int supply;
 	GAMEPHASES::GAMEPHASE currentPhase;
 public:
+	Player();
 	void init(bool colorRed);
-	void computeInterest();
+	int computeIncome();
 	void updatePlayer();
 	void copyUnitsToQueue();
+	void demarkActiveUnit();
+	void markActiveUnit();
+	void resetPlayer();
+	bool checkPlayerCanBuyUnits();
+	void handleUnitMovement(UnitMovementFinishedEvent* event);
+
+	/**
+	 * empties the unitQueue of the player.
+	 *
+	 */
+	void emptyQueue() {
+		while (!this->unitQueue.empty()) {
+			this->popUnit();
+		}
+	}
+
+	void requeueUnit();
+
+	/**
+	 * wrapper function to pop a unit in the queue.
+	 * don't ask me why we need this but we do
+	 * Sets defaultState for units
+	 * updates unit to show the new state immediately
+	 */
+	void popUnit(); 
+
+	/**
+	 * Add unit to the queue.
+	 * sets defaulltState for units
+	 * \param unit that will be added
+	 */
+	void queueUnit(std::shared_ptr<Unit> unit);
+	/**
+	* checks if unit is in Queue
+	* \param unitToFind unit to find in queue
+	* \return true if the queue contains the unit or false if not
+	*/
+	bool unitInQueue(std::shared_ptr<Unit> unitToFind);
+
+	/**
+	 * add unit to the list of units of a player.
+	 *
+	 * \param unit
+	 */
 	void addUnit(std::shared_ptr<Unit> unit) {
 		this->unitArray.push_back(unit);
 	}
@@ -42,6 +89,18 @@ public:
 	int getSupply() {
 		return this->supply;
 	}
+	int getMoney() {
+		return this->money;
+	}
+
+	/**
+	 * update the money with the given amount.
+	 * cuts values greater than 9999
+	 *
+	 * \param amount the amount of money you want to add to the players bank
+	 */
+	void updateMoney(int amount);
+
 	bool getColor() {
 		return this->colorRed;
 	}
@@ -58,4 +117,11 @@ public:
 		return this->buying;
 	}
 	void deleteUnit(DeathEvent* deathEvent);
+
+	void resetApForAllUnits();
+
+	/*
+	* updates alle units the player currently possesses
+	*/
+	void updateAllUnits();
 };

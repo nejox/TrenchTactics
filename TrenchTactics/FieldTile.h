@@ -1,42 +1,103 @@
 #pragma once
 #include "Tile.h"
 #include "Unit.h"
+#include "Corpse.h"
 
 
-/// <summary>
-/// FieldTile class for holding Units and Terraintyp
-/// </summary>
+/**
+ * FieldTile class for holding Units and Terraintype .
+ */
 class FieldTile : public Tile {
 
 public:
-	enum terrainType {
-		mud,
-		clay,
-		stone,
-		spawnterrain
+	/**
+	 * Different possible terraintypes.
+	 */
+	enum TERRAINTYPE {
+		MUD,
+		CLAY,
+		STONE,
+		SPAWNTERRAIN
 	};
 
 private:
 	std::shared_ptr<Unit> unit;
-	terrainType terrain;
+	TERRAINTYPE terrain;
+	std::shared_ptr<Corpse> corpse;
+
+	bool trench;
+	std::shared_ptr<std::map<int, std::shared_ptr<Sprite>>> trenchSprites;
+	
+
+
 public:
 
-	void setUnit(std::shared_ptr<Unit> unit) {
-		this->unit = unit;
+	FieldTile() {
+		this->trenchSprites = std::make_shared<std::map<int, std::shared_ptr<Sprite>>>();
+		this->trench = false;
+		this->unit = nullptr;
+	};
+
+	FieldTile(TERRAINTYPE terrain) {
+		this->terrain = terrain;
+		this->trenchSprites = std::make_shared<std::map<int, std::shared_ptr<Sprite>>>();
+		this->trench = false;
+		this->unit = nullptr;
 	}
+
+	~FieldTile() {};
+
+	void removeUnit();
+	void refreshTile();
+	void resetTile();
+
+	void setUnit(std::shared_ptr<Unit> unit);
+
 	std::shared_ptr<Unit> getUnit() {
 		return this->unit;
 	}
-	void setTerrain(terrainType terrain) {
+	void setTerrain(TERRAINTYPE terrain) {
 		this->terrain = terrain;
 	}
-	terrainType getTerrain() {
+	TERRAINTYPE getTerrain() {
 		return this->terrain;
 	}
 
-	FieldTile(terrainType terrain) {
-		this->terrain = terrain;
-	};
+	std::shared_ptr<Corpse> getCorpse() {
+		return this->corpse;
+	}
 
-	~FieldTile() {};
+	void setTrench(bool trench) {
+		if (this->getTerrain() != TERRAINTYPE::SPAWNTERRAIN) {
+			this->trench = trench;
+		}
+	}
+
+	bool hasTrench(){
+		return this->trench;
+	}
+
+	std::shared_ptr<std::map<int, std::shared_ptr<Sprite>>> getTrenchSprites()
+	{
+		return this->trenchSprites;
+	}
+
+	void addTrenchSprite(int rect, std::shared_ptr<Sprite> sprite)
+	{
+		if (this->getTerrain() != TERRAINTYPE::SPAWNTERRAIN) {
+			this->trenchSprites->insert(std::pair<int, std::shared_ptr<Sprite>>(rect, sprite));
+			refreshTile();
+		}
+	}
+
+	bool hasCopse();
+
+	/**
+	*adds a copse to the corpse vector
+	* \param x y coordinates of the copse
+	*/
+	void addCorpse();
+
+	void removeCorpse();
+
 };

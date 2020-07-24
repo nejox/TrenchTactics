@@ -1,56 +1,382 @@
-#include "Game.hpp"
-#include "Logger.hpp"
-#include "RendererImpl.h"
+#include "Game.h"
+#include "MenuBar.h"
 
-/// <summary>
-/// Constructor sets null pointer to background
-/// </summary>
-CGame::CGame()
-{
+
+
+/**
+ * Constructor for game class
+ *
+ */
+Game::Game() {
 	Logger::instance().log(LOGLEVEL::INFO, "Starting Game Class");
-	m_pSpriteBackground = NULL;
+	playerRed = NULL;
+	playerBlue = NULL;
+	isTutorial = NULL;
+	activePlayer = NULL;
+	ctrTurns = 0;
+	endTurn = false;
 }
 
-/// <summary>
-/// setup the game with initial background image 
-/// sets the running variable to true
-/// </summary>
-void CGame::Init()
-{
-	m_pSpriteBackground = new Sprite;
+/**
+ * Function to init the game
+ * Inits: Renderer, ConfigReader, both players, gamefield, eventgateway
+ * Sets the active player and starts game loop
+ *
+ */
+void Game::initGame() {
+	Logger::instance().log(LOGLEVEL::INFO, "Initializing Game Class");
+	Logger::instance().log(LOGLEVEL::INFO, "Initializing Configuration");
+	ConfigReader::instance().initConfigurations();
+	Logger::instance().log(LOGLEVEL::INFO, "Initializing Players");
+	this->playerRed = std::make_shared<Player>();
+	this->playerRed->init(true);
+	this->playerBlue = std::make_shared<Player>();
+	this->playerBlue->init(false);
 
-	m_pSpriteBackground->load("../Data/Sprites/Terrain/Background.bmp");
+	EventBus::instance().subscribe(this, &Game::handleEndTurn);
+	EventBus::instance().subscribe(this, &Game::quit);
+	EventBus::instance().subscribe(this, &Game::handleStartGame);
+	EventBus::instance().subscribe(this, &Game::handleStartTutorial);
+	EventBus::instance().subscribe(this, &Game::handleEndTutorial);
+	EventBus::instance().subscribe(this, &Game::handleIngameMenu);
+	EventBus::instance().subscribe(this, &Game::handleReturnToMenu);
+	EventBus::instance().subscribe(this, &Game::handleGameEnd);
 
-	m_bGameRun = true;
+	Logger::instance().log(LOGLEVEL::INFO, "Initializing Renderer");
+	this->renderer.init(ConfigReader::instance().getTechnicalConf()->getWindowSizeX(), ConfigReader::instance().getTechnicalConf()->getWindowSizeY(), 16, false);
+
+	Logger::instance().log(LOGLEVEL::INFO, "Initializing Menu");
+	this->menu.initMenu(true);
+
+	Logger::instance().log(LOGLEVEL::INFO, "Initializing Tutorial");
+	this->tutorial.initTutorial();
+
+	Logger::instance().log(LOGLEVEL::INFO, "Initializing Gateway");
+	this->gateway.init();
+
+	Logger::instance().log(LOGLEVEL::INFO, "Initializing Gamefield");
+	this->field.init(ConfigReader::instance().getMapConf()->getSizeX(), ConfigReader::instance().getMapConf()->getSizeY(), ConfigReader::instance().getMapConf()->getSeed());
+
+	Logger::instance().log(LOGLEVEL::INFO, "Initializing MenuBar");
+	this->menuBar.init();
+
+	Logger::instance().log(LOGLEVEL::INFO, "Initializing Sound");
+	this->soundManager.startMusic();
+
 }
 
-/// <summary>
-/// quits the game by deleting the background
-/// right now no usage because the game cannot be ended in an nonvolatile way
-/// </summary>
-void CGame::Quit()
+void Game::startMenu()
 {
-	if (m_pSpriteBackground != NULL)
-	{
-		delete (m_pSpriteBackground);
-		m_pSpriteBackground = NULL;
+	this->menu.showMenu();
+
+	while (this->menu.IsShowingMenu()) {
+		this->updateGame();
 	}
 }
 
-/// <summary>
-/// Main loop of the game
-/// calls update and renderer from the framework 
-/// </summary>
-void CGame::Run()
+void Game::startTutorial()
 {
-	while (m_bGameRun == true)
-	{
-		RendererImpl::instance().updateTimer();
-		RendererImpl::instance().clearScreen();
-		m_pSpriteBackground->render();
-		RendererImpl::instance().render();
+	tutorial.showTutorial();
+	while (isTutorial) {
+		updateGame();
+	}
+}
 
+/**
+ * Main game loop
+ * switches between gamephases and players
+ * updates players each loop
+ * controlled by gameRunning variable
+ *
+ */
+void Game::startGame() {
+
+	this->activePlayer = playerBlue;
+	this->gateway.setActivePlayer(playerBlue);
+	Logger::instance().log(LOGLEVEL::INFO, "Game Running");
+
+	//cover menu
+	this->field.init(ConfigReader::instance().getMapConf()->getSizeX(), ConfigReader::instance().getMapConf()->getSizeY(), ConfigReader::instance().getMapConf()->getSeed());
+	this->menuBar.init();
+
+	// start a player phase and switch player afterwards
+	while (true) {
+		this->ctrTurns++;
+
+		if (this->ctrTurns > 2)
+		{
+			// update player with income and stuff  
+			this->activePlayer->updatePlayer();
+		}
+
+		startPlayerPhase();
+		switchActivePlayer();
 	}
 
 }
 
+/**
+*handles end of a game, shows winning screen
+*/
+void Game::handleGameEnd(GameEndEvent* event)
+{
+	this->gameOver = true;
+	this->gateway.setGameEnd(true);
+	GameEnd::instance().initWinningScreen(event->getWinner());
+	GameEnd::instance().showWinningScreen();
+
+	while (gameOver) {
+		this->updateGame();
+	}
+}
+
+
+/**
+ * quits the game
+ *
+ */
+void Game::quit(EndGameEvent* event) {
+	//TODO gracefull shutdown
+	renderer.destroy(); 
+	std::exit(0);
+
+}
+
+/**
+ * start a player phase
+ * in buy phase: waits for purchase
+ * in move and attack phase: inits the queue of a player with every unit and waits until its empty
+ *
+ * when condition is met the next phase of a player starts
+ * should update the game every time in the time waiting for the empty queue
+ *
+ */
+void Game::startPlayerPhase() {
+	//loop over the different phases and wait for the active player to finish it
+	for (GAMEPHASES::GAMEPHASE phase : GAMEPHASES::All) {
+
+		if (this->endTurn == true) {
+			endTurn = false;
+			break;
+		}
+
+		this->activePlayer->setCurrentPhase(phase);
+		this->gateway.setCurrentPhase(phase);
+
+		if (phase == GAMEPHASES::BUY) {
+			this->startBuyPhase();
+		}
+
+
+		else if (phase == GAMEPHASES::MOVE) {
+			this->startMovePhase();
+		}
+		else if (phase == GAMEPHASES::ATTACK) {
+			
+				this->startAttackPhase();
+			
+		}
+
+		if (isTutorial) {
+			startTutorial();
+		}
+
+
+		// update game while in phase, buy phase as long as player buys, attack and move as long as there are units to move and stuff
+		while (!this->activePlayer->getUnitQueue().empty() || this->activePlayer->getBuying()) {
+			updateGame();
+		}
+	}
+}
+
+/**
+ * updates timer of the game
+ * triggers the event manager to forward the events
+ *
+ */
+void Game::updateGame() {
+	std::vector<std::shared_ptr<Unit>> unitsBlue = this->playerBlue->getUnitArray();
+	std::vector<std::shared_ptr<Unit>> unitsRed = this->playerRed->getUnitArray();
+
+	if (!menu.IsShowingMenu() && !gameOver) {
+		this->playerBlue->updateAllUnits();
+		this->playerRed->updateAllUnits();
+	}
+
+	renderer.updateTimer();
+	manager.processEvents();
+
+}
+
+/**
+ * handles the end of a turn event
+ *
+ */
+void Game::handleEndTurn(EndTurnEvent* event)
+{
+	this->endTurn = true;
+}
+
+/**
+ * handles the start of a game
+ *
+ */
+void Game::handleStartGame(StartGameEvent* event)
+{
+	startGame();
+}
+
+/**
+ * handles the start of the tutorial
+ *
+ */
+void Game::handleStartTutorial(StartTutorialEvent* event)
+{
+	this->isTutorial = true;
+	this->gateway.setTutorial(true);
+	startGame();
+}
+
+/**
+ * handles the end of the tutorial
+ *
+ */
+void Game::handleEndTutorial(EndTutorialEvent* event)
+{
+	this->isTutorial = false;
+	this->gateway.setTutorial(false);
+
+	this->field.refreshGamefieldFromXYtoXY(event->getStartX(), event->getEndX(), event->getStartY(), event->getEndY());
+}
+
+/**
+ * handles the call of the ingame menu
+ *
+ */
+void Game::handleIngameMenu(IngameMenuEvent* event)
+{
+		this->menu.initMenu(false);
+		this->menu.showMenu();
+
+		while (menu.IsShowingMenu()) {
+			updateGame();
+		}
+}
+
+/**
+ * returns to the main menu
+ *
+ */
+void Game::handleReturnToMenu(ReturnToMenuEvent* event)
+{
+	resetGame();
+
+	this->menu.initMenu(true);
+	menu.showMenu();
+}
+
+/**
+ * switch the acitve player based on the color of the active player
+ *
+ */
+void Game::switchActivePlayer() {
+
+	if (this->activePlayer != NULL) {
+		this->activePlayer->demarkActiveUnit();
+
+
+		this->endTurn = false;
+
+		if (this->activePlayer->getColor()) {
+			this->activePlayer = playerBlue;
+			this->gateway.setActivePlayer(playerBlue);
+		}
+		else {
+			this->activePlayer = playerRed;
+			this->gateway.setActivePlayer(playerRed);
+		}
+
+		//prevent units to stay in queue if their only target was killed
+		if (!this->activePlayer->getUnitQueue().empty()) {
+			this->activePlayer->emptyQueue();
+		}
+
+		this->activePlayer->resetApForAllUnits();
+
+
+	}
+}
+
+/**
+ * setup attack phase
+ * copys units to queue and displays buttons
+ * set the gateway state
+ *
+ */
+void Game::startAttackPhase() {
+
+	Gamefield::instance().deselectAndUnmarkAllTiles();
+	menuBar.resetUnitStats();
+	menuBar.updateMenuBar(GAMEPHASES::ATTACK, activePlayer);
+	this->gateway.setCurrentPhase(GAMEPHASES::ATTACK);
+	this->activePlayer->copyUnitsToQueue();
+
+	this->activePlayer->markActiveUnit();
+
+}
+
+/**
+ * reset the Game
+ * -> reset Gamefield
+ * -> reset Players
+ *
+ */
+void Game::resetGame()
+{
+	
+	field.resetGamefield();
+	this->playerBlue->resetPlayer();
+	this->playerRed->resetPlayer();
+	this->menuBar.init();
+}
+
+/**
+ * setup buy phase
+ * set active player to be in buying state and displays buttons
+ * set the gateway state
+ *
+ */
+void Game::startBuyPhase() {
+	if (this->activePlayer->checkPlayerCanBuyUnits()) {
+		menuBar.resetUnitStats();
+
+		menuBar.updateMenuBar(GAMEPHASES::BUY, activePlayer);
+		this->gateway.setCurrentPhase(GAMEPHASES::BUY);
+
+		this->activePlayer->setBuying(true);
+	}
+}
+
+/**
+ * setup move phase
+ * copys units to queue and displays buttons
+ * set the gateway state
+ *
+ */
+void Game::startMovePhase() {
+
+
+
+	Gamefield::instance().deselectAndUnmarkAllTiles();
+	menuBar.updateMenuBar(GAMEPHASES::MOVE, activePlayer);
+	this->gateway.setCurrentPhase(GAMEPHASES::MOVE);
+	this->activePlayer->copyUnitsToQueue();
+
+	//if (!this->activePlayer->getUnitQueue().empty())
+		//Gamefield::instance().selectAndMarkeTilesByUnit(this->activePlayer->getUnitQueue().front(), GAMEPHASES::MOVE, this->activePlayer->getColor());
+
+	menuBar.reInitButtons(GAMEPHASES::MOVE);
+	this->activePlayer->markActiveUnit();
+
+
+}

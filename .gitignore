@@ -8,4 +8,13 @@ TrenchTactics.vcxproj.filters
 TrenchTactics.vcxproj.user
 *.log
 TrenchTactics/.vs/
-
+Release/ObjectFiles/
+Release/*.log
+TrenchTactics_Test.sln
+TrenchTactics_Test.vcxproj
+TrenchTactics_Test.vcxproj.filters
+TrenchTactics_Test.vcxproj.user
+TrenchTactics_Test/.vs/
+TrenchTactics_Test/Debug/
+TrenchTactics_Test/x64/
+*.DS_Store

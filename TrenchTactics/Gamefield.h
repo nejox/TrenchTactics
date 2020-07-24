@@ -7,6 +7,11 @@
 #include "MapConf.h"
 #include "stdlib.h"
 #include <vector>
+#include <ctime> //?
+#include "Gamephases.h"
+#include "SpriteMarker.h"
+#include "MenuBar.h"
+
 
 /**
  * Gamefield class for generating and holding the playingfield
@@ -15,75 +20,41 @@ class Gamefield {
 private:
 	static const int defaultXSizeField = 18;
 	static const int defaultYSizeField = 12;
+	static const int sprintRange = 3;
 
-	std::shared_ptr<vector<vector<std::shared_ptr<MenuTile>>>> menuBar;
-	std::shared_ptr<vector<vector<std::shared_ptr<PlayerTile>>>> headquarterTilePlayerBlue;
-	std::shared_ptr<vector<vector<std::shared_ptr<PlayerTile>>>> headquarterTilePlayerRed;
-	std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> playingfield;
-	std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> spawnBlue;
-	std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> spawnRed;
-
+	std::shared_ptr<PlayerTile> headquarterTilePlayerBlue;
+	std::shared_ptr<PlayerTile> headquarterTilePlayerRed;
+	std::shared_ptr<std::vector<std::vector<std::shared_ptr<FieldTile>>>> playingfield;
+	std::shared_ptr<std::vector<std::vector<std::shared_ptr<FieldTile>>>> spawnBlue;
+	std::shared_ptr<std::vector<std::vector<std::shared_ptr<FieldTile>>>> spawnRed;
+	
 	Gamefield();
 
 	void setAllFieldSizes();
-	void setSizePlayerTilesBlue();
-	void setSizePlayerTilesRed();
-	void setSizeMenuBar();
+	
 	void setSizePlayingField();
 	void setSizeSpawnBlue();
 	void setSizeSpawnRed();
 
-	void initiatePlayerTilesBlue();
-	void initiatePlayerTilesRed();
-	void initiateMenuTiles();
-	void initiateSpawnTilesBlue();
-	void initiateSpawnTilesRed();
-	void initiatePlayingFieldTiles();
+	void initializePlayerTilesBlue();
+	void initializePlayerTilesRed();
+	
+	void initializeSpawnTilesBlue();
+	void initializeSpawnTilesRed();
+	void initializePlayingFieldTiles();
+
+	std::shared_ptr<FieldTile> getSpawnFieldRed(int posX, int posY);
+	std::shared_ptr<FieldTile> getSpawnFieldBlue(int posX, int posY);
+
+	std::shared_ptr<Sprite> getRandomSpawnTileSprite(int rndNumber, bool colorRed);
+
+	std::shared_ptr<FieldTile> createFieldTile(int posX, int posY, FieldTile::TERRAINTYPE type);
+
 
 public:
-	void setMenuBar(std::shared_ptr<vector<vector <std::shared_ptr<MenuTile>>>> menuBar) {
-		this->menuBar = menuBar;
-	}
-	std::shared_ptr<vector<vector<std::shared_ptr<MenuTile>>>> getMenuBar() {
-		return this->menuBar;
-	}
-	void setHqTilePlayerBlue(std::shared_ptr<vector<vector<std::shared_ptr<PlayerTile>>>> hqTilePlayer) {
-		this->headquarterTilePlayerBlue = hqTilePlayer;
-	}
-	std::shared_ptr<vector<vector<std::shared_ptr<PlayerTile>>>> getHqTilePlayerBlue() {
-		return this->headquarterTilePlayerBlue;
-	}
-	void setHqTilePlayerRed(std::shared_ptr<vector<vector<std::shared_ptr<PlayerTile>>>> hqTilePlayer) {
-		this->headquarterTilePlayerRed = hqTilePlayer;
-	}
-	std::shared_ptr<vector<vector<std::shared_ptr<PlayerTile>>>> getHqTilePlayerRed() {
-		return this->headquarterTilePlayerRed;
-	}
-	void setField(std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> field) {
-		this->playingfield = field;
-	}
-	std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> getField() {
-		return this->playingfield;
-	}
-	void setSpawnBlue(std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> spawnBlue) {
-		this->spawnBlue = spawnBlue;
-	}
-	std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> getSpawnBlue() {
-		return this->spawnBlue;
-	}
-	void setSpawnRed(std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> spawnRed) {
-		this->spawnRed = spawnRed;
-	}
-	std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> getSpawnRed() {
-		return this->spawnRed;
-	}
-
-
-	void resetGameField();
 	~Gamefield();
-	// void assignEventToTile(MouseClickEvent event); -----noch noetig?
 
-	std::shared_ptr<Tile> getTilePointerAt(int x, int y);
+	std::shared_ptr<Tile> getTilePointerAt(int xPos, int yPos);
 
 	Gamefield(const Gamefield&) = delete;
 	Gamefield& operator=(const Gamefield&) = delete;
@@ -96,9 +67,55 @@ public:
 	}
 
 	int spawnUnitInSpawn(std::shared_ptr<Unit> unit, bool redPlayerActive);
-	bool fieldTileIsFree(int x, int y, vector<vector<std::shared_ptr<FieldTile>>> activeSpawn);
+
+	bool fieldTileIsFree(int x, int y, std::shared_ptr<std::vector<std::vector<std::shared_ptr<FieldTile>>>> activeSpawn);
 
 	void init(int FieldWidth, int FieldHeight, int Seed);
 
-	std::shared_ptr<FieldTile> findTileForUnit(std::shared_ptr<Unit> pUnit);
+	std::shared_ptr<FieldTile> findTileByUnit(std::shared_ptr<Unit> pUnit);
+
+	std::shared_ptr<FieldTile> getFieldTileFromXY(int posX, int posY);
+	std::shared_ptr<FieldTile> getSpawnTileFromXY(bool colorRed, int posX, int posY);
+	std::shared_ptr<PlayerTile> getPlayerTileFromXY(int posX, int posY);
+
+	void setHqTilePlayerBlue(std::shared_ptr<PlayerTile> hqTilePlayer) {
+		this->headquarterTilePlayerBlue = hqTilePlayer;
+	}
+	std::shared_ptr<PlayerTile> getHqTilePlayerBlue() {
+		return this->headquarterTilePlayerBlue;
+	}
+	void setHqTilePlayerRed(std::shared_ptr<PlayerTile> hqTilePlayer) {
+		this->headquarterTilePlayerRed = hqTilePlayer;
+	}
+	std::shared_ptr<PlayerTile> getHqTilePlayerRed() {
+		return this->headquarterTilePlayerRed;
+	}
+	void setPlayingfield(std::shared_ptr<std::vector<std::vector<std::shared_ptr<FieldTile>>>> field) {
+		this->playingfield = field;
+	}
+	std::shared_ptr<std::vector<std::vector<std::shared_ptr<FieldTile>>>> getPlayingfield() {
+		return this->playingfield;
+	}
+	void setSpawnBlue(std::shared_ptr<std::vector<std::vector<std::shared_ptr<FieldTile>>>> spawnBlue) {
+		this->spawnBlue = spawnBlue;
+	}
+	std::shared_ptr<std::vector<std::vector<std::shared_ptr<FieldTile>>>> getSpawnBlue() {
+		return this->spawnBlue;
+	}
+	void setSpawnRed(std::shared_ptr<std::vector<std::vector<std::shared_ptr<FieldTile>>>> spawnRed) {
+		this->spawnRed = spawnRed;
+	}
+	std::shared_ptr<std::vector<std::vector<std::shared_ptr<FieldTile>>>> getSpawnRed() {
+		return this->spawnRed;
+	}
+
+	void selectAndMarkeTilesByUnit(std::shared_ptr<Unit> pUnit, GAMEPHASES::GAMEPHASE gamephase, bool redPlayerActiv);
+
+	void deselectAndUnmarkAllTiles();
+
+	bool checkUnitHasEnemysAround(std::shared_ptr<Unit> pUnit, bool colorRed);
+
+	void refreshGamefieldFromXYtoXY(int sX, int eX, int sY, int eY);
+
+	void resetGamefield();
 };

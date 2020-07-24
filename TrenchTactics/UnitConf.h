@@ -2,9 +2,11 @@
 #include <string>
 
 
-/// <summary>
-/// Unit configeration data container with all getters and setters
-/// </summary>
+/**
+ * Unit Configuration data container with all values concerning the available units
+ * Provides all getters and setters as well
+ * Provided by the ConfigReader
+ */
 class UnitConf {
 private:
 
@@ -15,33 +17,36 @@ private:
 	int ap;
 	int dmg;
 	int apCostAttack;
-	int apCostMove;
+	int movementRange;
 	int apCostTrench;
+	int apCostMove;
 	int spawnProbability;
 	std::string name;
 
-	std::string spriteFilePathStandingRed;
+	std::string spriteFilePathStandingActiveRed;
+	std::string spriteFilePathStandingNeutralRed;
+	std::string spriteFilePathStandingDarkRed;
 	std::string spriteFilePathShootingRed;
 	std::string spriteFilePathRunningRed;
 
-	std::string spriteFilePathStandingBlue;
+	std::string spriteFilePathStandingActiveBlue;
+	std::string spriteFilePathStandingNeutralBlue;
+	std::string spriteFilePathStandingDarkBlue;
 	std::string spriteFilePathShootingBlue;
 	std::string spriteFilePathRunningBlue;
 
 
 public:
-
-
 	void setId(int id) {
 		this->id = id;
 	}
 	int getId() {
 		return this->id;
 	}
-	void setHp(int hp) {
+	void setHP(int hp) {
 		this->hp = hp;
 	}
-	int getHp() {
+	int getHP() {
 		return this->hp;
 	}
 	void setRange(int range) {
@@ -56,10 +61,10 @@ public:
 	int getCost() {
 		return this->cost;
 	}
-	void setAp(int ap) {
+	void setAP(int ap) {
 		this->ap = ap;
 	}
-	int getAp() {
+	int getAP() {
 		return this->ap;
 	}
 	void setDmg(int dmg) {
@@ -68,27 +73,35 @@ public:
 	int getDmg() {
 		return this->dmg;
 	}
-	void setApCostAttack(int apCostAttack)
+	void setAPCostAttack(int apCostAttack)
 	{
 		this->apCostAttack = apCostAttack;
 	}
-	int getApCostAttack() {
+	int getAPCostAttack() {
 		return this->apCostAttack;
 	}
-	void setApCostMove(int apCostMove)
+	void setMovementRange(int movementRange)
 	{
-		this->apCostMove = apCostMove;
+		this->movementRange = movementRange;
 	}
-	int getApCostMove() {
-		return this->apCostMove;
+	int getMovementRange() {
+		return this->movementRange;
 	}
 	void setApCostTrench(int apCostTrench)
 	{
 		this->apCostTrench = apCostTrench;
 	}
-	int getApCostTrench() {
+	int getAPCostTrench() {
 		return this->apCostTrench;
 	}
+	void setAPCostMove(int apCostMove)
+	{
+		this->apCostMove = apCostMove;
+	}
+	int getAPCostMove() {
+		return this->apCostMove;
+	}
+
 	void setSpawnProbability(int spawnProbability) {
 		this->spawnProbability = spawnProbability;
 	}
@@ -101,11 +114,23 @@ public:
 	std::string getName() {
 		return this->name;
 	}
-	void setSpriteFilePathStandingRed(std::string spriteFilePathStandingRed) {
-		this->spriteFilePathStandingRed = spriteFilePathStandingRed;
+	void setSpriteFilePathStandingActiveRed(std::string spriteFilePathStandingActiveRed) {
+		this->spriteFilePathStandingActiveRed = spriteFilePathStandingActiveRed;
 	}
-	std::string getSpriteFilePathStandingRed() {
-		return this->spriteFilePathStandingRed;
+	std::string getSpriteFilePathStandingActiveRed() {
+		return this->spriteFilePathStandingActiveRed;
+	}
+	void setSpriteFilePathStandingNeutralRed(std::string spriteFilePathStandingNeutralRed) {
+		this->spriteFilePathStandingNeutralRed = spriteFilePathStandingNeutralRed;
+	}
+	std::string getSpriteFilePathStandingNeutralRed() {
+		return this->spriteFilePathStandingNeutralRed;
+	}
+	void setSpriteFilePathStandingDarkRed(std::string spriteFilePathStandingDarkRed) {
+		this->spriteFilePathStandingDarkRed = spriteFilePathStandingDarkRed;
+	}
+	std::string getSpriteFilePathStandingDarkRed() {
+		return this->spriteFilePathStandingDarkRed;
 	}
 	void setSpriteFilePathShootingRed(std::string spriteFilePathShootingRed) {
 		this->spriteFilePathShootingRed = spriteFilePathShootingRed;
@@ -119,11 +144,23 @@ public:
 	std::string getSpriteFilePathRunningRed() {
 		return this->spriteFilePathRunningRed;
 	}
-	void setSpriteFilePathStandingBlue(std::string spriteFilePathStandingBlue) {
-		this->spriteFilePathStandingBlue = spriteFilePathStandingBlue;
+	void setSpriteFilePathStandingActiveBlue(std::string spriteFilePathStandingActiveBlue) {
+		this->spriteFilePathStandingActiveBlue = spriteFilePathStandingActiveBlue;
 	}
-	std::string getSpriteFilePathStandingBlue() {
-		return this->spriteFilePathStandingBlue;
+	std::string getSpriteFilePathStandingActiveBlue() {
+		return this->spriteFilePathStandingActiveBlue;
+	}
+	void setSpriteFilePathStandingNeutralBlue(std::string spriteFilePathStandingNeutralBlue) {
+		this->spriteFilePathStandingNeutralBlue = spriteFilePathStandingNeutralBlue;
+	}
+	std::string getSpriteFilePathStandingNeutralBlue() {
+		return this->spriteFilePathStandingNeutralBlue;
+	}
+	void setSpriteFilePathStandingDarkBlue(std::string spriteFilePathStandingDarkBlue) {
+		this->spriteFilePathStandingDarkBlue = spriteFilePathStandingDarkBlue;
+	}
+	std::string getSpriteFilePathStandingDarkBlue() {
+		return this->spriteFilePathStandingDarkBlue;
 	}
 	void setSpriteFilePathShootingBlue(std::string spriteFilePathShootingBlue) {
 		this->spriteFilePathShootingBlue = spriteFilePathShootingBlue;

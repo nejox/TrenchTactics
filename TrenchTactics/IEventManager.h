@@ -1,8 +1,9 @@
 #pragma once
 
-/// <summary>
-/// IEventManager interface to achieve capsulation
-/// </summary>
+
+/**
+ * Event Manager Interface.
+ */
 class IEventManager
 {
 public:

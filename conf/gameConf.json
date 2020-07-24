@@ -1,27 +1,23 @@
 {
 	"balance": {
-		"hqHP": 500,
+		"hqHP": 300,
 		"trenchIncomeFactor": 2,
 		"maxAmountUnits": 20,
-		"startingGold": 100,
-		"rerollCost": 20
+		"startingGold": 300,
+		"rerollCost": 10,
+		"additionalUnitRollCost" : 5
 	},
 	"map": {
 		"seed": 1234561,
 		"sizeX": 18,
 		"sizeY": 12,
-		"headquarterSpriteRed": "../Data/Sprites/HQ/R_HQ.bmp",
-		"headquarterSpriteBlue": "../Data/Sprites/HQ/B_HQ.bmp",
-		"terrainSprites": [
-			"filePathToStone",
-			"filePathToMud",
-			"filePathToClay"
-		],
-		"spawnTileSprite": "filePathToSpawnSprite"
+		"corpseSprite": "../Data/Sprites/Token/CORPSE.bmp"
 	},
 	"technical": {
 		"fps": 30,
 		"windowSizeX": 1408,
-		"windowSizeY": 960
+		"windowSizeY": 960,
+		"textFont" : "../Data/Fonts/BOO_REG.ttf",
+		"audioFilePath" : "../Data/Sound/BattleForGlory.wav"
 	}
 }

@@ -1,11 +1,10 @@
 #pragma once
 #include "IEventManager.h"
-#include "Singleton.hpp"
 
-/// <summary>
-/// EventManagerImpl class based on singelton pattern
-/// for implementing the EventManager and handling events
-/// </summary>
+/**
+ * EventManagerImpl class based on singelton pattern
+ * for implementing the EventManager and handling events
+ */
 class EventManagerImpl :
 	public IEventManager
 {
@@ -23,7 +22,7 @@ public:
 		return eventManager;
 	}
 
-private: 
+private:
 	EventManagerImpl() {};
 };
 

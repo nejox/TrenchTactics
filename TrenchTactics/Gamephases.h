@@ -13,4 +13,14 @@ namespace GAMEPHASES {
 	};
 	static const GAMEPHASE All[] = { BUY, MOVE, ATTACK };
 
+	enum TUTORIALPHASE {
+		INTRO,
+		MENU,
+		UNITS,
+		TUT_BUY,
+		TUT_MOVE,
+		TUT_ATTACK
+	};
+	static const TUTORIALPHASE TutAll[] = { INTRO, MENU, UNITS, TUT_BUY, TUT_MOVE, TUT_ATTACK };
+
 }

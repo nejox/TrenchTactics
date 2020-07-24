@@ -1,17 +1,15 @@
 #pragma once
 
 /**
- * Map configeration data container with all getters and setters
+ * Map configuration data container with all getters and setters
  */
 class MapConf {
 private:
 	int seed;
 	int sizeX;
 	int sizeY;
-	std::string headquarterSpriteBlue;
-	std::string headquarterSpriteRed;
-	std::string spawnTileSprite;
-	std::vector<std::string> terrainSpriteList;
+	std::string corpseSprite;
+
 public:
 	void setSeed(int seed) {
 		this->seed = seed;
@@ -31,28 +29,10 @@ public:
 	int getSizeY() {
 		return this->sizeY;
 	}
-	void setHeadquarterSpriteBlue(std::string headquarterSpriteBlue) {
-		this->headquarterSpriteBlue = headquarterSpriteBlue;
+	void setCorpseSprite(std::string corpseSprite) {
+		this->corpseSprite = corpseSprite;
 	}
-	std::string getHeadquarterSpriteBlue() {
-		return this->headquarterSpriteBlue;
-	}
-	void setHeadquarterSpriteRed(std::string headquarterSpriteRed) {
-		this->headquarterSpriteRed = headquarterSpriteRed;
-	}
-	std::string getHeadquarterSpriteRed() {
-		return this->headquarterSpriteRed;
-	}
-	void setTerrainSpriteList(std::vector<std::string> terrainSpriteList) {
-		this->terrainSpriteList = terrainSpriteList;
-	}
-	std::vector<std::string> getTerrainSpriteList() {
-		return this->terrainSpriteList;
-	}
-	void setSpawnTileSprite(std::string spawnTileSprite) {
-		this->spawnTileSprite = spawnTileSprite;
-	}
-	std::string getSpawnTileSprite() {
-		return this->spawnTileSprite;
+	std::string getCorpseSprite() {
+		return this->corpseSprite;
 	}
 };
