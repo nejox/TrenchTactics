@@ -31,11 +31,12 @@ Diese Basis wird dann in Gewissen Aspekten weiterentwickelt. Moderne Element sol
 Das erste Konzept ist die Mechanik das Einheiten, die dem Spieler zum Kaufen zur Verfuegung gestellt werden, per Zufall ausgewaehlt werden. Diese Zufallsauswahl kann dann von dem Spieler erneut ausgefuehrt werden um eine neue Auswahl an Einheiten zu bekommen.
 Hierfuer wird entsprechend eine Waehrung benoetigt um einen solchen "ReRoll" zu bezahlen. Deswegen wird hier, wieder aus dem AuoBattler Genre, die naechste Erweiterung geklaut und ein Wirtschaftsystem implementiert. Verschiedene Faktoren haben hier Auswirkung auf das Einkommmen das Runde fuer Runde an die Spieler ausbezahlt wird.
 
-Ziel des Spiels ist es das gegnerische Hauptgebaeude zu zerstoeren.
-Als zusaetzliche namensgebende Mechanik wurden noch Schützengräben eingefuegt.
-Diese geben Einheiten einen defensiv Bonus und für den Spieler eine höhere Einkommensrate.
 
 ### Ablauf des Spiels:
+
+Ziel des Spiels ist es das gegnerische Hauptgebaeude zu zerstoeren.
+Als zusaetzliche namensgebende Mechanik wurden noch Schützengräben eingefuegt.
+Diese geben Einheiten einen defensiv Bonus und dem Spieler eine höhere Einkommensrate.
 
 ![Game Statediagram](Doku/StateDiagramGame.png)
 
