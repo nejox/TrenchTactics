@@ -53,10 +53,12 @@ Derzeit wird TrenchTactics als Windows Application compiled, um eine Application
 
 ###### General Settings
 ![General Settings Visual Studio](Doku/GeneralSettingsVisualStudio.jpg)
-###### VC++ Settings
-![VC++ Visual Studio](Doku/VC++VisualStudio.jpg)
+###### Include Directories
+![Includeverzeichnisse](Doku/Includeverzeichnisse.png)
+###### Library Directories
+![Bibliothecksverzeichnisse](Doku/Bibliothecksverzeichnisse.png)
 ###### Linker Input Settings
-![Linker Input Settings Visual Studio](Doku/LinkerInputVisualStudio.jpg)
+![Linker Input Settings Visual Studio](Doku/LinkerInputSettings.png)
 
 
 <a name="komponentenuebersicht"></a>
@@ -65,7 +67,7 @@ Im folgenden werden die einzelnen Komponenten beschrieben die zusammen eine Basi
 
 <a name="framework"></a>
 ### Framework
-Das Framework das im Projekt TrenchTactics ist [SDL2](https://www.libsdl.org/). SDL2 stellt hauptsaechlich Grundfunktionalitaeten zur Verfuegung, in unserem Projekt speziell:
+Das Framework im Projekt TrenchTactics ist [SDL2](https://www.libsdl.org/). SDL2 stellt hauptsaechlich Grundfunktionalitaeten zur Verfuegung, in unserem Projekt speziell:
 - Laden der einzelnen Sprites die im Spiel verwendet werden
 - Darstellen der Sprites
 - Animation der Sprites
