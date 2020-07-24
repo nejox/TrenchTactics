@@ -19,6 +19,7 @@
   - [Player](#player)
   - [EventGateway](#eventgateway)
 - [Architektur](#architektur)
+- [Pattern](#pattern)
 
 
 <a name="Spielidee/Motivation und Ziele"></a>
@@ -347,3 +348,29 @@ Die hier enstehenden Aktionen sind dann zum Beispiel die Bewegung von Units, Ein
 Alle visuellen Veraenderungen werden ueber die Sprites gehandelt und dann automatisch mit jeder zeitlichen Iteration gerendert. Das bedeutet das zum Beispiel das Szenario schiessen einer Unit so realisiert wird, dass der Status der Einheit geandert wird, hierueber folgt eine Aenderung der derzeitig aktuellen Sprite. Sobald dann ein Timer update passiert, wird diese aktuelle Sprite gerendert (hier im Spezialfall Schiessen wird eine Animation gestartet).
 
 Im gesamten Projekt wurde darauf geachtet die Verbindung zu SDL2 nicht zu starr zu implementieren. Nahezu jede SDL Funktion wurde hinter Interfaces "versteckt". Am besten zu sehen am Beispiel des EventManagers der den UserInput behandelt. (genauer zu sehen im spezifischen Kapitel)
+
+<a name="pattern"></a>
+## Pattern
+
+#### Singelton
+In mehreren verschiedenen Klassen, wie zum Beispiel dem Logger oder ConfigReader, wurde das Singelton Pattern verwendet.
+Am Beispiel der Konfigurationen bedeutet dies das die einzlenen Konfigurationen nur ein einzieges Mal geladen werden muessen.
+Hier zu Beispiel Code aus dem ConfigReader:
+```c++
+	~ConfigReader();
+	ConfigReader(const ConfigReader&) = delete;
+	ConfigReader& operator=(const ConfigReader&) = delete;
+	ConfigReader(ConfigReader&&) = delete;
+	ConfigReader& operator=(ConfigReader&&) = delete;
+
+	static auto& instance() {
+		static ConfigReader confReader;
+		return confReader;
+	}
+```
+Es werden alle Standardkonstruktoren und co geloescht und durch die Funktion instance ersetzt.
+Folgend kann der ConfigReader dann ueber
+```c++
+ConfigReader::instance()
+```
+genutzt werden.
