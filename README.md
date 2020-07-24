@@ -328,7 +328,7 @@ Das EventGateway ist mit die wichtigste Komponente im Spiel. Alle Events die von
 Hier wird dann geprueft mit Hilfe der Phase und der Position des MouseClickEvents was der User eigentlich bezwecken wollte, verarbeitet und an entsprechender Stelle ausgefuehrt. Als Basis hierfuer kennt das EventGateway den derzeitig aktiven Spieler sowie die aktuelle Phase des Spiels. Fast alle anderen wichtigen Informationen werden ueber Singeltons abgerufen.
 Beispiel Kauf einer Unit im EventGateway:
 
-HIER SEQUENZDIAGRAMM UNIT BUY IM EVENTGATEWAY
+![EventGateway UnitBuy](Doku/BuyPhaseSequenzDiagram.png)
 
 <a name="architektur"></a>
 ## Architektur
