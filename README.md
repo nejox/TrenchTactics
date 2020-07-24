@@ -46,19 +46,17 @@ Um das Projekt zum jetzigen Zeitpunkt benutzen zu koennen und zu debuggen werden
 
 Alle dlls sind jedoch mit im Repository hinterlegt und muessen somit nicht manuell mit eingebunden werden, wenn die precompiled Version genutzt wird.
 
-Derzeit wird TrenchTactics als Windows Application compiled, um eine Application mit Console zum Zwecke des Debuggings zu compilen muss eine kleine Codeveraenderung vorgenommen werden. Die rot unterstrichene Zeile muss hinzugefügt werden:
+Derzeit wird TrenchTactics als Console Application compiled, um eine reine Executeable zu compilen muss eine kleine Codeveraenderung vorgenommen werden. Die rot unterstrichene Zeile muss entfernt werden:
 ![SDL Main Handled](Doku/SDL_Main_Handled.jpg)
 
 #### Folgende Einstellungen unter Project Properties muessen getroffen werden um TrenchTactics mit VisualStudio 2019 kompilieren zu koennen:
 
 ###### General Settings
 ![General Settings Visual Studio](Doku/GeneralSettingsVisualStudio.jpg)
-###### Include Directories
-![Includeverzeichnisse](Doku/Includeverzeichnisse.png)
-###### Library Directories
-![Bibliothecksverzeichnisse](Doku/Bibliothecksverzeichnisse.png)
+###### VC++ Settings
+![VC++ Visual Studio](Doku/VC++VisualStudio.jpg)
 ###### Linker Input Settings
-![Linker Input Settings Visual Studio](Doku/LinkerInputSettings.png)
+![Linker Input Settings Visual Studio](Doku/LinkerInputVisualStudio.jpg)
 
 
 <a name="komponentenuebersicht"></a>
@@ -67,7 +65,7 @@ Im folgenden werden die einzelnen Komponenten beschrieben die zusammen eine Basi
 
 <a name="framework"></a>
 ### Framework
-Das Framework im Projekt TrenchTactics ist [SDL2](https://www.libsdl.org/). SDL2 stellt hauptsaechlich Grundfunktionalitaeten zur Verfuegung, in unserem Projekt speziell:
+Das Framework das im Projekt TrenchTactics ist [SDL2](https://www.libsdl.org/). SDL2 stellt hauptsaechlich Grundfunktionalitaeten zur Verfuegung, in unserem Projekt speziell:
 - Laden der einzelnen Sprites die im Spiel verwendet werden
 - Darstellen der Sprites
 - Animation der Sprites
@@ -80,7 +78,7 @@ SDL2 passt fuer unsere Anforderungen am Besten, da wirklich nur Basis Funktionen
 ![Timer Klasse](Doku/TimerClass.jpg)
 
 TrenchTactics ist ein Timer bzw Tick based Spiel. Dies bedeutet das Aktionen jeweils pro Tick abgearbeitet werden.
-Angenommen ein der User betaetigt einen Knopf wird diese Aktion (in diesem Fall von SDL2) gespeichert und nach jedem Tick durch die jeweilig zustaendigen Funktionen verarbeitet. (zu sehen im Kapitel EventManager: processEvents()) 
+Angenommen ein der User betaetigt einen Knopf wird diese Aktion (in diesem Fall von SDl2) gespeichert und nach jedem Tick durch die jeweilig zustaendigen Funktionen verarbeitet. (zu sehen im Kapitel EventManager: processEvents()) 
 Dies hat den eindeutigen Vorteil das dadurch kein Gedanke an Threading verschwendet werden muss. Die Nachteile die sich dadurch ergeben wuerden, wie etwa Latenz, sind jedoch fuer TrenchTactics nicht allzu ausschlaggebend und werden somit gekonnt ignoriert.
 
 In der Timer Klasse wird die letzte Zeit (Tick), bereits vergangene Zeit und jetztige Zeit gespeichert und durch aufrufen der Funktion Update aktualisiert.
@@ -98,10 +96,6 @@ void CTimer::Update()
 	m_fCurTime = SDL_GetTicks() / 1000.0f;
 	m_fElapsed = m_fCurTime - m_fLastTime;
 	m_fLastTime = m_fCurTime;
-	
-	if(m_fElapsed < 0.001f){
-		SDL_Delay(1);
-        }
 }
 ```
 <a name="eventmanagement"></a>
@@ -324,7 +318,7 @@ In der Klasse Player wird sich hauptsaechlich eben um Spieler spezifische Dinge 
 
 <a name="eventgateway"></a>
 ### EventGateway
-Das EventGateway ist mit die wichtigste Komponente im Spiel. Alle Events die von SDL als Aktion aufgenommen werden und an den Eventbus weitergeleitet werden landen in einem ersten Schritt hier.
+Das EventGateway ist mit die wichtigste Komponente im Spiel. Alle Events die von SDL als Aktion aufgenommen werden und an den Eventbus weitergeleitet werden, landen in einem ersten Schritt hier.
 Hier wird dann geprueft mit Hilfe der Phase und der Position des MouseClickEvents was der User eigentlich bezwecken wollte, verarbeitet und an entsprechender Stelle ausgefuehrt. Als Basis hierfuer kennt das EventGateway den derzeitig aktiven Spieler sowie die aktuelle Phase des Spiels. Fast alle anderen wichtigen Informationen werden ueber Singeltons abgerufen.
 Beispiel Kauf einer Unit im EventGateway:
 
@@ -334,10 +328,16 @@ HIER SEQUENZDIAGRAMM UNIT BUY IM EVENTGATEWAY
 ## Architektur
 ![Architecture Big Picture](Doku/ArchitectureBigPicture.jpg)
 
-In Oben zu sehenden Bild gibt es einen kurzen Ueberblick ueber die ganz grobe Architektur im Projekt was im folgenden Schritt fuer Schritt immer genauer erklaert werden soll.
+In Oben zu sehenden Bild gibt es einen kurzen Ueberblick ueber die grobe Architektur im Projekt was im folgenden Schritt fuer Schritt erklaert werden soll.
+Die einzelnen (wichtigen Komponenten) wurden bereits genau erklaert. In diesem Abschnitt soll es nun nur noch um den Zusammenhang der einzelnen Klassen gehen.
 
 Die Architektur kann grundsaetzlich grob in die fuenf deutlich zu sehenden Elemente unterteilt werden. 
+Als Basis stehen an vielen Stellen die SDL2 Standardfunktionen, wie zum Beispiel das Abgreifen der UserInputs im letzten Zeitframe. Auch bereits erklaert wurde die Config ueber die ein Grossteil der Informationen ins Spiel fliessen.
 
-User Input wird durch die erste Komponente entegegen genommen, dann in der grossen Komponente "Game", unter zuhilfenahme der Datenbasis, verarbeitet und dann dem User entsprechend wieder angezeigt. All diese Komponenten bauen auf verschiedenen Low-Level Funktionen von SDL2 auf und werden jetzt, Baustein fuer Baustein, erklaert.
+User Input wird durch den EventManager von SDL2 entegegen genommen und auf den enstprechenden Bus gelegt. Dazwischen steht dann das so gennante  "EventGateway". Von hier aus werden dann die Events dann zum Teil ausgegfuehrt oder an eine Ausfuehrende Stelle weitergeleitet.
+
+Die hier enstehenden Aktionen sind dann zum Beispiel die Bewegung von Units, Einkaufen von Units oder aehnliches. Hieraus folgende Aenderungen wie zum Beispiel das anpassen des Vermoegens eines Spielers kann dann zentral verarbeitet werden.
+
+Alle visuellen Veraenderungen werden ueber die Sprites gehandelt und dann automatisch mit jeder zeitlichen Iteration gerendert. Das bedeutet das zum Beispiel das Szenario schiessen einer Unit so realisiert wird, dass der Status der Einheit geandert wird, hierueber folgt eine Aenderung der derzeitig aktuellen Sprite. Sobald dann ein Timer update passiert, wird diese aktuelle Sprite gerendert (hier im Spezialfall Schiessen wird eine Animation gestartet).
 
 Im gesamten Projekt wurde darauf geachtet die Verbindung zu SDL2 nicht zu starr zu implementieren. Nahezu jede SDL Funktion wurde hinter Interfaces "versteckt". Am besten zu sehen am Beispiel des EventManagers der den UserInput behandelt. (genauer zu sehen im spezifischen Kapitel)
