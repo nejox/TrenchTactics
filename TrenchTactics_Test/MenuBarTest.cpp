@@ -2,7 +2,7 @@
 #include "../TrenchTactics/MenuBar.h"
 
 TEST_CASE("Test init functions") {
-	std::shared_ptr<MenuBar> testBar = make_shared<MenuBar>();
+	//std::shared_ptr<MenuBar> testBar = make_shared<MenuBar>();
 
 }
 

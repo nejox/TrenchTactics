@@ -84,8 +84,8 @@ TEST_CASE("UnitConf values are initialized") {
 	std::shared_ptr<UnitConf> unitConf = confReader.getUnitConf(0);
 	SECTION("Test if unitConf values are initialized (by sample)") {
 		SECTION("ApCostAttack is in a reasonable range") {
-			REQUIRE(unitConf->getApCostAttack() > 0);
-			REQUIRE(unitConf->getApCostAttack() < 100);
+			REQUIRE(unitConf->getAPCostAttack() > 0);
+			REQUIRE(unitConf->getAPCostAttack() < 100);
 		}
 		SECTION("DMG is in a reasonable range") {
 			REQUIRE(unitConf->getDmg() > 0);

@@ -2,6 +2,7 @@
 #include "../TrenchTactics/Headquarter.h"
 #include "../TrenchTactics/ConfigReader.h"
 
+using namespace std;
 
 
 TEST_CASE("Test change of hp as well as dmg state of HQ") {
