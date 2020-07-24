@@ -32,7 +32,7 @@ Das erste Konzept ist die Mechanik das Einheiten, die dem Spieler zum Kaufen zur
 Hierfuer wird entsprechend eine Waehrung benoetigt um einen solchen "ReRoll" zu bezahlen. Deswegen wird hier, wieder aus dem AuoBattler Genre, die naechste Erweiterung geklaut und ein Wirtschaftsystem implementiert. Verschiedene Faktoren haben hier Auswirkung auf das Einkommmen das Runde fuer Runde an die Spieler ausbezahlt wird.
 
 
-### Ablauf des Spiels:
+#### Ablauf des Spiels:
 
 Ziel des Spiels ist es das gegnerische Hauptgebaeude zu zerstoeren.
 Als zusaetzliche namensgebende Mechanik wurden noch Schützengräben eingefuegt.
