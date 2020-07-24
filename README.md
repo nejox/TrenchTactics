@@ -78,7 +78,7 @@ SDL2 passt fuer unsere Anforderungen am Besten, da wirklich nur Basis Funktionen
 ![Timer Klasse](Doku/TimerClass.jpg)
 
 TrenchTactics ist ein Timer bzw Tick based Spiel. Dies bedeutet das Aktionen jeweils pro Tick abgearbeitet werden.
-Angenommen ein der User betaetigt einen Knopf wird diese Aktion (in diesem Fall von SDl2) gespeichert und nach jedem Tick durch die jeweilig zustaendigen Funktionen verarbeitet. (zu sehen im Kapitel EventManager: processEvents()) 
+Angenommen ein der User betaetigt einen Knopf wird diese Aktion (in diesem Fall von SDL2) gespeichert und nach jedem Tick durch die jeweilig zustaendigen Funktionen verarbeitet. (zu sehen im Kapitel EventManager: processEvents()) 
 Dies hat den eindeutigen Vorteil das dadurch kein Gedanke an Threading verschwendet werden muss. Die Nachteile die sich dadurch ergeben wuerden, wie etwa Latenz, sind jedoch fuer TrenchTactics nicht allzu ausschlaggebend und werden somit gekonnt ignoriert.
 
 In der Timer Klasse wird die letzte Zeit (Tick), bereits vergangene Zeit und jetztige Zeit gespeichert und durch aufrufen der Funktion Update aktualisiert.
@@ -96,6 +96,10 @@ void CTimer::Update()
 	m_fCurTime = SDL_GetTicks() / 1000.0f;
 	m_fElapsed = m_fCurTime - m_fLastTime;
 	m_fLastTime = m_fCurTime;
+	
+	if(m_fElapsed < 0.001f){
+		SDL_Delay(1);
+        }
 }
 ```
 <a name="eventmanagement"></a>
