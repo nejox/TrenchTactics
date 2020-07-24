@@ -24,19 +24,19 @@
 
 <a name="spielidee-und-ziele"></a>
 ## Spielidee und Ziele
-In der Gamingindustrie geht der Trend hinzu Reboots/Remakes alter und vor allem erfolgreicher Spiele. Fast alle grossen Publisher sind auf diesen Zug augesprungen. Kuerzlich wurde Warcraft 3 Reforged veroeffentlicht, ein Reboot des von Blizzard gepublishtem RTS im Warcraft Universum.
-Im Zuge der Suche nach einem geeigneten Thema fuer ein Programmierprojekt hat sich unsere Gruppe dazu entschieden in eine aehnlich Richtung aufzubrechen. Als Basis wurde AdvanceWars ausgewaehlt, ein Nintendo GameBoy Advance Spiel. AdvanceWars ist ein rundenbasiertes Strategiespiel in dem der Spieler verschiedene Militaerische Einheiten kontrollieren und diese taktisch klug bewegen um den Gegner zu besiegen.
-Dieses Konzept wird quasi als Basis fuer TrenchTactics uebernommen. Zwei Spieler die auf einer Karte aggieren und Einheiten kaufen, bewegen und mit ihnen kaempfen koennen. Ziel des Spiels ist das gegnerische Hauptgebaeude zu zerstoeren. In unserer Version wird das Spiel als Hot-Seat Spiel entwickelt, dies bedeutet das die beiden Spieler abwecheselnd and einem Client spielen und ihre Aktionen durchfuehren.
-Diese Basis wird dann in Gewissen Aspekten weiterentwickelt. Moderne Element sollen in das "alte" Spielkonzept mit einfliessen. Das "AutoBattler" Genre ist genau so ein modernes Spielkonzept das erst in den letzten Jahren gross geworden ist, aus eben diesem Genre werden zwei wichtige Konzepte mit in TrenchTactics einfliessen. 
-Das erste Konzept ist die Mechanik das Einheiten, die dem Spieler zum Kaufen zur Verfuegung gestellt werden, per Zufall ausgewaehlt werden. Diese Zufallsauswahl kann dann von dem Spieler erneut ausgefuehrt werden um eine neue Auswahl an Einheiten zu bekommen.
-Hierfuer wird entsprechend eine Waehrung benoetigt um einen solchen "ReRoll" zu bezahlen. Deswegen wird hier, wieder aus dem AuoBattler Genre, die naechste Erweiterung geklaut und ein Wirtschaftsystem implementiert. Verschiedene Faktoren haben hier Auswirkung auf das Einkommmen das Runde fuer Runde an die Spieler ausbezahlt wird.
+In der Gamingindustrie geht der Trend hinzu Reboots/Remakes alter und vor allem erfolgreicher Spiele. Fast alle großen Publisher sind auf diesen Zug aufgesprungen. Kürzlich wurde Warcraft 3 Reforged veroeffentlicht, ein Reboot des von Blizzard gepublishtem RTS im Warcraft Universum.
+Im Zuge der Suche nach einem geeigneten Thema für ein Programmierprojekt hat sich unsere Gruppe dazu entschieden in eine ähnliche Richtung aufzubrechen. Als Basis wurde Advance Wars ausgewaehlt, ein Nintendo GameBoy Advance Spiel. Advance Wars ist ein rundenbasiertes Strategiespiel, in dem der Spieler verschiedene Militärische Einheiten kontrollieren und diese taktisch klug bewegen, um den Gegner zu besiegen.
+Dieses Konzept wird als Basis fuer TrenchTactics uebernommen. Zwei Spieler, die auf einer Karte agieren und Einheiten kaufen, bewegen und mit ihnen kämpfen koennen. Ziel des Spiels ist das gegnerische Hauptgebäude zu zerstoeren. In unserer Version wird das Spiel als Hot-Seat Spiel entwickelt, dies bedeutet das die beiden Spieler abwechselnd an einem Client spielen und ihre Aktionen durchfuehren.
+Diese Basis wird dann in Gewissen Aspekten weiterentwickelt. Moderne Element sollen in das "alte" Spielkonzept mit einfließen. Das "AutoBattler" Genre ist genauso ein modernes Spielkonzept, das erst in den letzten Jahren groß geworden ist, aus eben diesem Genre werden zwei wichtige Konzepte mit in TrenchTactics einfließen. 
+Das erste Konzept ist die Mechanik das Einheiten, die dem Spieler zum Kaufen zur Verfügung gestellt werden, per Zufall ausgewaehlt werden. Diese Zufallsauswahl kann dann von dem Spieler erneut ausgeführt werden, um eine neue Auswahl an Einheiten zu bekommen.
+Hierfür wird eine Währung benötigt, um einen solchen "ReRoll" zu bezahlen. Deswegen wird hier, wieder aus dem AutoBattler Genre, die naechste Erweiterung gestohlen und ein Wirtschaftssystem implementiert. Verschiedene Faktoren haben hier Auswirkung auf das Einkommen das Runde fuer Runde an die Spieler ausbezahlt wird.
 
 
 #### Ablauf des Spiels:
 
-Ziel des Spiels ist es das gegnerische Hauptgebaeude zu zerstoeren.
+Ziel des Spiels ist es das gegnerische Hauptgebäude zu zerstoeren.
 Als zusaetzliche namensgebende Mechanik wurden noch Schützengräben eingefuegt.
-Diese geben Einheiten einen defensiv Bonus und dem Spieler eine höhere Einkommensrate.
+Diese geben Einheiten einen defensiven Bonus und dem Spieler eine höhere Einkommensrate.
 
 ![Game Statediagram](Doku/StateDiagramGame.png)
 
@@ -44,7 +44,7 @@ Nachdem man das Tutorial durchlaufen hat, oder direkt ein Match startet, werden 
 
 - Buy Phase: Kaufen neuer Einheiten oder einen "ReRoll" durchführen
 - Move Phase: Bewegen der Einheiten und Schützengräben ausheben
-- Attack Phase: gegnerische Einheiten bzw. Hauptgebaeude angreifen und weitere Schützengräben ausheben
+- Attack Phase: gegnerische Einheiten bzw. Hauptgebäude angreifen und weitere Schützengräben ausheben
 
 <a name="vorbedingungen"></a>
 ## Vorbedingungen
@@ -57,7 +57,7 @@ Um das Projekt zum jetzigen Zeitpunkt benutzen zu koennen und zu debuggen werden
 - zlib1.dll
 - libfreetype-6.dll
 
-Alle dlls sind jedoch mit im Repository hinterlegt und muessen somit nicht manuell mit eingebunden werden, wenn die precompiled Version genutzt wird.
+Alle .dlls sind jedoch mit im Repository hinterlegt und muessen somit nicht manuell mit eingebunden werden, wenn die precompiled Version genutzt wird.
 
 Derzeit wird TrenchTactics als Windows Application compiled, um eine Application mit Console zum Zwecke des Debuggings zu compilen muss eine kleine Codeveraenderung vorgenommen werden. 
 Die rot unterstrichene Zeile muss hinzugefügt werden:
@@ -79,7 +79,7 @@ Die rot unterstrichene Zeile muss hinzugefügt werden:
 
 <a name="komponentenuebersicht"></a>
 ## Komponentenuebersicht
-Im folgenden werden die einzelnen Komponenten beschrieben die zusammen eine Basis schaffen um die logische Funktionalitaet von TrenchTactics zu bewerkstelligen.
+Im Folgenden werden die einzelnen Komponenten beschrieben, die zusammen eine Basis schaffen, um die logische Funktionalitaet von TrenchTactics zu bewerkstelligen.
 Alle Komponenten sind auch noch mit Code Kommentaren in Doxygen hinterlegt. 
 
 <a name="framework"></a>
@@ -90,9 +90,9 @@ SDL2 stellt hauptsaechlich Grundfunktionalitaeten zur Verfuegung, in unserem Pro
 - Laden der einzelnen Sprites die im Spiel verwendet werden
 - Darstellen der Sprites
 - Animation der Sprites
-- Annahme des UserInput per Maus (bisher ist kein Keyboard-Input moeglich)
+- Annahme des User Input per Maus (bisher ist kein Keyboard-Input moeglich)
 
-SDL2 passt fuer unsere Anforderungen am Besten, da wirklich nur Basis Funktionen genutzt werden sollen. Andere Optionen wie z.B. Unity als GameFramework wurden zwar in Betracht gezogen aber nicht ausgewaehlt. Solche Frameworks bieten sehr viel Basisfunktionalitaet, jedoch ist unsere persoenliche Preferenz fuer dieses Projekt so wenig Code von Frameworks zu nutzen wie moeglich.
+SDL2 passt fuer unsere Anforderungen am besten, da wirklich nur Basis Funktionen genutzt werden sollen. Andere Optionen, wie z.B. Unity als GameFramework wurden zwar in Betracht gezogen aber nicht ausgewaehlt. Solche Frameworks bieten sehr viel Basisfunktionalitaet, jedoch ist unsere persoenliche Preferenz fuer dieses Projekt so wenig Code von Frameworks zu nutzen wie moeglich.
 
 <a name="timer"></a>
 ### Timer
@@ -101,11 +101,11 @@ Link zu DoxygenFile: [TimerClass](Doku/Doxygen/html/class_timer.html)
 
 ![Timer Klasse](Doku/TimerClass.jpg)
 
-TrenchTactics ist ein Timer bzw Tick based Spiel. Dies bedeutet das Aktionen jeweils pro Tick abgearbeitet werden.
+TrenchTactics ist ein Timer bzw. Tick based Spiel. Dies bedeutet das Aktionen jeweils pro Tick abgearbeitet werden.
 Angenommen ein der User betaetigt einen Knopf wird diese Aktion (in diesem Fall von SDl2) gespeichert und nach jedem Tick durch die jeweilig zustaendigen Funktionen verarbeitet. (zu sehen im Kapitel EventManager: processEvents()) 
-Dies hat den eindeutigen Vorteil das dadurch kein Gedanke an Threading verschwendet werden muss. Die Nachteile die sich dadurch ergeben wuerden, wie etwa Latenz, sind jedoch fuer TrenchTactics nicht allzu ausschlaggebend und werden somit gekonnt ignoriert.
+Dies hat den eindeutigen Vorteil das dadurch kein Gedanke an Threading verschwendet werden muss. Die Nachteile, die sich dadurch ergeben wuerden, wie etwa Latenz, sind jedoch fuer TrenchTactics nicht allzu ausschlaggebend und werden somit gekonnt ignoriert.
 
-In der Timer Klasse wird die letzte Zeit (Tick), bereits vergangene Zeit und jetztige Zeit gespeichert und durch aufrufen der Funktion Update aktualisiert.
+In der Timer Klasse wird die letzte Zeit (Tick), bereits vergangene Zeit und jetztige Zeit gespeichert und durch Aufrufen der Funktion Update aktualisiert.
 Diese Funktion wird bei jedem update des Spiels aufgerufen. Hier wird dann auch die Zeit ueberprueft und ein entsprechender "sleep" eingebaut der dafuer sorgt das der Ablauf des Spiels nicht zu schnell passiert.
 Ebenfalls ist hier zu sehen das die SDL Funktion GetTicks aufgerufen wird,die die Anzahl der bereits vergangenen Ticks zurueckgibt. 
 
@@ -125,17 +125,17 @@ void CTimer::Update()
 <a name="eventmanagement"></a>
 ### EventManagement
 
-Als Grundkonzept fuer das Eventmanagement wurde ein so gennanter EventBus eingefuehrt. Der uber publish/subscribe Methoden Events an LogikKomponenten ubergibt. Technisch regestriert sich eine Methode aus einer Klasse fuer ein Event und gibt an welche Funktion fuer das entsprechende Event ausgefuehrt werden soll.
+Als Grundkonzept fuer das Eventmanagement wurde ein so gennanter EventBus eingefuehrt. Der uber publish/subscribe Methoden Events an Logik Komponenten übergibt. Technisch registriert sich eine Methode aus einer Klasse fuer ein Event und gibt an welche Funktion fuer das entsprechende Event ausgefuehrt werden soll.
 ```c++
 EventBus::instance().subscribe(this, &Game::handleStartGame);
 void Game::handleStartGame(StartGameEvent* event);
 ```
-In der ersten Zeile sieht man hier die subscribe Mehtode, die als Argumente die Instanz der ausfuehrenden Klasse sowie die Methode der Klasse die sich um das Event kuemmern soll. 
-Die zweite Zeile beschreibt dannn die Methode die das Event behandelt. Hier wird als Parameter das spezialisierte Event angegeben. Uber diesen Parameter wird dann im EventBus auch entschieden ob die Funktion aufgerufen wird oder nicht.
+In der ersten Zeile sieht man hier die subscribe Methode, die als Argumente die Instanz der ausführenden Klasse sowie die Methode der Klasse, die sich um das Event kuemmern soll. 
+Die zweite Zeile beschreibt dann die Methode, die das Event behandelt. Hier wird als Parameter das spezialisierte Event angegeben. Uber diesen Parameter wird dann im EventBus auch entschieden ob die Funktion aufgerufen wird oder nicht.
 
 ![Event Klassen Uebersicht](Doku/EventClassesOverview.jpg)
 
-In der Ubersicht sieht man alle moeglichen Events die verwendet werden. Auf das ein oder andere Event wird spaeter noch genauer eingegangen.
+In der Ubersicht sieht man alle moeglichen Events, die verwendet werden. Auf das ein oder andere Event wird spaeter noch genauer eingegangen.
 
 Der Publish des Events funktioniert dann aequivalent einfach. Uber eine Instanz des EventBus wird ein Event instance ueber die publish Funktion an alle Abonennten verteilt.
 ```c++
@@ -146,7 +146,7 @@ Zusaetzlich zum EventBus gibt is im Event Kontext noch den EventManager an sich:
 ![EventManager Klasse](Doku/EventManagerClass.jpg)
 
 In dieser Klasse werden User Eingaben behandelt. Dies bedeutet hier werden Events erzeugt und auf den EventBus gelegt und dann entsprechender Stelle behandelt. 
-Als Abstraktions Ebene wurde hier ein Interface eingezogen hinter dem sich dann die SDL2 spezifischen Aktionen verstecken.
+Als Abstraktions Ebene wurde hier ein Interface eingezogen, hinter dem sich dann die SDL2 spezifischen Aktionen verstecken.
 Die Implementierung basiert hier auf, wie eben erwaehnt, SDL2 Funktionen. Technisch wird hier dann pro Timer Tick ueber die Funktion 
 ```c++ 
 SDL_PollEvent(&Event)
@@ -162,9 +162,9 @@ Das Rendern der verschiedenen Sprites nutzt hier, wieder, ein SDL2 interne Funkt
 
 ![Renderer Klasse](Doku/RendererClass.jpg)
 
-Wird genau wie der EventManger hinter einem Interface versteckt - dies gewaehrleistet das, falls noetig, ein Framework wechsel nicht eine komplette Code Aenderung mitsich bringt.
+Wird genau wie der EventManager hinter einem Interface versteckt - dies gewährleistet das, falls nötig, ein Framework Wechsel nicht eine komplette Code Änderung mit sich bringt.
 
-Jede Ressource die gerendert werden soll hat eine Referenz zu einer Instanz der Klasse Sprite:
+Jede Ressource, die gerendert werden soll, hat eine Referenz zu einer Instanz der Klasse Sprite:
 ```c++
 m_sprite = make_shared<SpriteUnit>(colorRed, unittype);
 ```
@@ -173,20 +173,20 @@ Die Sprite Klasse:
 
 ![Sprite Klasse](Doku/SpriteClass.jpg)
 
-Wie man erkennen kann beinhaltet die Klasse alle noetigen technischen Mittel um die entsprechende Sprite zu laden.
-Technisch wird ueber einen filepath die Sprite geladen. Dann kann entweder die komplette Sprite oder nur einen Ausschnitt an einer bestimmten Position gerendert werden. Dies laeuft dann uber die Referenz auf den SDL Renderer der ueber die RendererImpl bereitgestellt wird.
+Wie man erkennen kann beinhaltet die Klasse alle noetigen technischen Mittel, um die entsprechende Sprite zu laden.
+Technisch wird ueber einen Filepath die Sprite geladen. Dann kann entweder die komplette Sprite oder nur einen Ausschnitt an einer bestimmten Position gerendert werden. Dies laeuft dann über die Referenz auf den SDL Renderer der ueber die RendererImpl bereitgestellt wird.
 Genauer Ablauf am Beispiel einer Unit als Aktivitaetsdiagramm (dies beschreibt den Ablauf des renderns einer Unit):
 
 ![Unit render Aktivitaetsdiagramm](Doku/RenderUnitActivitydiagram.jpg)
 
-Ab dem Punkt an dem die Funktion SDL_RenderCopy aufgerufen wird, kuemmert sich SDL um die Darstellung. Hier zu sehen als Uebergabe Parameter der Renderer, zwei Rectangles, sowie die Sprite. Ein Rect beschereibt den Ort wo die Sprite hin gerendert werden soll, dass andere den Ausschnitt des kompletten Sprites der gerendert wird. (e.g. erste Phase einer Animationsreihe)
+Ab dem Punkt an dem die Funktion SDL_RenderCopy aufgerufen wird, kuemmert sich SDL um die Darstellung. Hier zu sehen als Uebergabe Parameter der Renderer, zwei Rectangles, sowie die Sprite. Ein Rect beschreibt den Ort, an dem die Sprite gerendert werden soll, dass andere den Ausschnitt des kompletten Sprites, der gerendert wird. (e.g. erste Phase einer Animationsreihe)
 
-Ausserdem gibt es hier die Moeglichkeit Animationen zu realisieren. Dies funktioniert ueber die eben erwaehnten Ausschnitte:
+Außerdem gibt es hier die Möglichkeit Animationen zu realisieren. Dies funktioniert ueber die eben erwähnten Ausschnitte:
 
 ![Unit Sample](Doku/UnitSample.jpg)
 
-In diesem Bild sieht man die einzelnen Ausschnitte der Animation, mit Hilfe der verschiedenen Ausschnitte und mit Hilfe des Timers koennen so Animationen angezeigt werden. Nach jedem Tick wird der nachste Ausschnitt geladen.
-Als kleine Side-Note: Hier sieht man die pinke Hintergrundfarbe, diese wird verwendet um die Sprite vom Hintergrund zu trennen. Bedeutet nur die wirklichen Pixel der Unit werden gerendert und das pink sozusagen ausgeschlossen.
+In diesem Bild sieht man die einzelnen Ausschnitte der Animation, mit Hilfe der verschiedenen Ausschnitte und mit Hilfe des Timers können so Animationen angezeigt werden. Nach jedem Tick wird der nächste Ausschnitt geladen.
+Als kleine Side-Note: Hier sieht man die pinke Hintergrundfarbe, diese wird verwendet, um die Sprite vom Hintergrund zu trennen. Bedeutet nur die wirklichen Pixel der Unit werden gerendert und das pink sozusagen ausgeschlossen.
 
 <a name="config"></a>
 ### Config Reader
@@ -194,7 +194,7 @@ Link zu DoxygenFile: [ConfigReaderClass](Doku/Doxygen/html/class_config_reader.h
 
 
 Um alle noetigen Einstellungen treffen zu koennen wurde ein entsprechendes Config System implementiert.
-Alle wichtigen Informationen wie Balancing, Pfade zu Sprites so wie alle sonstigen Einstellungen die sonst ausserhalb des Spiels getroffen werden koennten. Hierzu werden verschieden JSON Dokumente verwendet.
+Alle wichtigen Informationen wie Balancing, Pfade zu Sprites, sowie alle sonstigen Einstellungen die sonst ausserhalb des Spiels getroffen werden koennten. Hierzu werden verschieden JSON Dokumente verwendet.
 Hier als Beispiel ein Ausschnitt aus einer Config einer Einheit.
 
 ```json
@@ -228,8 +228,8 @@ Hier als Beispiel ein Ausschnitt aus einer Config einer Einheit.
 }
 ```
 
-Zum Start des Spiels werden einmalig alle Konfigurationen geladen. Der komplette Config Reader ist ebenfalls mit dem Singelton Pattern gebaut, heisst die eine Instanz die zum Start des Spiels erstellt wird und alle Konfigurationen befuellt bleibt die komplette Laufzeit im Speicher und vermeidet hier unnoetigen IO Traffic.
-Die erstmalige Instanzierung und Initalisierung passiert in der Game Klasse mit folgendem Code:
+Zum Start des Spiels werden einmalig alle Konfigurationen geladen. Der komplette Config Reader ist ebenfalls mit dem Singelton Pattern gebaut, heißt die eine Instanz, die zum Start des Spiels erstellt wird und alle Konfigurationen befüllt bleibt die komplette Laufzeit im Speicher und vermeidet hier unnoetigen IO Traffic.
+Die erstmalige Instanziierung und Initialisierung passiert in der Game Klasse mit folgendem Code:
 ```c++
 ConfigReader::instance().initConfigurations();
 ```
@@ -260,18 +260,18 @@ Dieser kann verwendet werden ueber:
 ```c++
 Logger::instance().log(LOGLEVEL::INFO, "Initializing Tutorial");
 ```
-In dem enum LOGLEVEL sind die aus Java bekannten LOGLEVEL hinterlegt. Als zweites Argument wird einfach die Logmessage angegeben.
+In dem Enum LOGLEVEL sind die aus Java bekannten LOGLEVEL hinterlegt. Als zweites Argument wird einfach die Logmessage angegeben.
 
 <a name="gamefield"></a>
 ### Gamefield
 Link zu DoxygenFile: [GamefieldClass](Doku/Doxygen/html/class_gamefield.html)
 
 
-Als Basis fuer die Erstellung des Gamefields werden so genannte Tiles verwendet. Das sind kleine Ausschnitte des gesamten Spielfelds mit fest gesetzter Pixelgroesse von 64\*64. Aus diesen Tiles wird das komplette Spielfeld erzeugt, jede einzelne Sprite ist auf das 64\*64 Fenster ausgelegt.
+Als Basis fuer die Erstellung des Gamefields werden so genannte Tiles verwendet. Das sind kleine Ausschnitte des gesamten Spielfelds mit fest gesetzter Pixelgroeße von 64\*64. Aus diesen Tiles wird das komplette Spielfeld erzeugt, jede einzelne Sprite ist auf das 64\*64 Fenster ausgelegt.
 
 ![Terrain Mud](Doku/terrainMud.jpg)
 
-Hier als Beispiel eine solche Sprite die zur Erstellung des Spielfeldes genutzt wird. Durch eine festgesetzte Groesse, die zu einem spaeteren Zeitpunkt noch variable einstellbar gemacht werden soll, wird das Spielfeld erzeugt. Dieses Spielfeld sind im Endeffekt nur zwei ineinander geschachtelte Vektoren die Referenzen zu den einzelnen Tiles halten.
+Hier als Beispiel eine solche Sprite die zur Erstellung des Spielfeldes genutzt wird. Durch eine festgesetzte Größe, die zu einem spaeteren Zeitpunkt noch variable einstellbar gemacht werden soll, wird das Spielfeld erzeugt. Dieses Spielfeld sind nur zwei ineinander geschachtelte Vektoren die Referenzen zu den einzelnen Tiles halten.
 
 ```c++
 std::shared_ptr<vector<vector<std::shared_ptr<FieldTile>>>> playingfield;
@@ -298,7 +298,7 @@ for (vector<vector<std::shared_ptr<FieldTile>>>::iterator xIter = playingfield->
   }
 	}
 ```
-Hier sieht man dann bereits das dass Spielfeld zufaellig erzeugt wird. Ausserdem werden hier die Positionen der Tiles mit dem Faktor 64 in Pixelvalues umgerechnet. Der Offset von 2\*64 ist hier eingefuegt um den Spielerbereich des rechten Spielers zu ueberbruecken.
+Hier sieht man dann bereits, dass das Spielfeld zufaellig erzeugt wird. Außerdem werden hier die Positionen der Tiles mit dem Faktor 64 in Pixelvalues umgerechnet. Der Offset von 2\*64 ist hier eingefuegt um den Spielerbereich des rechten Spielers zu ueberbruecken.
 
 Zugegebenermassen ist die diese Erstellung an verschiedenen Stellen eher komplex (zumindest aus Codetechnischer Sicht), aber hilft durch die Unterteilung in die einzelnen Tiles enorm (zum Beispiel beim rendern von Units auf entsprechende Tiles).
 Die Klasse Gamefield ist deswegen auch mit die komplexeste Klasse des kompletten Projekts.
@@ -308,21 +308,21 @@ Die Klasse Gamefield ist deswegen auch mit die komplexeste Klasse des kompletten
 Link zu DoxygenFile: [TileClass](Doku/Doxygen/html/class_tile.html)
 
 
-Die hier eingesetzten Tiles haben nicht nur die Aufgabe der Darstellung der Sprites sondern sind gleichzeitig Datencontainer des Gamefields. In den Tiles werden so zum Beispiel Units abgelegt die auf ihnen residieren. Aber auch alle Buttons, das Headquarter oder Trenches sind hier abgelegt.
-Ueber diese Mapping zwischen Tile und Objekt kann dann sehr einfach zugeordnet werden wo der User hingeclickt hat, bzw. auf welches Objekt er zugreifen wollte.
-Ausserdem vereinfacht das dass Rendering. Wie bereits zuvor erklaert braucht die Sprite immer ein Zielort zum rendern, durch das Ablegen auf der Tile wird einfach die Position der Tile uebernommen. Dadurch wird dann quasei, zum Beispiel, die Unit Sprite einfach ueber das Spielfieldtile drueber gerendert.
-Beim entfernen der Unit wird dann einfach der Hintergrund neu gerendert um die alte UnitSprite zu ueberdecken.
+Die hier eingesetzten Tiles haben nicht nur die Aufgabe der Darstellung der Sprites sondern sind gleichzeitig Datencontainer des Gamefields. In den Tiles werden so zum Beispiel Units abgelegt, die auf ihnen residieren. Aber auch alle Buttons, das Headquarter oder Trenches sind hier abgelegt.
+Ueber diese Mapping zwischen Tile und Objekt kann dann sehr einfach zugeordnet werden, wo der User hingeclickt hat, bzw. auf welches Objekt er zugreifen wollte.
+Außerdem vereinfacht, dass das Rendering. Wie bereits zuvor erklärt braucht die Sprite immer ein Zielort zum Rendern, durch das Ablegen auf der Tile wird einfach die Position der Tile übernommen. Dadurch wird dann, zum Beispiel, die Unit Sprite einfach ueber das Gamefieldtile drüber gerendert.
+Beim Entfernen der Unit wird dann einfach der Hintergrund neu gerendert, um die alte UnitSprite zu überdecken.
 
 <a name="gamelogic"></a>
 ## Gamelogic
-Die logischen Komponenten sind in drei Teile aufgeteilt, bzw. in zwei logische Komponenten und eine Klasse Player die hauptsaechlich als Datencontainerklasse dient und alle Referenzen zu den Spieler spezifischen Daten haelt.
+Die logischen Komponenten sind in drei Teile aufgeteilt, bzw. in zwei logische Komponenten und eine Klasse Player die hauptsaechlich als Datencontainerklasse dient und alle Referenzen zu den Spieler spezifischen Daten hält.
 
 <a name="gameclass"></a>
 ### GameClass
 Link zu DoxygenFile: [GameClass](Doku/Doxygen/html/class_games.html)
 
 
-Die eigentliche GameClass ist die Hauptkomponente zur Kontrolle des Spiels. Hier werden alle noetigen initalisierungs Aufgaben erledigt so wie die Hauptschleife des Spiels gestartet.
+Die eigentliche GameClass ist die Hauptkomponente zur Kontrolle des Spiels. Hier werden alle nötigen Initialisierung Aufgaben erledigt so wie die Hauptschleife des Spiels gestartet.
 
 ![Game Class](Doku/GameClass.jpg)
 
@@ -332,12 +332,12 @@ Neben den nicht Spielablauf spezifischen States (wie zum Beispiel der Tutorialst
 Die Kaufphase in der ein Spieler Einheiten kaufen kann.
 Eine Movephase in der ein Spieler Einheiten bewegen kann.
 Und eine Attackphase in der ein Spieler Einheiten kaufen kann.
-Waehrend der Move- und Attackphase kann der Spieler ausserdem noch Graeben bauen.
+Waehrend der Move- und Attackphase kann der Spieler außerdem noch Gräben bauen.
 
-Die Gameklasse iteriert ueber die Gamephases die immer nacheinander abfolgen (ein zurueck gehen in Phasen ist nicht moeglich). Wenn alle drei Phasen von einem Spieler durchlaufen worden sind, werden die drei Phasen fuer den anderen Spieler gestartet.
-Einzelne Phasen, und der ganze Zug, koennen per Knopfdruck uebersprungen werden. Um einen kompletten Zug zu ueberspringen wird ein enstprechendes Event ausgeloest und von der Gameklasse verarbeitet. Das Ueberspringen einzelner Phasen wird spaeter noch erklaert.
+Die Gameklasse iteriert ueber die Gamephases die immer nacheinander Abfolgen (ein Zurück gehen in Phasen ist nicht möglich). Wenn alle drei Phasen von einem Spieler durchlaufen worden sind, werden die drei Phasen für den anderen Spieler gestartet.
+Einzelne Phasen, und der ganze Zug, koennen per Knopfdruck uebersprungen werden. Um einen kompletten Zug zu ueberspringen wird ein entsprechendes Event ausgeloest und von der Gameklasse verarbeitet. Das Ueberspringen einzelner Phasen wird spaeter noch erklaert.
 Wichtig ist ebenfalls das hier in jedem MainLoop der Timer aktualisiert wird und entsprechend die UI in die naechste "Phase" schiebt.
-Wie bereits erwaehnt werden ueber den Timer Animation realisiert aber auch das allgemeine Rendering ist uber den Timer getriggert.
+Wie bereits erwaehnt werden ueber den Timer Animation realisiert aber auch das allgemeine Rendering ist über den Timer getriggert.
 Die UpdateFunktion:
 ```c++
 void Game::updateGame() {
@@ -346,7 +346,7 @@ void Game::updateGame() {
   manager.processEvents();
 }
 ```
-Dieses Update wird laufend aufgerufen in jeder Phase des Spiels. Die jeweils naechste Phase eines Spiels wird durch gewisse Bedingungen erreicht die auch in der Game Klasse ueberprueft werden. So wird in der Kaufphase darauf gewartet das der Spieler seinen Einheitenkauf bestaetigt. In der Move- und Attackhase wird abgewartet ob der Spieler jede Unit die er besitzt auch bewegt bzw falls moeglich mit ihr angreift. Dies funktioniert ueber das Abarbeiten einer Queue in der alle Units des Spielers hinterlegt sind. 
+Dieses Update wird laufend aufgerufen in jeder Phase des Spiels. Die jeweils naechste Phase eines Spiels wird durch gewisse Bedingungen erreicht, die auch in der Game Klasse ueberprueft werden. So wird in der Kaufphase darauf gewartet, dass der Spieler seinen Einheitenkauf bestaetigt. In der Move- und Attackphase wird abgewartet ob der Spieler jede Unit, die er besitzt, auch bewegt bzw. falls moeglich mit ihr angreift. Dies funktioniert ueber das Abarbeiten einer Queue, in der alle Units des Spielers hinterlegt sind. 
 ```c++
 while (!this->activePlayer->getUnitQueue().empty() || this->activePlayer->getBuying()) {
   updateGame();
@@ -359,14 +359,14 @@ Hier ist nun auch erkennbar wie eine einzelne Phase uebersprungen werden kann. B
 Link zu DoxygenFile: [PlayerClass](Doku/Doxygen/html/class_player.html)
 
 
-In der Klasse Player wird sich hauptsaechlich eben um Spieler spezifische Dinge gekuemmert. Geld, Einheiten oder "Supply" zum Beispiel. Technisch ist das nicht sonderlich aufregend und sollte zum Grossteil selbsterklaerend sein und wird deshalb hier eher Stiefmuetterlich behandelt.
+In der Klasse Player wird sich hauptsaechlich um Spieler spezifische Dinge gekuemmert. Geld, Einheiten oder "Supply" zum Beispiel. Technisch ist das nicht sonderlich aufregend und sollte zum Großteil selbsterklärend sein und wird deshalb hier eher stiefmütterlich behandelt.
 
-<a name="eventgateway"></a>
+<a name="Event Gateway"></a>
 ### EventGateway
 Link zu DoxygenFile: [EventManager](Doku/Doxygen/html/class_event_gateway.html)
 
 
-Das EventGateway ist mit die wichtigste Komponente im Spiel. Alle Events die von SDL als Aktion aufgenommen werden und an den Eventbus weitergeleitet werden, landen in einem ersten Schritt hier.
+Das EventGateway ist mit die wichtigste Komponente im Spiel. Alle Events die von SDL als Aktion aufgenommen werden und an den EventBus weitergeleitet werden, landen in einem ersten Schritt hier.
 Hier wird dann geprueft mit Hilfe der Phase und der Position des MouseClickEvents was der User eigentlich bezwecken wollte, verarbeitet und an entsprechender Stelle ausgefuehrt. Als Basis hierfuer kennt das EventGateway den derzeitig aktiven Spieler sowie die aktuelle Phase des Spiels. Fast alle anderen wichtigen Informationen werden ueber Singeltons abgerufen.
 Beispiel Kauf einer Unit im EventGateway:
 
@@ -376,26 +376,26 @@ Beispiel Kauf einer Unit im EventGateway:
 ## Architektur
 ![Architecture Big Picture](Doku/ArchitectureBigPicture.jpg)
 
-In Oben zu sehenden Bild gibt es einen kurzen Ueberblick ueber die grobe Architektur im Projekt was im folgenden Schritt fuer Schritt erklaert werden soll.
+Im oben zu sehenden Bild gibt es einen kurzen Überblick ueber die grobe Architektur im Projekt, was im folgenden Schritt fuer Schritt erklaert werden soll.
 Die einzelnen (wichtigen Komponenten) wurden bereits genau erklaert. In diesem Abschnitt soll es nun nur noch um den Zusammenhang der einzelnen Klassen gehen.
 
-Die Architektur kann grundsaetzlich grob in die fuenf deutlich zu sehenden Elemente unterteilt werden. 
-Als Basis stehen an vielen Stellen die SDL2 Standardfunktionen, wie zum Beispiel das Abgreifen der UserInputs im letzten Zeitframe. Auch bereits erklaert wurde die Config ueber die ein Grossteil der Informationen ins Spiel fliessen.
+Die Architektur kann grundsaetzlich grob in die fünf deutlich zu sehenden Elemente unterteilt werden. 
+Als Basis stehen an vielen Stellen die SDL2 Standardfunktionen, wie zum Beispiel das Abgreifen der User Inputs im letzten Zeitframe. Auch bereits erklaert wurde die Config ueber die ein Großteil der Informationen ins Spiel fließen.
 
-User Input wird durch den EventManager von SDL2 entegegen genommen und auf den enstprechenden Bus gelegt. Dazwischen steht dann das so gennante  "EventGateway". Von hier aus werden dann die Events dann zum Teil ausgegfuehrt oder an eine Ausfuehrende Stelle weitergeleitet.
+User Input wird durch den EventManager von SDL2 entgegengenommen und auf den entsprechenden Bus gelegt. Dazwischen steht dann das so genannte  "EventGateway". Von hier aus werden dann die Events dann zum Teil ausgeführt oder an eine Ausführende Stelle weitergeleitet.
 
-Die hier enstehenden Aktionen sind dann zum Beispiel die Bewegung von Units, Einkaufen von Units oder aehnliches. Hieraus folgende Aenderungen wie zum Beispiel das anpassen des Vermoegens eines Spielers kann dann zentral verarbeitet werden.
+Die hier entstehenden Aktionen sind dann zum Beispiel die Bewegung von Units, Einkaufen von Units oder ähnliches. Hieraus folgen Änderungen, wie zum Beispiel das Anpassen des Vermögens eines Spielers welches dann zentral verarbeitet werden kann.
 
-Alle visuellen Veraenderungen werden ueber die Sprites gehandelt und dann automatisch mit jeder zeitlichen Iteration gerendert. Das bedeutet das zum Beispiel das Szenario schiessen einer Unit so realisiert wird, dass der Status der Einheit geandert wird, hierueber folgt eine Aenderung der derzeitig aktuellen Sprite. Sobald dann ein Timer update passiert, wird diese aktuelle Sprite gerendert (hier im Spezialfall Schiessen wird eine Animation gestartet).
+Alle visuellen Veraenderungen werden ueber die Sprites gehandelt und dann automatisch mit jeder zeitlichen Iteration gerendert. Das bedeutet das zum Beispiel das Szenario schießen einer Unit so realisiert wird, dass der Status der Einheit geändert wird, hierüber folgt eine Änderung der derzeitig aktuellen Sprite. Sobald dann ein Timer update passiert, wird das aktuelle Sprite gerendert (hier im Spezialfall Schießen wird eine Animation gestartet).
 
-Im gesamten Projekt wurde darauf geachtet die Verbindung zu SDL2 nicht zu starr zu implementieren. Nahezu jede SDL Funktion wurde hinter Interfaces "versteckt". Am besten zu sehen am Beispiel des EventManagers der den UserInput behandelt. (genauer zu sehen im spezifischen Kapitel)
+Im gesamten Projekt wurde darauf geachtet die Verbindung zu SDL2 nicht zu starr zu implementieren. Nahezu jede SDL Funktion wurde hinter Interfaces "versteckt". Am besten zu sehen am Beispiel des EventManagers der den User Input behandelt. (genauer zu sehen im spezifischen Kapitel)
 
 <a name="pattern"></a>
 ## Pattern
 
 #### Singelton
 In mehreren verschiedenen Klassen, wie zum Beispiel dem Logger oder ConfigReader, wurde das Singelton Pattern verwendet.
-Am Beispiel der Konfigurationen bedeutet dies das die einzelnen Konfigurationen nur ein einziges Mal geladen werden muessen.
+Am Beispiel der Konfigurationen bedeutet dies das die einzelnen Konfigurationen nur ein einziges Mal geladen werden müssen.
 Hier zu Beispiel Code aus dem ConfigReader:
 ```c++
 	~ConfigReader();
@@ -409,7 +409,7 @@ Hier zu Beispiel Code aus dem ConfigReader:
 		return confReader;
 	}
 ```
-Es werden alle Standardkonstruktoren und co geloescht und durch die Funktion instance ersetzt.
+Es werden alle Standardkonstruktoren gelöscht und durch die Funktion instance ersetzt.
 Folgend kann der ConfigReader dann ueber
 ```c++
 ConfigReader::instance()
