@@ -1,4 +1,5 @@
 # Trench Tactics
+## A 2D Strategy Game from scratch
 
 ### Inhaltsverzeichnis
 
